@@ -1,0 +1,18 @@
+{
+    "BackToLogin": "تسجيل الدخول ",
+    "Location":"الموقع",
+    "Age":"العمر",
+    "Gender":"الجنس",
+    "male":"ذكر",
+    "Female":"أنثى",
+    "Done":"تم",
+    "WelcomeTo":"أهلا الى",
+   "IntaAqar":"انستاعقار",
+   "UserName":"اسم المستخدم أو ايميل",
+   "Password":"كلمة المرور",
+   "ForgotPassword":"نسيت كلمة المرور؟",
+   "Login":"تسجيل الدخول",
+   "SignUp":"تسجيل حساب ",
+   "ContinueGuest":"متابعة كزائر ",
+   "RememberMe":"تذكرني"
+}

@@ -1,0 +1,19 @@
+{
+    "BackToLogin": "Back to login ",
+    "Location":"Location",
+    "Age":"Age",
+    "Gender":"Gender",
+    "male":"Male",
+    "Female":"Female",
+    "Done":"Done",
+    "WelcomeTo":"Welcome To",
+   "IntaAqar":"Insta Aqar",
+   "UserName":"user name or Email",
+   "Password":"Password",
+   "ForgotPassword":"Forgot Password ?",
+   "Login":"Login",
+   "SignUp":"Sign Up",
+   "ContinueGuest":"Continue as a guest",
+   "RememberMe":"Remember Me"
+
+}

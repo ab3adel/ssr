@@ -1,0 +1,39 @@
+.inputGroupWithIcon {
+    position: relative;
+    line-height:1.1em ;
+    height: 55px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    
+    .inputLabel {
+        background-color: transparent;
+        border-right: none;
+        
+    }
+    .inputLabel {
+        position: absolute;
+        left:5%;
+        top:30%;
+        display: flex;
+        z-index: 1;
+        color:rgb(131, 126, 126,0.4);
+        .inputIcon {
+            margin-right: 10px;
+        }
+    }
+    .input {
+        background-color: transparent;
+        z-index: 2;
+        min-height: 50px;
+    }
+    .input.is-valid {
+        border: 1px solid red;
+        box-shadow: 3px 3px 4px red;
+    }
+    .valid-feedback {
+        display: block;
+        color:red;
+    }
+
+}

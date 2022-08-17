@@ -10,9 +10,11 @@ import Button from 'react-bootstrap/Button'
 import {InputWithIcon} from '../tools/input/inputIcon'
 import {useTranslation} from 'react-i18next'
 import * as Yup from 'yup'
+import { useState } from 'react'
 interface iProps {setGuest:Function}
  export const LogIn = ({setGuest}:iProps) =>{
     const {t,i18n}=useTranslation()
+    const [isChecked,setIsChecked]=useState(false)
 const formik = useFormik( {
     initialValues:{username:'',password:''},
     onSubmit:(values)=>{},
@@ -26,6 +28,9 @@ const formik = useFormik( {
 })
     const handleGuest=()=>{
         setGuest(true)
+    }
+    const handleChecked =()=>{
+        setIsChecked(!isChecked)
     }
 
     return (
@@ -67,6 +72,7 @@ const formik = useFormik( {
                                          handleBlur={formik.handleBlur}
                                          error={formik.errors.username}
                                          touched={formik.touched.username}
+                                         type='text'
                                          />
                                          <InputWithIcon 
                                           label={t('Password')}
@@ -79,19 +85,30 @@ const formik = useFormik( {
                                           handleBlur={formik.handleBlur}
                                           error={formik.errors.password}
                                           touched={formik.touched.password}
+                                          type='password'
                                           />
                                     </Form>
                                 </Col>
                                 <Col sm={5} xs={12} className="mt-4">
-                                    <InputGroup>
-                                    <Form.Check
-                                     label={t("RememberMe")}
-                                     style={{direction:i18n.language=='ar'?'rtl':'ltr'}}
-                                    />
-                                    </InputGroup>
+                                    <div
+                                     className={isChecked?"rememberMe checked":"rememberMe"}
+                                     onClick={handleChecked}>
+                                         {
+                                        isChecked?
+                                        <i className="bi bi-check2-circle "></i>
+                                        :
+                                        <i className="bi bi-circle "></i>
+                                       }
+                                       <div className="text">
+                                         {t('RememberMe')}
+                                       </div>
+                                      
+                                      
+                                    </div>
                                 </Col>
-                                <Col sm={5} xs={12} className="mt-4 forgotPassword text-right ">
-                                    <h5 style={{color:'var(--blue)'}} className="">
+                                <Col sm={5} xs={12} className="mt-4 forgotPassword  ">
+                                    <h5 style={{color:'var(--blue)'}} 
+                                         className={i18n.language=='ar'?"text-left":"text-right"}>
                                         {t("ForgotPassword")}
                                     </h5>
 
@@ -111,13 +128,13 @@ const formik = useFormik( {
                                         </Button>
                                     </Col>
                                 </Row>
-                                <Row className="mt-4 d-flex justify-content-center">
+                                <Row className="mt-5 d-flex justify-content-center">
                                     <Col xs={12} sm={6} className="guest"
                                     onClick={handleGuest}>
-                                        <div>
+                                        <a className="text">
 
                                             {t("ContinueGuest")}
-                                        </div>
+                                        </a>
                                     </Col>
                                 </Row>
                             </Row>

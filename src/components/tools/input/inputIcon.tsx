@@ -16,12 +16,13 @@ interface iProps {
     handleBlur:any,
     error?:string,
     touched?:boolean
+    type:string
 
 }
 export const InputWithIcon =({icon,label,className,id
                               ,name,onChange
                               ,value,handleBlur
-                            ,error,touched}:iProps) =>{
+                            ,error,touched,type}:iProps) =>{
 const [isTyping,setIsTyping]=useState(false)
 const {i18n} =useTranslation()
 const checkTyping=(e:React.FocusEvent)=>{
@@ -35,8 +36,8 @@ const checkTyping=(e:React.FocusEvent)=>{
         <Form.Group
             className={`mb-1 inputGroupWithIcon ${className}`}
             >
-                <div className="inputLabel"
-                    style={i18n.language==='ar'?{left:'5%'}:{right:'5%'}}>
+                <div className="inputLabel "
+                    style={i18n.language==='ar'?{right:'5%'}:{left:'5%'}}>
                     {isTyping?"" :
                         <>
                         <i className={`${icon.props.className} inputIcon `} />
@@ -55,6 +56,7 @@ const checkTyping=(e:React.FocusEvent)=>{
                 onChange={onChange}
                 value={value} 
                 isInvalid={Boolean(error) && touched}
+                type={type}
                 style={{direction:i18n.language=='ar'?'rtl':'ltr'}}
                 />
                 {(touched && error) &&(<Form.Control.Feedback>{error}</Form.Control.Feedback>)}

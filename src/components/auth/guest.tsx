@@ -8,6 +8,8 @@ import  Button  from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import {useState} from 'react'
 import {useTranslation} from 'react-i18next'
+import female from '../../images/auth/female.png'
+import male from '../../images/auth/male.png'
 interface iProps {setGuest:Function}
 export const Guest = ({setGuest}:iProps) =>{
     const {t,i18n}=useTranslation()
@@ -19,21 +21,20 @@ export const Guest = ({setGuest}:iProps) =>{
        <Container className="guestForm" >
          <Card.Header className='guestHeader'>
 
-            <Row className="d-flex justify-content-between g-1">
-                <Col sm={5} xs={12} className="align-items-center d-flex">
+            <Row className="d-flex justify-content-between g-1 gx-4">
+                <Col sm={5} xs={7} className="align-items-center d-flex">
                     <div className="goBack"
                     onClick={handleGuest}
                     style={{flexDirection :i18n.language==='ar'?'row-reverse':'row'}}>
                         <i className="bi bi-arrow-left-short"></i>
-                        <div className="text">
-
+                        <a className="text">
                             {t("BackToLogin")}
-                        </div>
+                        </a>
                     
 
                     </div>
                 </Col>
-                <Col sm={3} xs={8}>
+                <Col sm={3} xs={5}>
                     <img 
                     src={logo}
                     className="logo" 
@@ -43,7 +44,7 @@ export const Guest = ({setGuest}:iProps) =>{
          </Card.Header>
          <Card.Body className='guestBody mt-4'>
 
-            <Row className=" d-flex justify-content-center g-4">
+            <Row className=" d-flex justify-content-center g-5">
                 <Col sm={8}  xs={12} className="d-flex flex-column">
                     
                     <Form.Label>{t("Location")}</Form.Label>
@@ -74,20 +75,22 @@ export const Guest = ({setGuest}:iProps) =>{
                             className={selected ===0 ?'genderBtn selected':'genderBtn unSelected'}
                             onClick={()=>setSelected(0)}
                             >
-                                <i className="bi bi-gender-male"></i>
-                               {t("male")}
+                                {t("male")}
+                               <img src={male} />
+                            
                             </Button>
                             <Button 
                             className={selected ===1 ?'genderBtn selected':'genderBtn unSelected'}
                             onClick={()=>setSelected(1)}
                             >
-                                <i className="bi bi-gender-female"></i>
-                                {t("Female")}
+                                 {t("Female")}
+                                <img src={female} />
+                               
                             </Button>
                         </Form.Group>
                 
                 </Col>
-                <Col xs={5} className='d-flex justify-content-center'>
+                <Col xs={6} sm={5} className='d-flex justify-content-center'>
                         <Button
                          className='doneBtn'>
                             {t("Done")}

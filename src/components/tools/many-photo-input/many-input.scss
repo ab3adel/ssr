@@ -1,0 +1,42 @@
+.manyPhotosContainer {
+    height: 180px;
+   
+
+    .inputContainer {
+        border:dashed 1px rgb(177, 172, 172,0.7);
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            img {
+                width:35px;
+                height: 35px;
+                margin: 5px 0;
+            }
+            .text {
+                color:var(--dark-green);
+                font-size: 1em;
+                transition: all .4s ease-in-out;
+                &:focus,&:hover {
+                    font-weight: bold;
+                }
+            }
+            .faintText {
+                color:rgb(165, 161, 161,0.7);
+                font-size: 1.2em;
+                text-decoration: none;
+            }
+        }
+        .input {
+            visibility: collapse;
+            width:1px;
+        }
+    }
+
+}

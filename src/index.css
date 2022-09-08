@@ -11,15 +11,40 @@
   font-family: 'Poppins';
   src: url('./fonts/poppins/Poppins-Regular.ttf') format('truetype');
 } 
+@font-face {
+  font-family: 'Cairo';
+  font-weight: bold;
+  src: url('./fonts//cairo/Cairo\ Bold\ 700.ttf');
+}
+@font-face {
+  font-family: 'Cairo';
+  font-weight: normal;
+  src: url('./fonts//cairo/Cairo\ Regular\ 400.ttf');
+}
+@font-face {
+  font-family: 'Cairo';
+  src: url('./fonts/cairo/Cairo\ Light\ 300.ttf');
+  font-weight: 300;
+}
 :root {
-  --blue:#0C66B2
+  --dark-green:#035222;
+  --light-green:#1ED668;
+  --light-grey:#DBDBDB;
+  --back-color:#F3F3F3;
+
+}
+.gy-6 {
+  --bs-gutter-y:4rem !important;
 }
 
 body {
   margin: 0;
-  font-family: 'Poppins'!important;
+  font-family: 'Cairo'!important;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  max-width: 100vw;
+  overflow: hidden;
 }
 
 code {

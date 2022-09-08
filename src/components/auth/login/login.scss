@@ -1,0 +1,68 @@
+
+
+
+ 
+.loginBody {
+    display: flex;
+    justify-content: center;
+        .title {
+            color:var(--dark-green);
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+        }
+        .forgotPassword {
+            color: var(--dark-green);
+            cursor: pointer;
+            text-align: right;
+            transition: all .4s ease-in-out;
+            &:focus ,&:hover {
+                font-weight: bold;
+            }
+        }
+        .loginBtn {
+            color:white;
+            background-color: var(--dark-green);
+            height: 60px;
+            border-radius: 6px;
+            transition: all .4s ease-in-out;
+            width: 200px;
+            &:hover ,&:focus {
+                color:var(--dark-green);
+                background-color: var(--light-green);
+                border:var(--light-green);
+            }
+        }
+        .singupBtn {
+        color:var(--dark-green);
+        background-color: white;
+        border:var(--dark-green);
+        height: 60px;
+       border:1px solid var(--dark-green);
+       width: 200px;
+        border-radius: 6px;
+        transition: all .4s ease-in-out;
+        &:hover ,&:focus {
+            color:white;
+            background-color: var(--light-green);
+        }
+
+        }
+       
+    }
+    
+@media screen and (max-width:576px) {
+    .loginBody{
+        .forgotPassword{
+            font-weight: bold;
+            font: 1em;
+        }
+        .loginBtn {
+            width:100%;
+        }
+        .singupBtn{
+            width: 100%;
+        }
+    }
+    
+}    

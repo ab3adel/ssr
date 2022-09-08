@@ -1,0 +1,59 @@
+
+import {PersonalInfoForm} from '../views/personalInfo-form'
+import {SecurityForm} from '../views/security-form'
+import {LocationForm} from '../views/location-form'
+import Row from 'react-bootstrap/esm/Row';
+import Col from 'react-bootstrap/esm/Col';
+import {useTranslation} from 'react-i18next'
+
+
+interface iProps {tab:number,setTab:Function}
+ const UserType = ({tab,setTab}:iProps) =>{
+   const {t,i18n}=useTranslation()
+
+    return (
+        <Row className="gy-5">
+                            <Col xs={12} >
+                                <Row className="tabs justify-content-center">
+
+                                <Col xs={5}
+                                
+                              
+                                className={tab===0?"tab tabActive":"tab tabInactive"}
+                                style={i18n.language==="ar"?{justifyContent:"center"}:{justifyContent:"flex-start"}}
+                                >
+                                   <span>
+                                    {t("PersonalInfo")}
+                                   </span>
+                                </Col>
+                                {/* <Col xs={4}
+                                
+                              
+                                className={tab===1?"tab tabActive":"tab tabInactive"}>
+                                   <span>
+                                        Location
+                                   </span>
+                                </Col> */}
+                                <Col xs={5}
+                                
+                               
+                                className={tab===1?"tab tabActive":"tab tabInactive"}
+                                style={i18n.language==="ar"?{justifyContent:"center"}:{justifyContent:"flex-start"}}>
+                                   <span>
+                                        {t("Security")}
+                                   </span>
+                                </Col>
+                                </Row>
+                            </Col>
+                            <Col xs={12}>
+                           
+                             {tab===0 && ( <PersonalInfoForm  
+                                             type={'User'}/>)}
+                             {/* {tab===1 && ( <LocationForm
+                                              type="User"/>)} */}
+                             {tab===1 && ( <SecurityForm />)}
+                            </Col>
+                        </Row>
+    )
+}
+export default UserType;

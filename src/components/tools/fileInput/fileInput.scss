@@ -1,0 +1,52 @@
+.fileInputContainer {
+    border:dashed 1px rgb(148, 142, 142,0.5);
+    border-radius: 10px;
+    height: 60px;
+    padding:5px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+    .fileInput {
+        visibility: collapse;
+        width: 0px;
+        height: 0px;
+    }
+    .label {
+       display: flex;
+       align-items: center;
+      
+      
+        .icon {
+            background-color: var(--back-color);
+            color:var(--dark-green);
+            margin:0 0.5em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px;
+            padding:5px;
+            cursor: pointer;
+            img {
+                width:18px;
+                height: 20px;
+                margin:0 5px;
+            }
+        }
+        .text {
+            color:rgb(185, 181, 181,0.5);
+            font-size: 1em;
+            display: flex;
+            max-width: 100%;
+            width: 100%;
+            word-break: break-word;
+         
+        }
+        .text.fileName {
+            color:black
+
+        }
+    }
+    
+}

@@ -1,0 +1,111 @@
+.accountVerification {
+    .modal-dialog {
+        .modal-content {
+            padding:1em;
+            .modal-header {
+                border:none;
+            }
+            .modal-body {
+                .inprogressContainer {
+                    .star {
+                        width:82px;
+                        height: 80px;
+                    }
+                    .text {
+                        font-size: 1.3em;
+                        color:black;
+                        font-weight: bold;
+                    }
+                    .inprogress {
+                        height: 8px;
+                        width: 100%;
+                        border-radius: 10px;
+                    }
+                    .inprogress.halfFill {
+                        background: linear-gradient(to right,#75D99C 50% ,var(--back-color) 50%);
+                    }
+                    .inprogress.fill {
+                        transition: all .4s ease-in-out;
+                        background: #75D99C;
+                    }
+                    .info {
+                        text-align: center;
+                    }
+                    .doneBtn {
+                        width: 100%;
+                        height: 60px;
+                        background: var(--dark-green);
+                        color:white;
+                        border-radius: 10px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    .resend {
+                        text-align: center;
+                     
+                        font-size: 1.5em;
+                        cursor: pointer;
+                
+                        a {
+                            position: relative;
+                            text-decoration: none;
+                            color: var(--dark-green);
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                bottom: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 1px;
+                                background-color: var(--dark-green);
+                                transition: all .4s ease-in-out;
+                
+                            }
+                        }
+                        &:hover, &:focus {
+                        a {
+                            font-weight: bold;
+                            &::after {
+                                width: 0%;
+                            }
+                        }
+                        }
+                    }
+                }
+                .infoContainer {
+                    .back {
+                        width:202px;
+                        height: 170px;
+                    }
+                    .text {
+                        font-size: 1.2em;
+                        color:black;
+                        font-weight: bold;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        .head {
+                            color:var(--dark-green);
+                            letter-spacing: 1px;
+                            
+                        }
+                    }
+                    .doneBtn {
+                        width: 100%;
+                        height: 60px;
+                        background: var(--dark-green);
+                        color:white;
+                        border-radius: 10px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+    }
+}
+           

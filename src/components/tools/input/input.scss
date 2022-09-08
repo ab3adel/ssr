@@ -1,11 +1,15 @@
 .inputGroupWithIcon {
     position: relative;
     line-height:1.1em ;
-    height: 55px;
-    border-radius: 20px;
+    height: 60px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    
+    padding:0.5em 2.9em 0.5em 2em ;
+    border:1px solid rgb(165, 157, 157,0.4);
+    &:focus {
+       
+    }
     .inputLabel {
         background-color: transparent;
         border-right: none;
@@ -18,23 +22,52 @@
         display: flex;
         z-index: 1;
         color:rgb(131, 126, 126,0.4);
-        .inputIcon {
-            margin-right: 10px;
-            margin-left: 10px;
-        }
+     
+        align-items: center;
+
+
+            .inputIcon {
+                margin-right: 10px;
+                margin-left: 10px;
+               
+            }
+        
     }
     .input {
         background-color: transparent;
         z-index: 2;
-        min-height: 50px;
+      
+        height: 100%;
+        border:none;
+        &:focus,&::selection {
+                      
+            box-shadow: 2px 0px  2px var(--dark-geen);
+        }
     }
-    .input.is-valid {
-        border: 1px solid red;
-        box-shadow: 3px 3px 4px red;
-    }
+    
     .valid-feedback {
         display: block;
         color:red;
+        position:absolute;
+        bottom:0%;
+        z-index: 4;
+    }
+    .passwordIcon {
+        width:30px;
+        height: 30px;
+        position: absolute;
+        right: 1%;
+        top:25%;
+        z-index: 3;
+        cursor: pointer;
+
+    }
+    .see {
+        filter: invert(97%) sepia(16%) saturate(155%) hue-rotate(281deg) brightness(80%) contrast(91%)
     }
 
+}
+.inputGroupWithIcon.is_valid {
+    border: 1px solid red;
+    
 }

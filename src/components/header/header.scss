@@ -1,0 +1,76 @@
+.navbarContainer {
+    .container {
+       margin: 5px;
+       min-width: 100%;
+       padding:0.25em;
+       .navbarRow {
+        width: 100%;
+           .searchInput {
+            .inputLabel {
+               
+                img {
+                    filter: invert(100%) sepia(7%) saturate(649%) hue-rotate(198deg) brightness(116%) contrast(91%);
+                }
+            }
+           }
+           .iconContainer {
+            position: relative;
+
+               .dot {
+                width:12px;
+                height: 12px;
+                background-color: var(--light-green);
+                position: absolute;
+                top:0;
+                right:5px;
+                border-radius: 100%;
+                border: 2px solid white;
+               }
+               .icon {
+                   width:30px;
+                   height: 30px;
+               }
+           }
+           .icon {
+            width:30px;
+            height: 30px;
+        }
+        .user {
+            span {
+                margin:0 5px 0 5px ;
+            }
+        }
+       }
+    }
+}
+.navbarSmContainer {
+    .logo {
+        width:30px;
+        height: 30px;
+    }
+    .iconContainer {
+        position: relative;
+        width:30px;
+        height: 30px;
+        border-radius: 100%;
+        background-color: var(--back-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+           .dot {
+            width:10px;
+            height: 10px;
+            background-color: var(--light-green);
+            position: absolute;
+            top:0;
+            right:5px;
+            border-radius: 100%;
+            border: 2px solid white;
+           }
+           .icon {
+               width:20px;
+               height: 20px;
+           }
+       }
+
+}

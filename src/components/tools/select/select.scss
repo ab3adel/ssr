@@ -1,0 +1,14 @@
+
+.mySelect {
+    min-height: 60px;
+    border-radius: 10px;
+    .label {
+        color:var(--back-light)
+    }
+}
+.mySelect.label {
+    color:rgb(139, 135, 135,0.4);
+}
+.mySelect.hasSelection {
+    color:black;
+}

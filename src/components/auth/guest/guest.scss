@@ -1,0 +1,64 @@
+.guestContainer {
+    height: 100%;
+    padding:1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    .title {
+        font-weight: bold;
+    }
+    .Btns {
+       display: flex;
+       
+     
+       .Btn {
+        border-radius: 33px;
+        display: flex;
+        height: 50px;
+        width:200px;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        
+        
+        img {
+            width:20px;
+            height: 20px;
+            margin:0px 9px;
+        }
+    }
+    .left {
+        left: 25px;
+    }
+    .Btn.active {
+        background-color: var(--dark-green);
+        color:white;
+        z-index: 1;
+        border:1px solid var(--dark-green);
+    }
+    .Btn.inactive {
+        background-color: white;
+        color:var(--back-color);
+        z-index: 0;
+        border:1px solid var(--back-color);
+    }
+    }
+    .doneBtn {
+        background-color: var(--dark-green);
+        color:white;
+        z-index: 1;
+        border:1px solid var(--dark-green);
+        display: flex;
+        height: 60px;
+        width:100%;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        transition: all .4s ease-in-out;
+        &:hover {
+            background-color: var(--dark-green);
+            opacity: 0.9;
+        }
+    }
+}

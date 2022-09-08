@@ -1,0 +1,206 @@
+.postCardContainer {
+    padding:1em;
+    .card {
+        .card-header {
+            border:none;
+            background-color: transparent;
+
+            .profile {
+                width:64px;
+                height: 64px;
+            }
+            .userName {
+                span {
+                    font-weight: bold;
+                }
+                .icon {
+                    width: 19px;
+                    height: 19px;
+                    margin:0 5px;
+                }
+            }
+            .location {
+                color:#D4D4D4;
+                .icon {
+                    width: 19px;
+                    height: 19px;
+                    margin:0 5px 0 0 ;
+                }
+            }
+            .options {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                .icon {
+                   width: 30px;
+                   height: 31px;
+                   transition: all .3s ease-in-out;
+                }
+               
+            }
+            .tag {
+                display: flex;
+                justify-content: center;
+                font-weight: bold;
+                border-radius: 5px;
+                .icon {
+                    width:30px;
+                    height: 24px;
+                    margin:0 2px;
+                }
+        
+            }
+            .tag.grey {
+                background-color: var(--back-color);
+            }
+            .tag.green {
+                background-color: var(--light-green);
+                color:white
+            }
+        }
+        .card-body {
+            .imgsGalery {
+                position: relative;
+                background-size: cover;
+                background: url('../../../images/home/image1.png');
+                height: 348px;
+                border-radius: 10px;
+                .price {
+                    position: absolute;
+                    left:1rem;
+                    top:1rem;
+                    background-color: white;
+                    color:var(--dark-green);
+                    font-weight: bold;
+                    border-radius: 5px;
+                    display: flex;
+                    align-items: center;
+                    padding: 5px;
+                    justify-content: center;
+                    span {
+                        margin:0 2px;
+                    }
+                }
+                .icon {
+                    width:43px;
+                    height: 44px;
+                    position: absolute;
+                    z-index: 1;
+                    cursor: pointer;
+                    &:hover ,&:focus{
+                        
+                        animation: resize  ease-in-out  1 forwards ;
+                        
+                    }
+                    
+                }
+                .left {
+                    top:50%;
+                    left:1rem;
+                    
+                }
+                .right {
+                    top:50%;
+                    right: 1rem;
+                }
+                .dots {
+                    position: absolute;
+                    bottom: 1rem;
+                    left: 20%;
+                    right: 20%;
+                    display: flex;
+                    justify-content: space-evenly;
+                    span {
+                        width:13px;
+                        height: 12px;
+                        border-radius: 100%;
+                        background-color: white;
+                    }
+                    .selected {
+                        background-color: var(--light-green);
+                    }
+                }
+
+            }
+            .badge {
+                background-color: var(--back-color);
+                color:black;
+                padding:5px;
+                height: 31px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .iconBtn {
+                display: flex;
+               justify-content: end;
+                img {
+
+                    width: 31px;
+                    height: 31px;
+                }
+            }
+            .title {
+                font-size: 1.6em;
+                font-weight:bold ;
+                word-spacing: 5px;
+                color:var(--dark-green)
+            }
+            .details {
+                .detail {
+                    display: flex;
+                    color:#D4D4D4;
+                    justify-content: space-evenly;
+                    img {
+                        width: 21px;
+                        height: 25px;
+                    }
+                    span {
+                        margin:0 2px;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+
+    }
+}
+@keyframes resize {
+    from {
+      transform: scale(1);
+    }           
+    to {
+      transform: scale(1.1);
+    }
+}
+
+@media screen  and (max-width: 567px) {
+    .postCardContainer {
+        .card{
+            .card-header {
+                .profile {
+                    width:44px;
+                    height: 44px;
+                }
+                .tag {
+                    font-size: small;
+                }
+            }
+            .card-body {
+                .imgsGalery {
+                    height: 300px;
+                }
+                .iconBtn {
+                    img{
+                        width: 24px;
+                    }
+                }
+                .details {
+                    .detail {
+                        justify-content: space-between;
+                    }
+                }
+            }
+        }
+    }
+}

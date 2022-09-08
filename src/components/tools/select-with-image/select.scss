@@ -1,0 +1,51 @@
+.customSelect {
+    display: flex;
+    justify-content: center;
+    max-width: 220px;
+    max-height: 50px;
+    align-items: center;
+    .dropdown {
+        padding:1em;
+    
+        button.dropdown-toggle {
+            background-color: transparent;
+            color:black;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid rgb(173, 171, 171,0.4);
+            padding:5px;
+        
+          
+            a {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+              
+                .icon {
+                    width: 30px;
+                    height: 20px;
+                    margin-left: 1em;
+                    margin-right: 1em;
+                }
+            }
+            &::after {
+                margin-left: 0.5em;
+                margin-right: 0.5em;
+                
+                
+            }
+        }
+        .optionStyle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .icon {
+                width: 30px;
+                height: 20px;
+            }
+        }
+    }
+}

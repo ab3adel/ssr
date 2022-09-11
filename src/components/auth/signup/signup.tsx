@@ -9,12 +9,38 @@ import UserType from './user'
 import CommercialType from './commercial';
 import { useState } from 'react';
 import {useTranslation} from 'react-i18next'
+import {PersonalInfoForm} from './views/personalInfo-form'
+import {SecurityForm} from './views/security-form'
+import {LocationForm} from './views/location-form'
+import {useFormik} from 'formik'
+import { RequiredFilesForm } from './views/requiredFiltes-form';
+import {SignupSchema} from '../../tools/validation'
 interface iProps {setLogin:Function}
  const SignUp=({setLogin}:iProps)=>{
 const [tab,setTab]=useState(0)
 const [btn,setBtn]=useState({title:'User',maxTabs:1})
 const [show,setShow]=useState(false)
 const {t,i18n}= useTranslation()
+
+const formik=useFormik({
+    initialValues:{
+        full_name:'',
+        email:'',
+        role_id:'',
+        area_id:'',
+        password:'',
+        password_confirmation:'',
+        phone_numbers:[
+            {
+                phone:'',
+                international_code:''
+            }
+        ]
+       
+    },
+    onSubmit:()=>{},
+    validationSchema:SignupSchema
+})
 const handleClick=(str:string)=>{
     if (str === 'next'){
         if (tab <btn.maxTabs) {
@@ -40,6 +66,7 @@ const handleBtn=({title,maxTabs}:{title:string,maxTabs:number})=>{
     setTab(0)
     setBtn(pre=>({...pre,title,maxTabs}))
 }
+console.log(formik.touched)
     return (
         <Row className="signUpContainer gy-3">
             <Col xs={12}>
@@ -70,12 +97,41 @@ const handleBtn=({title,maxTabs}:{title:string,maxTabs:number})=>{
                     <Col xs={12} >
                         {btn.title === 'User'?
                             <UserType 
-                        tab={tab}
-                        setTab={setTab}/>
+                            tab={tab}
+                        >
+                             {tab===1 && ( <SecurityForm />) }
+                            { tab===0 && ( <PersonalInfoForm  
+                              
+                              setValue={formik.setFieldValue}
+                             type={'User'}
+                             touched={formik.touched}
+                             values={formik.values}
+                             errors={formik.errors}
+                             handleBlur={formik.handleBlur}
+                             setFieldTouched={formik.setFieldTouched}
+
+                             />)}
+                        </UserType>
                         :
                         <CommercialType
                          tab={tab}
-                          setTab={setTab}/>
+                          setTab={setTab}>
+                             {tab===0 && ( <PersonalInfoForm  
+                                            type={'Commercial'}
+                                            setValue={formik.setFieldValue}
+                                            values={formik.values}
+                                            errors={formik.errors}
+                                            touched={formik.touched}
+                                            handleBlur={formik.handleBlur}
+                                            setFieldTouched={formik.setFieldTouched}
+
+                                            />)}
+                             {tab===1 && ( <LocationForm
+                                           type="Commercial"
+                                             />)}
+                            {tab===2 && ( <SecurityForm />)}
+                            {tab===3 && (<RequiredFilesForm />)}               
+                        </CommercialType>
                         }
                     </Col>
                 </Row>

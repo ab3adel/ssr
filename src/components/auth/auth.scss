@@ -34,6 +34,7 @@
         .authFormContainer {
             max-height: 100vh;
             overflow-y: scroll;
+            overflow-x: hidden;
          
             &::-webkit-scrollbar {
                 width: 10px;

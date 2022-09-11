@@ -11,9 +11,22 @@ import snapchat from '../../../../images/auth/snapchat-icon.svg'
 import youtube from '../../../../images/auth/youtube-icon.svg'
 import instagram from '../../../../images/auth/instagram-icon.svg'
 import {useTranslation} from 'react-i18next'
-interface iProps {type:'User' | 'Commercial'}
-export const PersonalInfoForm = ({type}:iProps)=>{
+import {PhoneInput} from '../../../tools/phone-input/phoneInput'
+import { toASCII } from 'punycode';
+interface iTab {type:'User' | 'Commercial'
+,setValue:Function,handleBlur:Function,setFieldTouched:Function}
+interface iField {values:any,errors:any,touched:any}
+interface iProps  extends iTab , iField {}
+export const PersonalInfoForm  = (props:iProps)=>{
+  let   {type,setValue,values,errors,touched,handleBlur,setFieldTouched}= props
     const {t}=useTranslation()
+    const handleField=(field:string,value:string)=>{
+  
+        if (typeof(setValue) === 'function'){
+
+            setValue(field,value)
+        }
+    }
     if (type === 'User') {
 
         return (
@@ -27,7 +40,13 @@ export const PersonalInfoForm = ({type}:iProps)=>{
                         type="text"
                         label={t("FullName")}
                         id="fullName"
-                        name="fullName"
+                        name="full_name"
+                        value={values.full_name as string}
+                        onChange={handleField}
+                        error={errors.full_name}
+                        touched={touched.full_name}
+                        handleBlur={handleBlur}
+                        
     
                            />
                     </Col>
@@ -37,17 +56,26 @@ export const PersonalInfoForm = ({type}:iProps)=>{
                         label={t("Email")}
                         id="email"
                         name="email"
+                        value={values.email as string}
+                        onChange={handleField}
+                        error={errors.email}
+                        touched={touched.email}
+                        handleBlur={handleBlur}
     
                            />
                     </Col>
                     <Col xs={12}>
-                        <InputWithIcon 
-                        type="number"
-                        label={t("PhoneNumber")}
-                        id="phoneNumber"
-                        name="phoneNumber"
-    
-                           />
+                       <PhoneInput 
+                        phone={values.phone as string}
+                        internationalCode={values.internationalCode as string}
+                        setValue={setValue as Function}
+                        error_code={ errors.phone_numbers?errors.phone_numbers[0].international_code:''}
+                        error_phone={errors.phone_numbers? errors.phone_numbers[0].phone : ''}
+                        touched={touched.phone_numbers}
+                        handleBlur={setFieldTouched}
+                        
+                        
+                       />
                     </Col>
                 </Col>
             </Row>

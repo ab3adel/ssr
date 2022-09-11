@@ -9,8 +9,8 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 
 
-interface iProps {tab:number,setTab:Function}
-const CommercialType = ({tab,setTab}:iProps) =>{
+interface iProps {tab:number,setTab:Function,children:React.ReactNode}
+const CommercialType = ({tab,setTab,children}:iProps) =>{
 const {t,i18n}=useTranslation()
    return (
        <Row className="gy-5">
@@ -58,13 +58,14 @@ const {t,i18n}=useTranslation()
                            </Col>
                            <Col xs={12}>
                           
-                            {tab===0 && ( <PersonalInfoForm  
+                            {/* {tab===0 && ( <PersonalInfoForm  
                                             type={'Commercial'}/>)}
                             {tab===1 && ( <LocationForm
                                            type="Commercial"
                                              />)}
                             {tab===2 && ( <SecurityForm />)}
-                            {tab===3 && (<RequiredFilesForm />)}
+                            {tab===3 && (<RequiredFilesForm />)} */}
+                            {children}
                            </Col>
                        </Row>
    )

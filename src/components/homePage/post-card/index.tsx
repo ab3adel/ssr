@@ -9,7 +9,8 @@ import building from '../../../images/home/building-icon.svg'
 import leftArrow from '../../../images/home/left-arrow-icon.svg'
 import rightArrow from '../../../images/home/right-arrow-icon.svg'
 import share from '../../../images/home/share-icon.svg'
-import heart from '../../../images/home/heart-icon.svg'
+import heartFilled from '../../../images/home/heart-icon.svg'
+import heart from '../../../images/home/heart-filled-icon.svg'
 import Fade from 'react-bootstrap/Fade'
 import direction from '../../../images/home/direction-icon.svg'
 import area from '../../../images/home/area-icon.svg'
@@ -27,8 +28,10 @@ let images=[image1,image2,image3,image4]
 export const PostCard =()=>{
     const [currentImage,setCurrentImage]=useState(0)
     const [fullImage,setFullImage]=useState(false)
+    const [react,setReact]=useState(false)
     const {i18n} = useTranslation()
     const {ref,hide,handleShow} =useHide()
+
     const fef =useRef()
  
     const nextImage=(str:string)=>{
@@ -47,7 +50,9 @@ export const PostCard =()=>{
            }
        }
     }
-
+    const handelReact =()=>{
+        setReact(!react)
+    }
     return (
         <Col xs={12} sm={6}
         className="postCardContainer">
@@ -169,8 +174,10 @@ export const PostCard =()=>{
                                 <Col xs={3}>
                                     <Row>
 
-                                        <Col xs={6} className="iconBtn ">
-                                            <img src={heart} />
+                                        <Col xs={6} className="iconBtn "
+                                         onClick={handelReact}
+                                         >
+                                            <img src={react ? heartFilled: heart} />
                                         </Col>
                                         <Col xs={6} className="iconBtn">
                                             <img src={share} />

@@ -1,0 +1,23 @@
+.phoneInputContainer {
+    max-height: 60px;
+    padding:1em;
+    border:1px solid rgb(165, 157, 157,0.4);
+    border-radius: 10px;
+    line-height:1.1em ;
+    .react-tel-input {
+        .form-control {
+            width: 100%;
+            border:none;
+            &:focus {
+                box-shadow: none;
+
+            }
+        }
+        .flag-dropdown {
+           border: none;
+           border-radius: 10px;
+           background-color: transparent;
+        }
+    }
+    
+}

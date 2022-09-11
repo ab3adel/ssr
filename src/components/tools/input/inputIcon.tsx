@@ -36,15 +36,13 @@ const checkTyping=(e:React.FocusEvent)=>{
     handleBlur(e)
 }
 const handleChange=(e:React.ChangeEvent)=> {
-    if (typeof(value) === 'undefined'){
+    
+    if (typeof(value) !== 'undefined'){
 
         let input =e.target as HTMLInputElement
-        setValue(input.value)
+        onChange(input.name,input.value)
     }
-    else {
-        console.log('changing')
-        onChange(e)
-    }
+  
 
 }
 const handlePassword=()=>{

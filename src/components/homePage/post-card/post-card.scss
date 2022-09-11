@@ -134,6 +134,7 @@
             .iconBtn {
                 display: flex;
                justify-content: end;
+               cursor: pointer;
                 img {
 
                     width: 31px;
@@ -191,8 +192,10 @@
                     height: 300px;
                 }
                 .iconBtn {
+                  
                     img{
                         width: 24px;
+                    
                     }
                 }
                 .details {

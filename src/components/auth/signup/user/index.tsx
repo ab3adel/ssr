@@ -1,4 +1,4 @@
-
+import {cloneElement} from 'react'
 import {PersonalInfoForm} from '../views/personalInfo-form'
 import {SecurityForm} from '../views/security-form'
 import {LocationForm} from '../views/location-form'
@@ -7,8 +7,8 @@ import Col from 'react-bootstrap/esm/Col';
 import {useTranslation} from 'react-i18next'
 
 
-interface iProps {tab:number,setTab:Function}
- const UserType = ({tab,setTab}:iProps) =>{
+interface iProps {tab:number,children?:React.ReactNode}
+ const UserType = ({tab,children}:iProps) =>{
    const {t,i18n}=useTranslation()
 
     return (
@@ -46,12 +46,13 @@ interface iProps {tab:number,setTab:Function}
                                 </Row>
                             </Col>
                             <Col xs={12}>
-                           
-                             {tab===0 && ( <PersonalInfoForm  
-                                             type={'User'}/>)}
+{/*                            
+                             {/* tab===0 && ( <PersonalInfoForm  
+                             type={'User'}/>) */}
                              {/* {tab===1 && ( <LocationForm
                                               type="User"/>)} */}
-                             {tab===1 && ( <SecurityForm />)}
+                             {/*tab===1 && ( <SecurityForm />) */} 
+                           {children}
                             </Col>
                         </Row>
     )

@@ -60,7 +60,8 @@ const handleClick= ()=>{
         <Modal className="accountVerification"
         show={show}
         onHide={setShow}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton
+            onClick={setShow}>
             </Modal.Header>
             <Modal.Body>
                 <Container className="p-2">

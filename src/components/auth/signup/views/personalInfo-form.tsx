@@ -12,14 +12,18 @@ import youtube from '../../../../images/auth/youtube-icon.svg'
 import instagram from '../../../../images/auth/instagram-icon.svg'
 import {useTranslation} from 'react-i18next'
 import {PhoneInput} from '../../../tools/phone-input/phoneInput'
-import { toASCII } from 'punycode';
+import {useEffect, useState} from 'react'
+import axios from '../../../tools/apis/axios'
+import {apis} from '../../../tools/apis/apis'
+import {iFields,iErrors,iTouched} from '../signup'
 interface iTab {type:'User' | 'Commercial'
 ,setValue:Function,handleBlur:Function,setFieldTouched:Function}
-interface iField {values:any,errors:any,touched:any}
-interface iProps  extends iTab , iField {}
+interface iProps extends iTab  {values:iFields,errors:iErrors,touched:iTouched}
+
 export const PersonalInfoForm  = (props:iProps)=>{
   let   {type,setValue,values,errors,touched,handleBlur,setFieldTouched}= props
-    const {t}=useTranslation()
+  let [categories,setCategories]=useState({data:[],categoriesOption:[]})
+    const {t,i18n}=useTranslation()
     const handleField=(field:string,value:string)=>{
   
         if (typeof(setValue) === 'function'){
@@ -27,6 +31,37 @@ export const PersonalInfoForm  = (props:iProps)=>{
             setValue(field,value)
         }
     }
+    useEffect(()=>{
+        getCategories()
+       
+    },[])
+    const getCategories=()=>{
+        let result =axios.get(apis.roles)
+        .then(res=>{
+            let categoriesOption=res.data.payload.slice(1).map((ele:any)=>{
+                if (i18n.language ==='ar') {
+                    return ele.name.ar
+                }
+                else {
+                    return ele.name.en
+                }
+            })
+         setCategories(pre=>({...pre,data:res.data.payload,categoriesOption}))
+        })
+        .catch(err=>console.log(err))
+    }
+    
+    let phoneError=''
+    let codeError=''
+    let phoneTouched=false
+    let codeTouched=false
+
+    if (errors.phone_numbers && errors.phone_numbers?.length >0) {
+         phoneError=(errors.phone_numbers as any)[0].phone
+         codeError=(errors.phone_numbers as any)[0].international_code
+    }
+    
+    console.log(touched)
     if (type === 'User') {
 
         return (
@@ -43,8 +78,8 @@ export const PersonalInfoForm  = (props:iProps)=>{
                         name="full_name"
                         value={values.full_name as string}
                         onChange={handleField}
-                        error={errors.full_name}
-                        touched={touched.full_name}
+                        error={errors.full_name as string}
+                        touched={touched.full_name as boolean}
                         handleBlur={handleBlur}
                         
     
@@ -58,20 +93,20 @@ export const PersonalInfoForm  = (props:iProps)=>{
                         name="email"
                         value={values.email as string}
                         onChange={handleField}
-                        error={errors.email}
-                        touched={touched.email}
+                        error={errors.email as string}
+                        touched={touched.email as boolean}
                         handleBlur={handleBlur}
     
                            />
                     </Col>
                     <Col xs={12}>
                        <PhoneInput 
-                        phone={values.phone as string}
-                        internationalCode={values.internationalCode as string}
+                        phone={values.phone_numbers[0].phone as string}
+                        internationalCode={values.phone_numbers[0].international_code as string}
                         setValue={setValue as Function}
-                        error_code={ errors.phone_numbers?errors.phone_numbers[0].international_code:''}
-                        error_phone={errors.phone_numbers? errors.phone_numbers[0].phone : ''}
-                        touched={touched.phone_numbers}
+                     
+                       phoneNumberError={phoneError || codeError }
+                        touched={touched.phone_numbers as boolean}
                         handleBlur={setFieldTouched}
                         
                         
@@ -92,14 +127,17 @@ export const PersonalInfoForm  = (props:iProps)=>{
                         <Col xs={12}>
                             <Row className="gy-2" >
                                 <Col xs={12}>
-                                    <Select label={t("CompanyType")}/>
+                                    <Select label={t("CompanyType")}
+                                     options={categories.categoriesOption}/>
                                 </Col>
                                 <Col xs={12}>
                                     <InputWithIcon 
                                     label={t("FullName")} 
                                     id="FullName"
-                                    name="FullName"
+                                    name="full_name"
                                     type="text"
+                                    value={values.full_name}
+                                    onChange={setValue}
                                     />       
                                 </Col>
                                 <Col xs={12}>
@@ -109,8 +147,9 @@ export const PersonalInfoForm  = (props:iProps)=>{
                                     <InputWithIcon 
                                     label={t("Email")+" "+ t("Optional") }
                                     id="Email"
-                                    name="Email"
+                                    name="email"
                                     type="text"
+                                    
                                     />       
                                 </Col>
                                 <Col xs={12}>

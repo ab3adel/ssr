@@ -1,9 +1,11 @@
 .phoneInputContainer {
     max-height: 60px;
+    min-height: 60px;
     padding:1em;
     border:1px solid rgb(165, 157, 157,0.4);
     border-radius: 10px;
     line-height:1.1em ;
+    position: relative;
     .react-tel-input {
         .form-control {
             width: 100%;
@@ -13,11 +15,31 @@
 
             }
         }
+        .form-control.invalid-number {
+            border:none;
+            background-color: transparent;
+            &:focus {
+
+                border:none;
+                background-color: transparent;
+            }
+        }
         .flag-dropdown {
            border: none;
            border-radius: 10px;
            background-color: transparent;
         }
+       
+    }
+    .feedback {
+        color:red;
+        font-size: 0.8em;
+        position: absolute;
+        left:2rem;
+        bottom: 0%;
     }
     
+}
+.phoneInputContainer.invalid {
+    border:1px solid red;
 }

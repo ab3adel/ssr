@@ -10,5 +10,8 @@ export const SignupSchema =Yup.object().shape({
                 internationl_code:Yup.string().required("This field is required")
             }
         )
-    )
+    ),
+    password:Yup.string().required('This field is Required'),
+    password_confirmation:Yup.string().required('This field is Required')
+                      .oneOf([Yup.ref('password'),null],"Passowrd Confirmation doesn't match")
 })

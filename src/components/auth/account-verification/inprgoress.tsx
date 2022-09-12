@@ -9,7 +9,7 @@ interface iProps {btn:string,text:string,resend:string,className:string,fn:()=>v
 export const Inprogress =({btn,text,resend,className,fn}:iProps) =>{
     const {t}=useTranslation()
     return (
-                <Row className='inprogressContainer gy-6'>
+                <Row className='inprogressContainer gy-5'>
                     <Col xs={12}>
                         <Row className="gy-4">
 

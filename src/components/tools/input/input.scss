@@ -71,3 +71,11 @@
     border: 1px solid red;
     
 }
+@media screen and (max-width:567px) {
+    .inputGroupWithIcon {
+        .passwordIcon {
+            width:20px;
+            height: 20px;
+        }
+    }
+}

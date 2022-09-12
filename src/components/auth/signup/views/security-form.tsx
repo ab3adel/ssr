@@ -5,9 +5,13 @@ import {InputWithIcon} from '../../../tools/input/inputIcon';
 import {useFormik} from 'formik'
 import {useTranslation} from 'react-i18next'
 import * as Yup from 'yup'
+import {iFields,iTouched ,iErrors} from '../signup'
 
-
-export const SecurityForm =()=>{
+interface iProps {setValue:Function,handleBlur:Function
+     ,values:iFields
+    ,errors:iErrors
+    ,touched:iTouched }
+export const SecurityForm =(props:iProps)=>{
     const {t,i18n}= useTranslation()
     const formik = useFormik({
         initialValues:{
@@ -33,11 +37,11 @@ return (
              name="password"
              id="password"
              type="password"
-             value={formik.values.password}
-             onChange={formik.handleChange}
-             error={formik.errors.password}
-             touched={formik.touched.password}
-             handleBlur={formik.handleBlur}
+             value={props.values.password}
+             onChange={props.setValue}
+             error={props.errors.password as string}
+             touched={props.touched.password as boolean}
+             handleBlur={props.handleBlur}
              />
 
 
@@ -45,14 +49,14 @@ return (
         <Col sm={8} xs={12}>
             <InputWithIcon
              label={t("ConfirmPassword")}
-             name="confirmPassword"
+             name="password_confirmation"
              id="confirmPassword"
              type="password"
-             value={formik.values.confirmPassword}
-             onChange={formik.handleChange}
-             error={formik.errors.confirmPassword}
-             touched={formik.touched.confirmPassword}
-             handleBlur={formik.handleBlur}
+             value={props.values.password_confirmation}
+             onChange={props.setValue}
+             error={props.errors.password_confirmation as string}
+             touched={props.touched.password_confirmation as boolean}
+             handleBlur={props.handleBlur}
              />
 
         </Col>

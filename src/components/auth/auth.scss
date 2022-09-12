@@ -103,10 +103,13 @@
 @media screen and (max-width:576px) {
     .authContainer{
         max-width: 100vw;
-        overflow: hidden;
+        overflow-x: hidden;
+        
         .auth{
-            max-height: fit-content;
+            max-height: 100vh;
             padding-bottom: 1em;
+            overflow-y: scroll;
+            overflow-x: hidden;
             .authBackground {
                 min-height: 40vh;
                 .backgroundText{
@@ -117,7 +120,8 @@
             }
             .authFormContainer{
                 overflow: hidden;
-                min-height: 100vh;
+                max-height: fit-content;
+             
               
                 .authForm {
                     padding:0;

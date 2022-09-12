@@ -16,6 +16,18 @@ import {useFormik} from 'formik'
 import { RequiredFilesForm } from './views/requiredFiltes-form';
 import {SignupSchema} from '../../tools/validation'
 interface iProps {setLogin:Function}
+interface iPhonNumbers {phone:string,international_code:string}
+export interface iFields {
+    full_name:string,email:string
+    ,role_id:number,area_id:number,
+    password:string,password_confirmation:string,
+    phone_numbers:iPhonNumbers []
+}
+type key = keyof iFields
+type phoneNumbersTouched= {[t in keyof iPhonNumbers]?:boolean | undefined}
+type phoneNumbersError= {[t in keyof iPhonNumbers]?:string}
+export type iTouched = {[t in keyof iFields]?:boolean | undefined |phoneNumbersTouched []} 
+export type iErrors ={[t in keyof iFields]?:string | phoneNumbersError [] | string []}
  const SignUp=({setLogin}:iProps)=>{
 const [tab,setTab]=useState(0)
 const [btn,setBtn]=useState({title:'User',maxTabs:1})
@@ -26,8 +38,8 @@ const formik=useFormik({
     initialValues:{
         full_name:'',
         email:'',
-        role_id:'',
-        area_id:'',
+        role_id:-1,
+        area_id:-1,
         password:'',
         password_confirmation:'',
         phone_numbers:[
@@ -66,7 +78,16 @@ const handleBtn=({title,maxTabs}:{title:string,maxTabs:number})=>{
     setTab(0)
     setBtn(pre=>({...pre,title,maxTabs}))
 }
-console.log(formik.touched)
+const handleRole =(str:string)=>{
+    if (str === 'User') {
+        formik.setFieldValue('role_id',2)
+        handleBtn({title:'User',maxTabs:2})
+    }
+    else {
+        formik.setFieldValue('role_id',3)
+        handleBtn({title:'Commercial',maxTabs:3})
+    }
+}
     return (
         <Row className="signUpContainer gy-3">
             <Col xs={12}>
@@ -79,14 +100,14 @@ console.log(formik.touched)
                             <div className="Btns">
 
                                 <Button className={btn.title==='User'?`BtnActive ${btn1} Btn`:` ${btn1} Btn BtnInactive`}
-                                onClick={()=>handleBtn({title:'User',maxTabs:2})}>
+                                onClick={()=>handleRole('User')}>
                                        <img className='icon' src={User}/>
                                        <span>{t("User")}</span>
                                  
                                 </Button>
                                 <Button
                                   className={btn.title==='Commercial'?`BtnActive ${btn2} Btn`:`${btn2} Btn BtnInactive`}
-                                  onClick={()=>handleBtn({title:'Commercial',maxTabs:3})}>
+                                  onClick={()=>handleRole('Commercial')}>
                                     <img className='icon' src={Commercial}/>
                                     <span>{t("Commercial")}</span> 
                                     
@@ -99,7 +120,14 @@ console.log(formik.touched)
                             <UserType 
                             tab={tab}
                         >
-                             {tab===1 && ( <SecurityForm />) }
+                             {tab===1 && ( 
+                             <SecurityForm
+                              values={formik.values}
+                              handleBlur={formik.handleBlur} 
+                              setValue={formik.setFieldValue}
+                              touched={formik.touched}
+                              errors={formik.errors}
+                              />) }
                             { tab===0 && ( <PersonalInfoForm  
                               
                               setValue={formik.setFieldValue}
@@ -129,7 +157,14 @@ console.log(formik.touched)
                              {tab===1 && ( <LocationForm
                                            type="Commercial"
                                              />)}
-                            {tab===2 && ( <SecurityForm />)}
+                            {tab===2 && ( <
+                                SecurityForm 
+                                values={formik.values}
+                                handleBlur={formik.handleBlur} 
+                                setValue={formik.setFieldValue}
+                                touched={formik.touched}
+                                errors={formik.errors}
+                            />)}
                             {tab===3 && (<RequiredFilesForm />)}               
                         </CommercialType>
                         }
@@ -144,7 +179,12 @@ console.log(formik.touched)
 
                                 <Button className="next Btn"
                                 onClick={()=>handleClick('next')}>
-                                    {t("Next")}
+                                    {
+                                        tab === btn.maxTabs?
+                                        t('Signup')
+                                        :
+                                        t("Next")
+                                    }
                                 </Button>
                             </Col>
                             

@@ -4,6 +4,8 @@
             padding:1em;
             .modal-header {
                 border:none;
+                margin-bottom: 1.1em;
+                padding-top: 1px;
             }
             .modal-body {
                 .inprogressContainer {
@@ -108,4 +110,20 @@
         }
     }
 }
-           
+@media screen and (max-width:567px) {
+    .accountVerification {
+        .modal-dialog {
+            .modal-content {
+                .modal-body {
+                    .inprogressContainer {
+                        .resend {
+                            font-size: 1.1em;
+                            white-space: nowrap;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}

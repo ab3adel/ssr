@@ -35,7 +35,7 @@ export const EmailForm=({setDone}:iProps)=>{
                                  />
                             </Col>
                             <Col xs={12} className='d-flex justify-content-center'>
-                                <Col xs={5}>
+                                <Col sm={5} xs={12}>
                                     <Button className="doneBtn"
                                     onClick={()=>setDone(true)}>
                                         Submit

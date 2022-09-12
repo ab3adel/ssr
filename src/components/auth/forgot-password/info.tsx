@@ -31,12 +31,13 @@ export const EmailInfo=({setDone}:iProps)=>{
                                 
                             </Col>
                             <Col xs={12} className='d-flex justify-content-center flex-column align-items-center'>
-                                <Col xs={5}>
+                                <Col sm={5} xs={12}>
                                     <Button className="doneBtn">
                                         Submit
                                     </Button>
                                 </Col>
-                                <Col xs={5}
+                                <Col sm={5} xs={12}
+                                className="mt-1 mt-sm-0"
                                 >
                                     <div className="resend">
 

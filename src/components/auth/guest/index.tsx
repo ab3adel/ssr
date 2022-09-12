@@ -18,9 +18,9 @@ const {t,i18n}= useTranslation()
 return (
 
     
-        <Col xs={10} className="guestContainer">
+        <Col sm={10} xs ={12} className="guestContainer">
             <Row className="gy-6">
-                <Col xs={6}>
+                <Col sm={6} xs={12}>
                     <Col xs={12}>
                         <span className="title">
 
@@ -34,7 +34,7 @@ return (
                     </Col>
                     
                 </Col>
-                <Col xs={6}>
+                <Col sm={6} xs={12}>
                     <Col xs={12}>
                         <span className="title">
 
@@ -55,20 +55,24 @@ return (
                     </Col>
                     <Col xs={12} className="mt-2">
 
-                        <div className="Btns">
-            
-                            <Button className={gender.male? "Btn left active":"Btn left inactive" }
-                            onClick={()=>setGender((pre:any)=>({male:true,female:false}))}
-                            >
-                                <img src={male} />
-                                <span>{t("Male")}</span>
-                            </Button>
-                            <Button className={gender.female? "Btn right active":"Btn right inactive" }
-                            onClick={()=>setGender((pre:any)=>({male:false,female:true}))}>
-                                <img src={female} />
-                                <span>{t("Female")}</span>
-                            </Button>
-                        </div>
+                        <Row className="Btns">
+                          
+
+                                <Button className={gender.male? "Btn left active":"Btn left inactive" }
+                                onClick={()=>setGender((pre:any)=>({male:true,female:false}))}
+                                >
+                                    <img src={male} />
+                                    <span>{t("Male")}</span>
+                                </Button>
+                     
+
+                                <Button className={gender.female? "Btn right active":"Btn right inactive" }
+                                onClick={()=>setGender((pre:any)=>({male:false,female:true}))}>
+                                    <img src={female} />
+                                    <span>{t("Female")}</span>
+                                </Button>
+                         
+                        </Row>
                     </Col>
                 </Col>
                 <Col xs={12} className='d-flex justify-content-center'>

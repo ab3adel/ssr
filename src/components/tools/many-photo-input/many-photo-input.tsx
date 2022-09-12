@@ -49,7 +49,7 @@ export const ManyPhotosInput =({images,setImages}:iProps)=>{
     }
 
     return (
-        <Row className="manyPhotosContainer gy-2"
+        <Row className="manyPhotosContainer gy-2 m-sm-0 m-1"
         onDragOver={handleDragOver}
         onDrop={handleDrop}>
             <Col xs={12} className="inputContainer">

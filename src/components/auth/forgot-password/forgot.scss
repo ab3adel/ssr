@@ -96,3 +96,15 @@
         }
     }
 }
+@media screen  and (max-width:567px){
+    .forgotModal {
+        .modal-dialog {
+            .modal-content {
+                .resend {
+                    font-size: 1.1em;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+}

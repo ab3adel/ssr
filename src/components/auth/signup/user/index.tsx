@@ -16,33 +16,35 @@ interface iProps {tab:number,children?:React.ReactNode}
                             <Col xs={12} >
                                 <Row className="tabs justify-content-center">
 
-                                <Col xs={5}
-                                
-                              
-                                className={tab===0?"tab tabActive":"tab tabInactive"}
-                                style={i18n.language==="ar"?{justifyContent:"center"}:{justifyContent:"flex-start"}}
-                                >
-                                   <span>
-                                    {t("PersonalInfo")}
-                                   </span>
-                                </Col>
-                                {/* <Col xs={4}
-                                
-                              
-                                className={tab===1?"tab tabActive":"tab tabInactive"}>
-                                   <span>
-                                        Location
-                                   </span>
-                                </Col> */}
-                                <Col xs={5}
-                                
-                               
-                                className={tab===1?"tab tabActive":"tab tabInactive"}
-                                style={i18n.language==="ar"?{justifyContent:"center"}:{justifyContent:"flex-start"}}>
-                                   <span>
-                                        {t("Security")}
-                                   </span>
-                                </Col>
+                                    <Col xs={4}
+                                    
+                                    
+                                    className={tab===0?"tab tabActive":"tab tabInactive"}
+                                    style={i18n.language==="ar"?{justifyContent:"center"}:{justifyContent:"flex-start"}}
+                                    >
+                                       <span>
+                                          {t("PersonalInfo")}
+                                       </span>
+                                    </Col>
+                                    
+                                    <Col xs={4}
+                                    
+                                    
+                                    className={tab===1?"tab tabActive":"tab tabInactive"}
+                                    style={i18n.language==="ar"?{justifyContent:"center"}:{justifyContent:"flex-start"}}>
+                                       <span>
+                                             {t("Security")}
+                                       </span>
+                                    </Col>
+                                    <Col xs={4}
+                                    
+                                    
+                                    className={tab===2?"tab tabActive":"tab tabInactive"}
+                                    style={i18n.language==="ar"?{justifyContent:"center"}:{justifyContent:"flex-start"}}>
+                                       <span>
+                                             Location
+                                       </span>
+                                    </Col> 
                                 </Row>
                             </Col>
                             <Col xs={12}>

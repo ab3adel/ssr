@@ -4,6 +4,24 @@
         font-size: 1em;
         font-weight: bold;
     }
+    .chonseOption {
+        background-color: var(--back-color);
+        color:var(--dark-green);
+        font-size: x-small;
+        position:relative;
+       display: flex;
+       align-items: center;
+       border-radius: 10px;
+        text-align: center;
+        span {
+            top:0;
+            left: 0;
+            position: absolute;
+            &:hover ,&:focus {
+                font-size: small;
+            }
+        }
+    }
 }
 .locationForm {
 
@@ -14,6 +32,7 @@
         background-color: var(--back-color);
         border-radius: 10px;
         height: 75px;
+        cursor: pointer;
         img {
             width:30px;
             height: 30px;

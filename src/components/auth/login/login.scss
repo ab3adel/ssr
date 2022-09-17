@@ -33,6 +33,13 @@
                 border:var(--light-green);
             }
         }
+        .loginBtn.btn {
+            &:disabled {
+                background-color: var(--dark-green);
+                opacity:0.7
+            }
+
+        }
         .singupBtn {
         color:var(--dark-green);
         background-color: white;

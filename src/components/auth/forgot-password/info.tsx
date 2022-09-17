@@ -4,8 +4,8 @@ import Col from  'react-bootstrap/Col'
 import back from '../../../images/auth/email-info.svg'
 import {CheckCircleFill} from 'react-bootstrap-icons'
 import Button from 'react-bootstrap/Button'
-interface iProps {setDone:Function}
-export const EmailInfo=({setDone}:iProps)=>{
+interface iProps {resendEmail:Function,end:Function}
+export const EmailInfo=({resendEmail,end}:iProps)=>{
 
     return (
         <Row className="gy-3">
@@ -32,8 +32,9 @@ export const EmailInfo=({setDone}:iProps)=>{
                             </Col>
                             <Col xs={12} className='d-flex justify-content-center flex-column align-items-center'>
                                 <Col sm={5} xs={12}>
-                                    <Button className="doneBtn">
-                                        Submit
+                                    <Button className="doneBtn"
+                                    onClick={()=>end()}>
+                                       Ok
                                     </Button>
                                 </Col>
                                 <Col sm={5} xs={12}
@@ -42,7 +43,7 @@ export const EmailInfo=({setDone}:iProps)=>{
                                     <div className="resend">
 
                                         <a href='#' 
-                                        onClick={()=>setDone(false)}>
+                                        onClick={()=>resendEmail()}>
 
                                             Resend Email
                                         </a>

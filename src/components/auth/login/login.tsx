@@ -8,12 +8,79 @@ import {CheckBox} from '../../tools/checkBox/checkBox'
 import Button from 'react-bootstrap/Button'
 import './login.scss'
 import ForgotPassword from '../forgot-password'
-import { useState } from "react";
+import { useState ,useEffect,useContext} from "react";
+import axios from '../../tools/apis/axios'
+import {apis} from '../../tools/apis/apis'
+import {useFormik} from 'formik'
+import * as Yup from 'yup'
+import notificationContext from '../../tools/context/notification/notification-context'
 
+import {useNavigate} from 'react-router-dom'
+import Spinner from 'react-bootstrap/Spinner'
 interface iProps {setLogin:Function}
 const Login =({setLogin}:iProps) =>{
     const {t,i18n}=useTranslation()
+    const [disableBtn,setDisableBtn]=useState(true)
+    const {notify,setNotify} = useContext(notificationContext)
+    const [isLoading,setIsloading]=useState(false)
+    const [checked,setChecked]=useState(false)
+    const navigate = useNavigate()
+const formik =useFormik({
+                                initialValues:{
+                                    email:'',
+                                    password:''
+                                },
+                                validationSchema:Yup.object().shape({
+                                    email:Yup.string().email().required('This field is required'),
+                                    password:Yup.string().min(8,'This field has to be 8 characters at least')
+                                }),
+                                onSubmit:()=>{}
+                            })
     const [show,setShow]=useState(false)
+
+
+    useEffect(()=>{
+        if(Boolean(formik.values.email )&&Boolean(formik.values.password ) ) {
+            if (!Boolean(formik.errors.email) && !Boolean(formik.errors.password)) {
+                setDisableBtn(false)
+            }
+        }
+    },[formik.values])
+    const handleLogin=()=>{
+        let formdata = new FormData ()
+        formdata.append('email',formik.values.email)
+        formdata.append('password',formik.values.password)
+        axios.post(apis.login,formdata)
+             .then(res=>{
+               
+                if (res && res.data) {
+                    setNotify((pre: any) => ({
+                        ...pre,
+                        show: true,
+                        type: true,
+                        message: res.data.message,
+                      }));
+                      localStorage.setItem('token',JSON.stringify({token:res.data.payload.token,full_name:res.data.payload.full_name}))
+                      if (checked) {
+                        rememberMe(res.data.payload.token)
+                      }
+                      formik.resetForm()
+                      navigate('/')
+                }
+             })
+             .catch(err=>{
+                if (err && err.response && err.response.data) {
+                    setNotify((pre:any)=>({...pre,message:err.response.data.message,type:false,show:true}))
+                }
+              })
+    }
+    const rememberMe=(token:string)=>{
+        let dataform = new FormData()
+        dataform.append('remember_me_token',token)
+        axios.post(apis.rememberMe,dataform)
+        .then(res=>res)
+        .catch(err=>console.log(err))
+    }
     return (
 
                 <Col xs ={12} className="loginBody" >
@@ -36,6 +103,12 @@ const Login =({setLogin}:iProps) =>{
                                             icon={userIcon}
                                             name="email"
                                             id="email"
+                                            value={formik.values.email}
+                                            onChange={formik.setFieldValue}
+                                            handleBlur={formik.handleBlur}
+                                            error={formik.errors.email}
+                                            touched={formik.touched.email}
+                                            required={false}
                                             />
                                         </Col>
                                         <Col xs={12}>
@@ -43,8 +116,15 @@ const Login =({setLogin}:iProps) =>{
                                         type="password"
                                         label={t("Password")}
                                         icon={lockIcon}
-                                        name="email"
-                                        id="email"/>
+                                        name="password"
+                                        id="password"
+                                        value={formik.values.password}
+                                        onChange={formik.setFieldValue}
+                                        handleBlur={formik.handleBlur}
+                                        error={formik.errors.password}
+                                        touched={formik.touched.password}
+                                        required={false}
+                                        />
                                         </Col>
                                     </Col> 
                                     <Col xs={12}>
@@ -52,7 +132,11 @@ const Login =({setLogin}:iProps) =>{
 
                                             <Col xs={6}>
 
-                                                <CheckBox label={t("RememberMe")} />
+                                                <CheckBox 
+                                                label={t("RememberMe")} 
+                                                checked={checked}
+                                                setChecked={setChecked}
+                                                />
                                             </Col>
                                             <Col xs={6} className="d-flex d-sm-block  align-items-center"
                                              style={i18n.language ==='en'?{justifyContent:"flex-end"} : {justifyContent:"flex-start"}}>
@@ -67,15 +151,25 @@ const Login =({setLogin}:iProps) =>{
                                     <Col xs={12}>
                                         <Row>
                                             <Col xs={6}>
-                                                <Button className="loginBtn">
+                                                <Button className="loginBtn"
+                                                onClick={()=>handleLogin()}
+                                                 disabled={disableBtn}>
                                                     {t("Login")}
                                                 </Button>
                                             </Col>
                                             <Col xs={6} 
                                             className="d-sm-flex justify-content-end">
                                                 <Button className="singupBtn"
-                                                onClick={()=>setLogin(false)}>
-                                                {t("SignUp")}
+                                                onClick={()=>setLogin(false)}
+                                                disabled={isLoading}
+                                               
+                                                >
+                                                    {
+                                                        isLoading?
+                                                         <Spinner animation="border"/>
+                                                        :
+                                                        <>{t("SignUp")}</>
+                                                    }
                                                 </Button>
                                             </Col>
                                         </Row>
@@ -91,7 +185,7 @@ const Login =({setLogin}:iProps) =>{
                      <ForgotPassword 
                       show={show}
                       setShow={()=>setShow(false)}/>
-
+                    
                     </Col>
                
            

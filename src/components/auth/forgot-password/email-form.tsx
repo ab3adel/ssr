@@ -2,11 +2,20 @@
 import Row from 'react-bootstrap/Row'
 import Col from  'react-bootstrap/Col'
 import back from '../../../images/auth/forgot-back.svg'
-import email from '../../../images/auth/icon-email.svg'
+import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
-import {InputWithIcon} from '../../tools/input/inputIcon'
-interface iProps {setDone:Function}
-export const EmailForm=({setDone}:iProps)=>{
+
+interface iProps {
+    hanldeDone:Function
+    ,children:React.ReactNode
+    ,enableBtn:boolean,isLoading:boolean
+}
+export const EmailForm=({
+    hanldeDone,
+    children,
+    enableBtn,
+    isLoading
+}:iProps)=>{
 
     return (
         <Row className="gy-3">
@@ -26,19 +35,19 @@ export const EmailForm=({setDone}:iProps)=>{
 
                             </Col>
                             <Col xs={12}>
-                                <InputWithIcon
-                                 label="Email Address"
-                                 icon={email}
-                                 id="email"
-                                 name="email"
-                                 type='email'
-                                 />
+                            {children}
                             </Col>
                             <Col xs={12} className='d-flex justify-content-center'>
                                 <Col sm={5} xs={12}>
                                     <Button className="doneBtn"
-                                    onClick={()=>setDone(true)}>
-                                        Submit
+                                    onClick={()=>hanldeDone()}
+                                    disabled={isLoading || enableBtn }
+                                    >
+                                       { 
+                                       isLoading?
+                                       <Spinner animation="border" />:
+                                       <>Submit</>
+                                       }
                                     </Button>
                                 </Col>
                             </Col>

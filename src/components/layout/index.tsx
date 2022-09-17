@@ -4,8 +4,9 @@ import Col from 'react-bootstrap/Col'
 import  Container  from 'react-bootstrap/Container'
 import Header from '../header'
 import LeftSideBar from '../leftside-bar'
-import HomePage from '../homePage'
+
 import {Outlet} from 'react-router-dom'
+
 const Layout = ()=>{
 
 

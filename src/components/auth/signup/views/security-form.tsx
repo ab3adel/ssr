@@ -5,12 +5,13 @@ import {InputWithIcon} from '../../../tools/input/inputIcon';
 import {useFormik} from 'formik'
 import {useTranslation} from 'react-i18next'
 import * as Yup from 'yup'
-import {iFields,iTouched ,iErrors} from '../signup'
+
+import {InitialValues,iTouched ,iErrors} from '../initial-values'
 
 interface iProps {setValue:Function,handleBlur:Function
-     ,values:iFields
-    ,errors:iErrors
-    ,touched:iTouched }
+     ,values:Partial<InitialValues>
+    ,errors:Partial<iErrors>
+    ,touched:Partial<iTouched> }
 export const SecurityForm =(props:iProps)=>{
     const {t,i18n}= useTranslation()
     const formik = useFormik({
@@ -42,6 +43,7 @@ return (
              error={props.errors.password as string}
              touched={props.touched.password as boolean}
              handleBlur={props.handleBlur}
+             required={true}
              />
 
 
@@ -57,6 +59,7 @@ return (
              error={props.errors.password_confirmation as string}
              touched={props.touched.password_confirmation as boolean}
              handleBlur={props.handleBlur}
+             required={true}
              />
 
         </Col>

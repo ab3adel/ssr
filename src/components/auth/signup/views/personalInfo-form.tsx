@@ -13,61 +13,81 @@ import instagram from '../../../../images/auth/instagram-icon.svg'
 import {useTranslation} from 'react-i18next'
 import {PhoneInput} from '../../../tools/phone-input/phoneInput'
 import {useEffect, useState} from 'react'
-import axios from '../../../tools/apis/axios'
-import {apis} from '../../../tools/apis/apis'
-import {iFields,iErrors,iTouched} from '../signup'
+import { MyMultiSelect } from '../../../tools/multi-select/multi-select';
+
+import {iErrors,iTouched, InitialValues} from '../initial-values'
+interface iCategories{categoriesOption:any[],data:any[]}
+interface iCompanies{companiesOptions:any[]}
 interface iTab {type:'User' | 'Commercial'
-,setValue:Function,handleBlur:Function,setFieldTouched:Function}
-interface iProps extends iTab  {values:iFields,errors:iErrors,touched:iTouched}
+,setValue:Function,handleBlur:Function,setFieldTouched:Function
+,getCategories?:Function,categories?:iCategories
+,getCompanies?:Function,companies?:iCompanies,
+needCategory?:boolean
+}
+interface iProps extends iTab  {values:Partial<InitialValues>,errors:Partial<iErrors>,touched:Partial<iTouched>}
 
 export const PersonalInfoForm  = (props:iProps)=>{
-  let   {type,setValue,values,errors,touched,handleBlur,setFieldTouched}= props
-  let [categories,setCategories]=useState({data:[],categoriesOption:[]})
-    const {t,i18n}=useTranslation()
-    const handleField=(field:string,value:string)=>{
-  
-        if (typeof(setValue) === 'function'){
+  let   {type,setValue,values
+          ,errors,touched
+      ,handleBlur,setFieldTouched
+    ,getCategories,categories
+    ,getCompanies,companies,needCategory
+}= props
 
-            setValue(field,value)
-        }
+    const {t,i18n}=useTranslation()
+    const handleField=(field: keyof InitialValues,value:string)=>{
+  
+            if (Array.isArray(values[field]) ){
+                let arr= [...(values[field] as Array<any>)]
+                arr.push(value)
+                setValue(field,arr)
+            }
+            else {
+
+                setValue(field,value)
+            }
+        
     }
+   const deleteItem =(item:number)=>{
+    let arr= values.category_ids?.filter(ele=>ele.toString() !== item.toString())
+    setValue('category_ids',arr)
+    
+   }
     useEffect(()=>{
-        getCategories()
+        if (typeof(getCategories)==='function') {
+            
+            getCategories()
+        }
+        if (typeof(getCompanies) === 'function') {
+            getCompanies()
+        }
        
     },[])
-    const getCategories=()=>{
-        let result =axios.get(apis.roles)
-        .then(res=>{
-            let categoriesOption=res.data.payload.slice(1).map((ele:any)=>{
-                if (i18n.language ==='ar') {
-                    return ele.name.ar
-                }
-                else {
-                    return ele.name.en
-                }
-            })
-         setCategories(pre=>({...pre,data:res.data.payload,categoriesOption}))
-        })
-        .catch(err=>console.log(err))
-    }
-    
+ 
     let phoneError=''
     let codeError=''
-    let phoneTouched=false
-    let codeTouched=false
 
-    if (errors.phone_numbers && errors.phone_numbers?.length >0) {
+
+    if (errors.phone_numbers && (errors.phone_numbers as Array<any>).length >0) {
          phoneError=(errors.phone_numbers as any)[0].phone
          codeError=(errors.phone_numbers as any)[0].international_code
     }
     
-    console.log(touched)
+
     if (type === 'User') {
 
         return (
             <Row className="personalInfoContainer gy-3 gy-sm-0">
                 <Col sm={4} xs={12} className="d-flex justify-content-center d-sm-block">
-                    <InputFile />
+                    <InputFile 
+                     value={values.profile_picture}
+                     name="profile_picture"
+                     error={errors.profile_picture as string}
+                     touched={touched.profile_picture as boolean}
+                     setValue={handleField}
+                    
+            
+                     />
                 </Col>
                 <Col sm={8} xs={12}>
                     <Col xs={12}>
@@ -81,6 +101,7 @@ export const PersonalInfoForm  = (props:iProps)=>{
                         error={errors.full_name as string}
                         touched={touched.full_name as boolean}
                         handleBlur={handleBlur}
+                        required={true}
                         
     
                            />
@@ -96,13 +117,14 @@ export const PersonalInfoForm  = (props:iProps)=>{
                         error={errors.email as string}
                         touched={touched.email as boolean}
                         handleBlur={handleBlur}
+                        required={true}
     
                            />
                     </Col>
                     <Col xs={12}>
                        <PhoneInput 
-                        phone={values.phone_numbers[0].phone as string}
-                        internationalCode={values.phone_numbers[0].international_code as string}
+                        phone={values.phone_numbers?values.phone_numbers[0].phone :''}
+                        internationalCode={values.phone_numbers?values.phone_numbers[0].international_code :''}
                         setValue={setValue as Function}
                      
                        phoneNumberError={phoneError || codeError }
@@ -118,17 +140,31 @@ export const PersonalInfoForm  = (props:iProps)=>{
     }
 
         return (
-            <Row className="personalInfoContainer" >
+            <Row className="personalInfoContainer p-1" >
                 <Col sm={4} xs={12} className="d-flex d-sm-block justify-content-center p-2 p-sm-0">
-                    <InputFile />
+                    <InputFile 
+                         value={values.profile_picture}
+                         name="profile_picture"
+                         error={errors.profile_picture as string}
+                         touched={touched.profile_picture as boolean}
+                         setValue={handleField}
+                         
+                    />
                 </Col>
                 <Col sm={8} xs={12}>
                     <Row  className="gy-3">
                         <Col xs={12}>
                             <Row className="gy-2" >
                                 <Col xs={12}>
-                                    <Select label={t("CompanyType")}
-                                     options={categories.categoriesOption}/>
+                                    <Select 
+                                     label={t("CompanyType")}
+                                     name="role_id"
+                                     options={companies?.companiesOptions}
+                                     setSelect={handleField}
+                                     error={errors.role_id as string}
+                                     touched={touched.role_id as boolean}
+                                     handleBlur={handleBlur}
+                                     />
                                 </Col>
                                 <Col xs={12}>
                                     <InputWithIcon 
@@ -138,34 +174,72 @@ export const PersonalInfoForm  = (props:iProps)=>{
                                     type="text"
                                     value={values.full_name}
                                     onChange={setValue}
+                                    touched={touched.full_name as boolean}
+                                    error={errors.full_name as string}
+                                    handleBlur={handleBlur}
+                                    required={true}
                                     />       
                                 </Col>
                                 <Col xs={12}>
-                                    <Select label={t("Category")}/>
+                                    {/* <Select label={t("Category")}
+                                     options={categories?.categoriesOption}
+                                     error={errors.category_ids as string}
+                                     touched={touched.category_ids as boolean}
+                                     setSelect={handleField}
+                                    name="category_ids"
+                                    handleBlur={handleBlur}
+                                    multiSelect={true}
+                                    /> */}
+                                    <MyMultiSelect 
+                                    
+                                     options={categories?.categoriesOption as any[]}
+                                     label="category"
+                                     name="category_ids"
+                                     setSelect={setValue}
+                                     error={errors.category_ids as string}
+                                     touched={touched.category_ids as boolean}
+                                     handleBlur={setFieldTouched}
+                                     needCategory={needCategory}
+
+                                    />
                                 </Col>
                                 <Col xs={12}>
                                     <InputWithIcon 
-                                    label={t("Email")+" "+ t("Optional") }
+                                    label={t("Email") }
                                     id="Email"
                                     name="email"
                                     type="text"
-                                    
+                                    value={values.email}
+                                    onChange={setValue}
+                                    touched={touched.email as boolean}
+                                    error={errors.email as string} 
+                                    handleBlur={handleBlur}
+                                    required={true}
                                     />       
                                 </Col>
                                 <Col xs={12}>
-                                    <InputWithIcon 
-                                    label={t("PhoneNumber" )}
-                                    id="PhoneNumber"
-                                    name="PhoneNumber"
-                                    type="number"
-                                    />       
+                                <PhoneInput 
+                                    phone={values.phone_numbers?values.phone_numbers[0].phone :''}
+                                    internationalCode={values.phone_numbers?values.phone_numbers[0].international_code :''}
+                                    setValue={setValue as Function}
+                                
+                                    phoneNumberError={phoneError || codeError }
+                                    touched={touched.phone_numbers as boolean}
+                                    handleBlur={setFieldTouched}
+                                    />    
                                 </Col>
                                 <Col xs={12}>
                                     <InputWithIcon 
                                     label={t("Website")} 
                                     id="Website"
-                                    name="Website"
+                                    name="website"
                                     type="text"
+                                    value={values.website}
+                                    onChange={setValue}
+                                    error={errors.website as string}
+                                    touched={touched.website as boolean}
+                                    handleBlur={handleBlur}
+                                    required={true}
                                     />       
                                 </Col>
                                 
@@ -184,7 +258,11 @@ export const PersonalInfoForm  = (props:iProps)=>{
                                       name="facebook"
                                       type="text"
                                       id="facebook"
-                                      icon={facebook}/>
+                                      icon={facebook}
+                                      value={values.facebook}
+                                      onChange={setValue}
+                                      required={false}
+                                      />
                                 </Col>
                                 <Col xs={12}>
                                     <InputWithIcon 
@@ -192,7 +270,11 @@ export const PersonalInfoForm  = (props:iProps)=>{
                                       name="twitter"
                                       type="text"
                                       id="twitter"
-                                      icon={twitter}/>
+                                      icon={twitter}
+                                      value={values.twitter}
+                                      onChange={setValue}
+                                      required={false}
+                                      />
                                 </Col>
                                 <Col xs={12}>
                                     <InputWithIcon 
@@ -200,7 +282,11 @@ export const PersonalInfoForm  = (props:iProps)=>{
                                       name="instagram"
                                       type="text"
                                       id="instagram"
-                                      icon={instagram}/>
+                                      icon={instagram}
+                                      value={values.instagram}
+                                      onChange={setValue}
+                                      required={false}
+                                      />
                                 </Col>
                                 <Col xs={12}>
                                     <InputWithIcon 
@@ -208,7 +294,11 @@ export const PersonalInfoForm  = (props:iProps)=>{
                                       name="youtube"
                                       type="text"
                                       id="youtube"
-                                      icon={youtube}/>
+                                      icon={youtube}
+                                      value={values.youtube}
+                                      onChange={setValue}
+                                      required={false}
+                                      />
                                 </Col>
                                 <Col xs={12}>
                                     <InputWithIcon 
@@ -216,7 +306,11 @@ export const PersonalInfoForm  = (props:iProps)=>{
                                       name="snapchat"
                                       type="text"
                                       id="snapchat"
-                                      icon={snapchat}/>
+                                      icon={snapchat}
+                                      value={values.snapchat}
+                                      onChange={setValue}
+                                      required={false}
+                                      />
                                 </Col>
                                 <Col xs={12}>
                                     <InputWithIcon 
@@ -224,7 +318,11 @@ export const PersonalInfoForm  = (props:iProps)=>{
                                       name="tiktok"
                                       type="text"
                                       id="tiktok"
-                                      icon={tiktok}/>
+                                      icon={tiktok}
+                                      value={values.tiktok}
+                                      onChange={setValue}
+                                      required={false}
+                                      />
                                 </Col>
                                 
 

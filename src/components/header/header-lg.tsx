@@ -9,7 +9,8 @@ import message from '../../images/home/message-icon.svg'
 import notification from '../../images/home/bell-icon-1.svg'
 import user from '../../images/auth/profile.svg'
 import {useTranslation} from 'react-i18next'
-export const HeaderLg =()=>{
+interface iProps {token?:{token:string,full_name:string}}
+export const HeaderLg =({token}:iProps)=>{
 const {t}=useTranslation()
     return (
         <Navbar className="navbarContainer d-none d-sm-block" expand="lg"
@@ -29,6 +30,7 @@ const {t}=useTranslation()
                                   name='search'
                                   type="text"
                                   className="searchInput"
+                                  required={false}
                                   />
                              </Col>
                          </Row>
@@ -49,7 +51,9 @@ const {t}=useTranslation()
                                  </div>
                              </Col>
                              <Col  sm={6} className=" d-none d-sm-flex align-items-center justify-content-between user">
-                                 <span>user_33892</span>
+                                 <span className="user_name text-nowrap">
+                                    {token?.full_name? token.full_name: 'user_33892'}
+                                </span>
                                  <img src={user} className="icon ml-1"/>
                              </Col>
                          </Row>

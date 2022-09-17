@@ -7,19 +7,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './i18n'
 import {BrowserRouter as Router} from 'react-router-dom'
 import SettingProvider from './components/tools/context/setting-context/setting-provider'
+import NotificationProvider from './components/tools/context/notification/notification-provider';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  
     <SettingProvider>
-      <Router>
-
-        <App />
-      </Router>
-
+      <NotificationProvider>
+        
+          <Router>
+            <App />
+          </Router>
+       
+      </NotificationProvider>
     </SettingProvider>
-  </React.StrictMode>
+
 );
 
 

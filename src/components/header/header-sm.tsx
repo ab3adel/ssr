@@ -13,8 +13,8 @@ import {List} from 'react-bootstrap-icons'
 import { useState ,useContext} from 'react'
 import {useTranslation} from 'react-i18next'
 import SettingContext from '../tools/context/setting-context/setting-context'
-
-export const HeaderSm = ()=>{
+interface iProps {token?:{token:string,full_name:string}}
+export const HeaderSm = ({token}:iProps)=>{
     const [openSearch ,setOpenSearch]=useState(false)
     const {setOpenSidebar,openSidebar} =useContext(SettingContext)
     const {t} =useTranslation()
@@ -24,7 +24,7 @@ export const HeaderSm = ()=>{
             <Container>
              
                 <Row className="gy-2">
-                    <Col xs={3}>
+                    <Col xs={2}>
                         <img src={instaLogo} className="logo"/>
                     </Col>
                     <Col xs={2}>
@@ -47,7 +47,14 @@ export const HeaderSm = ()=>{
                             <div className='dot'></div>
                         </div>
                     </Col>
-                    <Col xs={3}>
+                    <Col xs={2}
+                    className="user">
+                        <div className="iconContainer">
+                            <img src={user} className="icon"/>
+                        </div>
+                        <span>{token?.full_name? token.full_name:'user'}</span>
+                    </Col>
+                    <Col xs={2}>
                         <List className="logo" 
                         onClick={()=>setOpenSidebar(true)}/>
                     </Col>
@@ -60,6 +67,7 @@ export const HeaderSm = ()=>{
                                     name='search'
                                     type="text"
                                     className="searchInput"
+                                    required={false}
                                     />
                         </Collapse>
                     </Col>

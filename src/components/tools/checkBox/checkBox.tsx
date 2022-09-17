@@ -3,9 +3,9 @@ import check from '../../../images/check.svg'
 import './checkBox.scss'
 import {CheckSquare,Square} from 'react-bootstrap-icons'
 import { useState } from 'react'
+interface iProps {checked :boolean,setChecked:Function,label:string}
+export const CheckBox =({label,checked,setChecked}:iProps)=>{
 
-export const CheckBox =({label}:{label:string})=>{
-const [checked,setChecked]=useState(false)
 const handleChecked= ()=>{
     setChecked(!checked)
 }

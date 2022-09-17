@@ -17,13 +17,13 @@ interface iProps {
     handleBlur?:any,
     error?:string,
     touched?:boolean
-    type:string
-
+    ,type:string
+    required:boolean
 }
 export const InputWithIcon =({icon=null,label,className,id
                               ,name,onChange=()=>{}
                               ,handleBlur=()=>{},value=undefined
-                            ,error,touched,type}:iProps) =>{
+                            ,error,touched,type,required}:iProps) =>{
 const [tempValue,setValue]=useState('')
 const [isTyping,setIsTyping]=useState(false)
 const [showPassword,setShowPassword]=useState(false)
@@ -48,10 +48,19 @@ const handleChange=(e:React.ChangeEvent)=> {
 const handlePassword=()=>{
 setShowPassword(!showPassword)
 }
-
+useEffect(()=>{
+    if (Boolean(value)) {
+        setIsTyping(true)
+    }
+    else {
+        setIsTyping(false)
+    }
+    
+},[value])
     return (
         <Form.Group
             className={Boolean(error)&& touched? `mb-1 is_valid inputGroupWithIcon ${className}`:`mb-1 inputGroupWithIcon  ${className}`}
+            style={{padding:i18n.language === 'en'?'0.5em 2.9em 0.5em 0':'0.5em 0em 0.5em 2.9em'}}
             >
                 
                  <div className="inputLabel "
@@ -82,9 +91,13 @@ setShowPassword(!showPassword)
                 type={showPassword?'text':type}
                 style={{direction:i18n.language=='ar'?'rtl':'ltr'}}
                 onFocus={()=>setIsTyping(true)}
+                required={required}
                 
                 />
-                {(touched && error) &&(<Form.Control.Feedback>{error}</Form.Control.Feedback>)}
+                {(touched && error) &&(<Form.Control.Feedback
+                                       style={i18n.language==='en'?{left:'40%'}:{right:'40%'}}>
+                                                    {error}
+                                        </Form.Control.Feedback>)}
                 {
                     type=== 'password'&&
                     (

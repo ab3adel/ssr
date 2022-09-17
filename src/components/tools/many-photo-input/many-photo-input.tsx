@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
@@ -7,8 +7,22 @@ import upload from '../../../images/upload-icon.svg'
 import './many-input.scss'
 
 
-interface iProps {images:string[] ,setImages:Function}
-export const ManyPhotosInput =({images,setImages}:iProps)=>{
+interface iProps {
+    value:any,error?:any,
+    touched?:boolean,setValue:Function,
+    name:string,handleBlur?:any,
+    images:string[] ,setImages:Function
+}
+export const ManyPhotosInput =({
+                              images
+                              ,setImages
+                              ,value
+                              ,setValue
+                              ,name
+                              ,handleBlur
+                              ,error
+                              ,touched
+                               }:iProps)=>{
     
 
     const handleChange=(e:React.ChangeEvent)=>{
@@ -47,7 +61,10 @@ export const ManyPhotosInput =({images,setImages}:iProps)=>{
 
         }
     }
-
+useEffect(()=>{
+    let arr= [...images]
+    setValue(name,arr)
+},[images])
     return (
         <Row className="manyPhotosContainer gy-2 m-sm-0 m-1"
         onDragOver={handleDragOver}

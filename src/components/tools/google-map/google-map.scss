@@ -1,0 +1,25 @@
+.googleMapContainer {
+    max-width: 100vw;
+    max-height: 100vh;
+    .modal-dialog {
+        max-width: 50vw;
+        height: 589px;
+        .modal-content {
+            height: 100%;
+            .modal-header {
+                span {
+                    color:var(--dark-green);
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width:567px) {
+    .googleMapContainer {
+       
+        .modal-dialog {
+            max-width: 100vw;
+        }
+    }
+}

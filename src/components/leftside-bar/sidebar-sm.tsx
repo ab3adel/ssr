@@ -19,11 +19,11 @@ import Fade from 'react-bootstrap/Fade'
 import {useNavigate} from 'react-router-dom'
 import {useState,useContext} from 'react'
 import SettingContext from '../tools/context/setting-context/setting-context'
-
+interface iProps {token?:{token:string,full_name:string},removeToken:Function}
 
 let languages=[{title:"English",icon:UK},{title:'Arabic',icon:UK}]
 
-export const SidebarSm =()=>{
+export const SidebarSm =({token,removeToken}:iProps)=>{
     const {openSidebar,setOpenSidebar} = useContext(SettingContext)
     const {i18n,t} = useTranslation()
     const [selected,setSelected]=useState(0)
@@ -165,9 +165,9 @@ const handleLogin =()=>{
                                 </Col>
                                 <Col xs={9}>
                                 {
-                                    logedIn?
+                                    token?.token?
                                     <Button className="logoutBtn Btn"
-                                    onClick={()=>setLogedIn(false)}>
+                                    onClick={()=>removeToken()}>
                                         <img src={layer} />
                                         <span>
                                         {t("Logout")}

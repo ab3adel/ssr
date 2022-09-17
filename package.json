@@ -14,6 +14,7 @@
     "bootstrap": "^5.2.0",
     "bootstrap-icons": "^1.9.1",
     "formik": "^2.2.9",
+    "google-map-react": "^2.2.0",
     "i18next": "^21.9.1",
     "i18next-browser-languagedetector": "^6.1.5",
     "i18next-http-backend": "^1.4.1",
@@ -22,6 +23,7 @@
     "react-bootstrap-icons": "^1.8.4",
     "react-dom": "^18.2.0",
     "react-i18next": "^11.18.4",
+    "react-multi-select-component": "^4.3.3",
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -53,5 +55,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/google-map-react": "^2.1.7"
   }
 }

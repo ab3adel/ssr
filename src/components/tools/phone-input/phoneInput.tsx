@@ -13,9 +13,12 @@ interface iProps {
 export const PhoneInput =({phone,internationalCode,handleBlur
                          ,setValue,touched,phoneNumberError}:iProps)=>{
 const handleChange =(value: string, data: {} | CountryData, event: React.ChangeEvent<HTMLInputElement>, formattedValue: string): void=>{
-
-    let phone_numbers=[{phone:value,international_code:(data as CountryData).dialCode}]
+   
+    let phone_numbers=[{phone: value,international_code: (data as CountryData).dialCode}]
+    
    setValue('phone_numbers',phone_numbers)
+
+    
   
 }
 const blurHandler =(e:React.FocusEvent)=>{

@@ -1,6 +1,6 @@
 .photoInput {
     display: flex;
-
+    position: relative;
     .iconContainer {
         border-radius: 100%;
         background: var(--back-color);
@@ -49,9 +49,20 @@
             }
         }
     }
+    .iconContainer.is_invalid {
+        border: 0.5px solid red;
+    }
     .input {
         visibility: collapse;
         width: 1px;
 
+    }
+      .is_invalid {
+        color:red;
+        bottom:0;
+        left:1rem;
+        font-size: 0.8em;
+
+        
     }
 }

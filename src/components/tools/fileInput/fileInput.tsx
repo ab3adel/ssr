@@ -2,14 +2,31 @@ import './fileInput.scss'
 import Form from 'react-bootstrap/Form'
 import React, { useState } from 'react'
 import attachment from '../../../images/attachment-icon.svg'
-interface iProps {label:string}
-export const FileInput =({label}:iProps)=>{
+interface iProps {
+    value:any,error?:string,
+    touched?:boolean,setValue:Function,
+    name:string,handleBlur:any,label:string,fileName:{en:string,ar:string}
+}
+export const FileInput =({
+    label,
+    value,
+    error,
+    touched,
+    setValue,
+    name,
+    handleBlur,
+    fileName
+
+}:iProps)=>{
     const [showFile,setShowFile]=useState(false)
-const [value,setValue]=useState<File|null>(null)
+const [file,setFile]=useState<File|null>(null)
 const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
 let input= e.target
 if (input.files && input.files.length>0) {
-  setValue(input.files[0])
+  setFile(input.files[0])
+  let files= [...value]
+  files.push({file:input.files[0],name:fileName})
+  setValue(name,files)
     
 }
 }
@@ -41,8 +58,8 @@ const handleInput =(e:React.MouseEvent)=>{
                 <div className={'text'}
                  >
                     {
-                        value?
-                        value.name:
+                        file?
+                        file.name:
                          label
                     }
                 </div>
@@ -52,6 +69,7 @@ const handleInput =(e:React.MouseEvent)=>{
              id ="fileInput"
              type="file"
              onChange={handleChange}
+             isInvalid={Boolean(error)}
             />
           
         </div>

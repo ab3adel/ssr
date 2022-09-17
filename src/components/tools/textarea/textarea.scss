@@ -1,8 +1,16 @@
 
 
 .textareaContainer {
+    position: relative;
     .input {
         width:100%;
         resize: none;
+    }
+    .invalid {
+        color:red;
+        font-size: 0.8em;
+        position: absolute;
+        bottom:0;
+        left:1rem
     }
 }

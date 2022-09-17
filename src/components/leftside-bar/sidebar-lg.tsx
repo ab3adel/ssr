@@ -10,16 +10,16 @@ import instaLogo from '../../images/instaaqarlogo.svg'
 import news from '../../images/home/newsfeed-icon.svg'
 import layer from '../../images/home/layer-icon.svg'
 import Button from 'react-bootstrap/Button'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Select} from '../tools/select-with-image/select'
 import UK from '../../images/auth/Uk.svg'
 import {useTranslation} from 'react-i18next'
 import i18n from '../../i18n'
 import {useNavigate} from 'react-router-dom'
 let languages=[{title:"English",icon:UK},{title:'Arabic',icon:UK}]
+interface iProps {token?:{token:string,full_name:string},removeToken:Function}
 
-
-export const SidebarLg =()=>{
+export const SidebarLg =({token,removeToken}:iProps)=>{
     const {i18n,t} = useTranslation()
     const [selected,setSelected]=useState(0)
     const [logedIn ,setLogedIn]=useState(false)
@@ -56,6 +56,7 @@ export const SidebarLg =()=>{
         }
         
     }
+ 
     return (
         <Row className="sidebarContainer flex-column gy-1 p-1 d-none d-sm-flex">
             
@@ -66,7 +67,7 @@ export const SidebarLg =()=>{
             <Row className="flex-column justify-content-between flex-grow-1 ">
                 
                 <Col xs={12}>
-                    <Row  className="gy-2"> 
+                    <Row  className="gy-1"> 
                         <Col xs={10} 
                         onClick={()=>hanldeRoutes(0)}
                         >
@@ -173,9 +174,9 @@ export const SidebarLg =()=>{
                     </Col>
                     <Col xs={9}>
                  {
-                        logedIn?
+                        token?.token?
                         <Button className="logoutBtn Btn"
-                        onClick={()=>setLogedIn(false)}>
+                        onClick={()=>removeToken()}>
                             <img src={layer} />
                             <span>
                                 {t("Logout")}

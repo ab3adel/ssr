@@ -5,7 +5,7 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    padding:0.5em 2.9em 0.5em 2em ;
+    padding:0.5em 2.9em 0.5em 0 ;
     border:1px solid rgb(165, 157, 157,0.4);
     &:focus {
        
@@ -22,7 +22,7 @@
         display: flex;
         z-index: 1;
         color:rgb(131, 126, 126,0.4);
-     
+        background-color: white;
         align-items: center;
 
 
@@ -51,6 +51,7 @@
         position:absolute;
         bottom:0%;
         z-index: 4;
+        left:40%
     }
     .passwordIcon {
         width:30px;

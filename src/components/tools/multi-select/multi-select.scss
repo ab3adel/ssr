@@ -1,0 +1,58 @@
+.myMultiSelectContainer {
+    position: relative;
+    max-height: 60px;
+    .rmsc.myMultiSelect {
+        position: relative;
+        min-height: 60px;
+        .dropdown-container {
+            max-height:60px ;
+            height: 60px;
+            border-radius: 10px;
+           
+            border:1px solid #ced4da;
+            
+            .dropdown-heading {
+                .dropdown-heading-value {
+                    span {
+                        color:rgba(139, 135, 135, 0.4);
+                    }
+                }
+              svg {
+                visibility: hidden;
+              }
+            }
+        }
+        .dropdown-content {
+            z-index: 3;
+        }
+    }
+    .rmsc.myMultiSelect.selected {
+        .dropdown-container{
+            .dropdown-heading{
+                .dropdown-heading-value {
+                    span {
+                        color:black;
+                    }
+                }
+            }
+        }
+    }
+
+}
+.myMultiSelectContainer.invalid {
+    .rmsc.myMultiSelect {
+        .dropdown-container {
+            border:1px solid red;
+        }
+
+      
+    }
+    .invalid {
+        color: red;
+        bottom: 0;
+        left:1rem;
+        font-size: 0.8em;
+        position: absolute;
+        
+    }
+}

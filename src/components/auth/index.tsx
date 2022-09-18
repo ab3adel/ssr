@@ -5,16 +5,19 @@ import SignUp from './signup/signup'
 import {Select} from '../tools/select-with-image/select'
 import instaLogo from '../../images/instaaqarlogo.svg'
 import UK from '../../images/auth/Uk.svg'
+import Arabic from '../../images/auth/arabia.svg'
 import './auth.scss'
 import {useState} from 'react'
 import Login from './login/login'
 import Guest from './guest'
 import {useTranslation} from 'react-i18next'
-let languages=[{title:"English",icon:UK},{title:'Arabic',icon:UK}]
+import {useNavigate} from 'react-router-dom'
+let languages=[{title:"English",icon:UK},{title:'Arabic',icon:Arabic}]
 const LoginCard = () =>{
     const [guest,setGuest]=useState(false)
     const [login,setLogin]=useState(true)
     const {t,i18n} =useTranslation()
+    const navigate = useNavigate()
     const handleLanguage=(index:number)=>{
        if (index === 0) {
         localStorage.setItem('lang','en')
@@ -50,8 +53,11 @@ const LoginCard = () =>{
                             <Col xs={12}>
                                 <Row className="p-1">
 
-                                    <Col xs={6} className="d-flex d-sm-bolck align-items-center">
-                                        <img src={instaLogo}  className="logo"/>
+                                    <Col xs={6} 
+                                    className="d-flex d-sm-bolck align-items-center"
+                                    onClick={()=>navigate('/')}
+                                    style={{cursor:'pointer'}}>
+                                        <img src={instaLogo}  className="logo "/>
                                     </Col>
                                     <Col xs={6} className="d-sm-flex justify-content-end">
                                         <Select 

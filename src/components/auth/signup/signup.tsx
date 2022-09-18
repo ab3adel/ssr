@@ -154,7 +154,7 @@ else {
   if (predefined_post_pictures && predefined_post_pictures.length >0 ) {
     
     predefined_post_pictures.forEach((ele,index)=>formdata.append(`predefined_post_pictures[${index}]`
-                                                                   ,JSON.stringify(ele) ))
+                                                                   ,ele ))
   }
   if (files && files.length >0) {
   
@@ -335,7 +335,7 @@ setIsLoading(true)
     }
   }, [btn]);
 
-
+console.log(formik.values)
   return (
     <Row className="signUpContainer gy-3">
       <Col xs={12}>

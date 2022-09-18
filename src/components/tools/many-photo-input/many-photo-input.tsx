@@ -33,9 +33,13 @@ export const ManyPhotosInput =({
         }
         if (file) {
             let arr= [...images]
+            let files_arr= [...value]
+            files_arr.push(file)
             let objUrl = URL.createObjectURL(file)
             arr.push(objUrl)
+            setValue(name,files_arr)
             setImages(arr)
+            
         }
    
     }
@@ -54,17 +58,16 @@ export const ManyPhotosInput =({
             let file= e.dataTransfer.files[0]
             if (file) {
                 let arr= [...images]
+                let files_arr= [...value]
                 let objUrl = URL.createObjectURL(file)
                 arr.push(objUrl)
+                setValue(name,files_arr)
                 setImages(arr)
             }
 
         }
     }
-useEffect(()=>{
-    let arr= [...images]
-    setValue(name,arr)
-},[images])
+
     return (
         <Row className="manyPhotosContainer gy-2 m-sm-0 m-1"
         onDragOver={handleDragOver}

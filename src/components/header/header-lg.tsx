@@ -20,7 +20,7 @@ const {t}=useTranslation()
              
                  <Row className="navbarRow">
                     
-                     <Col sm={9} xs={10}>
+                     <Col sm={8} xs={10}>
                          <Row >
                              <Col sm={6} xs={12}>
                                  <InputWithIcon
@@ -36,8 +36,8 @@ const {t}=useTranslation()
                          </Row>
                      </Col>
                     
-                     <Col sm={3} xs={2} className=" d-sm-flex align-items-center justify-content-center">
-                         <Row className="">
+                     <Col sm={4} xs={2} className=" d-sm-flex align-items-center justify-content-center">
+                         <Row className="pr-1">
                              <Col sm={3} xs={6}>
                                  <div className="iconContainer">
                                      <div className="dot"></div>

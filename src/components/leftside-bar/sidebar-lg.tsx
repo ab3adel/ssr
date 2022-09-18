@@ -14,9 +14,9 @@ import {useEffect, useState} from 'react'
 import {Select} from '../tools/select-with-image/select'
 import UK from '../../images/auth/Uk.svg'
 import {useTranslation} from 'react-i18next'
-import i18n from '../../i18n'
+import Arabic from '../../images/auth/arabia.svg'
 import {useNavigate} from 'react-router-dom'
-let languages=[{title:"English",icon:UK},{title:'Arabic',icon:UK}]
+let languages=[{title:"English",icon:UK},{title:'Arabic',icon:Arabic}]
 interface iProps {token?:{token:string,full_name:string},removeToken:Function}
 
 export const SidebarLg =({token,removeToken}:iProps)=>{

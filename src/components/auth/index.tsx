@@ -62,7 +62,9 @@ const LoginCard = () =>{
                                     <Col xs={6} className="d-sm-flex justify-content-end">
                                         <Select 
                                         options={languages}
-                                        onChange={handleLanguage}/>
+                                        onChange={handleLanguage}
+                                        lang={i18n.language}
+                                        />
                                     </Col>
                                 </Row>
                             </Col>

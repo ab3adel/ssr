@@ -3,9 +3,9 @@ import './select.scss'
 import Dropdown from 'react-bootstrap/Dropdown'
 import React, { useState } from 'react'
 interface iEle {title:string,icon?:string}
-interface iProps {options:iEle [],onChange?:Function}
-export const Select=({options,onChange}:iProps)=>{
-    const [selected,setSelected]=useState(0)
+interface iProps {options:iEle [],onChange?:Function,lang?:string}
+export const Select=({options,onChange,lang}:iProps)=>{
+    const [selected,setSelected]=useState(lang==='ar'?1:0)
     const handleClick=(index:number)=>{
         setSelected(index)
         if (typeof(onChange) !== 'undefined'){

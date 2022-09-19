@@ -160,6 +160,7 @@ const handleLogin =()=>{
                                     <Select 
                                     options={languages}
                                     onChange={handleLanguage}
+                                    lang={i18n.language}
                                     />
 
                                 </Col>

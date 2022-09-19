@@ -57,6 +57,7 @@ export const SidebarLg =({token,removeToken}:iProps)=>{
         
     }
  
+ 
     return (
         <Row className="sidebarContainer flex-column gy-1 p-1 d-none d-sm-flex">
             
@@ -74,9 +75,7 @@ export const SidebarLg =({token,removeToken}:iProps)=>{
                             <div 
                             className={selected === 0? "item focused":"item "}
                             >
-
-                                <img src={home} className="icon"/>
-                                
+                                <img src={home} className="icon"/> 
                                 <span>{t("Home")}</span>
                                 <div className="empty"></div>
                             </div>
@@ -169,6 +168,7 @@ export const SidebarLg =({token,removeToken}:iProps)=>{
                          <Select 
                         options={languages}
                         onChange={handleLanguage}
+                        lang={i18n.language}
                         />
 
                     </Col>

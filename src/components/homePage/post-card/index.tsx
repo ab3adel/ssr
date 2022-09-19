@@ -63,7 +63,6 @@ export const PostCard =()=>{
                             <Row className="justify-content-between">
                                 <Col xs={10} sm={5}>
                                     <Row>
-
                                         <Col xs={4}>
                                             <img src={profile} className="profile"/>
                                         </Col>
@@ -82,7 +81,6 @@ export const PostCard =()=>{
                                             </Col>
                                         </Col>
                                     </Row>
-
                                 </Col>
                                 <Col xs={2} className="options">
                                     <ThreeDotsVertical className='icon' />

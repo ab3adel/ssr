@@ -33,8 +33,11 @@ export const RequiredFilesForm =(
 }:iProps)=>{
     const {t,i18n}=useTranslation()
 const [images,setImages]=useState([])
-const deleteImage=(num:number)=>{
+const deleteImage=(num:number,img:string)=>{
+   
     let arr =[...images].filter((ele,index)=>index !== num)
+    let predefined_post_pictures_arr=values.predefined_post_pictures?.filter((ele,index)=> index !== num)
+    setValue('predefined_post_pictures',predefined_post_pictures_arr)
     setImages(arr)
 }
 
@@ -107,7 +110,7 @@ const deleteImage=(num:number)=>{
                                     <Col xs={4} key={index}
                                     className='uploadedImageContainer'>
                                         <div className="deleteIcon"
-                                        onClick={()=>deleteImage(index)}>
+                                        onClick={()=>deleteImage(index,ele)}>
                                             <img src={Delete} 
                                         />
                                         </div>

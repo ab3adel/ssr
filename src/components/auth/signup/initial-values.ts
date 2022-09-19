@@ -1,4 +1,4 @@
-import { number } from "yup"
+
 interface iPhonNumbers {phone:string ,international_code:string }
 interface iFile {name:{ar:string,en:string},file:string}
 export interface iDescriptionError {ar?:string,en?:string}

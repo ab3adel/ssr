@@ -51,7 +51,7 @@ const formik =useFormik({
         formdata.append('email',formik.values.email)
         formdata.append('password',formik.values.password)
         axios.post(apis.login,formdata)
-             .then(res=>{
+             .then((res:any)=>{
                
                 if (res && res.data) {
                     setNotify((pre: any) => ({
@@ -60,12 +60,13 @@ const formik =useFormik({
                         type: true,
                         message: res.data.message,
                       }));
+                      navigate('/')
                       localStorage.setItem('token',JSON.stringify({token:res.data.payload.token,full_name:res.data.payload.full_name}))
                       if (checked) {
                         rememberMe(res.data.payload.token)
                       }
                       formik.resetForm()
-                      navigate('/')
+                    
                 }
              })
              .catch(err=>{

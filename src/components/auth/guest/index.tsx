@@ -62,6 +62,7 @@ axios.post('https://geolocation-db.com/json/')
 const addGuest= ()=>{
     myAxios.post(apis.addGuest,formik.values)
           .then(res=>{
+            localStorage.setItem('token',JSON.stringify({token:null,full_name:'Guest'}))
             setNotify((pre:any)=>({...pre,message:res.data.message,type:true,show:true}))
             formik.resetForm()
             navigate('/')

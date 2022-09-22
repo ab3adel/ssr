@@ -3,7 +3,7 @@ import SettingContext from './setting-context'
 import {useState} from 'react'
 
 const SettingProvider =(props:any)=>{
-    const [openSidebar,setOpenSidebar]=useState(true)
+    const [openSidebar,setOpenSidebar]=useState(false)
     return (
         <SettingContext.Provider
         value={

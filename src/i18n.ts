@@ -5,11 +5,11 @@ import Backend from 'i18next-http-backend'
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
-let lang='en'
+let lang='ar'
 if (localStorage.getItem('lang')) {
   lang=localStorage.getItem('lang') as string
 }
-console.log(lang)
+
 i18n
 .use(Backend)
 .use(initReactI18next)

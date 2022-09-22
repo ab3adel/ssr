@@ -2,7 +2,8 @@
    background-color: #FBFBFB;
    overflow-y: scroll;
    max-height: 100vh;
-   padding: 1em 1em 3em 1em;
+   padding:1em 1em 3em 1em;
+   display: block;
    .noDataContainer {
     display: flex;
     align-items: center;

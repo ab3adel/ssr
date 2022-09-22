@@ -1,17 +1,46 @@
 .sidebarContainer {
     min-height: 100vh;
+    background-color: white;
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
     .logoContainer {
         height: fit-content;
+      
+        padding:1em 0.5em 1em 1em;
+        .logoWithName {
+            width:93px;
+            height: 47px;
+        }
         .logo {
-            width:129px;
-            height: 65px;
+            width:40px;
+            height: 40px;
+        }
+        
+     
+        .collapseBtn {
+            width:16px;
+            height: 16px;
+            transition: all .3s ease-in-out;
+        -webkit-transition: all .3s ease-in-out;
+            cursor: pointer;
+        }
+        .open {
+            transform: rotateZ(180deg);
+            
         }
     }
     .sidebarItems {
         padding:1em 0.5em 0em 1em;
         flex: 1;
         display: flex;
-        background-color: #FBFBFB;
+        overflow: hidden;
+        transition: all .3s ease-in;
+        justify-content: space-between;
+        flex-direction: column;
+        .variableWidth {
+            width: 100%;
+            transition: all .3s ease-in-out;
+        }
         .iconContainer {
             position: relative;
     
@@ -55,17 +84,37 @@
             background-color: var(--dark-green);  
             color:white;
             font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .plus {
+                width:18.75px;
+                height: 18.75px;
+                background-color: white;
+                font-weight: bolder;
+                font-size: 1.2em;
+                color:var(--dark-green);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin:0 5px;
+            }
         }
+
+        
         .item {
             transition: all .2s linear;
             border-radius: 10px;
             display: flex;
             align-items: center;
-            padding: 10px 0 10px 10px;
+            padding: 10px;
+            overflow: hidden;
             span {
-                transition: all .4s ease-in;
+                transition: all .4s ease-in-out;
                 margin:0 2px 0 1em ;
                 white-space: nowrap;
+                overflow: hidden;
                 
             }
             cursor: pointer;
@@ -177,6 +226,7 @@
             display: flex;
             align-items: center;
             padding: 10px 0 10px 10px;
+            overflow: hidden;
             span {
                 transition: all .4s ease-in;
                 margin:0 2px 0 1em ;

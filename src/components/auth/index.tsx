@@ -7,7 +7,7 @@ import instaLogo from '../../images/instaaqarlogo.svg'
 import UK from '../../images/auth/Uk.svg'
 import Arabic from '../../images/auth/arabia.svg'
 import './auth.scss'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Login from './login/login'
 import Guest from './guest'
 import {useTranslation} from 'react-i18next'
@@ -17,6 +17,7 @@ const LoginCard = () =>{
     const [guest,setGuest]=useState(false)
     const [login,setLogin]=useState(true)
     const {t,i18n} =useTranslation()
+    const [navigateToHome,setNavigateToHome]=useState(false)
     const navigate = useNavigate()
     const handleLanguage=(index:number)=>{
        if (index === 0) {
@@ -29,7 +30,15 @@ const LoginCard = () =>{
         i18n.changeLanguage('ar')
        }
     }
-
+    const homeNavigatieon =()=>{
+        if (!navigateToHome) return
+        navigate('/')
+    }
+useEffect(()=>{
+    if (localStorage.getItem('token')){
+        setNavigateToHome(true)
+    }
+})
     return (
         <Container
         fluid
@@ -55,7 +64,7 @@ const LoginCard = () =>{
 
                                     <Col xs={6} 
                                     className="d-flex d-sm-bolck align-items-center"
-                                    onClick={()=>navigate('/')}
+                                    onClick={()=>homeNavigatieon()}
                                     style={{cursor:'pointer'}}>
                                         <img src={instaLogo}  className="logo "/>
                                     </Col>

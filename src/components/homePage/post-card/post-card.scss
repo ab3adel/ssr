@@ -31,10 +31,25 @@
                 display: flex;
                 align-items: center;
                 cursor: pointer;
-                .icon {
-                   width: 30px;
-                   height: 31px;
-                   transition: all .3s ease-in-out;
+                .dropdown {
+                    background-color: transparent;
+                    
+                    .dropdown-toggle {
+                            background-color: transparent;
+                            border:none;
+                            color:inherit;
+                           &::after {
+                            display: none;
+                           }
+                            .icon {
+                               width: 30px;
+                               height: 31px;
+                               transition: all .3s ease-in-out;
+                         
+                            }
+                        
+                    }
+
                 }
                
             }
@@ -59,69 +74,7 @@
             }
         }
         .card-body {
-            .imgsGalery {
-                position: relative;
-                background-size: cover;
-                background: url('../../../images/home/image1.png');
-                height: 348px;
-                border-radius: 10px;
-                .price {
-                    position: absolute;
-                    left:1rem;
-                    top:1rem;
-                    background-color: white;
-                    color:var(--dark-green);
-                    font-weight: bold;
-                    border-radius: 5px;
-                    display: flex;
-                    align-items: center;
-                    padding: 5px;
-                    justify-content: center;
-                    span {
-                        margin:0 2px;
-                    }
-                }
-                .icon {
-                    width:43px;
-                    height: 44px;
-                    position: absolute;
-                    z-index: 1;
-                    cursor: pointer;
-                    &:hover ,&:focus{
-                        
-                        animation: resize  ease-in-out  1 forwards ;
-                        
-                    }
-                    
-                }
-                .left {
-                    top:50%;
-                    left:1rem;
-                    
-                }
-                .right {
-                    top:50%;
-                    right: 1rem;
-                }
-                .dots {
-                    position: absolute;
-                    bottom: 1rem;
-                    left: 20%;
-                    right: 20%;
-                    display: flex;
-                    justify-content: space-evenly;
-                    span {
-                        width:13px;
-                        height: 12px;
-                        border-radius: 100%;
-                        background-color: white;
-                    }
-                    .selected {
-                        background-color: var(--light-green);
-                    }
-                }
-
-            }
+           
             .badge {
                 background-color: var(--back-color);
                 color:black;

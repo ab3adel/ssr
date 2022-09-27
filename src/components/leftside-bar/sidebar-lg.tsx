@@ -15,9 +15,10 @@ import {useEffect, useState} from 'react'
 import {Select} from '../tools/select-with-image/select'
 import UK from '../../images/auth/Uk.svg'
 import {useTranslation} from 'react-i18next'
-import Arabic from '../../images/auth/arabia.svg'
+import Arabic from '../../images/auth/kw.svg'
 import {useNavigate} from 'react-router-dom'
-import collapse from '../../images/home/collabse.svg'
+import collapse from '../../images/home/collapse.svg'
+import show from '../../images/home/show.svg'
 let languages=[{title:"English",icon:UK},{title:'Arabic',icon:Arabic}]
 interface iProps {
     token?:{token:string,full_name:string}
@@ -98,8 +99,9 @@ export const SidebarLg =(
                     <Col xs={3}
                     onClick={()=>setCollapsed(!collapsed)}
                     className="d-flex justify-content-center align-items-center">
-                        <img src={collapse} 
+                        <img src={i18n.language==='en' ?show :collapse} 
                             className={collapsed? "collapseBtn open":"collapseBtn" }
+                            
                         />
                     </Col>
 

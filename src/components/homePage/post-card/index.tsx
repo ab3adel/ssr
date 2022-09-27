@@ -6,16 +6,16 @@ import valid from '../../../images/home/valid-account-icon.svg'
 import location from '../../../images/home/location-icon.svg'
 import profile from '../../../images/home/icon-profile.svg'
 import building from '../../../images/home/building-icon.svg'
-import leftArrow from '../../../images/home/left-arrow-icon.svg'
-import rightArrow from '../../../images/home/right-arrow-icon.svg'
+
 import share from '../../../images/home/share-icon.svg'
 import heartFilled from '../../../images/home/heart-icon.svg'
 import heart from '../../../images/home/heart-filled-icon.svg'
-import Fade from 'react-bootstrap/Fade'
+
 import direction from '../../../images/home/direction-icon.svg'
 import area from '../../../images/home/area-icon.svg'
 import amenities from '../../../images/home/amenities-icon.svg'
 import room from '../../../images/home/room-icon.svg'
+import Dropdown from 'react-bootstrap/Dropdown'
 import {ThreeDotsVertical} from 'react-bootstrap-icons'
 import image1 from '../../../images/home/image1.png'
 import image2 from '../../../images/home/image2.png'
@@ -23,33 +23,20 @@ import image3 from '../../../images/home/image3.png'
 import image4 from '../../../images/home/image4.png'
 import {useEffect, useState,useRef} from 'react'
 import {useTranslation} from 'react-i18next'
-import {useHide} from '../../tools/use-hide'
+import {ImagesGallery} from '../../tools/imgs-gallery/imgs-gallery'
+import {useNavigate} from 'react-router-dom'
 let images=[image1,image2,image3,image4]
 export const PostCard =()=>{
-    const [currentImage,setCurrentImage]=useState(0)
+
     const [fullImage,setFullImage]=useState(false)
     const [react,setReact]=useState(false)
-    const {i18n} = useTranslation()
-    const {ref,hide,handleShow} =useHide()
-
-    const fef =useRef()
+    const {i18n,t} = useTranslation()
  
-    const nextImage=(str:string)=>{
-       if (hide){
+    const navigate= useNavigate()
 
-           if (str==='left') {
-               if (currentImage === 0) return
-               let index =currentImage -1
-               setCurrentImage(index)
-           }
-           else {
-               
-               if (currentImage === images.length-1) return
-               let index =currentImage + 1
-               setCurrentImage(index)
-           }
-       }
-    }
+
+ 
+  
     const handelReact =()=>{
         setReact(!react)
     }
@@ -83,7 +70,25 @@ export const PostCard =()=>{
                                     </Row>
                                 </Col>
                                 <Col xs={2} className="options">
-                                    <ThreeDotsVertical className='icon' />
+                                   
+                                    <Dropdown>
+                                        <Dropdown.Toggle  id="dropdown-basic">
+                                           <ThreeDotsVertical className='icon' />
+                                        </Dropdown.Toggle>
+
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item onClick={()=>navigate('/postdetails/1')}>
+                                                Details
+                                            </Dropdown.Item>
+                                            <Dropdown.Item>
+                                                Report
+                                            </Dropdown.Item>
+                                            <Dropdown.Item>
+                                                Hide
+                                            </Dropdown.Item>
+                                           
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </Col>
                             </Row>
                         </Col>
@@ -113,37 +118,10 @@ export const PostCard =()=>{
                 <Card.Body>
                     <Row className='gy-1'>
                         <Col xs={12} className="p-0 p-sm-1">
-
-                            <div className="imgsGalery"
-                            style={{background:`url(${images[currentImage]})`}}
-                            onClick={handleShow}
-                            ref={ref}
-                           >
-                                <div className="price">
-                                    <span>6999</span>
-                                    <span>Kwd / month</span>
-                                </div>
-                                <Fade in={hide}>
-
-                                    <img src={leftArrow} className="icon left" 
-                                    onClick={()=>nextImage(i18n.language === 'en'?'left':'right')}/>
-                                </Fade>
-                                <Fade in={hide}>
-                                    <img src={rightArrow} className="icon right" 
-                                    onClick={()=>nextImage(i18n.language === 'en'?'right':'left')}/>
-                                 </Fade>
-                                <div className="dots">
-                               
-                                    {
-                                        images.map((ele,index:number)=>
-                                        <span key={index}
-                                        className={index === currentImage ? 'selected':''}
-                                        >.
-                                        </span>
-                                        )
-                                    }
-                                </div>    
-                            </div>
+                           <ImagesGallery 
+                            images={images}
+                            price={6999}
+                            />
                         </Col>
                         <Col xs={12}>
                             <Row className='justify-content-between'>

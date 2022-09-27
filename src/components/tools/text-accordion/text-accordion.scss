@@ -1,0 +1,33 @@
+.textAccordion {
+   
+    .text {
+        transition: max-height .4s  ease-in-out;
+        overflow: hidden;
+        height: fit-content;
+       
+    }
+    .textRistrected {
+        max-height: 150px;
+        
+    }
+    .textExpanded {
+        max-height: 500px;
+        
+    }
+    .btn {
+       
+        color:var(--light-green);
+        .icon {
+            transition: .4s all ease-in-out;
+        }
+        .up {
+            transform: rotateZ(180deg);
+        }
+        .down {
+            transform: rotateZ(0deg);
+        }
+    }
+}
+.textAccordion.expand {
+    max-height: fit-content;
+}

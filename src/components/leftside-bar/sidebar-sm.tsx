@@ -12,6 +12,7 @@ import layer from '../../images/home/layer-icon.svg'
 import Button from 'react-bootstrap/Button'
 import {Select} from '../tools/select-with-image/select'
 import UK from '../../images/auth/Uk.svg'
+import kw from '../../images/auth/kw.svg'
 import {useTranslation} from 'react-i18next'
 import i18n from '../../i18n'
 import Collapse from 'react-bootstrap/Collapse'
@@ -21,7 +22,7 @@ import {useState,useContext} from 'react'
 import SettingContext from '../tools/context/setting-context/setting-context'
 interface iProps {token?:{token:string,full_name:string},removeToken:Function}
 
-let languages=[{title:"English",icon:UK},{title:'Arabic',icon:UK}]
+let languages=[{title:"English",icon:UK},{title:'Arabic',icon:kw}]
 
 export const SidebarSm =({token,removeToken}:iProps)=>{
     const {openSidebar,setOpenSidebar} = useContext(SettingContext)
@@ -45,6 +46,22 @@ const handleLogin =()=>{
     navigate('/auth')
 
 }
+const handleRoutes= (num:number)=>{
+    setOpenSidebar(false)
+    switch(num) {
+        case 0:
+            navigate('/')
+            break;
+        case 1 :
+            navigate('/news')
+            break;
+        default :
+            navigate('/')
+
+
+    }
+    
+}
      return (
          <Fade in={openSidebar} >
             <Row 
@@ -60,7 +77,7 @@ const handleLogin =()=>{
                             <Col xs={12}>
                                 <Row  className="gy-2"> 
                                     <Col xs={10} 
-                                    onClick={()=>setSelected(0)}
+                                    onClick={()=>handleRoutes(0)}
                                     >
                                         <div 
                                         className={selected === 0? "item focused":"item "}
@@ -74,7 +91,7 @@ const handleLogin =()=>{
                                         
                                     </Col>
                                     <Col xs={10} 
-                                    onClick={()=>setSelected(1)}
+                                    onClick={()=>handleRoutes(1)}
                                     >
                                         <div 
                                         className={selected === 1? "item focused":"item "}
@@ -87,7 +104,7 @@ const handleLogin =()=>{
                             
                                     </Col>
                                     <Col xs={10} 
-                                    onClick={()=>setSelected(2)}
+                                    onClick={()=>handleRoutes(2)}
                                     >
                                         <div
                                             className={selected === 2? "item focused":"item "}
@@ -100,7 +117,7 @@ const handleLogin =()=>{
                                         
                                     </Col>
                                     <Col xs={10} 
-                                    onClick={()=>setSelected(3)}>
+                                    onClick={()=>handleRoutes(3)}>
                                         <div className={selected === 3? "item focused":"item "}>
 
                                             <img src={profile} className="icon" />
@@ -111,7 +128,7 @@ const handleLogin =()=>{
                                         
                                     </Col>
                                     <Col xs={10} 
-                                    onClick={()=>setSelected(4)}>
+                                    onClick={()=>handleRoutes(4)}>
                                         <div className={selected === 4? "item focused":"item "}>
 
                                             <div className="iconContainer">
@@ -126,7 +143,7 @@ const handleLogin =()=>{
                                         
                                     </Col>
                                     <Col xs={10} 
-                                    onClick={()=>setSelected(5)}>
+                                    onClick={()=>handleRoutes(5)}>
                                         <div className={selected === 5? "item focused":"item "}>
 
                                             <div className="iconContainer">
@@ -140,7 +157,7 @@ const handleLogin =()=>{
                                     
                                     </Col>
                                     <Col xs={10} 
-                                    onClick={()=>setSelected(6)}>
+                                    onClick={()=>handleRoutes(6)}>
                                         <div className={selected === 6? "item focused":"item "}>
 
                                             <img src={about} className="icon"  />

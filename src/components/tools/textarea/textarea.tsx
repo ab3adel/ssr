@@ -2,17 +2,13 @@ import './textarea.scss'
 import Input from 'react-bootstrap/Form'
 import {useTranslation} from 'react-i18next'
 import React from 'react'
-import { ConeStriped } from 'react-bootstrap-icons'
-interface iProps {
-    value:any,error?:any,
-    touched?:boolean,setValue:Function,
-    name:string,handleBlur:any
-}
+import {iText} from '../interface'
+
 export const Textarea =({
     value,error,touched,
     setValue,name,handleBlur
 
-}:iProps)=>{
+}:iText)=>{
 const {t,i18n}= useTranslation()
 const handleChange=(e:React.ChangeEvent)=>{
     let input = e.target as HTMLInputElement

@@ -55,6 +55,9 @@ const handleRoutes= (num:number)=>{
         case 1 :
             navigate('/news')
             break;
+        case 7 :
+            navigate('/addpost')
+            break;  
         default :
             navigate('/')
 
@@ -165,7 +168,8 @@ const handleRoutes= (num:number)=>{
                                         </div>
                                     </Col>
                                     <Col xs={10}>
-                                        <Button className='postBtn Btn'>
+                                        <Button className='postBtn Btn'
+                                              onClick={()=>handleRoutes(7)}>
                                         {t("PostProperty")}
                                         </Button>
                                     </Col>

@@ -25,7 +25,13 @@ interface iProps {
     ,removeToken:Function,collapsed:boolean
     ,setCollapsed:Function
 }
-
+let mainCol_xl=12
+let mainCol_lg=12
+let logoMainCol=12   
+let col_xl=10
+let col_lg=12
+let collapseBtnClass=''
+let openBtnClass="open"
 export const SidebarLg =(
     {
         token
@@ -64,6 +70,9 @@ export const SidebarLg =(
             case 1 :
                 navigate('/news')
                 break;
+            case 7 :
+                navigate('/addpost')
+                break;    
             default :
                 navigate('/')
 
@@ -75,48 +84,58 @@ export const SidebarLg =(
     const handleCollapse =()=>{
 
     }
- let mainCol=12
- let logoMainCol=12   
- let col=10
- if (collapsed) {
-    col=12
-    mainCol=10
-    logoMainCol=12
- }
+    useEffect(()=>{
+        if(i18n.language === 'ar') {
+            collapseBtnClass="arOpen"
+            openBtnClass="arClose"
+
+        }
+    },[i18n.language])
+useEffect(()=>{
+    if (collapsed) {
+        col_xl=12
+        col_lg=12
+        mainCol_lg=12
+        mainCol_xl=10
+        logoMainCol=12
+     }
+},[collapsed])
+if(i18n.language === 'ar') {
+    collapseBtnClass="arOpen"
+    openBtnClass="arClose"
+
+}
     return (
         <Row className="sidebarContainer flex-column gy-1 p-1 d-none d-sm-flex">
             
             <Col xs={logoMainCol} className="logoContainer ">
                 <Row>
-                    <Col xs={9}
-                    className="d-flex">
+                    <Col xs={9} 
+                    className="d-flex ">
                         
                          <img src={collapsed?  logo:instaLogo} 
                          className= {collapsed? "logo" :'logoWithName'}
                          />
                          
                     </Col>
-                    <Col xs={3}
+                    <Col xs={3} 
                     onClick={()=>setCollapsed(!collapsed)}
-                    className="d-flex justify-content-center align-items-center">
-                        <img src={i18n.language==='en' ?show :collapse} 
-                            className={collapsed? "collapseBtn open":"collapseBtn" }
+                    className="d-flex justify-content-center align-items-center p-md-0 p-sm-auto">
+                        <img src={show} 
+                            className={collapsed? `collapseBtn ${openBtnClass}`:`collapseBtn ${collapseBtnClass}` }
                             
                         />
                     </Col>
 
                 </Row>
             </Col>
-        <Col xs={mainCol} className="sidebarItems"
-          
+        <Col xl={mainCol_xl} lg={mainCol_lg} className="sidebarItems" 
         >
-          
-                
-                <Col xs={mainCol}>
-                    <Row  className="gy-1 "> 
-                        <Col xs={col} 
+                <Col xl={mainCol_xl} lg={mainCol_lg}>
+                    <Row  className="gy-1"> 
+                        <Col lg={col_lg} xl={col_xl} 
                         onClick={()=>hanldeRoutes(0)}
-                        className={collapsed? 'd-flex justify-content-center':''}
+                        className={collapsed? 'd-flex  ':'p-md-0 p-lg-1'}
                         >
                             <div 
                             className={selected === 0? "item focused":"item "}
@@ -125,16 +144,16 @@ export const SidebarLg =(
 
                                { !collapsed &&(<>
                                 
-                                    <span  >{t("Home")}</span>
+                                    <span className="text"  >{t("Home")}</span>
                                     <div className="empty"></div>
                                 </>
                                 )}
                             </div>
                             
                         </Col>
-                        <Col xs={col} 
+                        <Col lg={col_lg} xl={col_xl}  
                         onClick={()=>hanldeRoutes(1)}
-                    
+                        className={collapsed? 'd-flex  ':'p-md-0 p-lg-1'}
                         >
                             <div 
                             className={selected === 1? "item focused":"item "}
@@ -143,39 +162,50 @@ export const SidebarLg =(
                             <img src={news} className="icon" />
                                { !collapsed &&
                                 (<>
-                                    <span  >{t("NewsFeed")}</span>
+                                    <span className="text"  >{t("NewsFeed")}</span>
                                     <div className="empty"></div>
                                 </>)
                                 }
                             </div>
                 
                         </Col>
-                        <Col xs={col} 
+                        <Col lg={col_lg} xl={col_xl}  
                         onClick={()=>hanldeRoutes(2)}
+                        className={collapsed? 'd-flex  ':'p-md-0 p-lg-1'}
                         >
                             <div
                                 className={selected === 2? "item focused":"item "}
                             >
 
                                 <img src={search} className="icon" />
-                                <span >{t("Search")}</span>
+                                {
+                                !collapsed &&( 
+                                 <>
+                                <span className="text" >{t("Search")}</span>
                                 <div className="empty"></div>
+                                </>)
+                                }
                             </div>
                             
                         </Col>
-                        <Col xs={col} 
-                        onClick={()=>hanldeRoutes(3)}>
+                        <Col lg={col_lg} xl={col_xl}  
+                        onClick={()=>hanldeRoutes(3)}
+                        className={collapsed? 'd-flex  ':'p-md-0 p-lg-1'}>
                             <div className={selected === 3? "item focused":"item "}>
 
                                 <img src={profile} className="icon" />
-                            
-                                <span >{t("Profile")}</span>
-                            
+                                {
+                                !collapsed &&( 
+                                 <>
+                                <span className="text" >{t("Profile")}</span>
+                            </>)}
+
                             </div>
                             
                         </Col>
-                        <Col xs={col} 
-                        onClick={()=>hanldeRoutes(4)}>
+                        <Col lg={col_lg} xl={col_xl} 
+                        onClick={()=>hanldeRoutes(4)}
+                        className={collapsed? 'd-flex  ':'p-md-0 p-lg-1'}>
                             <div className={selected === 4? "item focused":"item "}>
 
                                 <div className="iconContainer">
@@ -183,38 +213,51 @@ export const SidebarLg =(
                                     <img src={notification} className="icon" />
                                 </div>
                                 
-                            
-                                <span >{t("Notifications")}</span>
+                                {
+                                !collapsed &&( 
+                                 <>
+                                <span className="text" >{t("Notifications")}</span>
                                 <div  className="notification">10</div>
+                                </>)}
                             </div>
                             
                         </Col>
-                        <Col xs={col} 
-                        onClick={()=>hanldeRoutes(5)}>
+                        <Col lg={col_lg} xl={col_xl} 
+                        onClick={()=>hanldeRoutes(5)}
+                        className={collapsed? 'd-flex  ':'p-md-0 p-lg-1'}>
                             <div className={selected === 5? "item focused":"item "}>
 
                                 <div className="iconContainer">
                                     <div className="dot"></div>
                                     <img src={messages} className="icon" />
                                 </div>    
-                            
-                                <span >{t("Messages")}</span>
+                                {
+                                !collapsed &&( 
+                                 <>
+                                <span className="text"  >{t("Messages")}</span>
                                 <span  className="notification">10</span>
+                                </>)}
                             </div>
                         
                         </Col>
-                        <Col xs={col} 
-                        onClick={()=>hanldeRoutes(6)}>
+                        <Col lg={col_lg} xl={col_xl}  
+                        onClick={()=>hanldeRoutes(6)}
+                        className={collapsed? 'd-flex  ':'p-md-0 p-lg-1'}>
                             <div className={selected === 6? "item focused":"item "}>
 
                                 <img src={about} className="icon"  />
-                                <span >{t("AboutInsta")}</span>
+                                {
+                                !collapsed &&( 
+                                 <>
+                                <span className="text"  >{t("AboutInsta")}</span>
+                                </>)}
                             </div>
                         </Col>
-                        <Col xs={col}
+                        <Col lg={col_lg} xl={col_xl} 
                         className={collapsed?'collapse':'show'}
                         >
-                            <Button className='postBtn Btn'>
+                            <Button className='postBtn Btn'
+                            onClick={()=>hanldeRoutes(7)}>
                                 <div className="plus">+</div>
                                 {t("PostProperty")}
                             </Button>
@@ -222,10 +265,10 @@ export const SidebarLg =(
                     </Row> 
                 </Col>
                 <Col xs={12}
-                 className={collapsed?'collapse':'show'}
+                 className={collapsed?'collapse':'show p-1'}
                 >
           
-                   <Col xs={9}>
+                   <Col xl={9} lg={12}>
                          <Select 
                         options={languages}
                         onChange={handleLanguage}
@@ -233,7 +276,7 @@ export const SidebarLg =(
                         />
 
                     </Col>
-                    <Col xs={9}>
+                    <Col xl={9} lg={12}>
                  {
                         token?.token?
                         <Button className="logoutBtn Btn"

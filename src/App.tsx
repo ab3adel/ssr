@@ -18,6 +18,7 @@ function App() {
     navigate('/auth')
   }
  },[])
+ 
   return (
     <div className="App" style={{direction:i18n.language === 'en'? 'ltr':'rtl'}}>
        {

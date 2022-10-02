@@ -127,6 +127,22 @@
       transform: scale(1.1);
     }
 }
+@media screen and (min-width:567px) and (max-width:1024px) {
+    .postCardContainer {
+        .card {
+            .card-body {
+                .badge {
+                    font-size: 1vmin;
+                }
+                .details {
+                    .detail {
+                        justify-content: space-between;
+                    }
+                }
+            }
+        }
+    }
+}
 
 @media screen  and (max-width: 567px) {
     .postCardContainer {

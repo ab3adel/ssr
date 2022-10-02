@@ -26,10 +26,12 @@ const Layout = ()=>{
             
         }
 let sidebarCol = 2
-let mainCol =10
+let mainCol_lg =9
+let mainCol_md=10
 if (collapsed) {
     sidebarCol=1
-    mainCol=11
+    mainCol_lg=10
+    mainCol_md=11
 }
     return(
         <>
@@ -50,7 +52,7 @@ if (collapsed) {
                                removeToken={removeToken}/>
                     </LeftSideBar>
                 </Col>
-                <Col sm={mainCol} xs={12}
+                <Col lg={mainCol_lg} md={mainCol_md} xs={12}
                 className="otherSection"
                >
 

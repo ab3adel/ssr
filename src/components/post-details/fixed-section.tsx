@@ -14,46 +14,46 @@ export const FixedSection =()=>{
                             <Col xs={12} className="fw-bold fs-5">
                                 Property Information
                             </Col>
-                            <Col sm={5} xs={6} className="fw-bold">
+                            <Col lg={5} xs={6} className="fw-bold">
                                 Type
                             </Col>
-                            <Col sm={4} xs={6}>
+                            <Col lg={4} xs={6}>
                                 <div className="tag grey">
 
                                     Flat
                                 </div>
                             </Col>
-                            <Col sm={5} xs={6} className="fw-bold">
+                            <Col lg={5} xs={6} className="fw-bold">
                                 Purpose
                             </Col>
-                            <Col sm={4} xs={6} >
+                            <Col lg={4} xs={6} >
                                 < div className="tag grey">
 
                                     For Rent
                                 </div>
                             </Col>
-                            <Col sm={5} xs={6} className="fw-bold">
+                            <Col lg={5} xs={6} className="fw-bold">
                                 Added on
                             </Col>
-                            <Col sm={4} xs={6} >
+                            <Col lg={4} xs={6} >
                                 <div className="tag grey">
 
                                     5/July/2022
                                 </div>
                             </Col>
-                            <Col sm={5} xs={6} className="fw-bold">
+                            <Col lg={5} xs={6} className="fw-bold">
                                 PACIID
                             </Col>
-                            <Col sm={4} xs={6} >
+                            <Col lg={4} xs={6} >
                                 <div className="tag grey">
 
                                     1234B324AB23
                                 </div>
                             </Col>
-                            <Col sm={5} xs={6} className="fw-bold">
+                            <Col lg={5} xs={6} className="fw-bold">
                                 Direction
                             </Col>
-                            <Col sm={4} xs={6} >
+                            <Col lg={4} xs={6} >
                                 <div className="tag grey">
 
                                     North West
@@ -65,7 +65,7 @@ export const FixedSection =()=>{
                             <Col xs={12} >
                                 <Row className="gy-1">
 
-                                    <Col sm={10} xs={12} className="d-flex 
+                                    <Col lg={10} xs={12} className="d-flex 
                                                         justify-content-between 
                                                         align-items-center ">
 
@@ -74,7 +74,7 @@ export const FixedSection =()=>{
                                             Call
                                         </div>
                                     </Col>
-                                    <Col sm={10} xs={12} className="d-flex 
+                                    <Col lg={10} xs={12} className="d-flex 
                                                         justify-content-between 
                                                         align-items-center ">
 

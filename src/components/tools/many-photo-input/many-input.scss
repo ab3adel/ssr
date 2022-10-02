@@ -1,9 +1,10 @@
 .manyPhotosContainer {
     height: 180px;
    
-
+    pad: 1em;
     .inputContainer {
         border:dashed 1px rgb(177, 172, 172,0.7);
+        background-color: white;
         border-radius: 10px;
         display: flex;
         justify-content: center;
@@ -23,14 +24,27 @@
                 color:var(--dark-green);
                 font-size: 1em;
                 transition: all .4s ease-in-out;
+                text-decoration: underline;
                 &:focus,&:hover {
                     font-weight: bold;
                 }
+                margin: 5px 0;
             }
             .faintText {
                 color:rgb(165, 161, 161,0.7);
                 font-size: 1.2em;
                 text-decoration: none;
+                margin: 5px 0;
+            }
+            .externalBtn {
+                background-color: var(--light-green);
+                color:white;
+                text-align: center;
+                height: 30px;
+                border-radius: 20px;
+                border: none;
+                padding: 0 5px;
+                margin: 5px 0;
             }
         }
         .input {
@@ -43,5 +57,16 @@
 @media screen  and (max-width:567px){
     .manyPhotosContainer {
         margin:1px;
+        .inputContainer {
+            .icon{
+                .faintText{
+                    font-size: 0.8em;
+                }
+                .externalBtn{
+                    font-size: 0.59999em;
+                   text-align: center;
+                }
+            }
+        }
     }
 }

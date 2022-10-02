@@ -1,0 +1,313 @@
+.addPostContainer {
+    background-color: var(--back-color);
+
+      overflow: hidden;
+    max-width: 100%;
+    padding:1em;
+   
+    .scrollable {
+
+        background-color: white;
+        max-height: 80vh;
+        overflow-y: scroll;
+        border-radius: 10px;
+        padding-top: 1em;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        .box {
+    
+            border-radius: 10px;
+            min-height: 122px;
+            border:1px solid var(--back-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+           
+    
+            .mybadge {
+                border-radius: 20px;
+                background-color: var(--back-color);
+                color:black;
+                display: inline-flex;
+                justify-content: space-between;
+                font-size: 12px;
+                align-items: center;
+                padding:5px;
+                min-width: 100%;
+                .icon {
+                    border-radius: 100%;
+                    background-color: white;
+                    width: 15px;
+                    height: 15px;
+                    font-weight: bold;
+                    color:var(--dark-green);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    transition:.3s all ease-in;
+                    font-weight: normal;
+                    margin-left: 5px;
+                    cursor: pointer;
+                    &:hover {
+                       font-weight: bolder;
+                    }
+    
+    
+                }
+            }
+    
+        }
+        .checkbox {
+    
+            cursor: pointer;
+            .icon {
+                width: 20px;
+                height: 20px;
+            }
+            span {
+                text-align: justify;
+            }
+            .checked {
+                color: var(--light-green);
+            }
+            .unchecked {
+                color: var(--back-color);
+            }
+        }
+        .imagesGallery {
+            padding: 10px;
+            border-radius: 10px;
+            min-height: 348px;
+            border:1px solid var(--back-color);
+            display: flex;
+            position: relative;
+            max-height: 348px;
+            max-width: 390px;
+            max-width: 100%;
+            .scroll {
+                overflow-x: scroll;
+                overflow-y: hidden;
+                scroll-behavior: smooth;
+                &::-webkit-scrollbar{
+                    display: none;
+                }
+                .innerContainer {
+                    max-height: 100%;
+                   
+                    max-width: 50vw;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: wrap;
+                    height: 100%;
+                    justify-content: space-around;
+                
+                    .imageHolder {
+                       display: flex;
+                       flex-direction: column;
+                       justify-content: space-between;
+                       max-width: 97px;
+                       height: 40%;
+                       margin: 10px;
+                        .image {
+                            position: relative;
+                            height: 97px;
+                            width: 97px;
+                            .deleteIcon {
+                                border:2px solid white;
+                                border-radius: 100%;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                transition: all .4s ease-in-out;
+                                position:absolute;
+                                top:-10px;
+                                right: -10px;
+                                background-color: var(--dark-green);
+                                padding: 1px;
+                                width: 31px;
+                                height: 31px;
+                                cursor: pointer;
+                    
+                                img {
+                                    width:10px;
+                                    height: 15px;
+                                    cursor: pointer;
+                                
+                                }
+                                &:hover,&:focus {
+                                    animation: shake 1s linear  1 forwards ;
+                                    
+                    
+                                }
+                                @keyframes shake {
+                                    0%{
+                                        transform: rotateZ(45deg);
+                                    }
+                                    50% {
+                                        transform: rotateZ(-45deg);
+                                    }
+                                    100%{
+                                        transform: rotateZ(0deg);
+                                    }
+                                    
+                                }
+                                
+                            }
+                            img {
+                                max-width: 100%;
+                                max-height: 100%;
+                                width: 100%;
+                                height: 100%;
+                                border-radius: 10px;
+                            }
+                        }
+                        .status {
+                            border-radius:10px ;
+                            font-size: 0.8em;
+                            text-align: center;
+                            height: 26px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 100%;
+                            cursor: pointer;
+                            transition: .2s all ease;
+                        }
+                        .primary {
+                            color: white;
+                            background-color: var(--light-green);
+                        }
+                        .secondery {
+                            background-color: var(--back-color);
+                            color:black;
+                        }
+                    }
+                }
+            }
+            .arrow {
+                width: 30px;
+                height: 30px;
+                border-radius: 100%;
+                background-color: var(--back-color);
+                transition: all .3s ease-in;
+                position: absolute;
+                top: 50%;
+                cursor: pointer;
+                &:hover ,&:focus {
+                    width: 35px;
+                    height: 35px;
+                }
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .left {
+                left: -2%;
+            }
+            .right {
+                right: -2%;
+            }
+        }
+        .numbers {
+            .number {
+                border-radius: 20px;
+                background-color: var(--back-color);
+                color:black;
+                display: inline-flex;
+                justify-content: space-between;
+                font-size: 12px;
+                align-items: center;
+                padding:5px;
+                min-width: 100%;
+            
+                span {
+                    max-width: 90%;
+                    overflow: hidden;
+                }
+                .delete {
+                    border-radius: 100%;
+                    background-color: white;
+                    width: 15px;
+                    height: 15px;
+                    font-weight: bold;
+                    color:var(--dark-green);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    transition:.3s all ease-in;
+                    font-weight: normal;
+                    margin-left: 5px;
+                    cursor: pointer;
+                    &:hover {
+                       font-weight: bolder;
+                    }
+    
+    
+                }
+            }
+        }
+
+    }
+    .fixed {
+        display: flex;
+        justify-content: center;
+        .body {
+            padding: 2em 1em 0.5em 1em ;
+            background-color: white;
+            border-radius: 10px;
+            .shareBtn {
+                background-color: var(--light-green);
+                border-radius: 10px;
+                padding: 10px;
+                text-align: center;
+                color: white;
+                width: 100%;
+                border: none;
+                transition: .4s all ease-in-out;
+                &:focus {
+                    border: 1px solid var(--light-green);
+                    box-shadow: 3px 3px 3px white;
+                }
+            }
+        }
+        
+    }
+}
+@media screen and (max-width:567px) {
+    .addPostContainer {
+        padding: 0;
+        .scrollable {
+            max-width: 100vw;
+            overflow-x: hidden;
+            .greyBack {
+                background-color: var(--back-color);
+            }
+            .imagesGallery {
+                min-height: 248px;
+                height: 248px;
+                .scroll {
+
+                    .innerContainer {
+                        .imageHolder {
+                            .image{
+                                width: 65px;
+                                height: 65px;
+                                img {
+                                    width: 65px;
+                                    height: 65px;
+                                }
+                               
+                            }
+                            .status {
+                                margin:5px
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

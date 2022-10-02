@@ -48,7 +48,7 @@ export const PostCard =()=>{
                     <Row className="gy-1">
                         <Col xs={12}>
                             <Row className="justify-content-between">
-                                <Col xs={10} sm={5}>
+                                <Col xs={10} lg={5}>
                                     <Row>
                                         <Col xs={4}>
                                             <img src={profile} className="profile"/>
@@ -93,20 +93,20 @@ export const PostCard =()=>{
                             </Row>
                         </Col>
                         <Col xs={12}>
-                            <Row>
+                            <Row className="gy-md-1 gy-lg-0">
 
-                                <Col xs={6} sm={3}>
+                                <Col xs={6} lg={3}>
                                     <div className="tag grey">
                                         Real_Estate
                                     </div>
                                 </Col>
-                                <Col xs={6} sm={3}>
+                                <Col xs={6} lg={3}>
                                     <div className="tag grey">
                                         <span>Flat</span>
                                         <img src={building} className="icon" />
                                     </div>
                                 </Col>
-                                <Col xs={6} sm={3}>
+                                <Col xs={6} lg={3}>
                                     <div className="tag green">
                                         For Rent
                                     </div>
@@ -170,20 +170,20 @@ export const PostCard =()=>{
                         <Col xs={12} className="details">
                             <Row className="gy-1">
 
-                                <Col sm={3} xs={6} className="detail">
+                                <Col lg={3} md={5} xs={6} className="detail">
                                     
                                     <img  src={direction} />
                                     <span>North West</span>
                                 </Col>
-                                <Col sm={3} xs={6} className="detail">
+                                <Col lg={3} md={5} xs={6} className="detail">
                                     <img  src={room} />
                                     <span>2</span>
                                 </Col>
-                                <Col sm={3} xs={6} className="detail">
+                                <Col lg={3} md={5} xs={6} className="detail">
                                     <img  src={amenities} />
                                     <span>2</span>
                                 </Col>
-                                <Col sm={3} xs={6} className="detail">
+                                <Col lg={3} md={5} xs={6} className="detail">
                                     <img  src={area} />
                                     <span>200 m<sup>2</sup> </span>
                                 </Col>

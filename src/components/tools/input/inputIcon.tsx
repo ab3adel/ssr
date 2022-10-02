@@ -6,24 +6,11 @@ import React, { useEffect ,useState} from 'react'
 import {useTranslation} from 'react-i18next'
 import see from '../../../images/auth/eye.svg'
 import unsee from '../../../images/auth/icon-eye.svg'
-interface iProps {
-    icon?:any,
-    label:string,
-    className?:string,
-    id:string,
-    name:string,
-    onChange?:any,
-    value?:string | undefined,
-    handleBlur?:any,
-    error?:string,
-    touched?:boolean
-    ,type:string
-    required:boolean
-}
+import {iInput} from '../interface'
 export const InputWithIcon =({icon=null,label,className,id
                               ,name,onChange=()=>{}
                               ,handleBlur=()=>{},value=undefined
-                            ,error,touched,type,required}:iProps) =>{
+                            ,error,touched,type,required}:iInput) =>{
 const [tempValue,setValue]=useState('')
 const [isTyping,setIsTyping]=useState(false)
 const [showPassword,setShowPassword]=useState(false)

@@ -1,0 +1,36 @@
+.floatedSelect {
+    position: relative;
+    height: 45px;
+    max-height: 45px;
+
+    .label {
+        position: absolute;
+        z-index: 1;
+        transition: .3s ease-in all;
+        left: 1rem;
+        background-color: white;
+        box-shadow: 1px 1px 1px white;
+    }
+    .lightLable {
+       color:var(--light-grey);
+       
+    }
+    
+    .float {
+        font-size: 0.9em;
+        bottom: calc(100% - 10px);
+        
+        
+    }
+    .mySelect {
+        height: 100%;
+        padding: 0;
+        border-radius: 10px;
+        padding:5px 0.5em 5px 1em;
+        border:1px solid var(--light-grey);
+        min-height: 100%;
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}

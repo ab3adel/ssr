@@ -1,0 +1,41 @@
+.floatedText {
+    position: relative;
+    height: 124px;
+    min-height: 123px;
+
+    .label {
+        position: absolute;
+        z-index: 1;
+        transition: .3s ease-in all;
+        left: 1rem;
+        background-color: white;
+        box-shadow: 1px 1px 1px white;
+    }
+    
+    
+    .float {
+        font-size: 1em;
+        bottom: calc(100% - 10px);
+        
+        
+    }
+    .input {
+        height: 100%;
+        padding: 0;
+        border-radius: 10px;
+        padding:5px 0.5em 5px 1em;
+        border:1px solid var(--light-grey);
+        min-height: 100%;
+        resize: none;
+        &:focus {
+            box-shadow: none;
+        }
+    }
+    .invalid {
+        color:red;
+        font-size: 0.8em;
+        position: absolute;
+        bottom:0;
+        left:1rem
+    }
+}

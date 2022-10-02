@@ -3,25 +3,14 @@ import MySelect from 'react-bootstrap/Form'
 import React , {useState,useEffect} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Spinner} from 'react-bootstrap'
-
-interface iOption {name:string,value:string | number}
-interface iProps {label:string
-    ,options?:iOption[]
-    ,setSelect?:Function
-    ,handleBlur?:Function
-    ,error?:string
-    ,touched?:boolean
-    ,name?:string
-    ,tempSelect?:Function
-    ,multiSelect?:boolean
-}
+import {iSelect} from '../interface'
 
 export const Select=({label,options,setSelect
                      ,name,handleBlur,error
                      ,touched,
                      tempSelect
                      ,multiSelect
-                    }:iProps)=>{
+                    }:iSelect)=>{
     const [hasSelection,setHasSelection]=useState(false)
     const {i18n} =useTranslation()
    const [selection,setSelection]=useState(options)

@@ -17,7 +17,8 @@ import room from '../../images/post-details/room.svg'
 import {TextAccordion} from '../tools/text-accordion/text-accordion'
 import {FixedSection} from './fixed-section'
 import chat from '../../images/post-details/chat-icon.svg'
-
+import SettingContext from '../tools/context/setting-context/setting-context'
+import {useContext} from 'react'
 interface iProps {
     images:string[],
     description:string,
@@ -31,7 +32,7 @@ export const MobileView =({images
                         ,handleReact
                         ,react}:iProps)=>{
 
-
+                            const {openSidebar} =useContext(SettingContext)
 
     return (
         <Col xs ={12} className="scrollableSection">
@@ -201,7 +202,9 @@ export const MobileView =({images
 
             </Card.Body>
         </Card>  
-            <Col xs={12} className="fixed-bottom d-flex justify-content-center">
+            <Col xs={12} className={openSidebar? "d-none":"fixed-bottom d-flex justify-content-center"}
+
+            >
                             <Col xs={10} className="chatBtn  ">
                                         <img src={chat} />
                                         <span>Chat</span>

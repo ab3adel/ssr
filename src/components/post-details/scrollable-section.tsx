@@ -103,7 +103,7 @@ export const ScrollableSection = ({
                 <Col xs={12}>
                   <Row className="gy-2">
                     <Col
-                      xs={3}
+                      lg={3} xs={4}
                       className="d-flex justify-content-evenly align-items-center"
                     >
                       <img className="locationIcon" src={location} />
@@ -124,17 +124,17 @@ export const ScrollableSection = ({
                 </Col>
                 <Col xs={12}>
                   <Row>
-                    <Col sm={3} xs={4} className="detail">
+                    <Col lg={3} xs={4} className="detail">
                       <img src={room} />
                       <span>2</span>
                       <span>rooms</span>
                     </Col>
-                    <Col sm={3} xs={4} className="detail">
+                    <Col lg={3} xs={4} className="detail">
                       <img src={amenities} />
                       <span>1</span>
                       <span>bath</span>
                     </Col>
-                    <Col sm={3} xs={4} className="detail">
+                    <Col lg={3} xs={4} className="detail">
                       <img src={area} />
                       <span>
                         200 m<sup>2</sup>{" "}
@@ -146,7 +146,7 @@ export const ScrollableSection = ({
                   <TextAccordion description={description} />
                 </Col>
                 <Col xs={12}>
-                  <Col xs={4} className="fw-bold fs-5">
+                  <Col lg={4} xs={5} className="fw-bold fs-5">
                     Service Available
                   </Col>
                   <Col xs={12}>

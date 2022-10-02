@@ -11,6 +11,7 @@ export const ImagesGallery =({images,price}:iProps)=>{
     const [currentImage,setCurrentImage]=useState(0)
     const {i18n} =useTranslation()
     const nextImage=(str:string)=>{
+       
         if (hide){
  
             if (str==='left') {
@@ -30,6 +31,7 @@ export const ImagesGallery =({images,price}:iProps)=>{
         <div className="imgsGalery"
                             style={{background:`url(${images[currentImage]})`}}
                             onClick={handleShow}
+
                             ref={ref}
                            >
                                { price && 

@@ -49,3 +49,20 @@
         }
     }
 }
+@media screen and (min-width:567px) and (max-width:1024px) {
+    .customSelect {
+        .dropdown {
+            button.dropdown-toggle {
+                a {
+                    .icon {
+                        width: 15px;
+                        height: 15px;
+                        margin-left: 1vmin;
+                        margin-right: 1vmin;
+                    }
+                }
+            }
+        }
+    }
+    
+}

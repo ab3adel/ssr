@@ -200,7 +200,7 @@ export const SmallView = (
                     <Col xs={12}>
                         <TextArea 
                         label={'Services Available'} 
-                        value={values.services}
+                        value={values.services_available}
                         setValue={setFieldValue}
                         name="services"
                         handleBlur={handleBlur}

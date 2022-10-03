@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { iInput } from "../../interface";
+import  PhoneNumberComponent from 'react-phone-input-2'
 var regex = /^[a-zA-Z]+$/;
 export const Input = ({
   touched,
@@ -87,7 +88,45 @@ export const Input = ({
   if (unit && !numberControl && !phoneNumber) {
     compClass = compClass + " withUnit";
   }
-
+if (phoneNumber) {
+  return (
+        <Form.Group className="floatedInput" onClick={focused} onBlur={checkTyping}>
+        <div
+          className={"label float"}
+          style={i18n.language === "en" ? { left: "1rem" } : { right: "1rem" }}
+        >
+          {label}
+        </div>
+        {!phoneNumber && numberControl && (
+          <span
+            className="numberControl sub"
+            onClick={() => controlNumber("sub")}
+          >
+            -
+          </span>
+        )}
+       <PhoneNumberComponent />
+        
+        
+    
+          <button
+            style={i18n.language === "en" ? { right: "1rem" ,left:'auto'} : { left: "1rem" ,right:'auto'}}
+            className=" addBtn"
+            onClick={fun}
+          >
+            {t("Add")}
+          </button>
+        
+        {touched && error && (
+          <Form.Control.Feedback
+            style={i18n.language === "en" ? { left: "40%" } : { right: "40%" }}
+          >
+            {error}
+          </Form.Control.Feedback>
+        )}
+      </Form.Group>
+  )
+}
   return (
     <Form.Group className="floatedInput" onClick={focused} onBlur={checkTyping}>
       <div
@@ -112,7 +151,7 @@ export const Input = ({
         onChange={changeChecker}
         name={name}
         onBlur={handleBlur}
-        placeholder={label}
+        placeholder={!numberControl?label?label:'':'0'}
         maxLength={type === 'number'?20:undefined}
         style={
           !numberControl

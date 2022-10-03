@@ -123,12 +123,12 @@ export const SidebarLg = ({
           </Col>
         </Row>
       </Col>
-      <Col xl={mainCol_xl} lg={mainCol_lg} className="sidebarItems">
+      <Col  lg={mainCol_lg} className="sidebarItems">
         <Col xl={mainCol_xl} lg={mainCol_lg}>
           <Row className="">
             <Col
               lg={col_lg}
-              xl={col_xl}
+            
               onClick={() => hanldeRoutes(0)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -145,7 +145,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-              xl={col_xl}
+             
               onClick={() => hanldeRoutes(1)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -161,7 +161,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-              xl={col_xl}
+              
               onClick={() => hanldeRoutes(2)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -177,7 +177,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-              xl={col_xl}
+              
               onClick={() => hanldeRoutes(3)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -192,7 +192,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-              xl={col_xl}
+              
               onClick={() => hanldeRoutes(4)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -212,7 +212,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-              xl={col_xl}
+           
               onClick={() => hanldeRoutes(5)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -231,7 +231,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-              xl={col_xl}
+           
               onClick={() => hanldeRoutes(6)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -246,7 +246,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-              xl={col_xl}
+             xl={col_xl}
               className={collapsed ? "collapse" : "show"}
             >
               <Button className="postBtn Btn" onClick={() => hanldeRoutes(7)}>
@@ -256,7 +256,7 @@ export const SidebarLg = ({
             </Col>
           </Row>
         </Col>
-        <Col xs={12} className={collapsed ? "collapse" : "show p-1"}>
+        <Col xs={12} className={collapsed ? "collapse" : "show p-1 pt-0"}>
           <Col xl={9} lg={12}>
             <Select
               options={languages}

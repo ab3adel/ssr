@@ -158,7 +158,7 @@ export const LargeView = (
                             items={staticData[0].value}
                             label={staticData[0].title}
                             name="offer_type"
-                            selected={values.offer_type}
+                            selected={values.offer_type_id}
                             setSelected={setFieldValue}
                             />
                     </Col>
@@ -192,7 +192,7 @@ export const LargeView = (
                     <Col xs={12}>
                         <TextArea 
                         label={'Services Available'} 
-                        value={values.services}
+                        value={values.services_available}
                         setValue={setFieldValue}
                         name="services"
                         handleBlur={handleBlur}

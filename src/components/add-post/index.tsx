@@ -1,20 +1,15 @@
-import Row from 'react-bootstrap/Row'
+
 import Col from 'react-bootstrap/Col'
-import {Input} from '../tools/float-label-group/input/input'
-import {Select} from '../tools/float-label-group/select/select'
-import { TextArea } from '../tools/float-label-group/text/text'
-import {ManyPhotosInput} from '../tools/many-photo-input/many-photo-input'
-import {Badge} from '../tools/badge/badge'
-import {FormikProvider, useFormik} from 'formik'
+import { useFormik} from 'formik'
 import './add-post.scss'
-import { FormFloating } from 'react-bootstrap'
+import axios from '../tools/apis/axios'
+import {apis} from '../tools/apis/apis'
 import {useTranslation} from 'react-i18next'
-import {Tabs} from '../tools/tabs/tabs'
-import {CheckCircleFill, PhoneLandscape} from 'react-bootstrap-icons'
-import {useState} from 'react'
-import {ImagesGallery} from './images-gallery'
+import {useEffect, useState,useContext} from 'react'
 import {LargeView} from './lg-view'
 import {SmallView} from './sm-view'
+import {useGetPropertyType} from '../tools/apis/useGetPropertyType'
+import notificationContext from '../tools/context/notification/notification-context'
 export interface iProps {
     staticData:any [],postTags:any[],propertyTypes:any[],
     t:Function,checked:number,setChecked:Function,images:string[],setImages:Function
@@ -39,16 +34,39 @@ let propertyTypes=[
     const [phoneNumbersArray,setPhoneNumbersArray]=useState<any[]>([])
     const [phoneNumber,setPhoneNumber]=useState('')
     const[primary,setPrimary]=useState(0)
+    const {propertyTypeLoading,propertyTypesData,getPropertyType,propertyTypesError} =useGetPropertyType()
+    const {setNotify}=useContext(notificationContext)
 const formik =useFormik({
    initialValues:{
     input:{en:'',ar:''},
-    offer_type:'',
+    offer_type_id:'',
     tags_ids:[],
     rent_freq:'',
     title:{en:'',ar:''},
-    images:[],
     description:{en:'',ar:''},
-    services:{en:'',ar:''}
+    services_available:{en:'',ar:''},
+    area_id:'',
+    property_type_id:'',
+    price_type_id:'',
+    property_site_id:'',
+    category_id:'',
+    descriptive_address:{ar:'',en:''},
+    location_link:'',
+    latitude:'',
+    longitude:'',
+    area:'',
+    price:'',
+    number_of_rooms:'',
+    number_of_bathrooms:'',
+    PACIID:'',
+    profile_photo_as_an_image:'',
+    profile_photo_as_an_image_primary:'',
+    pre_defined_images:[{id:'',primary:''}],
+    images:[{name:{en:'',ar:''},file:'',primary:''}],
+    pre_defined_phone_numbers:[],
+    phone_numbers:[{phone:'',international_code:''}]
+
+
 },
    onSubmit:()=>{} 
 })
@@ -82,6 +100,66 @@ const deleteNumber =(num:number)=>{
     setPhoneNumbersArray(newNumbers)
 
 }
+const addPost =()=>{
+    let formData =new FormData()
+    formData.append('title[en]',formik.values.title.en)
+    formData.append('title[ar]',formik.values.title.ar)
+    formData.append('area_id',formik.values.area_id)
+    formData.append('property_type_id',formik.values.property_type_id)
+    formData.append('offer_type_id',formik.values.offer_type_id)
+    formData.append('price_type_id',formik.values.price_type_id)
+    formData.append('property_site_id',formik.values.property_site_id)
+    formData.append('category_id',formik.values.category_id)
+    formData.append('tags_ids[0]',formik.values.tags_ids[0])
+    formData.append('tags_ids[1]',formik.values.tags_ids[1])
+    formData.append('tags_ids[2]',formik.values.tags_ids[2])
+    formData.append('descriptive_address[ar]',formik.values.descriptive_address.ar)
+    formData.append('descriptive_address[en]',formik.values.descriptive_address.en)
+    formData.append('services_available[ar]',formik.values.services_available.ar)
+    formData.append('services_available[en]',formik.values.services_available.en)
+    formData.append('location_link',formik.values.location_link)
+    formData.append('latitude',formik.values.latitude)
+    formData.append('longitude',formik.values.longitude)
+    formData.append('PACIID',formik.values.PACIID)
+    formData.append('area',formik.values.area)
+    formData.append('price',formik.values.price)
+    formData.append('number_of_rooms',formik.values.number_of_rooms)
+    formData.append('number_of_bathrooms',formik.values.number_of_bathrooms)
+    formData.append('profile_photo_as_an_image',formik.values.profile_photo_as_an_image)
+    formData.append('profile_photo_as_an_image_primary',formik.values.profile_photo_as_an_image_primary)
+    formData.append('pre_defined_images[0][id]',formik.values.pre_defined_images[0]['id'])
+    formData.append('pre_defined_images[0][primary]',formik.values.pre_defined_images[0]['primary'])
+    formData.append('images[0][name][en]',formik.values.images[0]['name']['en'])
+    formData.append('images[0][name][ar]',formik.values.images[0]['name']['ar'])
+    formData.append('images[0][file]',formik.values.images[0]['file'])
+    formData.append('images[0][primary]',formik.values.images[0]['primary'])
+    formData.append('pre_defined_phone_numbers[0]',formik.values.pre_defined_phone_numbers[0])
+    formData.append('phone_numbers[0][phone]',formik.values.phone_numbers[0].phone)
+    formData.append('phone_numbers[0][international_code]',formik.values.phone_numbers[0].international_code)
+    
+    axios.post(apis.posts,formData)
+         .then(res=>{
+            if(res.data){
+                setNotify((pre:any)=>({...pre,type:true,show:true,message:'Your post has been added successfully'}))
+            }
+         })
+         .catch(err=>{
+            if (err.message){
+                setNotify((pre:any)=>({...pre,type:false,show:true,message:err.message}))
+            }
+         })
+
+
+
+    
+}
+useEffect(()=>{
+getPropertyType()
+},[])
+useEffect(()=>{
+console.log(propertyTypesData)
+console.log(propertyTypesError)
+},[propertyTypeLoading])
 
     return (
         <Col xs={12} className="addPostContainer">

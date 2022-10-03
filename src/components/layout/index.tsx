@@ -26,7 +26,7 @@ const Layout = ()=>{
             
         }
 let sidebarCol = 2
-let mainCol_lg =9
+let mainCol_lg =10
 let mainCol_md=10
 if (collapsed) {
     sidebarCol=1

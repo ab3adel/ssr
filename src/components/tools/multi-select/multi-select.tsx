@@ -24,7 +24,7 @@ setSelected(e)
 }
 
     return (
-        <div className={(Boolean(error) && touched) ? "myMultiSelectContainer invalid":"myMultiSelectContainer"}>
+        <div className={(Boolean(error)) ? "myMultiSelectContainer invalid":"myMultiSelectContainer"}>
 
             <MultiSelect 
              className={selected.length>0  ?"myMultiSelect selected":"myMultiSelect"}

@@ -22,29 +22,45 @@ export const SmallView = (
         ,deleteNumber,deleteTag,handlePhone,handleTitle,images,phoneNumber,
         phoneNumbersArray,primary,resetPhone,setChecked,setImages,setPhoneNumber
         ,setPhoneNumbersArray,setPrimary
-        ,staticData,t,setFieldValue,values,errors,handleBlur
+        ,t,setFieldValue,values,errors,handleBlur,offersType,pricesType,
+        propertySites,categories,language,tags,area,addTag,role,selectePropertySubTypeId,
+        handleChange,handleAvailableServices,addPost,touched
     }:iProps
 )=>{
   
     return (
         <Col xs={12} className="scrollable">
-            <Row>
+            <Row className="gy-2">
 
             <Col xs={12}>
                 <Row className='gx-2 gy-3'>
-                    <Col xs={12} className="pt-3">
+                  {role !==3 &&( 
+                     <Col xs={12} className="pt-3">
                     <Select
-                    label='Post Category' />
-                    </Col>
+                    label={t('PostCategory')} 
+                    options={categories }
+                    name='category_id'
+                    setSelect={setFieldValue}
+                    selectedValue={values.category_id}
+                    error={errors['category_id']}
+                    touched={touched['category_id']}
+                    handleBlur={handleBlur}
+                    />
+                    </Col>)
+                    }
+                    
                    
                     <Col xs={12} className="p-2 box">
                             <Col xs={12}>
-                                <Select label="Post Tags (max-3)"
-                                options={postTags} 
-                                setSelect={setFieldValue}
+                            <Select label={t("PostTags")}
+                                options={tags} 
+                                setSelect={addTag}
                                 name="tags_ids"
                                 selectedValue={values.tags_ids}
                                 multiSelect={true}
+                                error={errors['tags_ids']}
+                                touched={touched['tags_ids']}
+                                handleBlur={handleBlur}
                                 />
                             </Col>
                             
@@ -53,12 +69,14 @@ export const SmallView = (
                                     {
                                         values.tags_ids.length >0 ?
                                         values.tags_ids.map((ele:any,index:number)=>{
-                                            let item= postTags.filter(elem=>elem.value === parseInt(ele))[0]
-                                            return (
+                                            let item= tags.filter(elem=>elem.value === parseInt(ele))[0]
+                                            if (item)
+                                          { 
+                                             return (
                                                 <Col xs={4} key={index} >
                                                     <div className='mybadge'>
                                                         <span >
-                                                        {item.name}
+                                                        {language ==='en'? item.title?.en:item.title?.ar}
                                                         </span>
                                                         <div className="icon"
                                                         onClick={()=>deleteTag(ele)}>
@@ -67,6 +85,7 @@ export const SmallView = (
                                                     </div>
                                                 </Col>
                                             )
+                                        }
                                         }) 
                                     :''
                                         }
@@ -75,21 +94,26 @@ export const SmallView = (
                     </Col>
                     <Col xs={12}>
                         <Input 
-                        label={'Post Title'} 
+                        label={t('PostTitle')} 
                         name="title"
                         value={values.title.en}
                         onChange={handleTitle}
                         error={errors.title?.en || errors.title?.ar}
+                        handleBlur={handleBlur}
+                        touched={touched['title']}
                         />
                     </Col>
                     <Col xs={12}>
                         <Row className="gy-2">
                             <Col xs={12} className="greyBack ">
-                                <span className="font-weight-bolder"> Property Type</span>
+                                <span className="font-weight-bolder">{t("PropertyType")}</span>
                             </Col>
                             <Col xs={12}>
                                <Tabs 
-                                data={propertyTypes}/>
+                                data={propertyTypes}
+                                setFieldValue={selectePropertySubTypeId}
+                                name="property_type_id"
+                                />
                             </Col>
                         </Row>
                     </Col>
@@ -99,37 +123,39 @@ export const SmallView = (
                     
                     <Col xs={12} className="greyBack">
 
-                      <span className="font-weight-bolder "> Predefined post picture</span>
+                      <span className="font-weight-bolder "> {t("PredefinedPostPicture")}</span>
                     </Col>
                       <Col xs={12} >
                         <Row className="gy-2">
                             <Col xs={10} className='checkbox'
-                            onClick={()=>setChecked(0)}>
+                             onClick={()=>setChecked((pre:any)=>({...pre,profile_photo_as_image:!checked.profile_photo_as_image}))}
+                            >
                                 <Row>
                                     <Col xs={2}
                                     >
                                         <CheckCircleFill 
-                                        className={checked===0 ?'checked icon':'unchecked icon'} 
+                                        className={checked.profile_photo_as_image ?'checked icon':'unchecked icon'} 
                                     
                                         />
                                     </Col>
                                     <Col xs={10}>
 
-                                    <span>Add your profile picture to post</span>
+                                    <span>{t("AddProfilePicture")}</span>
                                     </Col>
                                 </Row>   
                             </Col>
                             <Col xs={10} className='checkbox'
-                                onClick={()=>setChecked(1)}>
+                                onClick={()=>setChecked((pre:any)=>({...pre,profile_photo_primary:!checked.profile_photo_primary}))}
+                                >
                                 <Row>
                                     <Col xs={2}>
                                         <CheckCircleFill 
-                                        className={checked===1 ?'checked icon':'unchecked icon'} 
+                                        className={checked.profile_photo_primary ?'checked icon':'unchecked icon'} 
                                     
                                         />
                                     </Col>
                                     <Col xs={10}>
-                                        <span>Set your profile picture as primary</span>
+                                        <span>{t("SetProfilePrimary")}</span>
                                     </Col>
                                 </Row>
                             </Col>
@@ -148,9 +174,11 @@ export const SmallView = (
                                 imgs={images}
                                 setImgs={setImages}
                                 primary={primary}
-                                setPrimary={setPrimary}/>
+                                setPrimary={setPrimary}
+                                value={values.images}
+                                setFieldValue={setFieldValue}
+                                />
                                 
-
                             </Col>
                         </Row>
                       </Col>
@@ -160,61 +188,176 @@ export const SmallView = (
             </Col>
             <Col xs={12}>
                 <Row className='gx-2 gy-3'>
-
+                { role===3 &&
+                  ( <>
                     <Col xs={12} >
-                            <Badge 
-                            items={staticData[0].value}
-                            label={staticData[0].title}
-                            name="offer_type"
-                            selected={values.offer_type}
+                    <Badge 
+                            items={propertySites}
+                            label={t("PropertySites")}
+                            name="property_site_id"
+                            selected={values.property_site_id}
+                            setSelected={setFieldValue}
+                            />
+                    </Col>
+                    <Col xs={12}>
+
+                    <Badge 
+                            items={offersType}
+                            label={t("OfferType")}
+                            name="offer_type_id"
+                            selected={values.offer_type_id}
                             setSelected={setFieldValue}
                             />
                     </Col>
                     <Col xs={12} >
-                        <Badge 
-                            items={staticData[1].value}
-                            label={staticData[1].title}
-                            name="rent_freq"
-                            selected={values.rent_freq}
+                    <Badge 
+                            items={pricesType}
+                            label={t("Rent")}
+                            name="price_type_id"
+                            selected={values.price_type_id}
                             setSelected={setFieldValue}
                             />
 
                     </Col>
+                    </>
+                    )
+                    }
                     <Col xs={12}>
-                        <Select label="Area" />
+                    <Select 
+                        label={t("Area")}
+                        setSelect={setFieldValue}
+                        name="area_id"
+                        selectedValue={values.area_id}
+                        options={area}
+                        error={errors['area_id']}
+                        touched={touched['area_id']}
+                        handleBlur={handleBlur}
+                        />
                     </Col>
+                    {  role===3 &&
+                   ( <>
                     <Col xs={12}>
-                        <Input label='Location' />
+                        <Input 
+                        label={t('Location')}
+                        type='text'
+                        value={values.location_link}
+                        name="location_link"
+                        onChange={handleChange}
+                        error={errors['location_link']}
+                        touched={touched['location_link']}
+                        handleBlur={handleBlur}
+                        />
                     </Col>
+                   <Col xs={12}>
+                    <Row className="gy-3">
+                        <Col xs={6}>
+                            <Input 
+                                numberControl={true} 
+                                label={t("Rooms")}
+                                name="number_of_rooms"
+                                setValue={setFieldValue}
+                                value={values.number_of_rooms}
+                                type="number"
+                                disabled={role !==3}
+                                onChange={handleChange}
+                                handleBlur={handleBlur}
+                                error={errors['description']}
+                                touched={touched['description']}
+                                />
+                        </Col>
+                        <Col xs={6}>
+                            <Input numberControl={true} label={t("Bathrooms")}
+                                 name="number_of_bathrooms"
+                                 setValue={setFieldValue}
+                                 value={values.number_of_bathrooms}
+                                 type="number"
+                                 disabled={role !==3}
+                                 onChange={handleChange}
+                                 error={errors['number_of_bathrooms']}
+                                 touched={touched['number_of_bathrooms']}
+                                 handleBlur={handleBlur}
+                                 />
+                        </Col>
+                        <Col xs={6}>
+                             <Input 
+                                label={t("Area_m")}
+                                type="number"
+                                onChange={handleChange}
+                                name="area"
+                                value={values.area}
+                                disabled={role !==3}
+                                error={errors['area']}
+                                touched={touched['area']}
+                                handleBlur={handleBlur}
+                                
+                                 />
+                        </Col>
+                        <Col xs={6}>
+                            <Input label={t("Price")} 
+                                unit='KWD' 
+                                name="price"
+                                onChange={handleChange}
+                                value={values.price}
+                                type="number"
+                                error={errors['price']}
+                                touched={touched['price']}
+                                handleBlur={handleBlur}
+                                />
+                        </Col>
+                        <Col xs={12}>
+                            <Input 
+                                label={t('PACIID')}
+                                type='text'
+                                onChange={handleChange}
+                                value={values.PACIID} 
+                                name="PACIID"
+                                error={errors['PACIID']}
+                                touched={touched['PACIID']}
+                                handleBlur={handleBlur}
+                                
+                                />
+                        </Col>
+                    </Row>
+                   </Col>
+
                     <Col xs={12}>
                         <Select label='Direction' />
                     </Col>
+                    </>
+                    )
+                     }
                     <Col xs={12}>
-                        <TextArea label={'Description'} 
+                    <TextArea label={t('Description')} 
                         value={values.description}
                         setValue={setFieldValue}
                         name="description"
                         handleBlur={handleBlur}
+                        
+                        error={errors['description'] }
+                        touched={touched['description']}
                         />
                     </Col>
                     <Col xs={12}>
-                        <TextArea 
-                        label={'Services Available'} 
+                    <TextArea 
+                        label={t('ServicesAvailable')} 
                         value={values.services_available}
-                        setValue={setFieldValue}
-                        name="services"
+                        setValue={handleAvailableServices}
+                        name="services_available"
                         handleBlur={handleBlur}
+                      
+                        error={errors['services_available']}
+                        touched={touched['services_available']}
                         />
                     </Col>
                     <Col xs={12}>
                         <Row className="gy-3">
                             <Col xs={12} className="font-weight-bolder greyBack">
-                                Phone Number
+                               {t("PhoneNumber")}
                             </Col>
                             <Col xs={12}>
                                 <Input 
                                 phoneNumber={true} 
-                                label="Phone Number" 
+                                label={t("PhoneNumber")} 
                                 type="number"
                                 onChange={handlePhone}
                                 add={addPhone}
@@ -245,6 +388,15 @@ export const SmallView = (
                     </Col>
                 </Row>
             </Col>
+                    <Col xs={12} className="d-flex justify-content-center">
+                        <Col xs={9}>
+
+                            <button className="shareBtn"
+                            onClick={()=>addPost()}>
+                                {t("SharePost")}
+                            </button>
+                        </Col>
+                    </Col>
             </Row>
         </Col>
     )

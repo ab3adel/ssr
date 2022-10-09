@@ -28,10 +28,11 @@
             transition: all .4s ease-in-out;
             width: 200px;
             &:hover ,&:focus {
-                color:var(--dark-green);
-                background-color: var(--light-green);
-                border:var(--light-green);
+                color:white;
+                background-color: var(--dark-green);
+              
             }
+           
         }
         .loginBtn.btn {
             &:disabled {
@@ -50,8 +51,9 @@
         border-radius: 6px;
         transition: all .4s ease-in-out;
         &:hover ,&:focus {
-            color:white;
-            background-color: var(--light-green);
+            color:var(--dark-green);
+           background-color: white;
+           border:1px solid var(--dark-green);
         }
 
         }

@@ -1,66 +1,82 @@
-import Navbar from 'react-bootstrap/Navbar'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-
-import {InputWithIcon} from '../tools/input/inputIcon'
-import search from '../../images/input-search-icon.svg'
-import message from '../../images/home/message-icon.svg'
-import notification from '../../images/home/bell-icon-1.svg'
-import user from '../../images/auth/profile.svg'
-import {useTranslation} from 'react-i18next'
-interface iProps {token?:{token:string,full_name:string}}
-export const HeaderLg =({token}:iProps)=>{
-const {t}=useTranslation()
-    return (
-        <Navbar className="navbarContainer d-none d-sm-block" expand="lg"
-        key={'lg'}>
-             <Container className="container" fluid>
-            
-             
-                 <Row className="navbarRow">
-                    
-                     <Col sm={8} xs={10}>
-                         <Row >
-                             <Col sm={6} xs={12}>
-                                 <InputWithIcon
-                                  icon={search}
-                                  label={t("SearchLocations")}
-                                  id="search"
-                                  name='search'
-                                  type="text"
-                                  className="searchInput"
-                                  required={false}
-                                  />
-                             </Col>
-                         </Row>
-                     </Col>
-                    
-                     <Col sm={4} xs={2} className=" d-sm-flex align-items-center justify-content-center">
-                         <Row className="pr-1">
-                             <Col sm={3} xs={6}>
-                                 <div className="iconContainer">
-                                     <div className="dot"></div>
-                                     <img src={message} className="icon" />
-                                 </div>    
-                             </Col>
-                             <Col sm={3} xs={6}>
-                                 <div className="iconContainer">
-                                     <div className="dot"></div>
-                                     <img src={notification} className="icon" />
-                                 </div>
-                             </Col>
-                             <Col  sm={6} className=" d-none d-sm-flex align-items-center justify-content-between user">
-                                 <span className="user_name text-nowrap">
-                                    {token?.full_name? token.full_name: 'user_33892'}
-                                </span>
-                                 <img src={user} className="icon ml-1"/>
-                             </Col>
-                         </Row>
-                     </Col>
-                 </Row>
-            
-             </Container>
-         </Navbar>
-    )
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Fade from "react-bootstrap/Fade";
+import { InputWithIcon } from "../tools/input/inputIcon";
+import search from "../../images/input-search-icon.svg";
+import message from "../../images/home/message-icon.svg";
+import notification from "../../images/home/bell-icon-1.svg";
+import user from "../../images/auth/profile.svg";
+import { useTranslation } from "react-i18next";
+import { iToken } from "../tools/interface";
+import { useState, useEffect } from "react";
+interface iProps {
+  token: iToken;
 }
+export const HeaderLg = ({ token }: iProps) => {
+  const { t } = useTranslation();
+
+  return (
+    <Navbar
+      className="navbarContainer d-none d-sm-block"
+      expand="lg"
+      key={"lg"}
+    >
+      <Container className="container" fluid>
+        <Row className="navbarRow">
+          <Col sm={8} xs={10}>
+            <Row>
+              <Col sm={6} xs={12}>
+                <InputWithIcon
+                  icon={search}
+                  label={t("SearchLocations")}
+                  id="search"
+                  name="search"
+                  type="text"
+                  className="searchInput"
+                  required={false}
+                />
+              </Col>
+            </Row>
+          </Col>
+
+          <Col
+            sm={4}
+            xs={2}
+            className=" d-sm-flex align-items-center justify-content-center"
+          >
+            <Row className="pr-1">
+              <Col sm={3} xs={6}>
+                <div className="iconContainer">
+                  <div className="dot"></div>
+                  <img src={message} className="icon" />
+                </div>
+              </Col>
+              <Col sm={3} xs={6}>
+                <div className="iconContainer">
+                  <div className="dot"></div>
+                  <img src={notification} className="icon" />
+                </div>
+              </Col>
+              <Col sm={6} className=" d-none d-sm-block user">
+                <Col xs={12} className="d-flex justify-content-center">
+                  {token.profile_picture ? (
+                    <img src={token.profile_picture} className="icon ml-1" />
+                  ) : (
+                    <img src={user} className="icon ml-1" />
+                  )}
+                </Col>
+                <Col xs={12}>
+                  <div className="user_name mw-100">
+                    {token?.full_name ? token.full_name : "user_33892"}
+                  </div>
+                </Col>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </Navbar>
+  );
+};

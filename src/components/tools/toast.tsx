@@ -1,13 +1,14 @@
 import Toast from 'react-bootstrap/Toast'
 import {Check,X} from 'react-bootstrap-icons'
 import ToastContainer from 'react-bootstrap/ToastContainer'
+import { useEffect, useState } from 'react'
 
 
 interface iProps {
   show:boolean
   ,close:()=>void
   ,message:string
-,type:boolean}
+,type:boolean }
 export const Notify =({
    show
    ,close
@@ -15,7 +16,6 @@ export const Notify =({
    ,type
    
 }:iProps)=>{
-
 
     return (
       <ToastContainer  position={'top-center'} 

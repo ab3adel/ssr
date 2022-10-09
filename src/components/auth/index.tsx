@@ -13,12 +13,14 @@ import Guest from './guest'
 import {useTranslation} from 'react-i18next'
 import {useNavigate} from 'react-router-dom'
 let languages=[{title:"English",icon:UK},{title:'Arabic',icon:Arabic}]
+
 const LoginCard = () =>{
     const [guest,setGuest]=useState(false)
     const [login,setLogin]=useState(true)
     const {t,i18n} =useTranslation()
     const [navigateToHome,setNavigateToHome]=useState(false)
     const navigate = useNavigate()
+
     const handleLanguage=(index:number)=>{
        if (index === 0) {
         localStorage.setItem('lang','en')
@@ -30,6 +32,7 @@ const LoginCard = () =>{
         i18n.changeLanguage('ar')
        }
     }
+
     const homeNavigatieon =()=>{
         if (!navigateToHome) return
         navigate('/')
@@ -38,7 +41,7 @@ useEffect(()=>{
     if (localStorage.getItem('token')){
         setNavigateToHome(true)
     }
-})
+},[])
     return (
         <Container
         fluid

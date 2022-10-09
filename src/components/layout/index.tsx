@@ -6,22 +6,17 @@ import Header from '../header'
 import LeftSideBar from '../leftside-bar'
 import {SidebarLg} from '../leftside-bar/sidebar-lg'
 import {SidebarSm} from '../leftside-bar/sidebar-sm'
-
-import {useState,useEffect} from 'react'
+import authContext from '../tools/context/auth-context/auth-context'
+import {useState,useEffect,useContext} from 'react'
 import {Outlet} from 'react-router-dom'
 
 const Layout = ()=>{
-    const [auth,setAuth]=useState({token:'',full_name:''})
+   
     const [collapsed,setCollapsed]=useState(false)
-    useEffect(()=>{
-        if (localStorage.getItem('token')){
-            let token_string=localStorage.getItem('token') as string
-            let token=JSON.parse(token_string)
-            setAuth(pre=>token)
-        
-        }},[])
+   const {token,setToken}=useContext(authContext)
     const removeToken=()=>{
             localStorage.removeItem('token')
+            setToken((pre:any)=>{})
             window.location.reload()
             
         }
@@ -41,14 +36,14 @@ if (collapsed) {
                 <Col sm={sidebarCol} className="sidebarSection" >
                     <LeftSideBar>
                            <SidebarLg 
-                              token={auth}
+                              token={token}
                               removeToken={removeToken}
                               collapsed={collapsed}
                               setCollapsed={setCollapsed}
                               />
                     
                             <SidebarSm 
-                               token={auth}
+                               token={token}
                                removeToken={removeToken}/>
                     </LeftSideBar>
                 </Col>

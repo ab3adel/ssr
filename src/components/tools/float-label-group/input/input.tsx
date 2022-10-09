@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { iInput } from "../../interface";
-import  PhoneNumberComponent from 'react-phone-input-2'
+import  PhoneNumberComponent,{CountryData} from 'react-phone-input-2'
 var regex = /^[a-zA-Z]+$/;
 export const Input = ({
   touched,
@@ -20,10 +20,12 @@ export const Input = ({
   setValue,
   phoneNumber = false,
   add,
-  reset
+  reset,
+  disabled
 }: Partial<iInput>) => {
   const { i18n, t } = useTranslation();
   const [flaot, setFloat] = useState(false);
+  const[phoneNumberObj,setPhoneNumberObj]=useState<any>()
 
   const checkTyping = (e: React.FocusEvent) => {
     if ((e.target as HTMLInputElement).value === "") {
@@ -56,9 +58,21 @@ export const Input = ({
       onChange(e);
     }
   };
+  const handlePhoneChange =(value: string, data: {} | CountryData, event: React.ChangeEvent<HTMLInputElement>, formattedValue: string): void=>{
+   
+    let phone_numbers={phone: value,international_code: (data as CountryData).dialCode}
+    setPhoneNumberObj(phone_numbers)
+    if (typeof(onChange)==='function') {
+
+      onChange(value)
+    }
+    
+  
+}
   const controlNumber = (str: string) => {
+    if (disabled) return
     if (type === "number") {
-      if (value !== "" && typeof value !== "undefined") {
+      if ( typeof value !== "undefined") {
         let num = parseInt(value);
         let newVal = num + 1;
         if (str === "sub") {
@@ -71,12 +85,16 @@ export const Input = ({
     }
   };
   const fun = () => {
-    if (typeof add === "function" && value) {
-      add(value);
-      if (typeof (reset) === 'function') {
+   
+    if (typeof(add) === 'function'){
+
+      add(phoneNumberObj)
+      if (typeof(reset) === 'function') {
+
         reset()
       }
     }
+    
   };
   let compClass = "customInput";
   if (phoneNumber) {
@@ -88,6 +106,7 @@ export const Input = ({
   if (unit && !numberControl && !phoneNumber) {
     compClass = compClass + " withUnit";
   }
+
 if (phoneNumber) {
   return (
         <Form.Group className="floatedInput" onClick={focused} onBlur={checkTyping}>
@@ -105,7 +124,11 @@ if (phoneNumber) {
             -
           </span>
         )}
-       <PhoneNumberComponent />
+       <PhoneNumberComponent 
+       value={value}
+       onChange={handlePhoneChange}
+
+       />
         
         
     
@@ -131,7 +154,7 @@ if (phoneNumber) {
     <Form.Group className="floatedInput" onClick={focused} onBlur={checkTyping}>
       <div
         className={"label float"}
-        style={i18n.language === "en" ? { left: "1rem" } : { right: "1rem" }}
+        style={i18n.language === "en" ? { left: "1rem",right:'auto' } : { right: "1rem",left:'auto' }}
       >
         {label}
       </div>
@@ -153,6 +176,8 @@ if (phoneNumber) {
         onBlur={handleBlur}
         placeholder={!numberControl?label?label:'':'0'}
         maxLength={type === 'number'?20:undefined}
+        disabled={disabled}
+        isInvalid={Boolean(error) && touched}
         style={
           !numberControl
             ? unit
@@ -163,7 +188,7 @@ if (phoneNumber) {
             : {}
         }
       />
-      {!numberControl && unit && <div className="unit"  style={i18n.language === "en" ? { right: "1rem" ,left:'auto'} : { left: "1rem" ,right:'auto'}}>{unit}</div>}
+      {!numberControl && unit && <div className="unit"  style={i18n.language === "en" ? { right: "0.8rem" ,left:'auto'} : { left: "0.8rem" ,right:'auto'}}>{unit}</div>}
       {!phoneNumber && numberControl && (
         <span
           className="numberControl plus"
@@ -183,7 +208,8 @@ if (phoneNumber) {
       )}
       {touched && error && (
         <Form.Control.Feedback
-          style={i18n.language === "en" ? { left: "40%" } : { right: "40%" }}
+        className="isValid"
+          style={i18n.language === "en" ? { left: "10%",right:'auto' } : { right: "10%",left:'auto' }}
         >
           {error}
         </Form.Control.Feedback>

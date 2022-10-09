@@ -11,20 +11,20 @@ import logo from "../../images/auth/logo.svg";
 import news from "../../images/home/newsfeed-icon.svg";
 import layer from "../../images/home/layer-icon.svg";
 import Button from "react-bootstrap/Button";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { Select } from "../tools/select-with-image/select";
 import UK from "../../images/auth/Uk.svg";
 import { useTranslation } from "react-i18next";
 import Arabic from "../../images/auth/kw.svg";
 import { useNavigate } from "react-router-dom";
-import collapse from "../../images/home/collapse.svg";
+import {iToken} from '../tools/interface'
 import show from "../../images/home/show.svg";
 let languages = [
   { title: "English", icon: UK },
   { title: "Arabic", icon: Arabic },
 ];
 interface iProps {
-  token?: { token: string; full_name: string };
+  token?: iToken;
   removeToken: Function;
   collapsed: boolean;
   setCollapsed: Function;
@@ -248,11 +248,12 @@ export const SidebarLg = ({
               lg={col_lg}
              xl={col_xl}
               className={collapsed ? "collapse" : "show"}
-            >
-              <Button className="postBtn Btn" onClick={() => hanldeRoutes(7)}>
+            >{token?.role !==2 &&
+             ( <Button className="postBtn Btn" onClick={() => hanldeRoutes(7)}>
                 <div className="plus">+</div>
                 {t("PostProperty")}
-              </Button>
+              </Button>)
+              }
             </Col>
           </Row>
         </Col>

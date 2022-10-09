@@ -61,5 +61,26 @@
    "Congratulations":"مبروك !",
    "YourAccountVerified":" تم التحقق من حسابك",
    "VerifyYourAccount":"تحقق من حسابك !",
-   "SearchLocations":"ابحث عن مواقع"
+   "SearchLocations":"ابحث عن مواقع",
+   "PostCategory":"نوع المنشور",
+   "Area_m":"المساحة",
+   "PostTags":"تاغات  (3 حدأقصى)",
+   "ServicesAvailable":" خدمات متاحة",
+   "PostTitle":"عنوان المنشور ",
+   "Rooms":"غرف",
+   "Bathrooms":"حمامات",
+   "Price":"سعر",
+   "PredefinedPostPicture":"صورة مسبقة التعريف  ",
+   "AddProfilePicture":"أضف صورة البروفايل   ",
+   "SetProfilePrimary":" صورة البروفايل كصورة غلاف ",
+   "primary":"صورة غلاف"  ,
+   "SharePost":"مشاركة",
+   "Description":"الوصف",
+   "PropertyType":" نوع الملكية",
+  
+   "PropertySites":"موقع الملكية ",
+   "OfferType":"نوع العرض ",
+   "Rent":"تكرارالعقد "
+   
+
 }

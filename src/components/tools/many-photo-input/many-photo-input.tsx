@@ -36,8 +36,14 @@ export const ManyPhotosInput = ({
     }
     if (file) {
       let arr = [...images];
-      let files_arr = [...value];
-      files_arr.push(file);
+      let files_arr = [...value].filter(ele=>ele.file);
+      if (files_arr.length===0) {
+        files_arr.push({name:{ar:file.name,en:file.name},file,primary:1})
+      }
+      else {
+
+        files_arr.push({name:{ar:file.name,en:file.name},file,primary:0})
+      }
       let objUrl = URL.createObjectURL(file);
       arr.push(objUrl);
       setValue(name, files_arr);
@@ -60,7 +66,14 @@ export const ManyPhotosInput = ({
       let file = e.dataTransfer.files[0];
       if (file) {
         let arr = [...images];
-        let files_arr = [...value];
+        let files_arr = [...value].filter(ele=>ele.file);
+        if (files_arr.length===0) {
+          files_arr.push({name:{ar:file.name,en:file.name},file,primary:1})
+        }
+        else {
+  
+          files_arr.push({name:{ar:file.name,en:file.name},file,primary:0})
+        }
         let objUrl = URL.createObjectURL(file);
         arr.push(objUrl);
         setValue(name, files_arr);

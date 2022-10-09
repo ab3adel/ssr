@@ -25,7 +25,8 @@ interface iTab {type:'User' | 'Commercial'
 needCategory?:boolean
 }
 interface iProps extends iTab  {values:Partial<InitialValues>,errors:Partial<iErrors>,touched:Partial<iTouched>}
-
+let phoneError=''
+let codeError=''
 export const PersonalInfoForm  = (props:iProps)=>{
   let   {type,setValue,values
           ,errors,touched
@@ -61,17 +62,17 @@ export const PersonalInfoForm  = (props:iProps)=>{
         if (typeof(getCompanies) === 'function') {
             getCompanies()
         }
+        if (errors.phone_numbers && (errors.phone_numbers as Array<any>).length >0) {
+            phoneError=(errors.phone_numbers as any)[0].phone
+            codeError=(errors.phone_numbers as any)[0].international_code
+       }
        
     },[])
  
-    let phoneError=''
-    let codeError=''
+   
 
 
-    if (errors.phone_numbers && (errors.phone_numbers as Array<any>).length >0) {
-         phoneError=(errors.phone_numbers as any)[0].phone
-         codeError=(errors.phone_numbers as any)[0].international_code
-    }
+   
     
 
     if (type === 'User') {
@@ -191,7 +192,6 @@ export const PersonalInfoForm  = (props:iProps)=>{
                                     multiSelect={true}
                                     /> */}
                                     <MyMultiSelect 
-                                    
                                      options={categories?.categoriesOption as any[]}
                                      label="category"
                                      name="category_ids"

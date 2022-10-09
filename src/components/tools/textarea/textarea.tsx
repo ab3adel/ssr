@@ -25,7 +25,7 @@ const handleChange=(e:React.ChangeEvent)=>{
                     placeholder={t('Description')}
                     rows={3}
                     onChange={handleChange}
-                    isInvalid={Boolean(error) && touched}
+                    isInvalid={Boolean(error) }
                     onBlur={handleBlur}
                     name={name}
                     value={i18n.language ==='en' ? value.en : value.ar}

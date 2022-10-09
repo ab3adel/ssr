@@ -45,7 +45,7 @@ const handleInput =(e:React.MouseEvent)=>{
 
 
     return (
-        <div className="fileInputContainer"
+        <div className={Boolean(error)? "fileInputContainer invalid":"fileInputContainer"}
     
         >
             

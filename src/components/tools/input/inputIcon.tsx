@@ -46,7 +46,7 @@ useEffect(()=>{
 },[value])
     return (
         <Form.Group
-            className={Boolean(error)&& touched? `mb-1 is_valid inputGroupWithIcon ${className}`:`mb-1 inputGroupWithIcon  ${className}`}
+            className={Boolean(error)? `mb-1 is_valid inputGroupWithIcon ${className}`:`mb-1 inputGroupWithIcon  ${className}`}
             style={{padding:i18n.language === 'en'?'0.5em 2.9em 0.5em 0':'0.5em 0em 0.5em 2.9em'}}
             >
                 

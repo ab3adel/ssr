@@ -99,6 +99,7 @@ const handleField=(field: keyof InitialValues,value:string)=>{
                         label={t('Country')}
                         handleBlur={handleBlur}
                         name="country"
+                        error={errors.area_id as string}
                         />
                         
                     </Col>

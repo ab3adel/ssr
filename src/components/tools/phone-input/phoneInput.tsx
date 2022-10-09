@@ -28,7 +28,7 @@ const blurHandler =(e:React.FocusEvent)=>{
 
     return (
         <div 
-        className={touched && (Boolean(phoneNumberError)) ?"phoneInputContainer invalid" :"phoneInputContainer"}
+        className={ (Boolean(phoneNumberError)) ?"phoneInputContainer invalid" :"phoneInputContainer"}
         >
 
             <Input 

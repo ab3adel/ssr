@@ -1,12 +1,14 @@
 import Col  from "react-bootstrap/Col"
 import Row  from "react-bootstrap/Row"
-import Container from 'react-bootstrap/Container'
+import {Spinner} from '../spinner'
+import {useTranslation} from 'react-i18next'
 import {useEffect, useState} from 'react'
 import './badge.scss'
+import {iOption} from '../interface'
 interface iProps{
-    items:string []
+    items?:iOption []
     ,label:string
-    ,selected:string
+    ,selected:number
     ,setSelected:Function
     ,name:string
 }
@@ -15,15 +17,18 @@ interface iProps{
 export const Badge= (
     {items,label,selected,setSelected,name}:iProps
 )=>{
-const handleSelect =(ele:string)=>{
-    setSelected(name,ele)
+    const {i18n}=useTranslation()
+const handleSelect =(id:number)=>{
+    
+    setSelected(name,id)
 }
 
 useEffect(()=>{
     if (!selected) {
-        handleSelect(items[0])
+        handleSelect(0)
     }
 },[selected])
+
     return (
 
         <Col xs={12}  className="badgeContainer">
@@ -36,19 +41,22 @@ useEffect(()=>{
                         
 
                             {
+                                items && items.length >0 ?
                                 items.map((ele,index)=> {
                                     return (
                                         <Col xs={3} key={index}>
                                             <Col xs={12} 
 
-                                            className={ele === selected ?"selected myBadge":"item myBadge"}
-                                            onClick={()=>handleSelect(ele)}
+                                            className={ele.id === selected ?"selected myBadge":"item myBadge"}
+                                            onClick={()=>handleSelect(ele.id as number)}
                                             >
-                                                {ele}
+                                                {i18n.language==='en'? ele.title?.en:ele.title?.ar}
                                             </Col>
                                         </Col>
                                         )
                                 })
+                                :
+                                null
                             }
                       
                     </Row>

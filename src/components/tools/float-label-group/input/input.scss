@@ -33,7 +33,7 @@
         }
     }
     .withControlNumber {
-        padding:5px 0.5rem 5px 0.5rem;
+        padding: 5px 3.1rem 5px 3.1rem;
         text-align: center;
 
     }
@@ -103,6 +103,23 @@
         }
         .flag-dropdown {
             background-color: transparent;
+        }
+    }
+    .isValid {
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: .75rem;
+        color: red;
+        position: absolute;
+        bottom: 0%;
+        left: 0%;
+        display: inline;
+    }
+}
+@media  screen and  (max-width:567px) {
+    .floatedInput {
+        .withControlNumber {
+            padding: 5px 3.1rem 5px 3.1rem;
         }
     }
 }

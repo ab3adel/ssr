@@ -120,108 +120,123 @@ const SignUp = ({ setLogin }: iProps) => {
       handleBtn({ title: "Commercial", maxTabs: 3 });
     }
   };
-  const closeAccountVerification=()=>{
-    formik.resetForm()
-    setShow(false)
-    setLogin(true)
-  }
+  const closeAccountVerification = () => {
+    formik.resetForm();
+    setShow(false);
+    setLogin(true);
+  };
 
   const submit = () => {
-    let formdata= new FormData();
-    
-if (validationOptions.isUser){
-  formdata.append('full_name',formik.values.full_name as string)
-  formdata.append('role_id',JSON.stringify(formik.values.role_id) )
-  formdata.append('area_id',JSON.stringify(formik.values.area_id))
-  formdata.append('password',formik.values.password as string)
-  formdata.append('password_confirmation',formik.values.password_confirmation as string)
-  formdata.append('email',formik.values.email as string)
-  formdata.append('profile_picture',(formik.values.profile_picture as string)|| '')
-  formdata.append('phone_numbers[0][phone]',
-                 (formik.values.phone_numbers as Array<any>)[0]['phone'])
-  formdata.append('phone_numbers[0][international_code]',
-                  (formik.values.phone_numbers as Array<any>)[0]['international_code'])                 
-}
-else {
-  let {category_ids
-       ,predefined_post_pictures
-      ,files,description}=formik.values
-  if (category_ids && category_ids?.length >0) {
-    
-  
-    category_ids.forEach((ele,index)=>formdata.append(`category_ids[${index}]`,JSON.stringify(ele)))
-  }
-  if (predefined_post_pictures && predefined_post_pictures.length >0 ) {
-    
-    predefined_post_pictures.forEach((ele,index)=>formdata.append(`predefined_post_pictures[${index}]`
-                                                                   ,ele ))
-  }
-  if (files && files.length >0) {
-  
-      files.forEach((ele,index)=>{
-        formdata.append(`files[${index}][name][ar]`,JSON.stringify(ele['name']['ar']) )
-        formdata.append(`files[${index}][name][en]`,JSON.stringify(ele['name']['en']) )
-        formdata.append(`files[${index}][file]`,ele['file'] )
+    let formdata = new FormData();
+
+    if (validationOptions.isUser) {
+      formdata.append("full_name", formik.values.full_name as string);
+      formdata.append("role_id", JSON.stringify(formik.values.role_id));
+      formdata.append("area_id", JSON.stringify(formik.values.area_id));
+      formdata.append("password", formik.values.password as string);
+      formdata.append(
+        "password_confirmation",
+        formik.values.password_confirmation as string
+      );
+      formdata.append("email", formik.values.email as string);
+      formdata.append(
+        "profile_picture",
+        (formik.values.profile_picture as string) || ""
+      );
+      formdata.append(
+        "phone_numbers[0][phone]",
+        (formik.values.phone_numbers as Array<any>)[0]["phone"]
+      );
+      formdata.append(
+        "phone_numbers[0][international_code]",
+        (formik.values.phone_numbers as Array<any>)[0]["international_code"]
+      );
+    } else {
+      let { category_ids, predefined_post_pictures, files, description } =
+        formik.values;
+      if (category_ids && category_ids?.length > 0) {
+        category_ids.forEach((ele, index) =>
+          formdata.append(`category_ids[${index}]`, JSON.stringify(ele))
+        );
+      }
+      if (predefined_post_pictures && predefined_post_pictures.length > 0) {
+        predefined_post_pictures.forEach((ele, index) =>
+          formdata.append(`predefined_post_pictures[${index}]`, ele)
+        );
+      }
+      if (files && files.length > 0) {
+        files.forEach((ele, index) => {
+          formdata.append(
+            `files[${index}][name][ar]`,
+            JSON.stringify(ele["name"]["ar"])
+          );
+          formdata.append(
+            `files[${index}][name][en]`,
+            JSON.stringify(ele["name"]["en"])
+          );
+          formdata.append(`files[${index}][file]`, ele["file"]);
+        });
+      }
+      if (description) {
+        formdata.append("description[ar]", description["ar"]);
+        formdata.append("description[en]", description["en"]);
+      }
+      formdata.append("full_name", formik.values.full_name as string);
+      formdata.append("role_id", JSON.stringify(formik.values.role_id));
+      formdata.append("area_id", JSON.stringify(formik.values.area_id));
+      formdata.append("password", formik.values.password as string);
+      formdata.append(
+        "password_confirmation",
+        formik.values.password_confirmation as string
+      );
+      formdata.append("email", formik.values.email as string);
+      formdata.append(
+        "phone_numbers[0][phone]",
+        (formik.values.phone_numbers as Array<any>)[0]["phone"]
+      );
+      formdata.append(
+        "phone_numbers[0][international_code]",
+        (formik.values.phone_numbers as Array<any>)[0]["international_code"]
+      );
+      formdata.append(
+        "profile_picture",
+        formik.values.profile_picture as string
+      );
+      formdata.append("block", formik.values.block as string);
+      formdata.append("building", formik.values.building as string);
+      formdata.append("avenue", formik.values.avenue as string);
+      formdata.append("street", formik.values.street as string);
+      formdata.append("floor", formik.values.floor as string);
+      formdata.append("flat", formik.values.flat as string);
+      formdata.append("PACIID", formik.values.PACID as string);
+      formdata.append("website", formik.values.website as string);
+      formdata.append("facebook", formik.values.facebook as string);
+      formdata.append("twitter", formik.values.twitter as string);
+      formdata.append("snapchat", formik.values.snapchat as string);
+      formdata.append("titok", formik.values.tiktok as string);
+      formdata.append("yuotube", formik.values.youtube as string);
+      formdata.append("instagram", formik.values.instagram as string);
+    }
+
+    setIsLoading(true);
+    axios
+      .post(apis.register, formdata)
+      .then((res) => {
+        setShow(true);
+        setIsLoading(false);
+        if (res && res.data) {
+          setNotify((pre: any) => ({
+            ...pre,
+            show: true,
+            type: true,
+            message: res.data.message,
+          }));
+        }
+        formik.resetForm();
       })
-      
-  }
-  if (description ) {
-    formdata.append('description[ar]', description['ar'] )
-    formdata.append('description[en]', description['en'] )
-  }
-  formdata.append('full_name',formik.values.full_name as string)
-  formdata.append('role_id',JSON.stringify(formik.values.role_id) )
-  formdata.append('area_id',JSON.stringify(formik.values.area_id))
-  formdata.append('password',formik.values.password as string)
-  formdata.append('password_confirmation',formik.values.password_confirmation as string)
-  formdata.append('email',formik.values.email as string)
-  formdata.append('phone_numbers[0][phone]',
-                 (formik.values.phone_numbers as Array<any>)[0]['phone'])
-  formdata.append('phone_numbers[0][international_code]',
-                  (formik.values.phone_numbers as Array<any>)[0]['international_code'])
-  formdata.append('profile_picture',formik.values.profile_picture as string)
-  formdata.append('block',formik.values.block as string)
-  formdata.append('building',formik.values.building as string)
-  formdata.append('avenue',formik.values.avenue as string)
-  formdata.append('street',formik.values.street as string)
-  formdata.append('floor',formik.values.floor as string)
-  formdata.append('flat',formik.values.flat as string)
-  formdata.append('PACIID',formik.values.PACID as string)
-  formdata.append('website',formik.values.website as string)
-  formdata.append('facebook',formik.values.facebook as string)
-  formdata.append('twitter',formik.values.twitter as string)
-  formdata.append('snapchat',formik.values.snapchat as string)
-  formdata.append('titok',formik.values.tiktok as string)
-  formdata.append('yuotube',formik.values.youtube as string)
-  formdata.append('instagram',formik.values.instagram as string)
-  
- 
-
-}
-   
-setIsLoading(true)
-     axios
-       .post(apis.register, formdata
-         )
-       .then((res) => {
-         setShow(true);
-         setIsLoading(false)
-         if (res && res.data ){
-
-           setNotify((pre: any) => ({
-             ...pre,
-             show: true,
-             type: true,
-             message: res.data.message,
-           }));
-         }
-         formik.resetForm();
-        
-       })
-       .catch((err) => {
-        setIsLoading(false)
+      .catch((err) => {
+        setIsLoading(false);
         if (err && err.response && err.response.data) {
-          
           setNotify((pre: any) => ({
             ...pre,
             message: err.response.data.message,
@@ -229,7 +244,7 @@ setIsLoading(true)
             show: true,
           }));
         }
-       });
+      });
   };
 
   const getCompanies = () => {
@@ -253,7 +268,7 @@ setIsLoading(true)
   };
   const getCategories = () => {
     let result = axios
-      .get(apis.categories)
+      .get(apis.categories(1, 5))
       .then((res) => {
         let categoriesOption = res.data.payload.map((ele: any) => {
           if (i18n.language === "ar") {
@@ -272,13 +287,13 @@ setIsLoading(true)
   };
 
   useEffect(() => {
-     nextBtnControl(
-       formik.touched,
-       formik.errors,
-       btn.title,
-       setDisableNext,
-       tab
-     );
+    nextBtnControl(
+      formik.touched,
+      formik.errors,
+      btn.title,
+      setDisableNext,
+      tab
+    );
   }, [tab, formik.values, btn, formik.errors]);
   useEffect(() => {
     if (formik.values.email) {
@@ -312,9 +327,7 @@ setIsLoading(true)
         setValidationOptions((pre) => ({ ...pre, needCategory: true }));
       }
       companies.data.map((ele: any) => {
-
         if (ele.id.toString() === formik.values.role_id?.toString()) {
-        
           if (ele.requiredDocuments) {
             setValidationOptions((pre: any) => ({
               ...pre,
@@ -334,8 +347,7 @@ setIsLoading(true)
       setValidationOptions((pre) => ({ ...pre, isUser: false }));
     }
   }, [btn]);
-
-console.log(formik.values)
+console.log(formik.errors)
   return (
     <Row className="signUpContainer gy-3">
       <Col xs={12}>
@@ -372,85 +384,76 @@ console.log(formik.values)
           <Col xs={12}>
             {btn.title === "User" ? (
               <UserType tab={tab}>
-                {tab === 1 && (
-                  <SecurityForm
-                    values={formik.values}
-                    handleBlur={formik.handleBlur}
-                    setValue={formik.setFieldValue}
-                    touched={formik.touched}
-                    errors={formik.errors}
-                  />
-                )}
-                {tab === 0 && (
-                  <PersonalInfoForm
-                    setValue={formik.setFieldValue}
-                    type={"User"}
-                    touched={formik.touched}
-                    values={formik.values}
-                    errors={formik.errors}
-                    handleBlur={formik.handleBlur}
-                    setFieldTouched={formik.setFieldTouched}
-                  />
-                )}
-                {tab === 2 && (
-                  <LocationForm
-                    type="User"
-                    touched={formik.touched}
-                    values={formik.values}
-                    errors={formik.errors}
-                    handleBlur={formik.setFieldTouched}
-                    setValue={formik.setFieldValue}
-                  />
-                )}
+                <SecurityForm
+                  values={formik.values}
+                  handleBlur={formik.handleBlur}
+                  setValue={formik.setFieldValue}
+                  touched={formik.touched}
+                  errors={formik.errors}
+                />
+
+                <PersonalInfoForm
+                  setValue={formik.setFieldValue}
+                  type={"User"}
+                  touched={formik.touched}
+                  values={formik.values}
+                  errors={formik.errors}
+                  handleBlur={formik.handleBlur}
+                  setFieldTouched={formik.setFieldTouched}
+                />
+
+                <LocationForm
+                  type="User"
+                  touched={formik.touched}
+                  values={formik.values}
+                  errors={formik.errors}
+                  handleBlur={formik.setFieldTouched}
+                  setValue={formik.setFieldValue}
+                />
               </UserType>
             ) : (
               <CommercialType tab={tab} setTab={setTab}>
-                {tab === 0 && (
-                  <PersonalInfoForm
-                    type={"Commercial"}
-                    setValue={formik.setFieldValue}
-                    values={formik.values}
-                    errors={formik.errors}
-                    touched={formik.touched}
-                    handleBlur={formik.handleBlur}
-                    setFieldTouched={formik.setFieldTouched}
-                    getCategories={getCategories}
-                    getCompanies={getCompanies}
-                    categories={categories}
-                    companies={companies}
-                    needCategory={validationOptions.needCategory}
-                  />
-                )}
-                {tab === 1 && (
-                  <LocationForm
-                    type="Commercial"
-                    touched={formik.touched}
-                    values={formik.values}
-                    errors={formik.errors}
-                    handleBlur={formik.handleBlur}
-                    setValue={formik.setFieldValue}
-                  />
-                )}
-                {tab === 2 && (
-                  <SecurityForm
-                    values={formik.values}
-                    handleBlur={formik.handleBlur}
-                    setValue={formik.setFieldValue}
-                    touched={formik.touched}
-                    errors={formik.errors}
-                  />
-                )}
-                {tab === 3 && (
-                  <RequiredFilesForm
-                    touched={formik.touched}
-                    values={formik.values}
-                    errors={formik.errors}
-                    handleBlur={formik.handleBlur}
-                    setValue={formik.setFieldValue}
-                    requiredFiles={validationOptions.requiredFiles}
-                    setField={formik.setFieldValue}
-                  />
-                )}
+                <PersonalInfoForm
+                  type={"Commercial"}
+                  setValue={formik.setFieldValue}
+                  values={formik.values}
+                  errors={formik.errors}
+                  touched={formik.touched}
+                  handleBlur={formik.handleBlur}
+                  setFieldTouched={formik.setFieldTouched}
+                  getCategories={getCategories}
+                  getCompanies={getCompanies}
+                  categories={categories}
+                  companies={companies}
+                  needCategory={validationOptions.needCategory}
+                />
+
+                <LocationForm
+                  type="Commercial"
+                  touched={formik.touched}
+                  values={formik.values}
+                  errors={formik.errors}
+                  handleBlur={formik.handleBlur}
+                  setValue={formik.setFieldValue}
+                />
+
+                <SecurityForm
+                  values={formik.values}
+                  handleBlur={formik.handleBlur}
+                  setValue={formik.setFieldValue}
+                  touched={formik.touched}
+                  errors={formik.errors}
+                />
+
+                <RequiredFilesForm
+                  touched={formik.touched}
+                  values={formik.values}
+                  errors={formik.errors}
+                  handleBlur={formik.handleBlur}
+                  setValue={formik.setFieldValue}
+                  requiredFiles={validationOptions.requiredFiles}
+                  setField={formik.setFieldValue}
+                />
               </CommercialType>
             )}
           </Col>
@@ -468,11 +471,15 @@ console.log(formik.values)
                   }
                   disabled={disableNext || isLoading}
                 >
-
-                  {!isLoading?
-                  tab === btn.maxTabs ? t("Signup") : t("Next"):
-                  <Spinner animation="border" />
-                  }
+                  {!isLoading ? (
+                    tab === btn.maxTabs ? (
+                      t("Signup")
+                    ) : (
+                      t("Next")
+                    )
+                  ) : (
+                    <Spinner animation="border" />
+                  )}
                 </Button>
               </Col>
 

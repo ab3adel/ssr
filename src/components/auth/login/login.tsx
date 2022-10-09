@@ -14,7 +14,7 @@ import {apis} from '../../tools/apis/apis'
 import {useFormik} from 'formik'
 import * as Yup from 'yup'
 import notificationContext from '../../tools/context/notification/notification-context'
-
+import authContext from "../../tools/context/auth-context/auth-context";
 import {useNavigate} from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 interface iProps {setLogin:Function}
@@ -25,6 +25,7 @@ const Login =({setLogin}:iProps) =>{
     const [isLoading,setIsloading]=useState(false)
     const [checked,setChecked]=useState(false)
     const navigate = useNavigate()
+    const {setToken}=useContext(authContext)
 const formik =useFormik({
                                 initialValues:{
                                     email:'',
@@ -50,10 +51,31 @@ const formik =useFormik({
         let formdata = new FormData ()
         formdata.append('email',formik.values.email)
         formdata.append('password',formik.values.password)
+        formdata.append('remember_me','1')
         axios.post(apis.login,formdata)
              .then((res:any)=>{
                
                 if (res && res.data) {
+                    
+                     let realImage=""
+                     if (res.data.payload.profile_picture){
+                      
+                         let image_array = res.data.payload.profile_picture.split("/").map((ele: string) => {
+                            if (ele === "public") {
+                              return "storage";
+                            }
+                            return ele;
+                          });
+                         realImage ='https://backend.instaaqar.com/' + image_array.join("/");
+                     }
+                     let required_data=
+                    {token:res.data.payload.token
+                        ,full_name:res.data.payload.full_name
+                        ,refresh_token:res.data.payload.refresh_token
+                        ,role:res.data.payload.roles[0].id,
+                        profile_picture:realImage
+                     }
+                     
                     setNotify((pre: any) => ({
                         ...pre,
                         show: true,
@@ -61,10 +83,8 @@ const formik =useFormik({
                         message: res.data.message,
                       }));
                       navigate('/')
-                      localStorage.setItem('token',JSON.stringify({token:res.data.payload.token,full_name:res.data.payload.full_name}))
-                      if (checked) {
-                        rememberMe(res.data.payload.token)
-                      }
+                      localStorage.setItem('token',JSON.stringify(required_data))
+                    setToken((pre:any)=>({...pre,...required_data}))
                       formik.resetForm()
                     
                 }

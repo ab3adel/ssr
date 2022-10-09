@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 
 
-interface iProps {tab:number,setTab:Function,children:React.ReactNode}
+interface iProps {tab:number,setTab:Function,children:React.ReactNode []}
 const CommercialType = ({tab,setTab,children}:iProps) =>{
 const {t,i18n}=useTranslation()
    return (
@@ -65,7 +65,9 @@ const {t,i18n}=useTranslation()
                                              />)}
                             {tab===2 && ( <SecurityForm />)}
                             {tab===3 && (<RequiredFilesForm />)} */}
-                            {children}
+                            {children?.map((ele,index)=> {
+                                if (index === tab) return ele
+                            })}
                            </Col>
                        </Row>
    )

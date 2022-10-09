@@ -62,9 +62,25 @@
    "YourAccountVerified":"Your account is verified now",
    "VerifyYourAccount":"Verify your account",
    "Male":"Male",
-   "SearchLocations":"Search Locations"
+   "SearchLocations":"Search Locations",
+   "PostCategory":"Post Category",
+   "Area_m":"Area",
+   "ServicesAvailable":"Services Available",
+   "PostTitle":"Post Title",
+   "Rooms":"Rooms",
+   "Bathrooms":"Bathrooms",
+   "Price":"Price",
+   "PredefinedPostPicture":"Predefined Post Picture",
+   "AddProfilePicture":"Add your profile picture",
+   "SetProfilePrimary":"Set your profile picture as primary",
+   "primary":"Primary",
+   "PropertyType":"Property Type",
+   "SharePost":"Share Post",
+   "PropertySites":"Property Site",
+   "OfferType":"Offer Type",
+   "Rent":"Rent Frequency"
    
-
+   
 
 
 

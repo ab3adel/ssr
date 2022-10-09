@@ -1,5 +1,5 @@
 import "./select.scss";
-import { iSelect } from "../../interface";
+import { iSelect, iOption } from "../../interface";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
@@ -14,14 +14,13 @@ export const Select = ({
   tempSelect,
   multiSelect,
   name,
-  selectedValue
-  
+  selectedValue,
 }: iSelect) => {
   const { i18n } = useTranslation();
   const [flaot, setFloat] = useState(false);
   const [hasSelection, setHasSelection] = useState(false);
- const [selected,setSelected]=useState('')
-  const [selection, setSelection] = useState(options);
+  const [selected, setSelected] = useState("");
+  const [selection, setSelection] = useState<iOption[]>(options as iOption[]);
   const handleChange = (e: React.ChangeEvent) => {
     setHasSelection(true);
     let select = e.target as HTMLSelectElement;
@@ -30,22 +29,22 @@ export const Select = ({
       setHasSelection(true);
       if (multiSelect) {
         if (Array.isArray(selectedValue)) {
-          let newValue=selectedValue
-          if (newValue.includes(select.value)) return
-          newValue.push(select.value)
+          let newValue = [...selectedValue];
+
+          if (newValue.includes(select.value)) return;
+          newValue.push(select.value);
+
           if (typeof setSelect === "function") {
-              setSelect(name,newValue)
-              setSelected(label)
+            setSelect(name, newValue);
+            setSelected(label);
           }
         }
-      }
-      else {
-
+      } else {
         if (typeof setSelect === "function") {
           let value: any = select.value;
           if (!isNaN(select.value as any)) value = parseInt(select.value);
           setSelect(name, value);
-          setSelected(name?name:'')
+          setSelected(name ? name : "");
         }
 
         if (typeof tempSelect === "function") {
@@ -55,33 +54,45 @@ export const Select = ({
     }
   };
   useEffect(() => {
-    if (options && options.length > 0) {
-      setSelection((pre: any) => options);
-    }
+    setSelection((pre: any) => options as iOption[]);
   }, [options]);
   const checkTyping = (e: React.FocusEvent) => {
     if ((e.target as HTMLInputElement).value === "") {
       setFloat(false);
     }
+    if (typeof handleBlur === "function") {
+      handleBlur(e);
+    }
   };
   const focused = () => {
-    setHasSelection(true)
+    setHasSelection(true);
   };
-  const onBlur=(e:React.FocusEvent)=>{
-
-    if (typeof(handleBlur) === 'function'){
-        handleBlur(name,true)
+  const onBlur = (e: React.FocusEvent) => {
+    if (typeof handleBlur === "function") {
+      handleBlur(e);
     }
-}
+  };
+
   return (
     <Form.Group
       className="floatedSelect"
       onClick={focused}
       onBlur={checkTyping}
     >
-      <div className={ "label float" }>{label}</div>
+      <div
+        className={"label float"}
+        style={
+          i18n.language === "en"
+            ? { right: "auto", left: "1rem" }
+            : { left: "auto", right: "1rem" }
+        }
+      >
+        {label}
+      </div>
       <Form.Select
-        className={hasSelection ? "mySelect hasSelection " : "mySelect lightLable "}
+        className={
+          hasSelection ? "mySelect hasSelection " : "mySelect lightLable "
+        }
         onChange={handleChange}
         as={"select"}
         name={name}
@@ -92,19 +103,18 @@ export const Select = ({
         }
         onBlur={onBlur}
         isInvalid={touched && Boolean(error)}
-        
-       
-       
+        disabled={selection && (selection as []).length > 0 ? false : true}
+        value={selectedValue || ""}
       >
-        <option className="lightLable"  selected disabled={true}>
-          {selection && selection.length > 0 ? <>{label}</> : <>...loading</>}
+        <option className="lightLable" selected disabled={true}>
+          {selection && selection.length > 0 ? <>{""}</> : <>...</>}
         </option>
 
         {selection && selection.length > 0
           ? selection.map((ele, index) => {
               return (
                 <option value={ele.value} key={index}>
-                  {ele.name}
+                  {i18n.language === "en" ? ele.title?.en : ele.title?.ar}
                 </option>
               );
             })

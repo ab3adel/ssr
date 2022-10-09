@@ -1,4 +1,10 @@
 import * as Yup from "yup";
+import { getI18n } from "react-i18next";
+let lang = 'en'
+if (localStorage.getItem('lang')) {
+
+  lang=localStorage.getItem('lang') as string
+}
 
 export const SignupSchema = (isUser: boolean, needCategory = true) =>
   Yup.object().shape({
@@ -30,17 +36,127 @@ export const SignupSchema = (isUser: boolean, needCategory = true) =>
       : Yup.mixed().required("This field is required"),
     website: isUser
       ? Yup.string().url().notRequired()
-      : Yup.string().url('This field must be a valid url').required('This field is required')
+      : Yup.string()
+          .url("This field must be a valid url")
+          .required("This field is required")
 
           .required("This field is required"),
-    category_ids :!isUser ? needCategory ?Yup.array().of(Yup.number()).min(1,'You have to choose category').required('You have to choose category'): 
-                    Yup.array().of(Yup.number()).notRequired() :Yup.array().notRequired(),
-    description:isUser?Yup.object().nullable().notRequired()
-    :
-    Yup.object()
-         .shape({ar:Yup.string().required('This field is required'),en:Yup.string().required('This field is required')})
-          .required('This field is required')           
+    category_ids: !isUser
+      ? needCategory
+        ? Yup.array()
+            .of(Yup.number())
+            .min(1, "You have to choose category")
+            .required("You have to choose category")
+        : Yup.array().of(Yup.number()).notRequired()
+      : Yup.array().notRequired(),
+    description: isUser
+      ? Yup.object().nullable().notRequired()
+      : Yup.object()
+          .shape({
+            ar: Yup.string().required("This field is required"),
+            en: Yup.string().required("This field is required"),
+          })
+          .required("This field is required"),
+  });
 
-
-                    
+export const AddPostSchema = (role_id: number) =>
+  Yup.object().shape({
+    title: Yup.object()
+      .shape({ ar: Yup.string(), en: Yup.string() })
+      .required(lang === "en" ? "This field is required" : "هذا الحقل مطلوب"),
+    area_id: Yup.number().required(
+      lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
+    ),
+    property_type_id:
+      role_id === 3
+        ? Yup.number().required(
+            lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
+          )
+        : Yup.number().notRequired(),
+    offer_type_id:
+      role_id === 3
+        ? Yup.number().required(
+            lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
+          )
+        : Yup.number().notRequired(),
+    price_type_id:
+      role_id === 3
+        ? Yup.number().required(
+            lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
+          )
+        : Yup.number().notRequired(),
+    property_site_id:
+      role_id === 3
+        ? Yup.number().required(
+            lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
+          )
+        : Yup.number().notRequired(),
+    category_id:
+      role_id !== 3
+        ? Yup.number().required(
+            lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
+          )
+        : Yup.number().notRequired(),
+    tags_ids: Yup.array().max(
+      3,
+      lang === "en"
+        ? "you can select 3 tags at most"
+        : "يمكنك اختيا 3 تاغات على الاكثر"
+    ),
+   
+    description:
+      Yup.object().shape({ ar: Yup.string().min(1)
+        , en: Yup.string().min(1) }) 
+       
+    ,
+    location_link:
+      role_id === 3
+        ? Yup.string()
+            .url()
+            .required(
+              lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
+            )
+        : Yup.number().notRequired(),
+    area:
+      role_id === 3
+        ? Yup.number()
+            .min(
+              0,
+              lang === "en"
+                ? "only positive numbers are accepted"
+                : "الأرقام الموجبة فقط مقبولة"
+            )
+            .required(
+              lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
+            )
+        : Yup.number().notRequired(),
+    price: Yup.number()
+      .min(0)
+      .required(lang === "en" ? "This field is required" : "هذا الحقل مطلوب"),
+    number_of_rooms:
+      role_id === 3
+        ? Yup.number()
+            .min(
+              0,
+              lang === "en"
+                ? "only positive numbers are accepted"
+                : "الأرقام الموجبة فقط مقبولة"
+            )
+            .required(
+              lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
+            )
+        : Yup.number().notRequired(),
+    number_of_bathrooms:
+      role_id === 3
+        ? Yup.number()
+            .min(
+              0,
+              lang === "en"
+                ? "only positive numbers are accepted"
+                : "الأرقام الموجبة فقط مقبولة"
+            )
+            .required(
+              lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
+            )
+        : Yup.number().notRequired(),
   });

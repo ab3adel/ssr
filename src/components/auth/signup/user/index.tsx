@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/esm/Col';
 import {useTranslation} from 'react-i18next'
 
 
-interface iProps {tab:number,children?:React.ReactNode}
+interface iProps {tab:number,children?:React.ReactNode[]}
  const UserType = ({tab,children}:iProps) =>{
    const {t,i18n}=useTranslation()
 
@@ -54,7 +54,11 @@ interface iProps {tab:number,children?:React.ReactNode}
                              {/* {tab===1 && ( <LocationForm
                                               type="User"/>)} */}
                              {/*tab===1 && ( <SecurityForm />) */} 
-                           {children}
+                           {children?.map((ele,index)=>{
+                              if (index === tab) {
+                                 return ele
+                              }
+                           })}
                             </Col>
                         </Row>
     )

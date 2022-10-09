@@ -1,3 +1,5 @@
+import { number, string } from "yup";
+
 export interface iInput {
   icon?: any;
   label: string;
@@ -16,15 +18,23 @@ export interface iInput {
   setValue?: Function;
   phoneNumber?: boolean;
   add?: Function;
-  reset?:Function
+  reset?:Function,
+  disabled?:boolean
 }
 export interface iOption {
-  name: string;
-  value: string | number;
+  name?: string;
+  value?: string | number;
+  title?:{en:string,ar:string},
+  id?:number
 }
+export interface iValue {
+  en:string,
+  ar:string
+}
+
 export interface iSelect {
   label: string;
-  options?: iOption[];
+  options?: iOption[] ;
   setSelect?: Function;
   handleBlur?: Function;
   error?: string;
@@ -42,4 +52,14 @@ export interface iText {
   name: string;
   handleBlur: any;
   label?: string;
+}
+
+export interface iToken {
+  token:string,
+  role:number,
+  full_name:string,
+  refresh_token:string,
+  profile_picture:string
+
+
 }

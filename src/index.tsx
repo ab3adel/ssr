@@ -8,21 +8,23 @@ import './i18n'
 import {BrowserRouter as Router} from 'react-router-dom'
 import SettingProvider from './components/tools/context/setting-context/setting-provider'
 import NotificationProvider from './components/tools/context/notification/notification-provider';
-
+import AuthContextProvider from './components/tools/context/auth-context/auth-provider';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  
-    <SettingProvider>
-      <NotificationProvider>
+    <AuthContextProvider>
+
+      <SettingProvider>
+        <NotificationProvider>
+          
+            <Router>
+              <App />
+            </Router>
         
-          <Router>
-            <App />
-          </Router>
-       
-      </NotificationProvider>
-    </SettingProvider>
+        </NotificationProvider>
+      </SettingProvider>
+    </AuthContextProvider>
 
 );
 

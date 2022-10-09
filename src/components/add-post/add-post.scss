@@ -249,7 +249,20 @@
                 }
             }
         }
-
+        .shareBtn {
+            background-color: var(--light-green);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            width: 100%;
+            border: none;
+            transition: .4s all ease-in-out;
+            &:focus {
+                border: 1px solid var(--light-green);
+                box-shadow: 3px 3px 3px white;
+            }
+        }
     }
     .fixed {
         display: flex;

@@ -3,7 +3,7 @@ import MySelect from 'react-bootstrap/Form'
 import React , {useState,useEffect} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Spinner} from 'react-bootstrap'
-import {iSelect} from '../interface'
+import {iSelect,iOption} from '../interface'
 
 export const Select=({label,options,setSelect
                      ,name,handleBlur,error
@@ -13,7 +13,7 @@ export const Select=({label,options,setSelect
                     }:iSelect)=>{
     const [hasSelection,setHasSelection]=useState(false)
     const {i18n} =useTranslation()
-   const [selection,setSelection]=useState(options)
+   const [selection,setSelection]=useState(options as iOption[])
   
 const handleChange=(e:React.ChangeEvent)=>{
     setHasSelection(true)
@@ -36,7 +36,7 @@ const handleChange=(e:React.ChangeEvent)=>{
 useEffect(()=>{
     if (options && options.length>0) {
       
-        setSelection((pre:any)=>(options))
+        setSelection((pre:any)=>(options as iOption[]))
     }
 },[options])
 const onBlur=(e:React.FocusEvent)=>{
@@ -56,7 +56,7 @@ const onBlur=(e:React.FocusEvent)=>{
         name={name}
         style={i18n.language ==="ar"?{backgroundPosition:"left 0.75rem center"}:{backgroundPosition:"right 0.75rem center"}}
         onBlur={onBlur}
-        isInvalid={touched && Boolean(error)}
+        isInvalid={Boolean(error)}
         multiple={multiSelect}
         >
             

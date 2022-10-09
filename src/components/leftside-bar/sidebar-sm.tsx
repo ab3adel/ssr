@@ -14,13 +14,13 @@ import {Select} from '../tools/select-with-image/select'
 import UK from '../../images/auth/Uk.svg'
 import kw from '../../images/auth/kw.svg'
 import {useTranslation} from 'react-i18next'
-import i18n from '../../i18n'
+import {iToken} from '../tools/interface'
 import Collapse from 'react-bootstrap/Collapse'
 import Fade from 'react-bootstrap/Fade'
 import {useNavigate} from 'react-router-dom'
 import {useState,useContext} from 'react'
 import SettingContext from '../tools/context/setting-context/setting-context'
-interface iProps {token?:{token:string,full_name:string},removeToken:Function}
+interface iProps {token?:iToken,removeToken:Function}
 
 let languages=[{title:"English",icon:UK},{title:'Arabic',icon:kw}]
 
@@ -168,10 +168,12 @@ const handleRoutes= (num:number)=>{
                                         </div>
                                     </Col>
                                     <Col xs={10}>
-                                        <Button className='postBtn Btn'
+                                     {  token?.role !== 2 &&
+                                       ( <Button className='postBtn Btn'
                                               onClick={()=>handleRoutes(7)}>
                                         {t("PostProperty")}
-                                        </Button>
+                                        </Button>)
+                                        }
                                     </Col>
                                 </Row> 
                             </Col>

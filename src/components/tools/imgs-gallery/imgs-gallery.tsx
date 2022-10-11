@@ -5,7 +5,9 @@ import Fade from 'react-bootstrap/Fade'
 import leftArrow from '../../../images/home/left-arrow-icon.svg'
 import rightArrow from '../../../images/home/right-arrow-icon.svg'
 import {useTranslation} from 'react-i18next'
-interface iProps {images: string [],price?:number }
+interface iProps {images: any []
+    ,price?:string,currency?:{en:string,ar:string}
+,price_type?:{en:string,ar:string} }
 export const ImagesGallery =({images,price}:iProps)=>{
     const {ref,hide,handleShow} =useHide()
     const [currentImage,setCurrentImage]=useState(0)

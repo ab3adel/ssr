@@ -60,6 +60,46 @@ export interface iToken {
   full_name:string,
   refresh_token:string,
   profile_picture:string
+}
+export interface iGetPosts {
+  page:number
+  ,post_id?:number
+  ,user_id?:number
+  ,company_id?:number
+  ,text?:string
+  ,area_id?:number,
+  category_id?:number,
+  tag_id?:number,
+  price_from?:number,
+  price_to?:number,
+  property_type_id?:number,
+  offer_type_id?:number,
+  price_type_id?:number,
+  property_site_id?:number,
+  area_from?:number,
+  area_to?:number,
+  number_of_room?:number,
+  number_of_bathroom?:number
+}
+export interface iPost {
+  title:{en:string,ar:string},
+  username:string,
+  area:{en:string,ar:string},
+  currency:{en:string,ar:string},
+  images:[{path:string,file_name:{en:string,ar:string}}],
+  main_property_type?:{en:string,ar:string},
+  offer_type?:{en:string,ar:string},
+  price_type?:{en:string,ar:string},
+  profile_picture?:string,
+  property_site?:{en:string,ar:string},
+  property_type?:{en:string,ar:string},
+  role:{ar:string,en:string},
+  tags?:[{name:{en:string,ar:string},}]
+  number_of_rooms?:number,
+  number_of_bathrooms?:number,
+  price:string,
+  id:number,
+  likes:number
 
 
 }

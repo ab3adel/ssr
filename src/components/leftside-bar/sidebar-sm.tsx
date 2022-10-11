@@ -168,7 +168,7 @@ const handleRoutes= (num:number)=>{
                                         </div>
                                     </Col>
                                     <Col xs={10}>
-                                     {  token?.role !== 2 &&
+                                     {token?.role &&  token?.role !== 2 &&
                                        ( <Button className='postBtn Btn'
                                               onClick={()=>handleRoutes(7)}>
                                         {t("PostProperty")}

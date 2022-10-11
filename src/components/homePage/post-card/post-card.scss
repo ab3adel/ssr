@@ -10,7 +10,9 @@
                 height: 64px;
             }
             .userName {
+                font-size: 1rem;
                 span {
+
                     font-weight: bold;
                 }
                 .icon {
@@ -58,6 +60,7 @@
                 justify-content: center;
                 font-weight: bold;
                 border-radius: 5px;
+                font-size: 1rem;
                 .icon {
                     width:30px;
                     height: 24px;
@@ -86,13 +89,20 @@
             }
             .iconBtn {
                 display: flex;
-               justify-content: end;
+               justify-content: space-around;
                cursor: pointer;
                 img {
 
                     width: 31px;
                     height: 31px;
                 }
+            }
+            .likeButton {
+                font-size:1rem ;
+                font-weight: bold;
+               span {
+                margin:0 5px;
+               }
             }
             .title {
                 font-size: 1.6em;
@@ -155,7 +165,15 @@
                 .tag {
                     font-size: small;
                 }
+                .userName {
+                    display: flex;
+                    align-items: center;
+                }
+                .location {
+                    font-size: 0.8rem;
+                }
             }
+
             .card-body {
                 .imgsGalery {
                     height: 300px;

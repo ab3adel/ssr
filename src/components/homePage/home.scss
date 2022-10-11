@@ -41,6 +41,18 @@
     height: 100px;
     width:100%
    }
+   .postLoadingContainer {
+    position: fixed;
+    height: 30px;
+    width: 100vw;
+    bottom: 0;
+  
+       .postsLoading {
+         display: flex;
+         justify-content: center;
+        
+       }
+   }
 
 }
 @media screen and (max-width:567px) {

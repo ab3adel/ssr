@@ -11,13 +11,13 @@ import logo from "../../images/auth/logo.svg";
 import news from "../../images/home/newsfeed-icon.svg";
 import layer from "../../images/home/layer-icon.svg";
 import Button from "react-bootstrap/Button";
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Select } from "../tools/select-with-image/select";
 import UK from "../../images/auth/Uk.svg";
 import { useTranslation } from "react-i18next";
 import Arabic from "../../images/auth/kw.svg";
 import { useNavigate } from "react-router-dom";
-import {iToken} from '../tools/interface'
+import { iToken } from '../tools/interface'
 import show from "../../images/home/show.svg";
 let languages = [
   { title: "English", icon: UK },
@@ -72,12 +72,16 @@ export const SidebarLg = ({
       case 7:
         navigate("/addpost");
         break;
+      case 5:
+        navigate('/messages');
+        break;
+
       default:
         navigate("/");
     }
   };
 
-  const handleCollapse = () => {};
+  const handleCollapse = () => { };
   useEffect(() => {
     if (i18n.language === "ar") {
       collapseBtnClass = "arOpen";
@@ -123,12 +127,12 @@ export const SidebarLg = ({
           </Col>
         </Row>
       </Col>
-      <Col  lg={mainCol_lg} className="sidebarItems">
+      <Col lg={mainCol_lg} className="sidebarItems">
         <Col xl={mainCol_xl} lg={mainCol_lg}>
           <Row className="">
             <Col
               lg={col_lg}
-            
+
               onClick={() => hanldeRoutes(0)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -145,7 +149,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-             
+
               onClick={() => hanldeRoutes(1)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -161,7 +165,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-              
+
               onClick={() => hanldeRoutes(2)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -177,7 +181,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-              
+
               onClick={() => hanldeRoutes(3)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -192,7 +196,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-              
+
               onClick={() => hanldeRoutes(4)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -212,7 +216,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-           
+
               onClick={() => hanldeRoutes(5)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -231,7 +235,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-           
+
               onClick={() => hanldeRoutes(6)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -246,10 +250,10 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-             xl={col_xl}
+              xl={col_xl}
               className={collapsed ? "collapse" : "show"}
-            >{token?.role !==2 &&
-             ( <Button className="postBtn Btn" onClick={() => hanldeRoutes(7)}>
+            >{token?.role !== 2 &&
+              (<Button className="postBtn Btn" onClick={() => hanldeRoutes(7)}>
                 <div className="plus">+</div>
                 {t("PostProperty")}
               </Button>)

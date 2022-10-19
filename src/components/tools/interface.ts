@@ -2,24 +2,27 @@ import { number, string } from "yup";
 
 export interface iInput {
   icon?: any;
-  label: string;
+  label?: string;
   className?: string;
   id?: string;
   name: string;
   onChange?: Function;
-  value?: string | undefined;
+  value?: string ;
   handleBlur?: any;
   error?: string;
   touched?: boolean;
   type: string;
-  required: boolean;
+  required?: boolean;
   unit?: string;
   numberControl?: boolean;
   setValue?: Function;
   phoneNumber?: boolean;
   add?: Function;
   reset?:Function,
-  disabled?:boolean
+  disabled?:boolean,
+  height?:string,
+ 
+
 }
 export interface iOption {
   name?: string;
@@ -52,6 +55,7 @@ export interface iText {
   name: string;
   handleBlur: any;
   label?: string;
+  disabled?:boolean;
 }
 
 export interface iToken {

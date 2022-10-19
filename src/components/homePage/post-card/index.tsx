@@ -58,20 +58,7 @@ export const PostCard =(
        
     }
    
-    useEffect(()=>{
-        if (images && images.length>0) {
-            let data=images.map((ele)=>{
-                
-                let arr= ele.path.split('/').slice(3)
-              
-               let img ='https://backend.instaaqar.com/'+arr.join('/')
-               return img
-
-
-            })
-            setImages(data)
-        }
-    },[images])
+   
     return (
         <Col xs={12} sm={6}
         className="postCardContainer">
@@ -169,7 +156,7 @@ export const PostCard =(
                     <Row className='gy-1'>
                         <Col xs={12} className="p-0 p-sm-1">
                            <ImagesGallery 
-                            images={Imgs}
+                            images={images}
                             price={price}
                             currency={currency}
                             price_type={price_type}

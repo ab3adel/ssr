@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card'
 import chat from '../../images/post-details/chat-icon.svg'
 
 
-export const FixedSection =()=>{
+export const FixedSection =({post}:{post:any})=>{
 
 
     return (

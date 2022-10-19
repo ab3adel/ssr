@@ -23,14 +23,15 @@ interface iProps {
     images:string[],
     description:string,
     handleReact:Function,
-    react:boolean
+    react:boolean,
+    post:any
 }
 
 
 export const MobileView =({images
                         ,description
                         ,handleReact
-                        ,react}:iProps)=>{
+                        ,react,post}:iProps)=>{
 
                             const {openSidebar} =useContext(SettingContext)
 
@@ -132,7 +133,7 @@ export const MobileView =({images
                        
                     </Col>
                     <Col xs={12} className="p-0">
-                        <FixedSection />
+                        <FixedSection post={post} />
                     </Col>
                     <Col xs={12}>
                         <Row className="mt-1 gy-3">

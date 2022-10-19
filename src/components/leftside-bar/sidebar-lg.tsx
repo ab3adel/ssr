@@ -69,6 +69,9 @@ export const SidebarLg = ({
       case 1:
         navigate("/news");
         break;
+      case 3:
+        navigate('/profile');
+        break;
       case 7:
         navigate("/addpost");
         break;

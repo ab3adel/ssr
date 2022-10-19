@@ -5,6 +5,7 @@ import HomePage from '../homePage'
 import NewsFeed  from '../news-feed'
 import PostDetails from '../post-details'
 import  AddPost  from '../add-post'
+import Profile from '../profile'
 
 
 
@@ -14,7 +15,8 @@ export const Rotues =(id:number) :RouteObject []  =>( [
         {index:true,element:<HomePage />},
         {path:'/news',element:<NewsFeed />},
         {path:'/postdetails/:id',element:<PostDetails/>},
-        {path:'/addpost',element:id===2?<Navigate to="/"/>:<AddPost />}
+        {path:'/addpost',element:id===2?<Navigate to="/"/>:<AddPost />},
+        {path:'/profile',element:<Profile/>}
         
     ]},
     {path:'/auth',element:<AuthenticationPage/>}

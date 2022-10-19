@@ -74,8 +74,8 @@ const formik =useFormik({
     longitude:'',
     area:'',
     price:'',
-    number_of_rooms:0,
-    number_of_bathrooms:0,
+    number_of_rooms:'',
+    number_of_bathrooms:'',
     PACIID:'',
     profile_photo_as_an_image:'0',
     profile_photo_as_an_image_primary:'0',
@@ -163,8 +163,8 @@ const addPost =()=>{
         formData.append('location_link',formik.values.location_link)
         formData.append('latitude',formik.values.latitude)
         formData.append('longitude',formik.values.longitude)
-        formData.append('number_of_rooms',JSON.stringify(formik.values.number_of_rooms))
-        formData.append('number_of_bathrooms',JSON.stringify(formik.values.number_of_bathrooms) )
+        formData.append('number_of_rooms',formik.values.number_of_rooms)
+        formData.append('number_of_bathrooms',formik.values.number_of_bathrooms )
         formData.append('area',formik.values.area)
     }
     if (token.role !== 3) {

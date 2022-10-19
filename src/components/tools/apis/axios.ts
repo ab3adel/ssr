@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance =axios.create({
-    baseURL:'https://backend.instaaqar.com/api',
+    baseURL:'http://3.67.189.115/api',
 
 })
 

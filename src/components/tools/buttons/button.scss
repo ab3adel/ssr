@@ -1,0 +1,19 @@
+
+.buttonGreen {
+    background-color: var(--light-green);
+    border-radius:5px ;
+    color: white;
+    padding: 1px;
+    height: 30px;
+    box-shadow: none;
+    border:var(--light-green);
+    transition: all .2s ease;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+        opacity: 0.8;
+    }
+
+}

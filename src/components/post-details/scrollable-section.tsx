@@ -14,18 +14,22 @@ import area from "../../images/post-details/area.svg";
 import amenities from "../../images/post-details/amenities.svg";
 import room from "../../images/post-details/room.svg";
 import { TextAccordion } from "../tools/text-accordion/text-accordion";
+import { useEffect } from "react";
 interface iProps {
   images: string[];
   description: string;
   handleReact: Function;
   react: boolean;
+  post:any
 }
 export const ScrollableSection = ({
   images,
   description,
   handleReact,
   react,
+  post
 }: iProps) => {
+
   return (
     <Col xs={6} className="scrollableSection">
       <Card>
@@ -36,11 +40,11 @@ export const ScrollableSection = ({
                 <Col xs={10} sm={5}>
                   <Row className="gy-3">
                     <Col xs={4}>
-                      <img src={profile} className="profile" />
+                      <img src={post.profile_picture?post.profile_picture:profile} className="profile" />
                     </Col>
                     <Col xs={8} className="d-flex  align-items-center">
                       <div className="userName">
-                        <span>Jane Done</span>
+                        <span>{post.username}</span>
                         <img className="icon" src={valid} />
                       </div>
                     </Col>
@@ -56,7 +60,7 @@ export const ScrollableSection = ({
         <Card.Body>
           <Row className="gy-3">
             <Col xs={12}>
-              <ImagesGallery images={images} />
+              <ImagesGallery images={post.images} />
             </Col>
 
             <Col xs={12}>

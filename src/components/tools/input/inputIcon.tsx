@@ -10,7 +10,7 @@ import {iInput} from '../interface'
 export const InputWithIcon =({icon=null,label,className,id
                               ,name,onChange=()=>{}
                               ,handleBlur=()=>{},value=undefined
-                            ,error,touched,type,required}:iInput) =>{
+                            ,error,touched,type,required,height}:iInput) =>{
 const [tempValue,setValue]=useState('')
 const [isTyping,setIsTyping]=useState(false)
 const [showPassword,setShowPassword]=useState(false)
@@ -47,7 +47,12 @@ useEffect(()=>{
     return (
         <Form.Group
             className={Boolean(error)? `mb-1 is_valid inputGroupWithIcon ${className}`:`mb-1 inputGroupWithIcon  ${className}`}
-            style={{padding:i18n.language === 'en'?'0.5em 2.9em 0.5em 0':'0.5em 0em 0.5em 2.9em'}}
+            style={{
+                padding:i18n.language === 'en'?'0.5em 2.9em 0.5em 0':'0.5em 0em 0.5em 2.9em',
+                height:height?height:''
+        }
+               }
+            
             >
                 
                  <div className="inputLabel "

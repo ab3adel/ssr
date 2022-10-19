@@ -9,6 +9,7 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import SettingProvider from './components/tools/context/setting-context/setting-provider'
 import NotificationProvider from './components/tools/context/notification/notification-provider';
 import AuthContextProvider from './components/tools/context/auth-context/auth-provider';
+import {RecoilRoot} from 'recoil'
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -17,10 +18,12 @@ root.render(
 
       <SettingProvider>
         <NotificationProvider>
-          
-            <Router>
-              <App />
-            </Router>
+          <RecoilRoot>
+
+              <Router>
+                <App />
+              </Router>
+          </RecoilRoot>
         
         </NotificationProvider>
       </SettingProvider>

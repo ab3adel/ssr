@@ -327,3 +327,41 @@
     }
 
 }
+
+.chatRow.chatRowAr {
+
+    .contactLAstMSG,
+    .otherUserSender,
+    .iAmSender,
+    .sendMSGBTN,
+    .contactName {
+        letter-spacing: normal;
+    }
+
+    .iAmSender {
+        border-radius: 10px 10px 0px 10px;
+    }
+
+    .otherUserSender {
+        border-radius: 10px 10px 10px 0px;
+    }
+
+    .statusCircleChat {
+        right: -1px;
+        left: unset;
+    }
+
+    .statusCircle {
+        right: unset;
+        left: -1px;
+    }
+
+    .otherUserSender.dublicateSender,
+    .iAmSender.dublicateSender {
+        border-radius: 10px 10px 10px 10px;
+    }
+
+    .sendMSGBTN img {
+        transform: rotateZ(180deg);
+    }
+}

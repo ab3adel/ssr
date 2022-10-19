@@ -4,13 +4,13 @@ import AuthenticationPage from '../auth'
 import HomePage from '../homePage'
 import NewsFeed from '../news-feed'
 import PostDetails from '../post-details'
-import  AddPost  from '../add-post'
+
 import Profile from '../profile'
 import AddPost from '../add-post'
 import Chat from '../chat'
 
 
-export const Rotues = (id: number): RouteObject[] => ([
+
 
 export const Rotues =(id:number) :RouteObject []  =>( [
  

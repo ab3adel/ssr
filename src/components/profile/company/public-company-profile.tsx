@@ -10,8 +10,9 @@ import { useState } from "react"
 import {Posts} from '../views/posts'
 import {Data} from '../views/data'
 import { GreenButton } from "../../tools/buttons/green-button"
-import {FollowersFollowing} from '../views/followers-following'
-export const CompanyProfile= ({edit,setEdit}:iProps)=>{
+
+
+export const  CompanyPublicProfile =()=>{
     let company=true
     
     let [tabIndex,setTabIndex]=useState(0)
@@ -33,16 +34,29 @@ export const CompanyProfile= ({edit,setEdit}:iProps)=>{
 
                 <Col sm={3} xs={12} className={`fixedPart  bg-profile flex-column justify-content-between${company?'':'py-2'}`}>
                        
-                       <Row className="gy-2 justify-content-center">
+                       <Row className="gy-1 justify-content-center">
 
                         
                             <Col xs={12}>
 
-                                <UserInfo company={company}   edit={edit} />
+                                <UserInfo 
+                                 company={company}  
+                                 edit={false} />
                             </Col>
-                            <Col  xs={12} className="d-flex justify-content-center ">
-                                 <FollowersFollowing company={company} />
-                            </Col>
+                            <Col xs={12} className="mt-2 justify-content-center d-flex ">
+                             
+
+                                <Col xs={9}>
+                                        <GreenButton
+                                        label="Follow" 
+                                        
+                                        />
+                                
+                              </Col>
+                             
+                          
+                            </Col>    
+                        
                         
                             <Col xs={12}>
 
@@ -53,30 +67,7 @@ export const CompanyProfile= ({edit,setEdit}:iProps)=>{
                                     />
                             </Col>
                             <Col xs={12}>
-                            {edit?
-                            <Col xs={11}>
-
-                                    <GreenButton
-                                    label={"Edit Profile"} 
-                                    fun={()=>setEdit(true)}
-                                    />
-                              </Col>:
-                            <Row className='gy-1'>
-                                <Col xs={11}>
-
-                                    <GreenButton
-                                    label={"Edit Profile"} 
-                                    fun={()=>setEdit(true)}
-                                    />
-                                </Col>
-                                <Col xs={11}>
-
-                                    <GreenButton 
-                                    label={'Change Password'}
-                                    />
-                                </Col>
-                            </Row>
-}
+                           
                             </Col>
                         </Row>
                     </Col>
@@ -103,7 +94,7 @@ export const CompanyProfile= ({edit,setEdit}:iProps)=>{
                         <Col xs={12} >
 
                             <Tab num={tabIndex}>
-                                <Info company={company} edit={edit} />
+                                <Info company={true} edit={false} publicProfile={true} />
                                 <Posts />
                             </Tab>
                         </Col>
@@ -122,15 +113,15 @@ export const CompanyProfile= ({edit,setEdit}:iProps)=>{
                 
                         <Col xs={12}>
 
-                            <UserInfo company={company} edit={edit}/>
+                            <UserInfo company={company} edit={false}/>
                         </Col>
                         
                             <Col xs={12} className="mt-2 justify-content-center d-flex">
                               
                                     <Col xs={10}>
                                             <GreenButton
-                                            label="Edit Profile" 
-                                            fun={()=>setEdit(true)}
+                                            label="Follow" 
+                                            
                                             />
                                     </Col>
                                    
@@ -145,42 +136,50 @@ export const CompanyProfile= ({edit,setEdit}:iProps)=>{
                             
                             <Col xs={12}>
                                 <Row className="p-sm-2 justify-content-center">
-                                <Col  xs={3}
+                                <Col  xs={6}
                                     className={tabIndex===0?"tab active-tab":"tab"}
                                     onClick={()=>setTabIndex(0)}>
                                     
                                         Posts
                                     </Col>
-                                    <Col sm={5} xs={3}
+                                    <Col xs={6}
                                     className={tabIndex===1?"tab active-tab":"tab"}
                                     onClick={()=>setTabIndex(1)}>
                                     
                                         Info
                                     </Col>
-                                    <Col sm={5} xs={3}
-                                        className={tabIndex===2?"tab active-tab":"tab"}
-                                        onClick={()=>setTabIndex(2)}>
-                                        Data
-                                    </Col>
-                                    <Col sm={5} xs={3}
-                                        className={tabIndex===3?"tab active-tab":"tab"}
-                                        onClick={()=>setTabIndex(3)}>
-                                        Socials
-                                    </Col>
+                                    
                                 </Row>
                             </Col>
                             <Col xs={12} >
 
                                 <Tab num={tabIndex}>
                                     <Posts />
-                                    <Info company={company} edit={edit} />
-                                
-                                    <Data />
-                                    <SocialMedia 
-                                        values={formik.values}
-                                        handleChange={formik.handleChange}
-                                        company={company}
-                                    />
+                                    <Col xs={12}>
+                                        <Row>
+                                            <Col xs={12}>
+
+                                                <Info company={company} edit={false}
+                                                publicProfile={true} />
+                                            </Col>
+                                            <Col xs={12} className="px-0 py-2">
+                                                <Row>
+                                                    <Col xs={12} className="fw-bold d-flex justify-content-center">
+                                                        Socials Media
+                                                    </Col>
+                                                    <Col xs={12} className="px-0 ">
+
+                                                        <SocialMedia 
+                                                            values={formik.values}
+                                                            handleChange={formik.handleChange}
+                                                            company={company}
+                                                        />
+                                                    </Col>
+                                                </Row>
+
+                                            </Col>
+                                        </Row>
+                                    </Col>
                                    
                                 
                                 </Tab>
@@ -191,6 +190,5 @@ export const CompanyProfile= ({edit,setEdit}:iProps)=>{
             
             </Row>
 
-       </Container>
-    )
+       </Container>)
 }

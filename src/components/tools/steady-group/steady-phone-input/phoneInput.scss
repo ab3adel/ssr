@@ -1,0 +1,57 @@
+.steadyPhoneInput {
+    max-height: 59px;
+    min-height:59px;
+   
+   
+    line-height:1.1em ;
+    position: relative;
+    .form-text {
+
+        .label {
+            color:black
+        }
+    }
+    .react-tel-input {
+       
+       
+        border:var(--back-color) 1px solid;
+        align-items: center;
+        border-radius: 10px;
+        padding: 0.1rem 0.7rem 0.1rem 0.7rem;
+        box-shadow: 3px 3px 3px var(--back-color);
+        .form-control {
+            width: 100%;
+            border:none;
+            &:focus {
+                box-shadow: none;
+
+            }
+        }
+        .form-control.invalid-number {
+            border:none;
+            background-color: transparent;
+            &:focus {
+
+                border:none;
+                background-color: transparent;
+            }
+        }
+        .flag-dropdown {
+           border: none;
+           border-radius: 10px;
+           background-color: transparent;
+        }
+       
+    }
+    .feedback {
+        color:red;
+        font-size: 0.8em;
+        position: absolute;
+        left:2rem;
+        bottom: 0%;
+    }
+    
+}
+.phoneInputContainer.invalid {
+    border:1px solid red;
+}

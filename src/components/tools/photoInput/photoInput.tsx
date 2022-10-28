@@ -7,9 +7,9 @@ import {useState,useEffect} from 'react'
 interface iProps {
     value:any,error?:string,
     touched?:boolean,setValue:Function,
-    name:string
+    name:string,width?:number,height?:number,default_image?:string
 }
-export const InputFile =({value,error,touched,setValue,name}:iProps)=>{
+export const InputFile =({value,error,touched,setValue,name,width,height,default_image}:iProps)=>{
     const [uploadedImage,setUploadedImage]=useState('')
     const handleFile=()=>{
         let input = document.querySelector('#input') as HTMLInputElement
@@ -38,6 +38,9 @@ export const InputFile =({value,error,touched,setValue,name}:iProps)=>{
             setUploadedImage(objUrl)
         }
     }
+    useEffect(()=>{
+        if(default_image) setUploadedImage(default_image)
+    },[])
 
 
     return (
@@ -46,16 +49,22 @@ export const InputFile =({value,error,touched,setValue,name}:iProps)=>{
         >
             <div className={Boolean(error) ?"iconContainer is_invalid": "iconContainer"}
                onClick={handleFile}
+               style={{height:height?`${height}px`:'',width:width?`${width}px`:''}}
               >
                 {
                     uploadedImage?
-                    <img src={uploadedImage} className="profile" />:
-                    <img src={person} className=" person"/>
+                    <img src={uploadedImage} className="profile"
+                    style={{height:height?`${height}px`:'',width:width?`${width}px`:''}} />:
+                    <img src={person} className=" person"
+                    style={{height:height?`${height/2}px`:'',width:width?`${width/2}px`:''}}
+                    />
 
                 }
                 
-                <div className="cameraContainer icon">
-                    <img src={Camera} className=" camera" />
+                <div className="cameraContainer icon"
+                style={{height:height?`${height/3}px`:'',width:width?`${width/3}px`:''}}>
+                    <img src={Camera} className=" camera" 
+                      style={{height:height?`${height/5}px`:'',width:width?`${width/5}px`:''}}/>
                 </div>
                 
           
@@ -65,6 +74,7 @@ export const InputFile =({value,error,touched,setValue,name}:iProps)=>{
             className="input"
             id="input"
             onChange={handleChange}
+
             />
            
         </Form.Group>

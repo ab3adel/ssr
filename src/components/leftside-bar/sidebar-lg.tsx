@@ -70,7 +70,7 @@ export const SidebarLg = ({
         navigate("/news");
         break;
       case 3:
-        navigate('/profile');
+        navigate('/publicprofile');
         break;
       case 7:
         navigate("/addpost");

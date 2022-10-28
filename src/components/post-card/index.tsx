@@ -2,33 +2,34 @@ import './post-card.scss'
 import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import valid from '../../../images/home/valid-account-icon.svg'
-import location from '../../../images/home/location-icon.svg'
-import profile from '../../../images/home/icon-profile.svg'
-import building from '../../../images/home/building-icon.svg'
+import valid from '../../images/home/valid-account-icon.svg'
+import location from '../../images/home/location-icon.svg'
+import profile from '../../images/home/icon-profile.svg'
+import building from '../../images/home/building-icon.svg'
 
-import share from '../../../images/home/share-icon.svg'
-import heartFilled from '../../../images/home/heart-icon.svg'
-import heart from '../../../images/home/heart-filled-icon.svg'
+import share from '../../images/home/share-icon.svg'
+import heartFilled from '../../images/home/heart-icon.svg'
+import heart from '../../images/home/heart-filled-icon.svg'
 
-import direction from '../../../images/home/direction-icon.svg'
-import Area from '../../../images/home/area-icon.svg'
-import amenities from '../../../images/home/amenities-icon.svg'
-import room from '../../../images/home/room-icon.svg'
+import direction from '../../images/home/direction-icon.svg'
+import Area from '../../images/home/area-icon.svg'
+import amenities from '../../images/home/amenities-icon.svg'
+import room from '../../images/home/room-icon.svg'
 import Dropdown from 'react-bootstrap/Dropdown'
 import {ThreeDotsVertical} from 'react-bootstrap-icons'
-import {useLikePost} from '../../tools/apis/uselikePost'
+import {useLikePost} from '../tools/apis/uselikePost'
 import {useEffect, useState,useRef} from 'react'
 import {useTranslation} from 'react-i18next'
-import {ImagesGallery} from '../../tools/imgs-gallery/imgs-gallery'
+import {ImagesGallery} from '../tools/imgs-gallery/imgs-gallery'
 import {useNavigate} from 'react-router-dom'
-import {iPost} from '../../tools/interface'
+import {iPost} from '../tools/interface'
 
 
 export const PostCard =(
     {
         title,area,currency,images,price,role,username,main_property_type,number_of_bathrooms,
-        number_of_rooms,offer_type,price_type,profile_picture,property_site,property_type,tags,id,likes
+        number_of_rooms,offer_type,price_type,profile_picture,property_site,imgs_gallery_height,
+        property_type,tags,id,likes,testImages,small_size,for_profile=false
     }:iPost
 )=>{
 
@@ -60,7 +61,7 @@ export const PostCard =(
    
    
     return (
-        <Col xs={12} sm={6}
+        <Col xs={12} sm={12}
         className="postCardContainer">
             <Card>
                 <Card.Header>
@@ -72,7 +73,8 @@ export const PostCard =(
                                         <Col xs={3}>
                                             
                                                
-                                            <img src={ profile_picture? profile_picture:profile} className="profile"/>
+                                            <img src={ profile_picture? profile_picture:profile} className="profile"
+                                               style={small_size?{width:'45px',height:'45px'}:{}}/>
 
                                             
                                         </Col>
@@ -81,13 +83,17 @@ export const PostCard =(
 
                                                 <Col xs={12}>
                                                     <div className="userName">
-                                                        <span >{username}</span>
-                                                        <img className="icon" src={valid} />
+                                                        <span  style={small_size?{fontSize:'14px'}:{}} >{username}</span>
+                                                        <img className="icon" src={valid}
+                                                         style={small_size?{width:'12.5px',height:'12.5px'}:{}}
+                                                      />
                                                     </div>
                                                 </Col>
                                                 <Col xs={12}>
                                                     <div className="location">
-                                                        <img className='icon' src={location}/>
+                                                        <img className='icon' src={location}
+                                                          style={small_size?{width:'12.5px',height:'12.5px'}:{}}
+                                                        />
                                                         <span>
                                                             {i18n.language==='en'?area.en:area.ar}
                                                         </span>
@@ -124,12 +130,14 @@ export const PostCard =(
                             <Row className="gy-md-1 gy-lg-0">
 
                                 <Col xs={6} lg={4}>
-                                    <div className="tag grey">
+                                    <div className="tag grey "
+                                    style={small_size?{fontSize:'12px'}:{}} >
                                       {i18n.language==='en'?role.en:role.ar}
                                     </div>
                                 </Col>
                                 <Col xs={6} lg={4}>
-                                    <div className="tag grey">
+                                    <div className="tag grey "
+                                     style={small_size?{fontSize:'12px'}:{}}>
                                         <span>
                                             {
                                                 property_type?
@@ -141,7 +149,8 @@ export const PostCard =(
                                     </div>
                                 </Col>
                                 <Col xs={6} lg={4}>
-                                    <div className="tag green">
+                                    <div className="tag green"
+                                     style={small_size?{fontSize:'12px'}:{}}>
                                     {
                                         offer_type?
                                     i18n.language==='en'?offer_type.en:offer_type.ar:''
@@ -156,9 +165,10 @@ export const PostCard =(
                     <Row className='gy-1'>
                         <Col xs={12} className="p-0 p-sm-1">
                            <ImagesGallery 
-                            images={images}
+                            images={testImages as any[]}
                             price={price}
                             currency={currency}
+                            height={imgs_gallery_height}
                             price_type={price_type}
                             />
                         </Col>
@@ -173,8 +183,11 @@ export const PostCard =(
                                         tags?.map((ele,index)=>
                                         (
                                             <Col sm={4} xs={6} key={index}>
-                                            <div className="badge">
-                                                {i18n.language === 'en'?ele.name.en:ele.name.ar}
+                                            <div className="badge "
+                                            style={small_size?{fontSize:'10px'}:{}}>
+                                               <span className="p-1">
+                                               {i18n.language === 'en'?ele.name.en:ele.name.ar}
+                                                </span> 
                                             </div>
                                         </Col>
                                         )
@@ -185,7 +198,8 @@ export const PostCard =(
                                     </Row>
                                 </Col>
                                 <Col xs={4}>
-                                    <Row>
+                                  {  !for_profile &&
+                                  ( <Row>
                                    
                                         <Col xs={7} className="iconBtn likeButton "
                                          onClick={()=>handleLike(id)}
@@ -198,7 +212,8 @@ export const PostCard =(
                                             <img src={share} />
                                         </Col>
                                     
-                                    </Row>
+                                    </Row>)
+                                    }
                                 </Col>
                             </Row>
                         </Col>
@@ -210,28 +225,29 @@ export const PostCard =(
                         <Col xs={12} className="details">
                             <Row className="gy-1">
 
-                                <Col lg={3} md={5} xs={6} className="detail">
+                                <Col lg={3} md={5} xs={6} className="detail"
+                                >
                                     
-                                    <img  src={direction} />
-                                    <span>North West</span>
+                                    <img  src={direction} style={small_size?{width:'17.4px',height:'17.4px'}:{}}/>
+                                    <span style={small_size?{fontSize:'12px'}:{}}>North West</span>
                                 </Col>
                                 {number_of_rooms &&
                                 (<Col lg={3} md={5} xs={6} className="detail">
-                                    <img  src={room} />
-                                    <span>{number_of_rooms}</span>
+                                    <img  src={room}  style={small_size?{width:'17.4px',height:'17.4px'}:{}} />
+                                    <span style={small_size?{fontSize:'12px'}:{}}>{number_of_rooms}</span>
                                 </Col>)
                                 }
                                 {
                                     number_of_bathrooms&&
                                 (<Col lg={3} md={5} xs={6} className="detail">
-                                    <img  src={amenities} />
-                                    <span>{number_of_bathrooms}</span>
+                                    <img  src={amenities}  style={small_size?{width:'17.4px',height:'17.4px'}:{}} />
+                                    <span style={small_size?{fontSize:'12px'}:{}}>{number_of_bathrooms}</span>
                                 </Col>)
                                 }
                                { 
                                 <Col lg={3} md={5} xs={6} className="detail">
-                                    <img  src={Area} />
-                                    <span>200 m<sup>2</sup> </span>
+                                    <img  src={Area}  style={small_size?{width:'17.4px',height:'17.4px'}:{}}/>
+                                    <span style={small_size?{fontSize:'12px'}:{}}>200 m<sup>2</sup> </span>
                                 </Col>}
                             </Row>
                         </Col>

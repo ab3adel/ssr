@@ -1,7 +1,7 @@
 import './home.scss'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
-import {PostCard} from './post-card'
+import {PostCard} from '../post-card'
 import {useGetPosts} from '../tools/apis/useGetPosts'
 import React, { useEffect ,useState,useRef} from 'react'
 import { Spinner } from '../tools/spinner'
@@ -80,7 +80,11 @@ return (
         <Row className="p-1">
             {
                 posts.length>0 ?
-                posts.map((ele:any,index:number)=> <PostCard {...ele} key={index}/>):
+                posts.map((ele:any,index:number)=> 
+                <Col xs={12} sm={6} >
+                  <PostCard {...ele} key={index}/>
+                </Col>
+                ):
                 <Col xs={12} className='d-flex justify-content-center align-items-center'>
 
                     <Col xs={12} className="noDataContainer">

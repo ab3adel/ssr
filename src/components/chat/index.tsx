@@ -47,7 +47,7 @@ const data: chatData[] | null = [
 ]
 
 const Chat = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     // 15 id is for test 
     const myId: number = 15
     const [activeChat, setActiveChat] = useState<number>(-1)
@@ -103,7 +103,7 @@ const Chat = () => {
     return (
         <Col xs={12} className="homeContainer"  >
 
-            <Row className="p-1 chatRow">
+            <Row className={`p-1 chatRow ${i18n.language === "ar" && "chatRowAr"}`}>
 
                 <Col xs={4} className='d-flex justify-content-center align-items-center contactsCol'>
                     <Row className="chatInnerContactRowSearch">

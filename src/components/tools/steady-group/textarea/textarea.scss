@@ -16,7 +16,9 @@
         border-radius: 10px;
         padding: 0.1rem 0.7rem 0.1rem 0.7rem;
         box-shadow: 3px 3px 3px var(--back-color);
-      
+        textarea {
+            border:none;
+        }
         .inputIcon {
             width:16px;
             height: 16px;

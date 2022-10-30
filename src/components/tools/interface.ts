@@ -103,7 +103,11 @@ export interface iPost {
   number_of_bathrooms?:number,
   price:string,
   id:number,
-  likes:number
+  likes:number,
+  testImages?:string[],
+  imgs_gallery_height?:string,
+  small_size?:boolean,
+  for_profile?:boolean
 
 
 }

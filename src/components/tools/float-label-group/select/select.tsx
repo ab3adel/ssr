@@ -80,7 +80,7 @@ export const Select = ({
       onBlur={checkTyping}
     >
       <div
-        className={"label float"}
+        className={"label float fw-bold"}
         style={
           i18n.language === "en"
             ? { right: "auto", left: "1rem" }
@@ -105,6 +105,7 @@ export const Select = ({
         isInvalid={touched && Boolean(error)}
         disabled={selection && (selection as []).length > 0 ? false : true}
         value={selectedValue || ""}
+        
       >
         <option className="lightLable" selected disabled={true}>
           {selection && selection.length > 0 ? <>{""}</> : <>...</>}

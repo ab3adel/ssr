@@ -14,16 +14,14 @@ let icons=[{icon:snapchat,title:'snapchat'},
 {icon:facebook,title:'facebook'}]
 interface iProps {values:any,
     handleChange:(e:React.ChangeEvent)=>void
-    ,company:boolean,edit?:boolean
+    edit?:boolean
 }
-export const SocialMedia =({values,handleChange,company,edit}:iProps)=>{
+export const SocialMedia =({values,handleChange,edit}:iProps)=>{
 
     return (
         <Row className="gy-1 py-sm-1 socialMediaContainer justify-content-end flex-column">
-            { 
-           company &&
-           (<> <Col xs={12} className="d-sm-flex d-none justify-content-center">
-                <div className="fw-bold h6">
+           <Col xs={11} className={`d-sm-flex d-none ${edit? '':'justify-content-center'}`}>
+                <div className="fw-bold" style={{fontSize:edit?'16px':'12px'}}>
                     Social Media Accountes
                 </div>
             </Col>
@@ -47,26 +45,8 @@ export const SocialMedia =({values,handleChange,company,edit}:iProps)=>{
                 }
             
             </Row>
-            </>)
-            }
-            <Col xs={12}>
-            {false &&
-                (
-                <Row className="gy-1 d-none d-sm-flex">
-               
-                    <Col xs={11}>
-                        <GreenButton
-                        label="Edit Profile" />
-                    </Col>
-                    
-                    <Col xs={11} className="d-none d-sm-block">
-                        <GreenButton 
-                        label={'Change Password'}/>
-                    </Col>
-                   
-                </Row>)
-            }
-            </Col>
+           
+           
         </Row>
     )
 }

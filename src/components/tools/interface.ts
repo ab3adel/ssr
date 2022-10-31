@@ -1,3 +1,5 @@
+import React from "react";
+import { JsxElement } from "typescript";
 import { number, string } from "yup";
 
 export interface iInput {
@@ -13,7 +15,7 @@ export interface iInput {
   touched?: boolean;
   type: string;
   required?: boolean;
-  unit?: string;
+  unit?: any;
   numberControl?: boolean;
   setValue?: Function;
   phoneNumber?: boolean;
@@ -45,7 +47,8 @@ export interface iSelect {
   name?: string;
   tempSelect?: Function;
   multiSelect?: boolean;
-  selectedValue?:any
+  selectedValue?:any;
+  children?:React.ReactElement
 }
 export interface iText {
   value: any;

@@ -32,7 +32,7 @@ const HomePage =()=>{
                                 
                                 let arr= elem.path.split('/').slice(3)
                               
-                               let img ='http://3.67.189.115/'+arr.join('/')
+                               let img ='https://backend.instaaqar.com/'+arr.join('/')
                                return img
                 
                 

@@ -39,9 +39,9 @@ const LoginCard = () => {
     navigate("/");
   };
   useEffect(() => {
-    // if (localStorage.getItem('token')){
-    //     setNavigateToHome(true)
-    // }
+     if (localStorage.getItem('token')){
+         setNavigateToHome(true)
+     }
   }, []);
   return (
     <Container fluid className="authContainer">

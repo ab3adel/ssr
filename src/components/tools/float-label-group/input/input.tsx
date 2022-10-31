@@ -150,10 +150,11 @@ if (phoneNumber) {
       </Form.Group>
   )
 }
+
   return (
     <Form.Group className="floatedInput" onClick={focused} onBlur={checkTyping}>
       <div
-        className={"label float"}
+        className={"label float fw-bold"}
         style={i18n.language === "en" ? { left: "1rem",right:'auto' } : { right: "1rem",left:'auto' }}
       >
         {label}

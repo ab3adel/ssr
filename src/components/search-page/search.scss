@@ -1,0 +1,58 @@
+.searchContainer {
+    max-height: 80vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    .box {
+    
+        border-radius: 10px;
+        min-height: 122px;
+        border:1px solid var(--back-color);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+       
+
+        .mybadge {
+            border-radius: 20px;
+            background-color: var(--back-color);
+            color:black;
+            display: inline-flex;
+            justify-content: center;
+            font-size: 12px;
+            align-items: center;
+            padding:5px;
+           
+            .icon {
+                border-radius: 100%;
+                background-color: white;
+                width: 15px;
+                height: 15px;
+                font-weight: bold;
+                color:var(--dark-green);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition:.3s all ease-in;
+                font-weight: normal;
+                margin-left: 1rem;
+
+                cursor: pointer;
+                &:hover {
+                   font-weight: bolder;
+                }
+
+
+            }
+        }
+
+    }
+}
+@media screen and (max-width:567px) {
+    .searchContainer {
+       padding-top: 1em;
+       padding-bottom: 1em;
+    }
+}

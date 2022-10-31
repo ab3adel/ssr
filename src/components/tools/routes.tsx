@@ -4,7 +4,7 @@ import AuthenticationPage from '../auth'
 import HomePage from '../homePage'
 import NewsFeed from '../news-feed'
 import PostDetails from '../post-details'
-
+import SearchPage from '../search-page'
 import Profile from '../profile/myprofile'
 import AddPost from '../add-post'
 import Chat from '../chat'
@@ -24,7 +24,8 @@ export const Rotues =(id:number) :RouteObject []  =>( [
             { path: '/addpost', element: id === 2 ? <Navigate to="/" /> : <AddPost /> },
             { path: '/messages', element: <Chat /> },
             {path:'/profile',element:<Profile/>},
-            {path:'/publicprofile',element:<PublicProfile/>}
+            {path:'/publicprofile',element:<PublicProfile/>},
+            {path:'/search',element:<SearchPage />}
 
         ]
     },

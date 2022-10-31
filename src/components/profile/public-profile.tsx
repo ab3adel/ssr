@@ -7,8 +7,8 @@ const PublicProfile=()=>{
     return (
         <Col xs={12} className="profileContainer">
 
-            {/* <CompanyPublicProfile /> */}
-            <NormalUserPublicProfile />
+             <CompanyPublicProfile /> 
+            {/* <NormalUserPublicProfile />*/}
         </Col>
     )
 }

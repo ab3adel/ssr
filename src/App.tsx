@@ -20,15 +20,15 @@ function App() {
   const handleCloseNotify = () =>
     setNotify((pre: any) => ({ ...pre, show: false }));
   useEffect(() => {
-    // if (!localStorage.getItem("token")) {
-    //   navigate("/auth");
-    // } else {
-    //   let token_object=JSON.parse(localStorage.getItem("token") as string)
-    //   let refresh_token = token_object.refresh_token;
-    //   setToken((pre:any)=>({...pre,...token_object}))
-    //   getRememberMe(refresh_token);
-    //   setInterval(() => getRememberMe(refresh_token), 40000000);
-    // }
+     if (!localStorage.getItem("token")) {
+       navigate("/auth");
+     } else {
+       let token_object=JSON.parse(localStorage.getItem("token") as string)
+       let refresh_token = token_object.refresh_token;
+       setToken((pre:any)=>({...pre,...token_object}))
+       getRememberMe(refresh_token);
+       setInterval(() => getRememberMe(refresh_token), 40000000);
+     }
   }, []);
 
   const getRememberMe = (token: string) => {

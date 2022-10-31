@@ -365,3 +365,130 @@
         transform: rotateZ(180deg);
     }
 }
+
+.contactsView {
+    .contactsCol {
+        display: flex !important;
+    }
+
+    .chatCol {
+        display: none !important;
+    }
+}
+
+.chatView {
+    .contactsCol {
+        display: none !important;
+    }
+
+    .chatCol {
+        display: block !important;
+    }
+}
+
+.chatHeaderRow {
+    position: relative;
+
+    .backToContacts {
+        display: none;
+    }
+}
+
+@media (min-width : 1464px) {
+    .chatRow .chatMessages {
+        height: calc(100vh - 328px);
+    }
+
+}
+
+@media (max-width : 1250px) {
+    .chatRow {
+        padding-inline: 15px !important;
+
+    }
+
+}
+
+@media (max-width : 840px) {
+    .chatRow .sendMSGBTN {
+        font-size: 11px;
+    }
+
+    .chatRow {
+        column-gap: 16px;
+    }
+
+    .chatRow.chatRowAr .sendMSGBTN img {
+        height: 12px;
+    }
+
+}
+
+@media (max-width : 575px) {
+    .chatRow {
+        .allContactsRow {
+            max-height: unset;
+        }
+
+        .chatMessages {
+            height: 58vh;
+        }
+
+        .iAmSender,
+        .otherUserSender {
+            font: normal normal 600 13px/17px Cairo;
+        }
+
+        .spacer {
+            display: none;
+        }
+
+        .sendMSGBTN {
+            column-gap: 4px;
+
+            img {
+                width: 10px;
+            }
+        }
+
+        .my-3.px-3.row.msgFormRow {
+            padding-inline-start: 0px !important;
+        }
+    }
+
+    .chatView .contactsCol {
+        position: fixed;
+        width: calc(100% - 30px);
+    }
+
+    .chatHeaderRow {
+        position: relative;
+
+        .backToContacts {
+            display: block;
+        }
+    }
+
+    .chatHeaderRow .backToContacts {
+        display: block;
+        display: flex;
+        height: 27px;
+        width: 27px;
+        background: #75d99c;
+        border: 1px solid #75d99c;
+        justify-content: center;
+        border-radius: 50%;
+        color: white;
+        position: absolute;
+        top: 10px;
+        align-items: center;
+        right: 9px;
+        left: unset;
+    }
+
+    .chatRow.chatRowAr .chatHeaderRow .backToContacts {
+
+        left: 9px;
+        right: unset;
+    }
+}

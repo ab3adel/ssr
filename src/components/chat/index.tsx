@@ -15,6 +15,7 @@ import ChatHeader from "./chatHeader"
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import './chat.scss'
+import { devNull } from 'os'
 export interface chatData {
     name: string,
     id: number,
@@ -52,6 +53,7 @@ const Chat = () => {
     const myId: number = 15
     const [activeChat, setActiveChat] = useState<number>(-1)
     const [activeUser, setActiveUser] = useState<activeUserData | null>(null)
+    const [mobileView, setMobileView] = useState<string>(window.innerWidth <= 575 ? "contactsView" : "")
     const bottomRef = useRef<any>(null);
     const [messages, setMessages] = useState<any>([
         { id: 1, sender: { id: 15, img: user }, msg: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" },
@@ -87,7 +89,6 @@ const Chat = () => {
         if (!textmsg) { formik.setErrors({ msgInput: "re" }) }
         else {
             messages.push({ id: (messages.length + 1), msg: textmsg, sender: { id: myId, img: user } })
-
             formik.resetForm()
         }
 
@@ -96,16 +97,24 @@ const Chat = () => {
         if (bottomRef.current) {
             bottomRef.current.scrollTop = bottomRef.current.scrollHeight
         }
-
-        // bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages.length, activeUser]);
+    const handleUserChatActive = (ele: chatData) => {
+        setActive(ele)
+        window.innerWidth <= 575 && setMobileView("chatView")
+    }
+
+    const handleBack = () => {
+        setActiveChat(-1)
+        setActiveUser(null)
+        setMobileView("contactsView")
+    }
 
     return (
         <Col xs={12} className="homeContainer"  >
 
-            <Row className={`p-1 chatRow ${i18n.language === "ar" && "chatRowAr"}`}>
+            <Row className={`p-1 chatRow ${i18n.language === "ar" && "chatRowAr"}  ${mobileView} `}>
 
-                <Col xs={4} className='d-flex justify-content-center align-items-center contactsCol'>
+                <Col xs={12} sm={4} className='d-flex justify-content-center align-items-center contactsCol'>
                     <Row className="chatInnerContactRowSearch">
                         <Col md={12}>
                             <InputWithIcon
@@ -124,7 +133,7 @@ const Chat = () => {
                         {data.map((ele: chatData) => (
                             <Col md={12} key={ele.id}>
                                 <ContactElement ele={ele} activeChat={active}
-                                    setActiveChat={() => setActive(ele)} />
+                                    setActiveChat={() => handleUserChatActive(ele)} />
                             </Col>
                         ))}
                     </Row>
@@ -134,12 +143,18 @@ const Chat = () => {
 
                 </Col>
                 {/* d-flex justify-content-center align-items-center */}
-                <Col xs={7} className=' chatCol'>
+                <Col xs={12} sm={7} className=' chatCol' >
                     {activeUser ?
                         <>
                             <Row>
-                                <Col col={12}>
+                                <Col col={12} className="chatHeaderRow">
                                     <ChatHeader activeUser={activeUserMem} />
+                                    <div className='backToContacts' onClick={() => handleBack()}>
+                                        {i18n.language === "ar" ?
+                                            <i className="bi bi-arrow-return-right"></i>
+                                            :
+                                            <i className="bi bi-arrow-return-left"></i>}
+                                    </div>
                                 </Col>
                             </Row>
                             <div className="divider "></div>
@@ -168,8 +183,8 @@ const Chat = () => {
                             </Row>
                             <div className="divider"></div>
 
-                            <Row className="my-3 px-3 ">
-                                <Col md={10}>
+                            <Row className="my-3 px-3 msgFormRow">
+                                <Col xs={10}>
                                     <InputWithIcon
                                         label={t("Write a message ..")}
                                         id="msgInput"
@@ -185,7 +200,7 @@ const Chat = () => {
 
                                     />
                                 </Col>
-                                <Col className="px-0" >
+                                <Col xs={2} className="px-0   " >
                                     <button className="sendMSGBTN" onClick={() => { sendMSG() }} >
                                         <img src={sendIMG} />
                                         {t("Send")}</button>

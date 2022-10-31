@@ -40,7 +40,7 @@ const Login = ({ setLogin }: iProps) => {
         "This field has to be 8 characters at least"
       ),
     }),
-    onSubmit: () => {},
+    onSubmit: () => { },
   });
   const [show, setShow] = useState(false);
 
@@ -70,7 +70,7 @@ const Login = ({ setLogin }: iProps) => {
                 }
                 return ele;
               });
-            realImage = "http://3.67.189.115/" + image_array.join("/");
+            realImage = "http://backend.instaaqar.com/" + image_array.join("/");
           }
           let required_data = {
             token: res.data.payload.token,

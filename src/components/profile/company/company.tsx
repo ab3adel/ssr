@@ -10,7 +10,8 @@ import { Posts } from "../views/posts";
 import { Data } from "../views/data";
 import { GreenButton } from "../../tools/buttons/green-button";
 import { FollowersFollowing } from "../views/followers-following";
-export const CompanyProfile = ({ edit, setEdit }: iProps) => {
+
+export const CompanyProfile = ({ edit, setEdit, t }: iProps) => {
   let company = true;
 
   let [tabIndex, setTabIndex] = useState(0);
@@ -40,10 +41,10 @@ export const CompanyProfile = ({ edit, setEdit }: iProps) => {
             <Col xs={12}>
               <Row className="gy-1">
                 <Col xs={12}>
-                  <UserInfo company={company} edit={edit} />
+                  <UserInfo company={company} edit={edit} t={t} />
                 </Col>
                 <Col xs={12} className="d-flex justify-content-center ">
-                  <FollowersFollowing company={company} />
+                  <FollowersFollowing company={company} t={t} />
                 </Col>
               </Row>
             </Col>
@@ -52,13 +53,14 @@ export const CompanyProfile = ({ edit, setEdit }: iProps) => {
               <SocialMedia
                 values={formik.values}
                 handleChange={formik.handleChange}
+                t={t}
               />
             </Col>
             <Col xs={12}>
               {edit ? (
                 <Col xs={11}>
                   <GreenButton
-                    label={"Edit Profile"}
+                    label={t("EditProfile")}
                     fun={() => setEdit(true)}
                   />
                 </Col>
@@ -66,12 +68,12 @@ export const CompanyProfile = ({ edit, setEdit }: iProps) => {
                 <Row className="gy-1">
                   <Col xs={11}>
                     <GreenButton
-                      label={"Edit Profile"}
+                      label={t("EditProfile")}
                       fun={() => setEdit(true)}
                     />
                   </Col>
                   <Col xs={11}>
-                    <GreenButton label={"Change Password"} />
+                    <GreenButton label={t("ChangePassword")} />
                   </Col>
                 </Row>
               )}
@@ -92,7 +94,7 @@ export const CompanyProfile = ({ edit, setEdit }: iProps) => {
                   className={tabIndex === 0 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(0)}
                 >
-                  Personal Info
+                 {t("PersonalInfo")}
                 </Col>
                 <Col
                   sm={5}
@@ -100,13 +102,13 @@ export const CompanyProfile = ({ edit, setEdit }: iProps) => {
                   className={tabIndex === 1 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(1)}
                 >
-                  Posts
+                 {t("Posts")}
                 </Col>
               </Row>
             </Col>
             <Col xs={12}>
               <Tab num={tabIndex}>
-                <Info company={company} edit={edit} />
+                <Info company={company} edit={edit} t={t}/>
                 <Posts />
               </Tab>
             </Col>
@@ -121,12 +123,12 @@ export const CompanyProfile = ({ edit, setEdit }: iProps) => {
         <Col sm={3} xs={12} className={`   flex-column`}>
           <Row className="gy-2">
             <Col xs={12}>
-              <UserInfo company={company} edit={edit} />
+              <UserInfo company={company} edit={edit} t={t} />
             </Col>
 
             <Col xs={12} className="mt-2 justify-content-center d-flex">
               <Col xs={10}>
-                <GreenButton label="Edit Profile" fun={() => setEdit(true)} />
+                <GreenButton label={t("EditProfile")} fun={() => setEdit(true)} />
               </Col>
             </Col>
           </Row>
@@ -140,7 +142,7 @@ export const CompanyProfile = ({ edit, setEdit }: iProps) => {
                   className={tabIndex === 0 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(0)}
                 >
-                  Posts
+                 {t("Posts")}
                 </Col>
                 <Col
                   sm={5}
@@ -148,7 +150,7 @@ export const CompanyProfile = ({ edit, setEdit }: iProps) => {
                   className={tabIndex === 1 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(1)}
                 >
-                  Info
+                  {t("Info")}
                 </Col>
                 <Col
                   sm={5}
@@ -156,7 +158,7 @@ export const CompanyProfile = ({ edit, setEdit }: iProps) => {
                   className={tabIndex === 2 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(2)}
                 >
-                  Data
+                 {t("Data")}
                 </Col>
                 <Col
                   sm={5}
@@ -164,19 +166,20 @@ export const CompanyProfile = ({ edit, setEdit }: iProps) => {
                   className={tabIndex === 3 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(3)}
                 >
-                  Socials
+                  {t("Socials")}
                 </Col>
               </Row>
             </Col>
             <Col xs={12}>
               <Tab num={tabIndex}>
                 <Posts />
-                <Info company={company} edit={edit} />
+                <Info company={company} edit={edit} t={t} />
 
-                <Data />
+                <Data t={t} />
                 <SocialMedia
                   values={formik.values}
                   handleChange={formik.handleChange}
+                  t={t}
                 />
               </Tab>
             </Col>

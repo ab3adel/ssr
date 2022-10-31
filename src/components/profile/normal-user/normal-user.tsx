@@ -6,7 +6,7 @@ import { Info } from "../views/info";
 import { FollowersFollowing } from "../views/followers-following";
 import { GreenButton } from "../../tools/buttons/green-button";
 
-export const NormalUserProfile = ({ edit, setEdit }: iProps) => {
+export const NormalUserProfile = ({ edit, setEdit,t }: iProps) => {
   let company = false;
   const formik = useFormik({
     initialValues: {
@@ -38,16 +38,16 @@ export const NormalUserProfile = ({ edit, setEdit }: iProps) => {
               <Col xs={12}>
                 <Row className="gy-2 justify-content-center">
                   <Col xs={12}>
-                    <UserInfo company={company} edit={edit} />
+                    <UserInfo company={company} edit={edit} t={t} />
                   </Col>
                   {!edit && (
                     <>
                       <Col xs={7}>
-                        <FollowersFollowing company={false} />
+                        <FollowersFollowing company={false} t={t} />
                       </Col>
                       <Col xs={7}>
                         <GreenButton
-                          label={"Edit Profile"}
+                          label={t("EditProfile")}
                           fun={() => setEdit(true)}
                         />
                       </Col>
@@ -58,11 +58,11 @@ export const NormalUserProfile = ({ edit, setEdit }: iProps) => {
               <Col xs={11}>
                 {edit ? (
                   <GreenButton
-                    label={"Save Changes"}
+                    label={t("SaveChanges")}
                     fun={() => setEdit(false)}
                   />
                 ) : (
-                  <GreenButton label={"Change Password"} />
+                  <GreenButton label={t("ChangePassword")} />
                 )}
               </Col>
             </Row>
@@ -78,6 +78,7 @@ export const NormalUserProfile = ({ edit, setEdit }: iProps) => {
                 edit={edit}
                 values={formik.values}
                 handleChange={formik.handleChange}
+                t={t}
               />
             </Col>
           </Col>
@@ -91,19 +92,19 @@ export const NormalUserProfile = ({ edit, setEdit }: iProps) => {
           <Col xs={12} className=" bg-profile ">
             <Row className="gy-1 justify-content-center">
               <Col xs={12}>
-                <UserInfo company={company} edit={edit} />
+                <UserInfo company={company} edit={edit} t={t} />
               </Col>
               {edit ? (
                 <Col xs={7}>
                   <GreenButton
-                    label={"Save Changes"}
+                    label={t("SaveChanges")}
                     fun={() => setEdit(false)}
                   />
                 </Col>
               ) : (
                 <Col xs={7}>
                   <GreenButton
-                    label={"Edit Profile"}
+                    label={t("EditProfile")}
                     fun={() => setEdit(true)}
                   />
                 </Col>
@@ -111,13 +112,13 @@ export const NormalUserProfile = ({ edit, setEdit }: iProps) => {
             </Row>
           </Col>
           <Col xs={12} className=" py-2   bg-profile h-100vh">
-            <Info company={company} edit={edit} />
+            <Info company={company} edit={edit} t={t} />
           </Col>
           <Col xs={12} className="h-20vh bg-profile">
             {edit ? (
-              <GreenButton label={"Save Changes"} fun={() => setEdit(false)} />
+              <GreenButton label={t("SaveChanges")} fun={() => setEdit(false)} />
             ) : (
-              <GreenButton label={"Change Password"} />
+              <GreenButton label={t("ChangePassword")} />
             )}
           </Col>
         </Row>

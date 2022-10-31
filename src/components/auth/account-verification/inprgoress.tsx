@@ -40,7 +40,7 @@ export const Inprogress =({btn,text,resend,className,fn}:iProps) =>{
                             <Col xs={5}>
                                 <Button className="doneBtn"
                                 onClick={fn}>
-                                   {btn}
+                                   {btn? t(`${btn}`):t('Continue')}
                                 </Button>
                             </Col>
                             <Col xs={5}

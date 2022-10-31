@@ -103,13 +103,13 @@ export const SmallView= ({setFieldValue,values}:iProps)=>{
                 </Col>
                 <Col xs={12}>
                     <Select 
-                    label="Area"
+                    label={t("Area")}
                     options={[{title:{en:'area',ar:'area'},value:1}]}
                     />
                 </Col>
                 <Col xs={12}>
                     <RangeSlider 
-                    label="Price Range"
+                    label={t("PriceRange")}
                     setValue={setFieldValue}
                     min={1000}
                     max={1000000}
@@ -139,7 +139,7 @@ export const SmallView= ({setFieldValue,values}:iProps)=>{
                 </Col>
                 <Col xs={12}>
                     <RangeSlider 
-                    label="Area Range"
+                    label={t("AreaRange")}
                     setValue={setFieldValue}
                     min={200}
                     max={1000}
@@ -151,7 +151,7 @@ export const SmallView= ({setFieldValue,values}:iProps)=>{
                 </Col>
                 <Col xs={12}>
                         <Select 
-                        label='Direction'
+                        label={t('Direction')}
                         options={[{title:{en:'West',ar:'west'},value:1},{title:{en:'East',ar:'East'},value:2}]}
                         />
                 </Col>
@@ -160,21 +160,21 @@ export const SmallView= ({setFieldValue,values}:iProps)=>{
 
                             <Col xs={10}>
                             <Input 
-                                label="Bathrooms"
+                                label={t("Bathrooms")}
                                 numberControl={true}
 
                             />
                             </Col>
                             <Col xs={10}>
                                 <Input 
-                                label="Rooms"
+                                label={t("Rooms")}
                                 numberControl={true}
                                 />
                             </Col>
                         </Row>
                 </Col>
                 <Col xs={12} className='d-flex justify-content-center'>
-                    <GreenButton label="Search" />
+                    <GreenButton label={t("Search")} />
                 </Col>
             </Row>
 

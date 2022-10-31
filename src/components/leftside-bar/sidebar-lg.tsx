@@ -73,7 +73,7 @@ export const SidebarLg = ({
         navigate('/search')
         break;  
       case 3:
-        navigate('/publicprofile');
+        navigate('/profile');
         break;
       case 7:
         navigate("/addpost");

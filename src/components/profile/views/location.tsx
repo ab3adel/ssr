@@ -14,8 +14,9 @@ let companyLocation = [
     {label:'Floor',name:'floor',type:'text'},
     {label:'Flat',name:'flat',type:'text'},
 ]
+interface iProps{t:Function}
 
-export const Location =()=>{
+export const Location =({t}:iProps)=>{
 
     return (
     
@@ -34,7 +35,7 @@ export const Location =()=>{
                                             return (
                                                 <Col sm={6} xs={12} key={index}>
                                                         <SteadySelect
-                                                        label={ele.label}
+                                                        label={t(ele.label)}
                                                         name={ele.name}
                                                       options={['']}
                                                         disabled={false}
@@ -44,7 +45,7 @@ export const Location =()=>{
                                         }
                                            return (<Col sm={6} xs={12} key={index}>
                                                         <SteadyIconInput
-                                                        label={ele.label}
+                                                        label={t(ele.label)}
                                                         name={ele.name}
                                                         type="text"
                                                         disabled={false}

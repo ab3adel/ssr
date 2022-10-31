@@ -6,8 +6,8 @@ import editIcon from '../../../images/edit.svg'
 import {InputFile} from '../../tools/photoInput/photoInput'
 import {useFormik} from 'formik'
 import {SteadyIconInput} from '../../tools/steady-group/steady-icon-input/steady-icon-input'
-interface iProps {company:boolean,edit:boolean}
-export const UserInfo=({company,edit=false}:iProps)=>{
+interface iProps {company:boolean,edit:boolean,t:Function}
+export const UserInfo=({company,edit=false,t}:iProps)=>{
     const formik =useFormik({
         initialValues:{
             profile:'',
@@ -42,7 +42,7 @@ export const UserInfo=({company,edit=false}:iProps)=>{
                                name="user_name"
                                type={"text"}
                                onChange={formik.handleChange}
-                               label="Full Name"
+                               label={t("FullName")}
                                />
                            </Col>
 

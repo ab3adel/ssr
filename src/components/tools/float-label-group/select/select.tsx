@@ -83,8 +83,9 @@ export const Select = ({
         className={"label float fw-bold"}
         style={
           i18n.language === "en"
-            ? { right: "auto", left: "1rem" }
-            : { left: "auto", right: "1rem" }
+            ? { right: "auto", left: "1rem" ,background:selection && (selection as []).length > 0 ?'':'transparent'}
+            : { left: "auto", right: "1rem",background:selection && (selection as []).length > 0 ?'':'transparent' }
+             
         }
       >
         {label}

@@ -11,11 +11,11 @@ import predefinedImage1 from '../../../images/home/image2.png'
 import predefinedImage2 from '../../../images/home/image3.png'
 import predefinedImage3 from '../../../images/home/image4.png'
 import {SteadyPhoneInput} from '../../tools/steady-group/steady-phone-input/steady-phone'
-interface iProps {company:boolean,edit:boolean,values?:any,handleChange?:Function,publicProfile?:boolean}
+interface iProps {company:boolean,edit:boolean,values?:any,handleChange?:Function,publicProfile?:boolean,t:Function}
 let editCompany=[
-    {label:'Compnay Type',name:'role',type:'select'},
+    {label:'CompnayType',name:'role',type:'select'},
     {label:'Category',name:'category',type:'select'},
-    {label:'Phone Number ',name:'phone_number',type:'phone'},
+    {label:'PhoneNumber ',name:'phone_number',type:'phone'},
     {label:'Email',name:'email',type:'text'},
     {label:'PACIID',name:'PACIID',type:'text'},
     {label:'Website',name:'website',type:'text'},
@@ -23,9 +23,9 @@ let editCompany=[
 ]
 
 let companyInfo = [
-    {label:'Compnay Type',name:'role',type:'select'},
+    {label:'CompnayType',name:'role',type:'select'},
     {label:'Category',name:'category',type:'select'},
-    {label:'Phone Number ',name:'phone_number',type:'phone'},
+    {label:'PhoneNumber ',name:'phone_number',type:'phone'},
     {label:'Email',name:'email',type:'text'},
     {label:'PACIID',name:'PACIID',type:'text'},
     {label:'Website',name:'website',type:'text'},
@@ -40,7 +40,7 @@ let companyInfo = [
 ]
 
 let userInfo =[
-    {label:'Phone Number ',name:'phone_number',type:'phone'},
+    {label:'PhoneNumber ',name:'phone_number',type:'phone'},
     {label:'Email',name:'email',type:'text'},
     {label:'Country',name:'country',type:'select'},
     {label:'Area',name:'area_id',type:'select'},
@@ -53,7 +53,7 @@ let userInfo =[
     {label:'PACIID',name:'PACIID',type:'text'},
 ]
 
-export const Info =({company,edit,values,handleChange,publicProfile=false}:iProps)=>{
+export const Info =({company,edit,values,handleChange,publicProfile=false,t}:iProps)=>{
    const formik=useFormik({
     initialValues:{
         description:''
@@ -78,7 +78,7 @@ let info=company?companyInfo:userInfo
                                         if (ele.type==='select') return (
                                             <Col sm={6} xs={12} key={index}>
                                                <SteadySelect 
-                                               label={ele.label}
+                                               label={t(ele.label)}
                                                name={ele.name}
                                                options={[{name:'',value:''}]}
                                                disabled={!edit}
@@ -90,7 +90,7 @@ let info=company?companyInfo:userInfo
                                             
                                             return (<Col sm={6} xs={12} key={index}>
                                                         <SteadyPhoneInput 
-                                                        label={'phone'}
+                                                        label={t('phone')}
                                                         disabled={!edit}
                                                         />
                                                     </Col>)
@@ -98,7 +98,7 @@ let info=company?companyInfo:userInfo
                                      
                                   return  (<Col sm={6} xs={12} key={index}>
                                         <SteadyIconInput
-                                        label={ele.label}
+                                        label={t(ele.label)}
                                         name={ele.name}
                                         type="text"
                                         disabled={edit?false:true}

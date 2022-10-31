@@ -301,6 +301,8 @@
             justify-content: flex-start;
             .item{
                 padding:1vmin ;
+                justify-content: space-between;
+                
                 span.text {
                     font-size: calc(0.2em + 1vmin);
                 }
@@ -312,6 +314,17 @@
             .logoutBtn {
                 display: flex;
                 align-items: center;
+            }
+        }
+    }
+}
+@media screen  and (max-width:567px){
+    .sidebarContainerSm {
+        .sidebarItems {
+            .item {
+                span {
+                    margin:0 4px;
+                }
             }
         }
     }

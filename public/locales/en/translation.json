@@ -82,5 +82,19 @@
     "online": "Active Now",
     "Offline": "Offline",
     "Write a message ..": "Write a message ..",
-    "Send": "Send"
+    "Send": "Send",
+    "Continue":"Continue",
+    "PriceRange":"Price Range",
+    "AreaRange":"Area Range",
+    "Direction":"Direction",
+    "EditProfile":"Edit Profile",
+    "ChangePassword":"Change Password",
+    "Following":"Following",
+    "Followers":"Followers",
+    "SocialMediaAccountes":"Social Media Accountes",
+    "Posts":"Posts",
+    "Info":"Info",
+    "Data":"Data",
+    "SaveChanges":"Save Changes"
+    
 }

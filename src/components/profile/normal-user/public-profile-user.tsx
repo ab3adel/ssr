@@ -5,8 +5,8 @@ import { useFormik } from "formik";
 import { Info } from "../views/info";
 import { FollowersFollowing } from "../views/followers-following";
 import { GreenButton } from "../../tools/buttons/green-button";
-
-export const NormalUserPublicProfile = () => {
+import {PublicProfileProps} from '../public-profile'
+export const NormalUserPublicProfile = ({t}:PublicProfileProps) => {
   let company = false;
   const formik = useFormik({
     initialValues: {
@@ -38,11 +38,11 @@ export const NormalUserPublicProfile = () => {
               <Col xs={12}>
                 <Row className="gy-2 justify-content-center">
                   <Col xs={12}>
-                    <UserInfo company={company} edit={false} />
+                    <UserInfo company={company} edit={false} t={t} />
                   </Col>
 
                   <Col xs={7}>
-                    <FollowersFollowing company={false} />
+                    <FollowersFollowing company={false} t={t}/>
                   </Col>
                 </Row>
               </Col>
@@ -59,6 +59,7 @@ export const NormalUserPublicProfile = () => {
                 edit={false}
                 values={formik.values}
                 handleChange={formik.handleChange}
+                t={t}
               />
             </Col>
           </Col>
@@ -72,15 +73,15 @@ export const NormalUserPublicProfile = () => {
           <Col xs={12} className=" bg-profile ">
             <Row className="gy-1 justify-content-center">
               <Col xs={12}>
-                <UserInfo company={company} edit={false} />
+                <UserInfo company={company} edit={false} t={t} />
               </Col>
               <Col xs={7}>
-                <FollowersFollowing company={false} />
+                <FollowersFollowing company={false} t={t} />
               </Col>
             </Row>
           </Col>
           <Col xs={12} className=" py-2   bg-profile">
-            <Info company={company} edit={false} />
+            <Info company={company} edit={false} t={t} />
           </Col>
           <Col xs={12} className=" bg-profile"></Col>
         </Row>

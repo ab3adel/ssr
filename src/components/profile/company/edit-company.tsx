@@ -12,7 +12,7 @@ import { Data } from "../views/data";
 import { GreenButton } from "../../tools/buttons/green-button";
 import { Location } from "../views/location";
 
-export const EditCompanyProfile = ({ edit, setEdit }: iProps) => {
+export const EditCompanyProfile = ({ edit, setEdit ,t}: iProps) => {
   let company = true;
 
   let [tabIndex, setTabIndex] = useState(0);
@@ -38,10 +38,10 @@ export const EditCompanyProfile = ({ edit, setEdit }: iProps) => {
         >
           <Row className="gy-3 justify-content-center">
             <Col xs={12}>
-              <UserInfo company={company} edit={edit} />
+              <UserInfo company={company} edit={edit} t={t}/>
             </Col>
             <Col xs={10}>
-              <GreenButton label={"Save Changes"} fun={() => setEdit(false)} />
+              <GreenButton label={t("SaveChanges")} fun={() => setEdit(false)} />
             </Col>
           </Row>
         </Col>
@@ -59,7 +59,7 @@ export const EditCompanyProfile = ({ edit, setEdit }: iProps) => {
                   className={tabIndex === 0 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(0)}
                 >
-                  Personal Info
+                  {t("PersonalInfo")}
                 </Col>
                 <Col
                   sm={4}
@@ -67,7 +67,7 @@ export const EditCompanyProfile = ({ edit, setEdit }: iProps) => {
                   className={tabIndex === 1 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(1)}
                 >
-                  Location
+                  {t("Location")}
                 </Col>
 
                 <Col
@@ -76,22 +76,23 @@ export const EditCompanyProfile = ({ edit, setEdit }: iProps) => {
                   className={tabIndex === 2 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(2)}
                 >
-                  Data
+                 {t("Data")}
                 </Col>
               </Row>
             </Col>
             <Col xs={12}>
               <Tab num={tabIndex}>
                 <Row>
-                  <Info company={false} edit={edit} />
+                  <Info company={false} edit={edit} t={t} />
                   <SocialMedia
                     values={formik.values}
                     handleChange={formik.handleChange}
                     edit={edit}
+                    t={t}
                   />
                 </Row>
-                <Location />
-                <Data />
+                <Location t={t} />
+                <Data t={t} />
               </Tab>
             </Col>
           </Row>
@@ -105,7 +106,7 @@ export const EditCompanyProfile = ({ edit, setEdit }: iProps) => {
         <Col sm={3} xs={12} className={`   flex-column`}>
           <Row className="gy-2 justify-content-center">
             <Col xs={12}>
-              <UserInfo company={company} edit={edit} />
+              <UserInfo company={company} edit={edit} t={t}/>
             </Col>
 
             <Col xs={10}>
@@ -122,7 +123,7 @@ export const EditCompanyProfile = ({ edit, setEdit }: iProps) => {
                   className={tabIndex === 0 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(0)}
                 >
-                  Personal Info
+                  {t("PersonalInfo")}
                 </Col>
                 <Col
                   sm={5}
@@ -130,7 +131,7 @@ export const EditCompanyProfile = ({ edit, setEdit }: iProps) => {
                   className={tabIndex === 1 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(1)}
                 >
-                  Location
+                  {t("Location")}
                 </Col>
                 <Col
                   sm={5}
@@ -138,15 +139,15 @@ export const EditCompanyProfile = ({ edit, setEdit }: iProps) => {
                   className={tabIndex === 2 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(2)}
                 >
-                  Data
+                 {t("Data")}
                 </Col>
               </Row>
             </Col>
             <Col xs={12}>
               <Tab num={tabIndex}>
-                <Location />
-                <Info company={company} edit={edit} />
-                <Data />
+                <Location t={t}/>
+                <Info company={company} edit={edit} t={t} />
+                <Data t={t} />
               </Tab>
             </Col>
           </Row>

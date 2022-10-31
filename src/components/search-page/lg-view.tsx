@@ -98,7 +98,7 @@ export const LargeView = ({values,setFieldValue}:iProps)=>{
                         </Col>
                         <Col xs={11}>
                             <Select 
-                            label="Area"
+                            label={t("Area")}
                             options={[{title:{en:'area',ar:'area'},value:1}]}
                             />
                         </Col>
@@ -109,7 +109,7 @@ export const LargeView = ({values,setFieldValue}:iProps)=>{
                     <Row className='gy-3'>
                         <Col xs={11}>
                             <RangeSlider 
-                            label="Price Range"
+                            label={t("PriceRange")}
                             setValue={setFieldValue}
                             min={1000}
                             max={1000000}
@@ -140,7 +140,7 @@ export const LargeView = ({values,setFieldValue}:iProps)=>{
                     </Col>
                     <Col xs={11}>
                             <RangeSlider 
-                            label="Area Range"
+                            label={t("AreaRange")}
                             setValue={setFieldValue}
                             min={200}
                             max={1000}
@@ -152,7 +152,7 @@ export const LargeView = ({values,setFieldValue}:iProps)=>{
                     </Col>
                     <Col xs={11}>
                         <Select 
-                        label='Direction'
+                        label={t('Direction')}
                         options={[{title:{en:'West',ar:'west'},value:1},{title:{en:'East',ar:'East'},value:2}]}
                         />
                     </Col>
@@ -161,14 +161,14 @@ export const LargeView = ({values,setFieldValue}:iProps)=>{
 
                             <Col xs={5}>
                             <Input 
-                                label="Bathrooms"
+                                label={t("Bathrooms")}
                                 numberControl={true}
 
                             />
                             </Col>
                             <Col xs={5}>
                                 <Input 
-                                label="Rooms"
+                                label={t("Rooms")}
                                 numberControl={true}
                                 />
                             </Col>
@@ -176,7 +176,7 @@ export const LargeView = ({values,setFieldValue}:iProps)=>{
                     </Col>
                     <Col xs={11} className="d-flex justify-content-end">
                         <Col xs={4} >
-                            <GreenButton label="Search" />
+                            <GreenButton label={t("Search")} />
                         </Col>
                     </Col>
                     </Row>

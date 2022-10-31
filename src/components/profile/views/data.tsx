@@ -10,7 +10,8 @@ import { FileDownloader } from "../views/file";
 import { TextArea } from "../../tools/steady-group/textarea/textarea";
 import { ImagesGallery } from "../../tools/imgs-gallery/imgs-gallery";
 import { useFormik } from "formik";
-export const Data = () => {
+interface iProps{t:Function}
+export const Data = ({t}:iProps) => {
   const [images, setImages] = useState([
     predefinedImage,
     predefinedImage3,
@@ -39,7 +40,7 @@ export const Data = () => {
       <Col sm={10} xs={11}>
         <TextArea
           name="description"
-          label="Description"
+          label={t("Description")}
           value={formik.values.description}
           setValue={formik.setFieldValue}
           handleBlur={formik.handleBlur}
@@ -51,7 +52,7 @@ export const Data = () => {
       <Col xs={11}>
         <Row className="gy-3">
           <Col xs={12}>
-            <span className="fw-bold">Predefined Post Pictures</span>
+            <span className="fw-bold">{t("PredefinedPostPicture")}</span>
           </Col>
           <Col sm={12} xs={12} style={{ height: "174px" }}>
             {/* <ImagesGallery

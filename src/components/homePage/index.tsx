@@ -29,11 +29,13 @@ const HomePage =()=>{
                         let data= ele.images
                         if (ele.images && ele.images.length>0) {
                              data=ele.images.map((elem:any)=>{
-                                
-                                let arr= elem.path.split('/').slice(3)
+                                 console.log(elem)
+                                //  let arr= elem.path.split('/').slice(3)
                               
-                               let img ='https://backend.instaaqar.com/'+arr.join('/')
-                               return img
+                                // let img ='https://backend.instaaqar.com/'+arr.join('/')
+                                // return img
+                                return elem.path
+                            
                 
                 
                             })

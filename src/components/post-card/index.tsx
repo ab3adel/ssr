@@ -111,7 +111,7 @@ export const PostCard =(
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item onClick={()=>navigate('/postdetails/1')}>
+                                            <Dropdown.Item >
                                                 Details
                                             </Dropdown.Item>
                                             <Dropdown.Item>
@@ -127,7 +127,7 @@ export const PostCard =(
                             </Row>
                         </Col>
                         <Col xs={12}>
-                            <Row className="gy-md-1 gy-lg-0">
+                            <Row className="gy-md-1 gy-lg-0 gy-1">
 
                                 <Col xs={6} lg={4}>
                                     <div className="tag grey "
@@ -165,7 +165,7 @@ export const PostCard =(
                     <Row className='gy-1'>
                         <Col xs={12} className="p-0 p-sm-1">
                            <ImagesGallery 
-                            images={testImages as any[]}
+                            images={images as any[]}
                             price={price}
                             currency={currency}
                             height={imgs_gallery_height}
@@ -204,7 +204,7 @@ export const PostCard =(
                                         <Col xs={7} className="iconBtn likeButton "
                                          onClick={()=>handleLike(id)}
                                          >
-                                            <span >{postLikes}</span>
+                                            <span className='d-flex align-items-center'>{postLikes}</span>
                                             <img src={react ? heartFilled: heart} />
                                           
                                         </Col>
@@ -223,29 +223,29 @@ export const PostCard =(
                             </div>
                         </Col>
                         <Col xs={12} className="details">
-                            <Row className="gy-1">
+                            <Row className="gy-1 justify-content-between justify-content-sm-start">
 
-                                <Col lg={3} md={5} xs={6} className="detail"
+                                <Col lg={3} md={5} xs={5} className="detail"
                                 >
                                     
                                     <img  src={direction} style={small_size?{width:'17.4px',height:'17.4px'}:{}}/>
                                     <span style={small_size?{fontSize:'12px'}:{}}>North West</span>
                                 </Col>
                                 {number_of_rooms &&
-                                (<Col lg={3} md={5} xs={6} className="detail">
+                                (<Col lg={3} md={5} xs={5} className="detail">
                                     <img  src={room}  style={small_size?{width:'17.4px',height:'17.4px'}:{}} />
                                     <span style={small_size?{fontSize:'12px'}:{}}>{number_of_rooms}</span>
                                 </Col>)
                                 }
                                 {
                                     number_of_bathrooms&&
-                                (<Col lg={3} md={5} xs={6} className="detail">
+                                (<Col lg={3} md={5} xs={5} className="detail">
                                     <img  src={amenities}  style={small_size?{width:'17.4px',height:'17.4px'}:{}} />
                                     <span style={small_size?{fontSize:'12px'}:{}}>{number_of_bathrooms}</span>
                                 </Col>)
                                 }
                                { 
-                                <Col lg={3} md={5} xs={6} className="detail">
+                                <Col lg={3} md={5} xs={5} className="detail">
                                     <img  src={Area}  style={small_size?{width:'17.4px',height:'17.4px'}:{}}/>
                                     <span style={small_size?{fontSize:'12px'}:{}}>200 m<sup>2</sup> </span>
                                 </Col>}

@@ -3,8 +3,8 @@ import './select.scss'
 import Dropdown from 'react-bootstrap/Dropdown'
 import React, { useState } from 'react'
 interface iEle {title:string,icon?:string}
-interface iProps {options:iEle [],onChange?:Function,lang?:string}
-export const Select=({options,onChange,lang}:iProps)=>{
+interface iProps {options:iEle [],onChange?:Function,lang?:string,width?:string}
+export const Select=({options,onChange,lang,width}:iProps)=>{
     const [selected,setSelected]=useState(lang==='ar'?1:0)
     const handleClick=(index:number)=>{
         setSelected(index)
@@ -14,10 +14,13 @@ export const Select=({options,onChange,lang}:iProps)=>{
 
     }
     return (
-        <div className="customSelect">
+        <div className="customSelect" style={{width:width?width:''}}>
             <Dropdown
+            style={{width:width?width:'',paddingLeft:width?'1px':'',paddingRight:width?'1px':''}}
                >
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
+            <Dropdown.Toggle variant="success" id="dropdown-basic"
+            style={{width:width?width:'',margin:width?'0':''}}
+            >
               <Dropdown.Item
               className="optionStyle">
                  {

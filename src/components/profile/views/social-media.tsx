@@ -14,15 +14,15 @@ let icons=[{icon:snapchat,title:'snapchat'},
 {icon:facebook,title:'facebook'}]
 interface iProps {values:any,
     handleChange:(e:React.ChangeEvent)=>void
-    edit?:boolean
+    edit?:boolean,t:Function
 }
-export const SocialMedia =({values,handleChange,edit}:iProps)=>{
+export const SocialMedia =({values,handleChange,edit,t}:iProps)=>{
 
     return (
         <Row className="gy-1 py-sm-1 socialMediaContainer justify-content-end flex-column">
            <Col xs={11} className={`d-sm-flex d-none ${edit? '':'justify-content-center'}`}>
                 <div className="fw-bold" style={{fontSize:edit?'16px':'12px'}}>
-                    Social Media Accountes
+                   {t("SocialMediaAccountes")}
                 </div>
             </Col>
           <Row className="justify-content-center gy-sm-1 gy-3">

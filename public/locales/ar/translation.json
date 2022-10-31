@@ -83,5 +83,18 @@
     "online": "متصل الآن",
     "Offline": "غير متصل",
     "Write a message ..": "اكتب رسالة ..",
-    "Send": "إرسال"
+    "Send": "إرسال",
+    "Continue":"متابعة",
+    "PriceRange":"السعر",
+    "AreaRange":"المساحة",
+    "Direction":"الاتجاه",
+    "EditProfile":"تعديل البروفايل",
+    "ChangePassword":"تغيير كلمة السر",
+    "Following":"متابعة",
+    "Followers":"متابع",
+    "SocialMediaAccountes":"وسائل التواصل الاجتماعي",
+    "Data":"بيانات",
+    "Posts":"منشورات",
+    "Info":"معلومات",
+    "SaveChanges":"حفظ"
 }

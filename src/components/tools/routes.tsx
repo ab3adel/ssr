@@ -24,7 +24,7 @@ export const Rotues =(id:number) :RouteObject []  =>( [
             { path: '/addpost', element: id === 2 ? <Navigate to="/" /> : <AddPost /> },
             { path: '/messages', element: <Chat /> },
             {path:'/profile',element:<Profile/>},
-            {path:'/publicprofile',element:<PublicProfile/>}
+            {path:'/publicprofile/:id',element:<PublicProfile/>}
 
         ]
     },

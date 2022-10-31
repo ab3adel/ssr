@@ -13,8 +13,8 @@ import PublicProfile from '../profile/public-profile'
 
 
 
-export const Rotues =(id:number) :RouteObject []  =>( [
- 
+export const Rotues = (id: number): RouteObject[] => ([
+
 
     {
         path: '/', element: <Layout />, children: [
@@ -23,9 +23,9 @@ export const Rotues =(id:number) :RouteObject []  =>( [
             { path: '/postdetails/:id', element: <PostDetails /> },
             { path: '/addpost', element: id === 2 ? <Navigate to="/" /> : <AddPost /> },
             { path: '/messages', element: <Chat /> },
-            {path:'/profile',element:<Profile/>},
-            {path:'/publicprofile',element:<PublicProfile/>},
-            {path:'/search',element:<SearchPage />}
+            { path: '/profile', element: <Profile /> },
+            { path: '/publicprofile/:id', element: <PublicProfile /> },
+            { path: '/search', element: <SearchPage /> },
 
         ]
     },

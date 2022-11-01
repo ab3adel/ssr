@@ -6,7 +6,7 @@ import {Select} from '../tools/float-label-group/select/select'
 import { TextArea } from '../tools/float-label-group/text/text'
 import {ManyPhotosInput} from '../tools/many-photo-input/many-photo-input'
 import {Badge} from '../tools/badge/badge'
-
+import {GreenButton} from '../tools/buttons/green-button'
 import './add-post.scss'
 
 import {useTranslation} from 'react-i18next'
@@ -24,7 +24,7 @@ export const LargeView = (
         ,setPhoneNumbersArray,setPrimary
         ,t,setFieldValue,values,errors,handleBlur,offersType,pricesType
         ,propertySites,categories,tags,language,addPost,handleChange,area,role,addTag,
-        selectePropertySubTypeId,handleAvailableServices,touched
+        selectePropertySubTypeId,handleAvailableServices,touched,addPostLoading
     }:iProps
 )=>{
 
@@ -394,11 +394,16 @@ export const LargeView = (
                     </Col>
                     <Col xs={12} className="d-flex justify-content-center">
                         <Col xs={9}>
-
+{/* 
                             <button className="shareBtn"
                             onClick={()=>addPost()}>
                                {t("SharePost")}
-                            </button>
+                            </button> */}
+                            <GreenButton 
+                            label={t('SharePost')} 
+                             fun={()=>addPost()}
+                             loading={addPostLoading}
+                            />
                         </Col>
                     </Col>
                 </Row>

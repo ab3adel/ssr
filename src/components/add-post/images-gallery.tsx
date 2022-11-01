@@ -59,7 +59,8 @@ export const ImagesGallery =({imgs,setImgs,primary,setPrimary,value,setFieldValu
         setImgs(newImages)
     }
     return (
-        <Col xs={12} className="imagesGallery">
+        <div className={imgs.length >0 ? 'show':'hide'}>
+        <Col xs={12} className={`imagesGallery `}>
             <Col xs={12} className="scroll" id="scroll">
                 <div className=" innerContainer" id="innerContainer">
                 { imgs.map((ele,index)=>{
@@ -103,6 +104,7 @@ export const ImagesGallery =({imgs,setImgs,primary,setPrimary,value,setFieldValu
                <img src={rightArrow} />
             </div>
          </Col>
+        </div>    
     )
 
 }

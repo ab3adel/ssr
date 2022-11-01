@@ -110,7 +110,8 @@ export interface iPost {
   testImages?:string[],
   imgs_gallery_height?:string,
   small_size?:boolean,
-  for_profile?:boolean
+  for_profile?:boolean,
+  liked?:boolean
 
 
 }

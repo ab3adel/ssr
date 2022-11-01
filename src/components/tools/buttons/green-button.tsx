@@ -1,8 +1,8 @@
 import React from 'react'
 import './button.scss'
 
-interface iProps {label:string,fun?:Function,height?:string,children?:React.ReactNode}
-export const  GreenButton =({label,fun,height,children}:iProps)=>{
+interface iProps {label:string,fun?:Function,height?:string,children?:React.ReactNode,loading?:boolean}
+export const  GreenButton =({label,fun,height,children,loading}:iProps)=>{
     const handleClick=()=>{
         if (typeof(fun)==='function') {
             fun()
@@ -11,6 +11,7 @@ export const  GreenButton =({label,fun,height,children}:iProps)=>{
     return (
         <button className="buttonGreen" style={height?{height}:{}}
         onClick={handleClick}
+        disabled={loading}
         >
           
 

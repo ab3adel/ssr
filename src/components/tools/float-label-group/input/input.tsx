@@ -127,7 +127,8 @@ if (phoneNumber) {
        <PhoneNumberComponent 
        value={value}
        onChange={handlePhoneChange}
-       inputStyle={{'direction':i18n.language ==='en'?"ltr":'rtl'}}
+       inputStyle={{'direction':i18n.language ==='en'?"ltr":'rtl',padding:i18n.language==='en'?'0 0 0 48px':'0 48px 0 0 '}}
+       buttonClass={i18n.language==='en'?'':'arabic'}
 
        />
         

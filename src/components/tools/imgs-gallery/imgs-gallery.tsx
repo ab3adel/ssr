@@ -12,7 +12,7 @@ export const ImagesGallery =({images,price,height}:iProps)=>{
     const {ref,hide,handleShow} =useHide()
     const [currentImage,setCurrentImage]=useState(0)
     const {i18n} =useTranslation()
-    console.log(images)
+
     const nextImage=(str:string)=>{
        
         if (hide){

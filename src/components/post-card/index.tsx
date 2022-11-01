@@ -29,12 +29,12 @@ export const PostCard =(
     {
         title,area,currency,images,price,role,username,main_property_type,number_of_bathrooms,
         number_of_rooms,offer_type,price_type,profile_picture,property_site,imgs_gallery_height,
-        property_type,tags,id,likes,testImages,small_size,for_profile=false
+        property_type,tags,id,likes,testImages,small_size,for_profile=false,liked
     }:iPost
 )=>{
 
     const [fullImage,setFullImage]=useState(false)
-    const [react,setReact]=useState(false)
+    const [react,setReact]=useState(liked)
     const {i18n,t} = useTranslation()
     const [Imgs,setImages]=useState<string[]>([])
     const navigate= useNavigate()

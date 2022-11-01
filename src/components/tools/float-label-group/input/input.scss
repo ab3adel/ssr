@@ -104,7 +104,18 @@
         .flag-dropdown {
             background-color: transparent;
         }
+        .flag-dropdown.arabic{
+            background-color: transparent;
+            .selected-flag {
+                padding:0 8px 0 0 ;
+                .arrow {
+                    left:0;
+                    right:20px
+                }
+            }
+        }
     }
+   
     .isValid {
         width: 100%;
         margin-top: 0.25rem;

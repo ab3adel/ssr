@@ -27,7 +27,7 @@ export interface iProps {
     setFieldValue:Function,errors:any,handleBlur:Function,offersType:iOption[],pricesType:iOption[],
     propertySites:iOption[],categories:iOption[],tags:iOption[],language:string,addPost:Function,
     handleChange:Function,area:iOption[],role:number,addTag:Function,selectePropertySubTypeId:Function,
-    handleAvailableServices:Function,touched:any
+    handleAvailableServices:Function,touched:any,addPostLoading:boolean
 }
 
 let postTags=[{name:'cleaning',value:0},{name:'Move',value:1},{name:'Maintaining',value:2}]
@@ -439,7 +439,7 @@ useEffect(()=>{
                selectePropertySubTypeId={selectePropertySubTypeId}
                handleAvailableServices={handleAvailableServices}
                touched={formik.touched}
-           
+               addPostLoading={addPostLoading}
                />
 
            </Col>
@@ -483,6 +483,7 @@ useEffect(()=>{
              selectePropertySubTypeId={selectePropertySubTypeId}
              handleAvailableServices={handleAvailableServices}
              touched={formik.touched}
+             addPostLoading={addPostLoading}
             />
 
            

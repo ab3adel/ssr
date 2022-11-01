@@ -13,23 +13,29 @@ const HomePage =()=>{
     const [posts,setPosts]=useState<any>([])
     const [page,setPage]=useState(1)
     const postsId=useRef<number[]>([])
+    let waitMin=useRef<any>(false)
     const {getPosts,getPostsData,getPostsError,isGetPostsLoading}=useGetPosts()
     const [storedPosts,storePosts] =useRecoilState(Posts)
     useEffect(()=>{
-        getPosts({page})
+
+        if (!isGetPostsLoading && !waitMin.current) {
+            waitMin.current=true
+            getPosts({page})
+            setTimeout(()=>waitMin.current=false,5000)
+        }
     },[page])
    
     useEffect(()=>{
         if(!getPostsError) {
             if (getPostsData && getPostsData.length >0) {
-                
+                console.log(getPostsData)
                 let data= getPostsData.map((ele:any,index)=>{
                     if (!postsId.current.includes(ele.id)) {
                         postsId.current.push(ele.id)
                         let data= ele.images
                         if (ele.images && ele.images.length>0) {
                              data=ele.images.map((elem:any)=>{
-                                 console.log(elem)
+                                
                                 //  let arr= elem.path.split('/').slice(3)
                               
                                 // let img ='https://backend.instaaqar.com/'+arr.join('/')
@@ -57,7 +63,8 @@ const HomePage =()=>{
                            property_type:ele.property_type?ele.property_type.name:null,
                            tags:ele.tags_ids && ele.tags_ids.length>0?ele.tags_ids:null,
                            currency:ele.area.country.currency,
-                           likes:ele.likes
+                           likes:ele.likes,
+                           liked:ele.liked
                          })
                     }
 
@@ -75,7 +82,7 @@ const HomePage =()=>{
             setPage(newPage)
         }
    }
-   
+  
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 
@@ -101,12 +108,12 @@ return (
                 </Col>
             }
            
-            <div className="spacer"></div>
+            <div className="spacer" style={{height:isGetPostsLoading?'100px':'50px'}}></div>
         </Row>
        {
-       <Fade in={isGetPostsLoading}>
+       <Fade in={isGetPostsLoading} >
 
-            <Row  className='postLoadingContainer'>
+            <Row  className='postLoadingContainer' style={{height:isGetPostsLoading?'30px':'0px'}}>
                 <Col xs={12} className="postsLoading">
 
                     <Spinner />

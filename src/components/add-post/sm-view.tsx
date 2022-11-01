@@ -15,6 +15,7 @@ import {CheckCircleFill, PhoneLandscape} from 'react-bootstrap-icons'
 import {useState,useContext} from 'react'
 import {ImagesGallery} from './images-gallery'
 import {iProps} from './index'
+import { GreenButton } from '../tools/buttons/green-button'
 
 export const SmallView = (
     {
@@ -24,7 +25,7 @@ export const SmallView = (
         ,setPhoneNumbersArray,setPrimary
         ,t,setFieldValue,values,errors,handleBlur,offersType,pricesType,
         propertySites,categories,language,tags,area,addTag,role,selectePropertySubTypeId,
-        handleChange,handleAvailableServices,addPost,touched
+        handleChange,handleAvailableServices,addPost,touched,addPostLoading
     }:iProps
 )=>{
   
@@ -391,10 +392,15 @@ export const SmallView = (
                     <Col xs={12} className="d-flex justify-content-center">
                         <Col xs={9}>
 
-                            <button className="shareBtn"
+                            {/* <button className="shareBtn"
                             onClick={()=>addPost()}>
                                 {t("SharePost")}
-                            </button>
+                            </button> */}
+                             <GreenButton 
+                            label={t('SharePost')} 
+                             fun={()=>addPost()}
+                             loading={addPostLoading}
+                            />
                         </Col>
                     </Col>
             </Row>

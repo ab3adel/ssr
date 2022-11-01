@@ -184,10 +184,12 @@ const addPost =()=>{
         formData.append('descriptive_address[en]',formik.values.descriptive_address.en)
     }
    
-       
-        //formData.append(`services_available[ar]`,'[test]')
-        //formData.append(`services_available[en]`,'[test]') 
+    if (formik.values.services_available.ar || formik.values.services_available.en ){
+
+        formData.append(`services_available[ar]`,formik.values.services_available.ar)
+        formData.append(`services_available[en]`,formik.values.services_available.en) 
     
+    }   
     
    
     formData.append('PACIID',formik.values.PACIID)
@@ -197,16 +199,20 @@ const addPost =()=>{
     formData.append('profile_photo_as_an_image',JSON.stringify(formik.values.profile_photo_as_an_image))
     formData.append('profile_photo_as_an_image_primary',JSON.stringify(formik.values.profile_photo_as_an_image_primary))
     if (formik.values.pre_defined_images.length>0 &&formik.values.pre_defined_images[0].id ) {
+        formik.values.pre_defined_images.map((ele,index)=>{
 
-        formData.append('pre_defined_images[0][id]',formik.values.pre_defined_images[0]['id'])
-        formData.append('pre_defined_images[0][primary]',formik.values.pre_defined_images[0]['primary'])
+            formData.append(`pre_defined_images[${index}][id]`,ele['id'])
+            formData.append(`pre_defined_images[${index}][primary]`,ele['primary'])
+        })
     }
-    if (formik.values.images[0] && formik.values.images[0].file) {
+    if (formik.values.images.length>0 && formik.values.images[0].file) {
+        formik.values.images.map((ele,index)=>{
 
-        formData.append('images[0][name][en]',formik.values.images[0]['name']['en'])
-        formData.append('images[0][name][ar]',formik.values.images[0]['name']['ar'])
-        formData.append('images[0][file]',formik.values.images[0]['file'])
-        formData.append('images[0][primary]',formik.values.images[0]['primary'])
+            formData.append(`images[${index}][name][en]`,ele['name']['en'])
+            formData.append(`images[${index}][name][ar]`,ele['name']['ar'])
+            formData.append(`images[${index}][file]`,ele['file'])
+            formData.append(`images[${index}][primary]`,ele['primary'])
+        })
     }
     if (formik.values.pre_defined_phone_numbers.length>0) {
 
@@ -396,7 +402,7 @@ useEffect(()=>{
             }
         }
     },[isAreaLoading])
-   console.log(formik.errors,formik.values.description)
+   console.log(formik.values.images)
     return (
         <Col xs={12} className="addPostContainer">
            <Col xs={12} className="d-sm-block d-none">

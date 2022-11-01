@@ -236,7 +236,7 @@ export const SmallView = (
                         />
                     </Col>
                     {  role===3 &&
-                   ( <>
+                   ( 
                     <Col xs={12}>
                         <Input 
                         label={t('Location')}
@@ -248,9 +248,10 @@ export const SmallView = (
                         touched={touched['location_link']}
                         handleBlur={handleBlur}
                         />
-                    </Col>
+                    </Col>)}
                    <Col xs={12}>
                     <Row className="gy-3">
+                        {role===3 &&(<>
                         <Col xs={6}>
                             <Input 
                                 numberControl={true} 
@@ -293,7 +294,8 @@ export const SmallView = (
                                 
                                  />
                         </Col>
-                        <Col xs={6}>
+                        </>)}
+                        <Col xs={12}>
                             <Input label={t("Price")} 
                                 unit='KWD' 
                                 name="price"
@@ -320,13 +322,11 @@ export const SmallView = (
                         </Col>
                     </Row>
                    </Col>
-
-                    <Col xs={12}>
-                        <Select label='Direction' />
-                    </Col>
-                    </>
-                    )
-                     }
+{ role ===3 &&(
+                <Col xs={12}>
+                    <Select label='Direction' />
+                </Col>)}
+                  
                     <Col xs={12}>
                     <TextArea label={t('Description')} 
                         value={values.description}

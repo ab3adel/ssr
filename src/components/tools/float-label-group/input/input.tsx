@@ -112,7 +112,7 @@ if (phoneNumber) {
         <Form.Group className="floatedInput" onClick={focused} onBlur={checkTyping}>
         <div
           className={"label float"}
-          style={i18n.language === "en" ? { left: "1rem",right:'auto' } : { right: "1rem",left:'auto' }}
+          style={i18n.language === "en" ? { left: "1rem",right:'auto',background:disabled?'trasnparent':'' } : { right: "1rem",left:'auto',background:disabled?'trasnparent':'' }}
         >
           {label}
         </div>

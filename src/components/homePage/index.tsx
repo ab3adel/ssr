@@ -82,7 +82,7 @@ const HomePage =()=>{
             setPage(newPage)
         }
    }
-  
+ 
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 

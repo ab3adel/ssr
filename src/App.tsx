@@ -74,7 +74,7 @@ function App() {
       style={{ direction: i18n.language === "en" ? "ltr" : "rtl" }}
     >
       {routes}
-      <Notify {...notify} close={handleCloseNotify} />
+      <Notify {...notify}  close={handleCloseNotify} />
     </div>
   );
 }

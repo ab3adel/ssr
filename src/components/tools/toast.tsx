@@ -1,5 +1,5 @@
 import Toast from 'react-bootstrap/Toast'
-import {Check,X} from 'react-bootstrap-icons'
+import {Check,X,InfoCircleFill} from 'react-bootstrap-icons'
 import ToastContainer from 'react-bootstrap/ToastContainer'
 import { useEffect, useState } from 'react'
 
@@ -8,7 +8,7 @@ interface iProps {
   show:boolean
   ,close:()=>void
   ,message:string
-,type:boolean }
+,type:boolean | string }
 export const Notify =({
    show
    ,close
@@ -16,6 +16,24 @@ export const Notify =({
    ,type
    
 }:iProps)=>{
+  let bg='bg-danger'
+  let text='Failed'
+  let icon= <X/>
+ if (typeof (type) === 'boolean') {
+  if (type) {
+    bg='bg-success'
+    text='Successfull'
+    icon=<Check/>
+  }
+ }
+ if (typeof(type)==='string') {
+  if (type==='info') {
+    bg='bg-info'
+    text='Information'
+    icon=<InfoCircleFill/>
+  }
+ }
+ 
 
     return (
       <ToastContainer  position={'top-center'} 
@@ -25,10 +43,10 @@ export const Notify =({
         delay={4000} autohide
        >
         <Toast.Header
-        className={!type?'bg-danger text-white':'bg-success text-white'}
+        className={`${bg} text-white`}
        >
-         {type ? <Check /> :<X/>}
-          <strong className="me-auto ml-1 mr-1">{type?'Successfull':'Failed'}</strong>
+         {icon}
+          <strong className="w-100 text-start px-4">{text}</strong>
         
         </Toast.Header>
         <Toast.Body>{message}</Toast.Body>

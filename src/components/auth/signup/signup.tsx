@@ -347,7 +347,7 @@ const SignUp = ({ setLogin }: iProps) => {
       setValidationOptions((pre) => ({ ...pre, isUser: false }));
     }
   }, [btn]);
-console.log(formik.errors)
+
   return (
     <Row className="signUpContainer gy-3">
       <Col xs={12}>

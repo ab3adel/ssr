@@ -81,7 +81,7 @@ const LoginCard = () => {
 
             {guest ? (
               <Col xs={12} className="d-flex justify-content-center">
-                <Guest />
+                <Guest setGuest={setGuest} />
               </Col>
             ) : (
               <>

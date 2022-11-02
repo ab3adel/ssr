@@ -111,7 +111,8 @@ export interface iPost {
   imgs_gallery_height?:string,
   small_size?:boolean,
   for_profile?:boolean,
-  liked?:boolean
+  liked?:boolean,
+  authenticated?:boolean
 
 
 }

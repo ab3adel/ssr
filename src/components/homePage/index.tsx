@@ -9,13 +9,20 @@ import Fade from 'react-bootstrap/Fade'
 import back from '../../images/home/home-back.svg' 
 import {useRecoilState} from 'recoil'
 import {Posts} from '../store'
+import {getLocalStorage} from '../tools/getLocalstorage'
 const HomePage =()=>{
     const [posts,setPosts]=useState<any>([])
     const [page,setPage]=useState(1)
+    const [authenticated,setAuthenticated]=useState(false)
     const postsId=useRef<number[]>([])
     let waitMin=useRef<any>(false)
     const {getPosts,getPostsData,getPostsError,isGetPostsLoading}=useGetPosts()
     const [storedPosts,storePosts] =useRecoilState(Posts)
+    useEffect(()=>{
+        let obj= getLocalStorage()
+        
+        if (obj && obj.role) setAuthenticated(true)
+    },[])
     useEffect(()=>{
 
         if (!isGetPostsLoading && !waitMin.current) {
@@ -28,7 +35,7 @@ const HomePage =()=>{
     useEffect(()=>{
         if(!getPostsError) {
             if (getPostsData && getPostsData.length >0) {
-                console.log(getPostsData)
+          
                 let data= getPostsData.map((ele:any,index)=>{
                     if (!postsId.current.includes(ele.id)) {
                         postsId.current.push(ele.id)
@@ -90,8 +97,8 @@ return (
             {
                 posts.length>0 ?
                 posts.map((ele:any,index:number)=> 
-                <Col xs={12} sm={6} >
-                  <PostCard {...ele} key={index}/>
+                <Col xs={12} sm={6} key={index}>
+                  <PostCard {...ele} authenticated={authenticated} key={index}/>
                 </Col>
                 ):
                 <Col xs={12} className='d-flex justify-content-center align-items-center'>

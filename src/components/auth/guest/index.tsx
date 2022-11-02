@@ -18,14 +18,14 @@ let age_range=[
     {name:'7-20',value:'7-20'},
     {name:'20-40',value:'20-40'},
     {name:'40-100',value:'40-100'},
-   
 ]
- const Guest =()=>{
+interface iProps {setGuest:Function}
+ const Guest =({setGuest}:iProps)=>{
 
 const [gender,setGender]=useState({male:true,female:false})
 const navigate=useNavigate()
 const {notify,setNotify} = useContext(notificationContext)
-const [disableBtn,setDisableBtn]=useState(false)
+const [disableBtn,setDisableBtn]=useState(true)
 const {t,i18n}= useTranslation()
 const [IPAddress,setIPAddress]=useState('')
 const [selectedCountry,setSelectedCountry]=useState(0)
@@ -119,7 +119,10 @@ useEffect(()=>{
 checkError()
 },[formik.errors])
 const checkError=()=>{
+    let values=formik.values
+    if (!values.age_range || !values.area_id) return
     let {age_range,area_id,ip_address,gender}=formik.errors
+    
     if (Boolean(age_range) || Boolean(area_id) || Boolean(ip_address) || Boolean(gender)){
         setDisableBtn(true)
     }
@@ -221,7 +224,7 @@ return (
                         </Row>
                     </Col>
                 </Col>
-                <Col xs={12} className='d-flex justify-content-center'>
+                <Col xs={12} className='d-flex justify-content-between'>
                     <Col xs={4}>
 
                         <Button className="doneBtn"
@@ -230,6 +233,16 @@ return (
 
                         >
                             {t("Done")}
+                        </Button>
+                    </Col>
+                    <Col xs={4}>
+
+                        <Button className="doneBtn"
+                        onClick={()=>setGuest(false)}
+                       
+
+                        >
+                            {t("Back")}
                         </Button>
                     </Col>
                 </Col>

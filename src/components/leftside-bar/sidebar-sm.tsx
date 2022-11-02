@@ -236,7 +236,7 @@ export const SidebarSm = ({ token, removeToken }: iProps) => {
                       <span>{t("AboutInsta")}</span>
                     </div>
                   </Col>
-                  <Col xs={9}>
+                  <Col xs={8}>
                     {token?.role && token?.role !== 2 && (
                       <Button
                         className="postBtn Btn"
@@ -250,7 +250,7 @@ export const SidebarSm = ({ token, removeToken }: iProps) => {
               </Col>
               <Col xs={12}>
                 <Col
-                  xs={9}
+                  xs={8}
                   className={`d-flex  ${
                     i18n.language === "en"
                       ? "justify-content-end"
@@ -264,7 +264,7 @@ export const SidebarSm = ({ token, removeToken }: iProps) => {
                     width="100%"
                   />
                 </Col>
-                <Col xs={9}>
+                <Col xs={8}>
                   {token?.token ? (
                     <Button
                       className="logoutBtn Btn"

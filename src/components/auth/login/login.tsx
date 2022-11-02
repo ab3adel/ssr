@@ -78,6 +78,7 @@ const Login = ({ setLogin }: iProps) => {
             refresh_token: res.data.payload.refresh_token,
             role: res.data.payload.roles[0].id,
             profile_picture: realImage,
+            
           };
 
           setNotify((pre: any) => ({

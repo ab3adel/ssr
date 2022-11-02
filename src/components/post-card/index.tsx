@@ -18,22 +18,22 @@ import room from '../../images/home/room-icon.svg'
 import Dropdown from 'react-bootstrap/Dropdown'
 import {ThreeDotsVertical} from 'react-bootstrap-icons'
 import {useLikePost} from '../tools/apis/uselikePost'
-import {useEffect, useState,useRef} from 'react'
+import {useEffect, useState,useContext} from 'react'
 import {useTranslation} from 'react-i18next'
 import {ImagesGallery} from '../tools/imgs-gallery/imgs-gallery'
 import {useNavigate} from 'react-router-dom'
 import {iPost} from '../tools/interface'
-
+import notificationContext from '../tools/context/notification/notification-context'
 
 export const PostCard =(
     {
         title,area,currency,images,price,role,username,main_property_type,number_of_bathrooms,
         number_of_rooms,offer_type,price_type,profile_picture,property_site,imgs_gallery_height,
-        property_type,tags,id,likes,testImages,small_size,for_profile=false,liked
+        property_type,tags,id,likes,testImages,small_size,for_profile=false,liked,authenticated
     }:iPost
 )=>{
 
-    const [fullImage,setFullImage]=useState(false)
+    const {setNotify}=useContext(notificationContext)
     const [react,setReact]=useState(liked)
     const {i18n,t} = useTranslation()
     const [Imgs,setImages]=useState<string[]>([])
@@ -45,16 +45,22 @@ export const PostCard =(
  
   
     const handleLike =(id:number)=>{
-       let theLikes=postLikes
-        if (!react) {
-            setLike(id)
-            setPostLikes(theLikes + 1)
-            setReact(true)
+        if (authenticated) {
+
+            let theLikes=postLikes
+             if (!react) {
+                 setLike(id)
+                 setPostLikes(theLikes + 1)
+                 setReact(true)
+             }
+             else {
+                 setUnLike(id)
+                 setPostLikes(theLikes - 1)
+                 setReact(false)
+             }
         }
         else {
-            setUnLike(id)
-            setPostLikes(theLikes - 1)
-            setReact(false)
+            setNotify((pre:any)=>({...pre,show:true,type:'info',message:'You have to login first !'}))
         }
        
     }

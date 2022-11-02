@@ -11,7 +11,7 @@ export const SignupSchema = (isUser: boolean, needCategory = true) =>
     full_name: Yup.string().required("This field is required"),
     email: isUser
       ? Yup.string().email().required("This field is required")
-      : Yup.string().email(),
+      : Yup.string().email().required('This field is required'),
     phone_numbers: Yup.array().of(
       Yup.object().shape({
         phone: Yup.string().required("This field is required"),

@@ -15,7 +15,7 @@ export const apis = {
     propertySites:'propertySites',
     posts:'posts',
     likePost:(id:number)=>`like?post_id=${id}`,
-    unLikePost:(id:number)=>`unlike?$post_id=${id}`,
+    unLikePost:(id:number)=>`unlike?post_id=${id}`,
     deletePost:(id:number)=>`deletePost/${id}`,
     getPosts:(
       params:iGetPosts

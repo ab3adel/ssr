@@ -69,7 +69,7 @@ export const HeaderLg = ({ token }: iProps) => {
                 </Col>
                 <Col xs={12}>
                   <div className="user_name mw-100">
-                    {token?.full_name ? token.full_name : "user_33892"}
+                    {token?.full_name ? token?.full_name : "user_33892"}
                   </div>
                 </Col>
               </Col>

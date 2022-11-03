@@ -29,7 +29,8 @@ export const PostCard =(
     {
         title,area,currency,images,price,role,username,main_property_type,number_of_bathrooms,
         number_of_rooms,offer_type,price_type,profile_picture,property_site,imgs_gallery_height,
-        property_type,tags,id,likes,testImages,small_size,for_profile=false,liked,authenticated
+        property_type,tags,id,likes,testImages,small_size,for_profile=false,liked,authenticated,
+        navigateToDetails=()=> {}
     }:iPost
 )=>{
 
@@ -44,20 +45,30 @@ export const PostCard =(
 
  
   
-    const handleLike =(id:number)=>{
+    const handleLike = async (id:number)=>{
         if (authenticated) {
+            
+           
 
-            let theLikes=postLikes
-             if (!react) {
-                 setLike(id)
-                 setPostLikes(theLikes + 1)
-                 setReact(true)
-             }
-             else {
-                 setUnLike(id)
+        let theLikes=postLikes
+            if (!react) {
+                await setLike(id)
+                
+                setPostLikes(theLikes + 1)
+                setReact(true)
+                
+              
+               
+            }
+            else {
+                 await setUnLike(id)
+        
                  setPostLikes(theLikes - 1)
                  setReact(false)
-             }
+             
+
+            }
+           
         }
         else {
             setNotify((pre:any)=>({...pre,show:true,type:'info',message:'You have to login first !'}))
@@ -65,7 +76,7 @@ export const PostCard =(
        
     }
    
-   
+
     return (
         <Col xs={12} sm={12}
         className="postCardContainer">
@@ -84,12 +95,14 @@ export const PostCard =(
 
                                             
                                         </Col>
-                                        <Col xs={8}>
+                                        <Col xs={9}>
                                             <Row className="gy-1 py-1">
 
                                                 <Col xs={12}>
                                                     <div className="userName">
-                                                        <span  style={small_size?{fontSize:'14px'}:{}} >{username}</span>
+                                                        <span  style={small_size?{fontSize:'14px'}:{}} >
+                                                            {username}
+                                                        </span>
                                                         <img className="icon" src={valid}
                                                          style={small_size?{width:'12.5px',height:'12.5px'}:{}}
                                                       />
@@ -117,7 +130,8 @@ export const PostCard =(
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item >
+                                            <Dropdown.Item 
+                                            onClick={()=>navigateToDetails(id)}>
                                                 Details
                                             </Dropdown.Item>
                                             <Dropdown.Item>

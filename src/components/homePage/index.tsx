@@ -10,6 +10,7 @@ import back from '../../images/home/home-back.svg'
 import {useRecoilState} from 'recoil'
 import {Posts} from '../store'
 import {getLocalStorage} from '../tools/getLocalstorage'
+import  {useNavigate} from 'react-router-dom'
 const HomePage =()=>{
     const [posts,setPosts]=useState<any>([])
     const [page,setPage]=useState(1)
@@ -18,6 +19,7 @@ const HomePage =()=>{
     let waitMin=useRef<any>(false)
     const {getPosts,getPostsData,getPostsError,isGetPostsLoading}=useGetPosts()
     const [storedPosts,storePosts] =useRecoilState(Posts)
+    const navigate =useNavigate()
     useEffect(()=>{
         let obj= getLocalStorage()
         
@@ -35,11 +37,12 @@ const HomePage =()=>{
     useEffect(()=>{
         if(!getPostsError) {
             if (getPostsData && getPostsData.length >0) {
-          
+                console.log(getPostsData)
                 let data= getPostsData.map((ele:any,index)=>{
                     if (!postsId.current.includes(ele.id)) {
                         postsId.current.push(ele.id)
                         let data= ele.images
+                        let updated_at=null
                         if (ele.images && ele.images.length>0) {
                              data=ele.images.map((elem:any)=>{
                                 
@@ -53,6 +56,14 @@ const HomePage =()=>{
                 
                             })
                         }
+                        if (ele.updated_at) {
+                            const options = { year: 'numeric', month: 'short', day: 'numeric' } as const
+                            updated_at={
+                                en:new Date(ele.updated_at).toLocaleDateString('en-US',options),
+                                ar:new Date(ele.updated_at).toLocaleDateString('ar-EG',options)
+                            }
+                        }
+                   
                         return ({
                            id:ele.id,
                            title:ele.title,
@@ -71,7 +82,15 @@ const HomePage =()=>{
                            tags:ele.tags_ids && ele.tags_ids.length>0?ele.tags_ids:null,
                            currency:ele.area.country.currency,
                            likes:ele.likes,
-                           liked:ele.liked
+                           liked:ele.liked,
+                           PACIID:ele.PACIID,
+                           services_available:ele.services_available,
+                           updated_at,
+                           phone_numbers:ele.phone_numbers,
+                           category:ele.category?ele.category.name:null,
+                           price:ele.price,
+                           description:ele.description
+
                          })
                     }
 
@@ -89,6 +108,10 @@ const HomePage =()=>{
             setPage(newPage)
         }
    }
+   const  getPostDetails =(id:number)=>{
+    navigate(`postdetails/${id}`)
+   }
+   console.log(storedPosts)
  
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
@@ -98,7 +121,7 @@ return (
                 posts.length>0 ?
                 posts.map((ele:any,index:number)=> 
                 <Col xs={12} sm={6} key={index}>
-                  <PostCard {...ele} authenticated={authenticated} key={index}/>
+                  <PostCard {...ele} authenticated={authenticated} navigateToDetails={getPostDetails} key={index}/>
                 </Col>
                 ):
                 <Col xs={12} className='d-flex justify-content-center align-items-center'>

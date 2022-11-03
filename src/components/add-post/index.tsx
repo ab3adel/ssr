@@ -178,6 +178,11 @@ const addPost =()=>{
         })
     }
 
+    if (formik.values.description.ar || formik.values.description.en) {
+        formData.append('description[en]',formik.values.description.en)
+        formData.append('description[ar]',formik.values.description.ar)
+    }
+
     if (formik.values.descriptive_address.ar || formik.values.descriptive_address.en){
 
         formData.append('descriptive_address[ar]',formik.values.descriptive_address.ar)
@@ -218,14 +223,20 @@ const addPost =()=>{
 
         formData.append('pre_defined_phone_numbers[0]',formik.values.pre_defined_phone_numbers[0])
     }
-    formData.append(
-        "phone_numbers[0][phone]",
-        (formik.values.phone_numbers as Array<any>)[0]["phone"]
-      );
-      formData.append(
-        "phone_numbers[0][international_code]",
-        (formik.values.phone_numbers as Array<any>)[0]["international_code"]
-      );
+    if (formik.values.phone_numbers.length >0) {
+        formik.values.phone_numbers.map((ele,index)=>{
+            formData.append(
+                `phone_numbers[${index}][phone]`,
+                ele["phone"]
+              );
+              formData.append(
+                `phone_numbers[${index}][international_code]`,
+                ele["international_code"]
+              );
+        })
+    }
+  
+    
     axios.post(apis.posts,formData,{headers:{'Authorization':`Bearer ${token.token}`}})
          .then(res=>{
             setAddPostLoading(false)

@@ -3,7 +3,7 @@ import {useCallback, useContext,useState} from 'react'
 import axios from './axios'
 import {apis} from './apis'
 import {iGetPosts} from '../interface'
-
+import {getLocalStorage} from '../getLocalstorage'
 export const useGetPosts=()=>{
     const [isGetPostsLoading,setLoading]=useState<boolean>(false)
     const [getPostsData,setData]=useState<any[]>()
@@ -15,7 +15,12 @@ export const useGetPosts=()=>{
         setLoading(true)
         axios.get(apis.getPosts(
              params
-            ))
+            ),
+            {
+                headers: { Authorization: `Bearer ${getLocalStorage().token}` },
+              }
+          
+            )
         .then(res=>{
             setLoading(false)
             if (res.data){

@@ -23,6 +23,7 @@ import SettingContext from "../tools/context/setting-context/setting-context";
 interface iProps {
   token?: iToken;
   removeToken: Function;
+  authenticated?:boolean
 }
 
 let languages = [
@@ -30,7 +31,7 @@ let languages = [
   { title: "Arabic", icon: kw },
 ];
 
-export const SidebarSm = ({ token, removeToken }: iProps) => {
+export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
   const { openSidebar, setOpenSidebar } = useContext(SettingContext);
   const { i18n, t } = useTranslation();
   const [selected, setSelected] = useState(0);
@@ -237,7 +238,7 @@ export const SidebarSm = ({ token, removeToken }: iProps) => {
                     </div>
                   </Col>
                   <Col xs={8}>
-                    {token?.role && token?.role !== 2 && (
+                    { ( authenticated && token?.role && token?.role !== 2) && (
                       <Button
                         className="postBtn Btn"
                         onClick={() => handleRoutes(7)}

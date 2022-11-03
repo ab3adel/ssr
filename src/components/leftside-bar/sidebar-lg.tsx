@@ -28,6 +28,7 @@ interface iProps {
   removeToken: Function;
   collapsed: boolean;
   setCollapsed: Function;
+  authenticated?:boolean
 }
 let mainCol_xl = 12;
 let mainCol_lg = 12;
@@ -41,6 +42,7 @@ export const SidebarLg = ({
   removeToken,
   collapsed,
   setCollapsed,
+  authenticated
 }: iProps) => {
   const { i18n, t } = useTranslation();
   const [selected, setSelected] = useState(0);
@@ -87,7 +89,6 @@ export const SidebarLg = ({
     }
   };
 
-  const handleCollapse = () => { };
   useEffect(() => {
     if (i18n.language === "ar") {
       collapseBtnClass = "arOpen";
@@ -107,6 +108,7 @@ export const SidebarLg = ({
     collapseBtnClass = "arOpen";
     openBtnClass = "arClose";
   }
+ 
   return (
     <Row className="sidebarContainer flex-column gy-1 p-1 d-none d-sm-flex">
       <Col xs={logoMainCol} className="logoContainer ">
@@ -258,7 +260,7 @@ export const SidebarLg = ({
               lg={col_lg}
               xl={col_xl}
               className={collapsed ? "collapse" : "show"}
-            >{token?.role !== 2 &&
+            >{(authenticated && token?.role !== 2) &&
               (<Button className="postBtn Btn" onClick={() => hanldeRoutes(7)}>
                 <div className="plus">+</div>
                 {t("PostProperty")}

@@ -8,7 +8,7 @@ import {useTranslation} from 'react-i18next'
 interface iProps {images: any []
     ,price?:string,currency?:{en:string,ar:string}
 ,price_type?:{en:string,ar:string} ,height?:string}
-export const ImagesGallery =({images,price,height}:iProps)=>{
+export const ImagesGallery =({images,price,height,price_type,currency}:iProps)=>{
     const {ref,hide,handleShow} =useHide()
     const [currentImage,setCurrentImage]=useState(0)
     const {i18n} =useTranslation()
@@ -40,7 +40,11 @@ export const ImagesGallery =({images,price,height}:iProps)=>{
                                { price && 
                                 (<div className="price">
                                     <span>{price}</span>
-                                    <span>Kwd / month</span>
+                                    <span style={{direction:i18n.language==='en'?'rtl':'ltr'}}>
+                                        {currency?i18n.language==='en'?currency.en:currency.ar:''} 
+                                        {' '}
+                                        {price_type?i18n.language==='en'?'/'+price_type.en:'/'+price_type.ar:''}
+                                        </span>
                                 </div>)
                                 }
                                 <Fade in={hide}>

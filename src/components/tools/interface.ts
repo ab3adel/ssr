@@ -112,7 +112,11 @@ export interface iPost {
   small_size?:boolean,
   for_profile?:boolean,
   liked?:boolean,
-  authenticated?:boolean
+  authenticated?:boolean,
+  navigateToDetails?:(id:number)=>void,
+  updated_at?:{en:string,ar:string},
+  services_available?:{en:string,ar:string},
+  description?:{en:string,ar:string}
 
 
 }

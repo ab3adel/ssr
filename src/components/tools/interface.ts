@@ -69,7 +69,7 @@ export interface iToken {
   profile_picture:string
 }
 export interface iGetPosts {
-  page:number
+  page?:number
   ,post_id?:number
   ,user_id?:number
   ,company_id?:number
@@ -116,7 +116,11 @@ export interface iPost {
   navigateToDetails?:(id:number)=>void,
   updated_at?:{en:string,ar:string},
   services_available?:{en:string,ar:string},
-  description?:{en:string,ar:string}
+  description?:{en:string,ar:string},
+  owner?:boolean,
+  user_id:number,
+  navigateToUpdatePost?:(id:number)=>void,
+  page?:number
 
 
 }

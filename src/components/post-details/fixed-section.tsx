@@ -33,7 +33,7 @@ export const FixedSection = ({ post }: { post: any }) => {
                 Type
               </Col>
               <Col lg={4} xs={6}>
-                <div className="tag grey">Flat</div>
+                <div className="tag grey">{i18n.language==='en' ? post.offer_type.en:post.offer_type.ar}</div>
               </Col>
             </>
           )}
@@ -43,7 +43,7 @@ export const FixedSection = ({ post }: { post: any }) => {
                 Purpose
               </Col>
               <Col lg={4} xs={6}>
-                <div className="tag grey">{post.price_type}</div>
+                <div className="tag grey">{i18n.language==='en' ?post.price_type.en : post.price_type.ar}</div>
               </Col>
             </>
           )}

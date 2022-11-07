@@ -1,5 +1,6 @@
 import {iGetPosts} from '../interface'
 export const apis = {
+   predefiendPictures:'viewPredefinedCompanyImages',
     roles:'roles',
     countries:'countries',
     country_id:(num:number)=>`countries?country_id=${num}`,
@@ -26,13 +27,7 @@ export const apis = {
                 area_from,area_to,number_of_room,number_of_bathroom,property_type_id
             }=params
           return( 
-            `posts?page=${page} 
-            ${post_id?`&post_id=${post_id}`:''}
-            ${user_id?`&user_id=${user_id}`:''}
-            ${company_id?`&company_id=${company_id}`:''}
-            ${text?`&text=${text}`:''}
-            ${area_id?`&area_id=${area_id}`:''}
-            ${category_id?`&category_id=${category_id}`:''}
+            `posts?${page?`page=${page}`:'page=1'}${post_id?`&post_id=${post_id}`:''}${user_id?`&user_id=${user_id}`:''}${company_id?`&company_id=${company_id}`:''}${text?`&text=${text}`:''}${area_id?`&area_id=${area_id}`:''}${category_id?`&category_id=${category_id}`:''}
             ${tag_id?`&tag_id=${tag_id}`:''}
             ${price_from?`&price_from=${price_from}`:''}
             ${price_to?`&price_to=${price_to}`:''}
@@ -45,7 +40,8 @@ export const apis = {
             ${number_of_room?`&number_of_room=${number_of_room}`:''}
             ${number_of_bathroom?`&number-of_bathroom=${number_of_bathroom}`:''}
             `)
-        }
+        },
+    updatePost:(id:number)=>`posts/${id}?_method=put`    
         
 
     

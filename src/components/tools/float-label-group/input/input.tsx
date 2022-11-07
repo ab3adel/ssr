@@ -73,13 +73,17 @@ export const Input = ({
     if (disabled) return
     if (type === "number") {
       if ( typeof value !== "undefined") {
-        let num = parseInt(value);
+        let num =0
+        if (value !== '' && !isNaN(parseInt(value)))  num = parseInt(value);
         let newVal = num + 1;
         if (str === "sub") {
           newVal = num - 1;
         }
         if (typeof setValue === "function") {
-          setValue(name, newVal);
+          if (newVal>=0) {
+
+            setValue(name, newVal);
+          }
         }
       }
     }
@@ -129,7 +133,7 @@ if (phoneNumber) {
        onChange={handlePhoneChange}
        inputStyle={{'direction':i18n.language ==='en'?"ltr":'rtl',padding:i18n.language==='en'?'0 0 0 48px':'0 48px 0 0 '}}
        buttonClass={i18n.language==='en'?'':'arabic'}
-
+       country="kw"
        />
         
         

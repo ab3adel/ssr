@@ -6,7 +6,7 @@ import {iGetPosts} from '../interface'
 import {getLocalStorage} from '../getLocalstorage'
 export const useGetPosts=()=>{
     const [isGetPostsLoading,setLoading]=useState<boolean>(false)
-    const [getPostsData,setData]=useState<any[]>()
+    const [getPostsData,setData]=useState<any[] | any>()
     const [getPostsError,setError]=useState<string>('')
     const getPosts=useCallback((
       params:iGetPosts
@@ -17,7 +17,7 @@ export const useGetPosts=()=>{
              params
             ),
             {
-                headers: { Authorization: `Bearer ${getLocalStorage().token}` },
+                headers: { Authorization: `Bearer ${getLocalStorage()?getLocalStorage().token:''}` },
               }
           
             )

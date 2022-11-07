@@ -4,13 +4,15 @@ import leftArrow from '../../images/home/left-arrow-icon.svg'
 import rightArrow from '../../images/home/right-arrow-icon.svg'
 
 import Col from 'react-bootstrap/Col'
+import { validateYupSchema } from 'formik'
 
-interface iProps{imgs:string[],setImgs:Function,primary:number,setPrimary:Function
+interface iProps{imgs:string[] | any[],setImgs:Function,primary:number,setPrimary:Function
     ,value:any
-    ,setFieldValue:Function
+    ,setFieldValue:Function,
+    images_to_delete?:number[]
     
 }
-export const ImagesGallery =({imgs,setImgs,primary,setPrimary,value,setFieldValue}:iProps)=>{
+export const ImagesGallery =({imgs,setImgs,primary,setPrimary,value,setFieldValue,images_to_delete}:iProps)=>{
     const handleScrolling =(str:string)=>{
         
         let target = document.querySelector('#scroll') as HTMLDivElement;
@@ -27,9 +29,16 @@ export const ImagesGallery =({imgs,setImgs,primary,setPrimary,value,setFieldValu
         }
     }
     const deleteImage=(num:number)=>{
+     
         let newImages=imgs.filter((ele,index)=>index !== num)
         let imgs_arr=[...value].filter((ele,index)=>index !== num)
-   
+        let deleted_images :any[]=[]
+        if (images_to_delete) {
+             deleted_images=[...images_to_delete]
+            let id =imgs[num].id
+            deleted_images.push(id)
+            
+        }
         if (primary === num) {
             if(value.length>1) {
              
@@ -40,13 +49,14 @@ export const ImagesGallery =({imgs,setImgs,primary,setPrimary,value,setFieldValu
                     
                 }
                 else {
-                    
-                    let newPrimary=primary+1
+                  
+                    let newPrimary=value.length -2
                  
                     setPrimary((pre:number)=>newPrimary)
                     
                 }
             }
+           
             
             
         }
@@ -57,7 +67,9 @@ export const ImagesGallery =({imgs,setImgs,primary,setPrimary,value,setFieldValu
         }
         setFieldValue('images',imgs_arr)
         setImgs(newImages)
+        setFieldValue('images_to_delete',deleted_images)
     }
+
     return (
         <div className={imgs.length >0 ? 'show':'hide'}>
         <Col xs={12} className={`imagesGallery `}>
@@ -77,7 +89,11 @@ export const ImagesGallery =({imgs,setImgs,primary,setPrimary,value,setFieldValu
                                         >
                                         <img src={Delete} />
                                     </div>
-                                <img src={ele} />
+                                <img src={
+                                    typeof(ele) !== 'string'?
+                                    ele.path?ele.path:ele:ele
+                                } 
+                                />
                             </div>
 
                             <div className={primary ===index ? "status primary" :"status secondery"}

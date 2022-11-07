@@ -35,9 +35,11 @@ export const MobileView = ({
   handleReact,
   react,
   post,
+  postLikes
 }: iProps) => {
   const { openSidebar } = useContext(SettingContext);
   const { i18n } = useTranslation();
+  console.log(post)
   return (
     <Col xs={12} className="scrollableSection">
       <Card>
@@ -51,7 +53,7 @@ export const MobileView = ({
                       <img
                         src={
                           post.profile_picture
-                            ? post.pprofile_picture.path
+                            ? post.profile_picture
                             : profile
                         }
                         className="profile"
@@ -67,8 +69,8 @@ export const MobileView = ({
                       <div className="category">
                         {post.category
                           ? i18n.language === "en"
-                            ? post.category.en
-                            : post.category.ar
+                            ? post.category?.en
+                            : post.category?.ar
                           : "Post Category"}
                       </div>
                     </Col>
@@ -84,39 +86,54 @@ export const MobileView = ({
               <ImagesGallery images={post.images} />
             </Col>
             <Col xs={12}>
-              <Row>
-                <Col xs={4}>
-                  <Row>
-                    <Col
-                      xs={6}
-                      className="iconBtn "
-                      onClick={() => handleReact()}
-                    >
-                      <img src={react ? heartFilled : heart} />
+              <Row className='gy-3'>
+                <Col xs={12} >
+                  <Row className="d-flex align-items-center">
+                    <Col xs={5}>
+
+                      <Row  >
+                        <Col
+                          xs={6}
+                          className="iconBtn "
+                          onClick={() => handleReact(post.id)}
+                        >
+                          <span className="fw-bold mx-1">{postLikes}</span>
+                          <img src={react ? heartFilled : heart} />
+                        </Col>
+                        <Col xs={6} className="iconBtn">
+                          <img src={share} />
+                        </Col>
+
+                      </Row>
                     </Col>
-                    <Col xs={6} className="iconBtn">
-                      <img src={share} />
+                    <Col xs={7} className='d-flex justify-content-evenly'>
+                      <>
+                      <span className="fw-bold">{post.price}</span>{" "}
+                      <span style={{margin:'0 2px'}}>
+                      {" "}
+                        {i18n.language === "en"
+                       
+                          ? post.currency?.en
+                          : post.currency?.ar}{"/"}
+                          </span>
+                       
+                        <span>
+                        {post.price_type
+                          ? i18n.language === "en"
+                            ? post.price_type?.en
+                            : post.price_type?.ar
+                          : ""}
+                          </span>
+                      </>
                     </Col>
                   </Row>
                 </Col>
-                <Col xs={8}>
-                  <Col xs={12} className="fw-bold ">
-                    {i18n.language === "en" ? post.title.en : post.title.ar}
+                
+                  <Col xs={12} className="fw-bold h4 ">
+                    {i18n.language === "en" ? post.title?.en : post.title?.ar}
                   </Col>
-                  <Col xs={12}>
-                    <div>
-                      {i18n.language === "en"
-                        ? post.currency.en
-                        : post.currency.ar}{" "}
-                      <span className="fw-bold">{post.price}</span>{" "}
-                      {post.price_type
-                        ? i18n.language === "en"
-                          ? post.price_type.en
-                          : post.price_type.ar
-                        : ""}
-                    </div>
-                  </Col>
-                </Col>
+                  
+                
               </Row>
             </Col>
             <Col xs={12}>
@@ -128,8 +145,8 @@ export const MobileView = ({
                           <Col xs={4} key={index}>
                             <div className="badge" key={index}>
                               {i18n.language === "en"
-                                ? ele.name.en
-                                : ele.name.ar}
+                                ? ele.name?.en
+                                : ele.name?.ar}
                             </div>
                           </Col>
                         ))
@@ -152,8 +169,8 @@ export const MobileView = ({
                       className="d-flex justify-content-evenly align-items-center"
                     >
                       <img className="locationIcon" src={location} />
-                      <span className="mx-1">
-                        {i18n.language === "en" ? post.area.en : post.area.ar}
+                      <span className="mx-1"style={{fontSize:'0.777rem'}}>
+                        {i18n.language === "en" ? post.area?.en : post.area?.ar}
                       </span>
                     </Col>
                     <Col sm={4} xs={7}>
@@ -201,8 +218,8 @@ export const MobileView = ({
                   <TextAccordion
                     description={
                       i18n.language === "en"
-                        ? post.description.en
-                        : post.description.ar
+                        ? post.description?.en
+                        : post.description?.ar
                     }
                   />
                 </Col>
@@ -211,9 +228,13 @@ export const MobileView = ({
                     Service Available
                   </Col>
                   <Col xs={12}>
-                    {i18n.language === "en"
-                      ? post.services_available.en
-                      : post.services_available.ar}
+
+                    {
+                    post.services_available?
+                    i18n.language === "en"
+                      ? post.services_available?.en
+                      : post.services_available?.ar:''
+                    }
                   </Col>
                 </Col>
               </Row>

@@ -15,7 +15,7 @@
     "SignUp": "Sign Up",
     "ContinueGuest": "Continue as a guest",
     "RememberMe": "Remember Me",
-    "FindThe": "Finde The",
+    "FindThe": "Find The",
     "PerfectPlace": "Perfect Place",
     "User": "User",
     "Commercial": "Commercial",
@@ -95,6 +95,8 @@
     "Posts":"Posts",
     "Info":"Info",
     "Data":"Data",
-    "SaveChanges":"Save Changes"
+    "SaveChanges":"Save Changes",
+    "DescriptiveAddress":"Descriptive Address"
+   
     
 }

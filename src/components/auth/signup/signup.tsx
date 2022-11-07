@@ -161,7 +161,7 @@ const SignUp = ({ setLogin }: iProps) => {
       }
       if (predefined_post_pictures && predefined_post_pictures.length > 0) {
         predefined_post_pictures.forEach((ele, index) =>
-          formdata.append(`predefined_post_pictures[${index}]`, ele)
+          formdata.append(`predefined_post_pictures[${index}]`, ele.file)
         );
       }
       if (files && files.length > 0) {
@@ -202,13 +202,13 @@ const SignUp = ({ setLogin }: iProps) => {
         "profile_picture",
         formik.values.profile_picture as string
       );
-      formdata.append("block", formik.values.block as string);
-      formdata.append("building", formik.values.building as string);
-      formdata.append("avenue", formik.values.avenue as string);
-      formdata.append("street", formik.values.street as string);
-      formdata.append("floor", formik.values.floor as string);
-      formdata.append("flat", formik.values.flat as string);
-      formdata.append("PACIID", formik.values.PACID as string);
+      // formdata.append("block", formik.values.block as string);
+      // formdata.append("building", formik.values.building as string);
+      // formdata.append("avenue", formik.values.avenue as string);
+      // formdata.append("street", formik.values.street as string);
+      // formdata.append("floor", formik.values.floor as string);
+      // formdata.append("flat", formik.values.flat as string);
+      // formdata.append("PACIID", formik.values.PACID as string);
       formdata.append("website", formik.values.website as string);
       formdata.append("facebook", formik.values.facebook as string);
       formdata.append("twitter", formik.values.twitter as string);
@@ -292,7 +292,9 @@ const SignUp = ({ setLogin }: iProps) => {
       formik.errors,
       btn.title,
       setDisableNext,
-      tab
+      tab,
+      formik.values,
+      formik.setFieldError
     );
   }, [tab, formik.values, btn, formik.errors]);
   useEffect(() => {
@@ -384,13 +386,7 @@ const SignUp = ({ setLogin }: iProps) => {
           <Col xs={12}>
             {btn.title === "User" ? (
               <UserType tab={tab}>
-                <SecurityForm
-                  values={formik.values}
-                  handleBlur={formik.handleBlur}
-                  setValue={formik.setFieldValue}
-                  touched={formik.touched}
-                  errors={formik.errors}
-                />
+               
 
                 <PersonalInfoForm
                   setValue={formik.setFieldValue}
@@ -400,6 +396,13 @@ const SignUp = ({ setLogin }: iProps) => {
                   errors={formik.errors}
                   handleBlur={formik.handleBlur}
                   setFieldTouched={formik.setFieldTouched}
+                />
+                 <SecurityForm
+                  values={formik.values}
+                  handleBlur={formik.handleBlur}
+                  setValue={formik.setFieldValue}
+                  touched={formik.touched}
+                  errors={formik.errors}
                 />
 
                 <LocationForm

@@ -128,7 +128,7 @@ export const PersonalInfoForm  = (props:iProps)=>{
                         internationalCode={values.phone_numbers?values.phone_numbers[0].international_code :''}
                         setValue={setValue as Function}
                      
-                       phoneNumberError={phoneError || codeError }
+                       phoneNumberError={errors.phone_numbers &&( errors.phone_numbers as []).length>0? (errors.phone_numbers as any[])[0].phone :''}
                         touched={touched.phone_numbers as boolean}
                         handleBlur={setFieldTouched}
                         
@@ -223,7 +223,7 @@ export const PersonalInfoForm  = (props:iProps)=>{
                                     internationalCode={values.phone_numbers?values.phone_numbers[0].international_code :''}
                                     setValue={setValue as Function}
                                 
-                                    phoneNumberError={phoneError || codeError }
+                                    phoneNumberError={errors.phone_numbers &&( errors.phone_numbers as []).length>0? (errors.phone_numbers as any[])[0].phone :''}
                                     touched={touched.phone_numbers as boolean}
                                     handleBlur={setFieldTouched}
                                     />    

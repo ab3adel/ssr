@@ -19,13 +19,16 @@ export const Rotues = (id: number): RouteObject[] => ([
     {
         path: '/', element: <Layout />, children: [
             { index: true, element: <HomePage /> },
+            {path:'/updatepost/:page/:post_id',element:<AddPost />},
+            { path: '/postdetails/:page/:post_id', element: <PostDetails /> },
             { path: '/news', element: <NewsFeed /> },
-            { path: '/postdetails/:id', element: <PostDetails /> },
+           
             { path: '/addpost', element: id === 2 ? <Navigate to="/" /> : <AddPost /> },
             { path: '/messages', element: <Chat /> },
             { path: '/profile', element: <Profile /> },
             { path: '/publicprofile', element: <PublicProfile /> },
             { path: '/search', element: <SearchPage /> },
+        
 
         ]
     },

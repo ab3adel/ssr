@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { iToken } from "../tools/interface";
 import { useState, useEffect } from "react";
 interface iProps {
-  token: iToken;
+  token?: iToken;
 }
 export const HeaderLg = ({ token }: iProps) => {
   const { t } = useTranslation();
@@ -61,7 +61,7 @@ export const HeaderLg = ({ token }: iProps) => {
               </Col>
               <Col sm={6} className=" d-none d-sm-block user">
                 <Col xs={12} className="d-flex justify-content-center">
-                  {token.profile_picture ? (
+                  {token?.profile_picture ? (
                     <img src={token.profile_picture} className="icon ml-1" />
                   ) : (
                     <img src={user} className="icon ml-1" />

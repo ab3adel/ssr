@@ -5,11 +5,13 @@ import {useEffect, useState} from 'react'
 import {useTranslation} from 'react-i18next'
 
 import {Spinner} from '../spinner'
+
 interface iSubType {title:{ar:string,en:string},id:number}
 interface iData {title:{ar:string,en:string},type_id:number ,value:iSubType []}
-interface iProps {data:iData[],setFieldValue:Function,name:string}
+interface iProps {data:iData[],setFieldValue:Function,name:string
+     ,mainTabSelected?:any,subTypeSelected?:any}
 
-export const Tabs =({data,setFieldValue,name}:iProps)=>{
+export const Tabs =({data,setFieldValue,name,mainTabSelected,subTypeSelected}:iProps)=>{
     const {i18n}= useTranslation()
     const [selected,setSelected]=useState(0)
     const [selectedSubTypes,setSelectedSubTypes]=useState(0)
@@ -22,6 +24,24 @@ export const Tabs =({data,setFieldValue,name}:iProps)=>{
         setSelectedSubTypes(index)
         setFieldValue(name,id)
     }
+    useEffect(()=>{
+        if (mainTabSelected && subTypeSelected) {
+            let i=0
+            let subI=0
+           data.map((ele,index)=>{
+            if (ele.type_id === mainTabSelected) {
+                i =index
+                ele.value.map((ele,num)=>{
+                    if (ele.id === subTypeSelected) {
+                        subI=num
+                    }
+                })
+            }
+           })
+           setSelected(i)
+           setSelectedSubTypes(subI)
+        }
+    },[mainTabSelected,subTypeSelected])
 
     return (
       <Col xs={12} className="tabsContainer">

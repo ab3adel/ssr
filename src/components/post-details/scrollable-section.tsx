@@ -16,6 +16,7 @@ import room from "../../images/post-details/room.svg";
 import { TextAccordion } from "../tools/text-accordion/text-accordion";
 import { useEffect } from "react";
 import i18n from "../../i18n";
+import {useGetPosts} from '../tools/apis/useGetPosts'
 interface iProps {
   images: string[];
   description: string;
@@ -33,6 +34,7 @@ export const ScrollableSection = ({
   post,
   postLikes,
 }: iProps) => {
+
   return (
     <Col xs={7} className="scrollableSection">
       <Card>
@@ -42,11 +44,11 @@ export const ScrollableSection = ({
               <Row className="justify-content-between ">
                 <Col xs={10} sm={8}>
                   <Row className="gy-3">
-                    <Col xs={4}>
+                    <Col xs={4} style={{width:'fit-content'}}>
                       <img
                         src={
                           post.profile_picture
-                            ? post.profile_picture.path
+                            ? post.profile_picture
                             : profile
                         }
                         className="profile"
@@ -101,7 +103,7 @@ export const ScrollableSection = ({
                     <Col
                       xs={6}
                       className="iconBtn "
-                      onClick={() => handleReact()}
+                      onClick={() => handleReact(post.id)}
                     >
                       <img src={react ? heartFilled : heart} />
                       <span className="mx-1 h5 fw-bold">{postLikes}</span>
@@ -194,9 +196,10 @@ export const ScrollableSection = ({
                     Service Available
                   </Col>
                   <Col xs={12}>
-                    {i18n.language === "en"
+                    {post.services_available?
+                    i18n.language === "en"
                       ? post.services_available.en
-                      : post.services_available.ar}
+                      : post.services_available.ar:''}
                   </Col>
                 </Col>
               </Row>

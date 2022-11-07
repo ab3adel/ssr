@@ -1,8 +1,8 @@
 .sidebarContainer {
     min-height: 100vh;
     background-color: white;
-    transition: all .3s ease-in-out;
-    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s linear;
+    -webkit-transition: all .3s linear;
     .logoContainer {
         height: fit-content;
       
@@ -20,8 +20,8 @@
         .collapseBtn {
             width:16px;
             height: 16px;
-            transition: all .3s ease-in-out;
-            -webkit-transition: all .3s ease-in-out;
+            transition: all .3s linear;
+            -webkit-transition: all .3s linear;
             cursor: pointer;
         }
         .open {
@@ -39,12 +39,12 @@
         flex: 1;
         display: flex;
         overflow: hidden;
-        transition: all .3s ease-in;
+        transition: all .3s linear;
         justify-content: space-between;
         flex-direction: column;
         .variableWidth {
             width: 100%;
-            transition: all .3s ease-in-out;
+            transition: all .3s linear;
         }
         .iconContainer {
             position: relative;
@@ -117,7 +117,7 @@
             overflow: hidden;
            
             span {
-                transition: all .4s ease-in-out;
+                transition: all .4s linear;
                 margin:0 2px 0 1em ;
                 white-space: nowrap;
                 overflow: hidden;

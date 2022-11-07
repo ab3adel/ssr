@@ -14,7 +14,7 @@ export const InputWithIcon =({icon=null,label,className,id
 const [tempValue,setValue]=useState('')
 const [isTyping,setIsTyping]=useState(false)
 const [showPassword,setShowPassword]=useState(false)
-const {i18n} =useTranslation()
+const {i18n,t} =useTranslation()
 const checkTyping=(e:React.FocusEvent)=>{
     if ((e.target as HTMLInputElement).value === '') {
         setIsTyping(false)
@@ -66,6 +66,12 @@ useEffect(()=>{
                             <span  style={i18n.language==='ar'?{right:'5%'}:{left:'5%'}}>
                             {label}
                             </span>
+                            {!required&&
+                            <span style={{
+                            right:i18n.language==='ar'?'5%':'auto',left:i18n.language==='ar'?'auto':'5%',
+                            }} className="mx-1">
+                                   {t('Optional')}
+                                </span>}
                         </>
                     )
                     }

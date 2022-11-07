@@ -1,4 +1,4 @@
-
+import {getLocalStorage} from '../getLocalstorage'
 import {useCallback, useContext,useState} from 'react'
 import axios from './axios'
 import {apis} from './apis'
@@ -10,13 +10,16 @@ export const useDeletePost=()=>{
     const [deletePostError,setError]=useState<string>('')
     const deletePost=useCallback((id:number)=>{
         setLoading(true)
-        axios.get(apis.deletePost(id))
+        axios.delete(apis.deletePost(id),{
+            headers:{'Authorization':`Bearer ${getLocalStorage()?getLocalStorage().token:''}`}
+        })
         .then(res=>{
             setLoading(false)
+            console.log(res)
             if (res.data){
 
                 setLoading(false)
-                setData(res.data.payload)
+                setData(res.data.message)
             }
            else {
             setData([])

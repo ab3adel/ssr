@@ -90,9 +90,9 @@ const handleField=(field: keyof InitialValues,value:string)=>{
     return (
         <Row className='gy-2 locationForm'>
             <Col xs={12}>
-                <Row className="locationContainer gy-1">
+                <Row className="locationContainer gy-1 justify-content-center">
 
-                    <Col sm={4} xs={6}>
+                    <Col sm={8} xs={12}>
                         <Select 
                         options={countries.options}
                         tempSelect={setSelectedCountry}
@@ -103,7 +103,7 @@ const handleField=(field: keyof InitialValues,value:string)=>{
                         />
                         
                     </Col>
-                    <Col sm={4} xs={6}>
+                    <Col sm={8} xs={12}>
                         <Select 
                         options={area.options}
                         name="area_id"
@@ -114,7 +114,7 @@ const handleField=(field: keyof InitialValues,value:string)=>{
                         />
                         
                     </Col>
-                    <Col sm={4} xs={6}>
+                    {/* <Col sm={4} xs={6}>
                     <InputWithIcon 
                         label={t("Block")}
                         name="Block"
@@ -189,7 +189,7 @@ const handleField=(field: keyof InitialValues,value:string)=>{
                         required={false}
                         />
                         
-                    </Col>
+                    </Col> */}
                 </Row>
 
             </Col>

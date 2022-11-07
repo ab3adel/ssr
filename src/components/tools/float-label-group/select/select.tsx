@@ -108,7 +108,7 @@ export const Select = ({
         value={selectedValue || ""}
         
       >
-        <option className="lightLable" selected disabled={true}>
+        <option className="lightLable"  disabled={true}>
           {selection && selection.length > 0 ? <>{""}</> : <>...</>}
         </option>
 

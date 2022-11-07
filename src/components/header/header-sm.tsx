@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import SettingContext from "../tools/context/setting-context/setting-context";
 import { iToken } from "../tools/interface";
 interface iProps {
-  token: iToken;
+  token?: iToken;
 }
 export const HeaderSm = ({ token }: iProps) => {
   const [openSearch, setOpenSearch] = useState(false);
@@ -52,7 +52,7 @@ export const HeaderSm = ({ token }: iProps) => {
           </Col>
           <Col xs={2} className="user">
             <div className="iconContainer">
-              {token.profile_picture ? (
+              {token && token.profile_picture ? (
                 <img src={token.profile_picture} className="icon" />
               ) : (
                 <img src={user} className="icon" />

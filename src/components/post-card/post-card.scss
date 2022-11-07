@@ -8,9 +8,11 @@
             .profile {
                 width:64px;
                 height: 64px;
+                border-radius: 100%;
             }
             .userName {
                 font-size: 1rem;
+                display: flex;
                 span {
 
                     font-weight: bold;
@@ -165,6 +167,7 @@
                 .profile {
                     width:44px;
                     height: 44px;
+                  
                 }
                 .tag {
                     font-size: small;
@@ -178,6 +181,15 @@
                 }
                 .location {
                     font-size: 0.8rem;
+                }
+                .options {
+                    .dropdown {
+                        .dropdown-toggle {
+                            .icon {
+                                width: 20px;
+                            }
+                        }
+                    }
                 }
             }
 

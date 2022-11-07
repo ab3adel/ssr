@@ -12,7 +12,7 @@ export const useLikePost = () => {
     setLoading(true);
     let response = await axios
       .get(apis.likePost(id), {
-        headers: { Authorization: `Bearer ${getLocalStorage().token}` },
+        headers: { Authorization: `Bearer ${getLocalStorage()?getLocalStorage().token:''}` },
       })
       .then((res) => {
         setLoading(false);
@@ -32,14 +32,12 @@ export const useLikePost = () => {
       });
     return response;
   }, []);
-  useEffect(() => {
-    console.log(likeError);
-  }, []);
+
   const setUnLike = useCallback(async (id: number) => {
     setLoading(true);
     let response = await axios
       .delete(apis.unLikePost(id), {
-        headers: { Authorization: `Bearer ${token.token}` },
+        headers: { Authorization: `Bearer ${getLocalStorage()?getLocalStorage().token:''}` },
       })
       .then((res) => {
         setLoading(false);

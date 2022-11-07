@@ -59,18 +59,12 @@ const Login = ({ setLogin }: iProps) => {
     axios
       .post(apis.login, formdata)
       .then((res: any) => {
+     
         if (res && res.data) {
           let realImage = "";
+          console.log(res.data)
           if (res.data.payload.profile_picture) {
-            let image_array = res.data.payload.profile_picture
-              .split("/")
-              .map((ele: string) => {
-                if (ele === "public") {
-                  return "storage";
-                }
-                return ele;
-              });
-            realImage = "http://backend.instaaqar.com/" + image_array.join("/");
+            realImage = res.data.payload.profile_picture
           }
           let required_data = {
             token: res.data.payload.token,
@@ -78,6 +72,8 @@ const Login = ({ setLogin }: iProps) => {
             refresh_token: res.data.payload.refresh_token,
             role: res.data.payload.roles[0].id,
             profile_picture: realImage,
+            phone_numbers:res.data.payload.phone_numbers,
+            id:res.data.payload.id
             
           };
 
@@ -134,7 +130,7 @@ const Login = ({ setLogin }: iProps) => {
                     handleBlur={formik.handleBlur}
                     error={formik.errors.email}
                     touched={formik.touched.email}
-                    required={false}
+                    required={true}
                   />
                 </Col>
                 <Col xs={12}>
@@ -149,7 +145,7 @@ const Login = ({ setLogin }: iProps) => {
                     handleBlur={formik.handleBlur}
                     error={formik.errors.password}
                     touched={formik.touched.password}
-                    required={false}
+                    required={true}
                   />
                 </Col>
               </Col>

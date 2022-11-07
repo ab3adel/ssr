@@ -33,6 +33,7 @@ export const Posts=()=>{
                     imgs_gallery_height={'200px'}
                     small_size={true}
                     for_profile={true}
+                    user_id={-1}
                      />
                 </Col>
                 <Col sm={6} xs={12}>
@@ -56,6 +57,8 @@ export const Posts=()=>{
                     small_size={true}
                    imgs_gallery_height={'200px'}
                    for_profile={true}
+                   user_id={-1}
+                   
                      />
                 </Col>
             </Row>

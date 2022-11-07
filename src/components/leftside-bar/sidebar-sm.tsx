@@ -78,7 +78,7 @@ export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
     }
   };
   return (
-    <Fade in={openSidebar}>
+    <Fade in={openSidebar}  >
       <Row
         className={`sidebarContainerSm flex-column gy-2 p-1  d-sm-none ${
           openSidebar ? "d-flex" : "d-none"

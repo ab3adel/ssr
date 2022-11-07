@@ -8,7 +8,7 @@ import { Spinner } from '../tools/spinner'
 import Fade from 'react-bootstrap/Fade'
 import back from '../../images/home/home-back.svg' 
 import {useRecoilState} from 'recoil'
-import {Posts} from '../store'
+import {Posts,PostsIDs} from '../store'
 import {getLocalStorage} from '../tools/getLocalstorage'
 import  {useNavigate} from 'react-router-dom'
 const HomePage =()=>{
@@ -19,11 +19,18 @@ const HomePage =()=>{
     let waitMin=useRef<any>(false)
     const {getPosts,getPostsData,getPostsError,isGetPostsLoading}=useGetPosts()
     const [storedPosts,storePosts] =useRecoilState(Posts)
+    const [storedIDs,setStoredIds] =useRecoilState(PostsIDs)
     const navigate =useNavigate()
+    const [userId,setUserId]=useState(-1)
     useEffect(()=>{
         let obj= getLocalStorage()
-        
-        if (obj && obj.role) setAuthenticated(true)
+        if (obj) {
+
+            if ( obj.role) setAuthenticated(true)
+            if (obj.id) setUserId(obj.id)
+        }
+    
+    
     },[])
     useEffect(()=>{
 
@@ -37,10 +44,11 @@ const HomePage =()=>{
     useEffect(()=>{
         if(!getPostsError) {
             if (getPostsData && getPostsData.length >0) {
-                console.log(getPostsData)
-                let data= getPostsData.map((ele:any,index)=>{
-                    if (!postsId.current.includes(ele.id)) {
-                        postsId.current.push(ele.id)
+            
+                let data= getPostsData.map((ele:any,index:number)=>{
+                    
+                    if (!storedIDs.includes(ele.id)) {
+                       setStoredIds(pre=>[...pre,ele.id])
                         let data= ele.images
                         let updated_at=null
                         if (ele.images && ele.images.length>0) {
@@ -89,14 +97,19 @@ const HomePage =()=>{
                            phone_numbers:ele.phone_numbers,
                            category:ele.category?ele.category.name:null,
                            price:ele.price,
-                           description:ele.description
+                           description:ele.description,
+                           user_id:ele.user_id,
+                           owner:ele.user_id === userId,
+                           page_number:page
+                       
 
                          })
                     }
 
-                }).filter(ele=>ele)
+                }).filter((ele:any)=>ele)
+              
                 setPosts((pre:any)=>([...pre,...data]))
-                storePosts([...data])
+                storePosts(pre=>[...pre,...data])
             }
         }
     },[isGetPostsLoading])
@@ -108,20 +121,19 @@ const HomePage =()=>{
             setPage(newPage)
         }
    }
-   const  getPostDetails =(id:number)=>{
-    navigate(`postdetails/${id}`)
-   }
-   console.log(storedPosts)
+   
+ 
  
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 
         <Row className="p-1">
             {
-                posts.length>0 ?
-                posts.map((ele:any,index:number)=> 
+                storePosts.length>0 ?
+                storedPosts.map((ele:any,index:number)=> 
                 <Col xs={12} sm={6} key={index}>
-                  <PostCard {...ele} authenticated={authenticated} navigateToDetails={getPostDetails} key={index}/>
+                  <PostCard {...ele} authenticated={authenticated} 
+                />
                 </Col>
                 ):
                 <Col xs={12} className='d-flex justify-content-center align-items-center'>

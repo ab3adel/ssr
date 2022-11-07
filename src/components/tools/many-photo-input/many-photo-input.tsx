@@ -16,6 +16,7 @@ interface iProps {
   images: string[];
   setImages: Function;
   externalButton?: boolean;
+  openModal?:Function
 }
 export const ManyPhotosInput = ({
   images,
@@ -27,6 +28,7 @@ export const ManyPhotosInput = ({
   error,
   touched,
   externalButton = false,
+  openModal=()=>{}
 }: iProps) => {
   const handleChange = (e: React.ChangeEvent) => {
     let input = e.target as HTMLInputElement;
@@ -89,12 +91,12 @@ export const ManyPhotosInput = ({
       onDrop={handleDrop}
     >
       <Col xs={12} className="inputContainer">
-        <div className="icon" onClick={hanldeInput}>
-          <img src={upload} />
-          <span className="text">Click to upload</span>
+        <div className="icon" >
+          <img src={upload} onClick={hanldeInput} />
+          <span onClick={hanldeInput} className="text">Click to upload</span>
           <span className="faintText">or drag and drop here</span>
           {externalButton && (
-            <button className="externalBtn">
+            <button className="externalBtn" onClick={()=>openModal()}>
               Choose from predefined pictures
             </button>
           )}

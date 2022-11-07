@@ -35,13 +35,15 @@ const blurHandler =(e:React.FocusEvent)=>{
             onChange={handleChange}
             
             value={phone}
-            isValid={!touched && !(Boolean(phoneNumberError))}
+            isValid={ !(Boolean(phoneNumberError))}
             onBlur={blurHandler}
+            country="kw"
+            
             
             />
            
                 {
-                    (touched && (Boolean(phoneNumberError)) )&& (
+                    ( (Boolean(phoneNumberError)) )&& (
                         <span className='feedback'>
                             {phoneNumberError}
                         </span>

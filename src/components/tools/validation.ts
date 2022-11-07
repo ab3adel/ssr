@@ -11,7 +11,7 @@ export const SignupSchema = (isUser: boolean, needCategory = true) =>
     full_name: Yup.string().required("This field is required"),
     email: isUser
       ? Yup.string().email().required("This field is required")
-      : Yup.string().email().required('This field is required'),
+      : Yup.string().email().required("This field is required"),
     phone_numbers: Yup.array().of(
       Yup.object().shape({
         phone: Yup.string().required("This field is required"),
@@ -33,7 +33,7 @@ export const SignupSchema = (isUser: boolean, needCategory = true) =>
       .required("This field is Required"),
     profile_picture: isUser
       ? Yup.mixed()
-      : Yup.mixed().required("This field is required"),
+      : Yup.mixed(),
     website: isUser
       ? Yup.string().url().notRequired()
       : Yup.string()
@@ -96,7 +96,7 @@ export const AddPostSchema = (role_id: number) =>
         ? Yup.number().required(
             lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
           )
-        : Yup.number().notRequired(),
+        : Yup.string().nullable(),
     tags_ids: Yup.array().max(
       3,
       lang === "en"

@@ -6,11 +6,10 @@ import valid from '../../images/home/valid-account-icon.svg'
 import location from '../../images/home/location-icon.svg'
 import profile from '../../images/home/icon-profile.svg'
 import building from '../../images/home/building-icon.svg'
-
+import {DialogBox} from '../tools/dialogbox/dialogbox'
 import share from '../../images/home/share-icon.svg'
 import heartFilled from '../../images/home/heart-icon.svg'
 import heart from '../../images/home/heart-filled-icon.svg'
-
 import direction from '../../images/home/direction-icon.svg'
 import Area from '../../images/home/area-icon.svg'
 import amenities from '../../images/home/amenities-icon.svg'
@@ -18,19 +17,21 @@ import room from '../../images/home/room-icon.svg'
 import Dropdown from 'react-bootstrap/Dropdown'
 import {ThreeDotsVertical} from 'react-bootstrap-icons'
 import {useLikePost} from '../tools/apis/uselikePost'
-import {useEffect, useState,useContext} from 'react'
+import {useEffect, useState,useContext, useRef} from 'react'
 import {useTranslation} from 'react-i18next'
 import {ImagesGallery} from '../tools/imgs-gallery/imgs-gallery'
 import {useNavigate} from 'react-router-dom'
 import {iPost} from '../tools/interface'
 import notificationContext from '../tools/context/notification/notification-context'
-
+import {useDeletePost} from '../tools/apis/useDeletePost'
+import {useRecoilState} from 'recoil'
+import {Posts} from '../store'
 export const PostCard =(
     {
         title,area,currency,images,price,role,username,main_property_type,number_of_bathrooms,
         number_of_rooms,offer_type,price_type,profile_picture,property_site,imgs_gallery_height,
         property_type,tags,id,likes,testImages,small_size,for_profile=false,liked,authenticated,
-        navigateToDetails=()=> {}
+        user_id,owner,page=1
     }:iPost
 )=>{
 
@@ -41,32 +42,40 @@ export const PostCard =(
     const navigate= useNavigate()
     const [postLikes,setPostLikes]=useState(likes)
     const {setLike,setUnLike,likeData,isLikeLoading,likeError}=useLikePost()
+    const previouseLikesNumber=useRef(likes)
+    const [openDialog,setOpenDialog]=useState(false)
+    const {deletePost,deletePostData,deletePostError,isDeletePostLoading}=useDeletePost()
+    const [postID,setPostID]=useState(-1)
+    const [storedPosts,setStoredPosts]=useRecoilState(Posts)
+    const  navigateToDetails =(id:number)=>{
+        navigate(`postdetails/${page}/${id}`)
+       }
+    const navigateToUpdatePost=(post_id:number)=>{
 
-
- 
+        navigate(`updatepost/${page}/${post_id}`)
+    }
+    const deleteSpecificPost=(id:number)=>{
+        setOpenDialog(true)
+        setPostID(id)
+    }
+    const doDeletePost=(post_id:number)=>{
+        deletePost(post_id)
+    }
   
     const handleLike = async (id:number)=>{
         if (authenticated) {
-            
-           
-
         let theLikes=postLikes
+        previouseLikesNumber.current=theLikes
             if (!react) {
-                await setLike(id)
-                
+                setLike(id)      
                 setPostLikes(theLikes + 1)
-                setReact(true)
-                
-              
+                setReact(true) 
                
             }
             else {
-                 await setUnLike(id)
-        
+                 setUnLike(id)
                  setPostLikes(theLikes - 1)
                  setReact(false)
-             
-
             }
            
         }
@@ -75,7 +84,28 @@ export const PostCard =(
         }
        
     }
-   
+   useEffect(()=>{
+    if(likeError) {
+        setNotify((pre:any)=>({...pre,show:true,type:false,message:"Something wrong has happend !!"}))
+        setReact(!react)
+        setPostLikes(previouseLikesNumber.current)
+        
+    }
+   },[likeError])
+   useEffect(()=>{
+    if (!deletePostError) {
+        if(deletePostData) {
+            setNotify((pre:any)=>({...pre,show:true,type:true,message:"Post has been removed successfully"}))
+           let newPosts=[...storedPosts].filter(ele=>ele.id !== postID)
+           setStoredPosts(newPosts)
+            
+        }
+        
+    }
+    else {
+        setNotify((pre:any)=>({...pre,show:true,type:false,message:"Something wrong has happend !"}))
+    }
+   },[isDeletePostLoading])
 
     return (
         <Col xs={12} sm={12}
@@ -96,7 +126,7 @@ export const PostCard =(
                                             
                                         </Col>
                                         <Col xs={9}>
-                                            <Row className="gy-1 py-1">
+                                            <Row className="gy-1  py-1">
 
                                                 <Col xs={12}>
                                                     <div className="userName">
@@ -130,6 +160,21 @@ export const PostCard =(
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
+                                            {
+                                                owner&&(
+                                                    <>
+                                                    <Dropdown.Item 
+                                                    onClick={()=>navigateToUpdatePost(id)}>
+                                                       Edit
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item 
+                                                    onClick={()=>deleteSpecificPost(id)}>
+                                                       Delete
+                                                    </Dropdown.Item>
+                                                    </>
+                                                )
+                                                
+                                            }
                                             <Dropdown.Item 
                                             onClick={()=>navigateToDetails(id)}>
                                                 Details
@@ -274,6 +319,13 @@ export const PostCard =(
                     </Row>
                 </Card.Body>
             </Card>
+            <DialogBox 
+            show={openDialog}
+            setShow={setOpenDialog}
+            message={'you are sure you want to delete this post !!'}
+            title={'Delete Post'}
+            doit={()=>doDeletePost(postID)}
+            />
         </Col>
     )
 }

@@ -101,7 +101,7 @@
                     flex-direction: column;
                     flex-wrap: wrap;
                     height: 100%;
-                    justify-content: space-around;
+                    justify-content:end;
                 
                     .imageHolder {
                        display: flex;
@@ -194,7 +194,7 @@
                 background-color: var(--back-color);
                 transition: all .3s ease-in;
                 position: absolute;
-                top: 50%;
+                top: 40%;
                 cursor: pointer;
                 &:hover ,&:focus {
                     width: 35px;

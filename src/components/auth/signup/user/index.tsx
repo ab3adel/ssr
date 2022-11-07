@@ -48,13 +48,9 @@ interface iProps {tab:number,children?:React.ReactNode[]}
                                 </Row>
                             </Col>
                             <Col xs={12}>
-{/*                            
-                             {/* tab===0 && ( <PersonalInfoForm  
-                             type={'User'}/>) */}
-                             {/* {tab===1 && ( <LocationForm
-                                              type="User"/>)} */}
-                             {/*tab===1 && ( <SecurityForm />) */} 
+
                            {children?.map((ele,index)=>{
+                              
                               if (index === tab) {
                                  return ele
                               }

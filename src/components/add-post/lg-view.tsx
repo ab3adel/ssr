@@ -24,7 +24,7 @@ export const LargeView = (
         ,setPhoneNumbersArray,setPrimary
         ,t,setFieldValue,values,errors,handleBlur,offersType,pricesType
         ,propertySites,categories,tags,language,addPost,handleChange,area,role,addTag,
-        selectePropertySubTypeId,handleAvailableServices,touched,addPostLoading
+        selectePropertySubTypeId,handleAvailableServices,touched,addPostLoading,setPredefinedPicturesModal
     }:iProps
 )=>{
 
@@ -113,6 +113,8 @@ export const LargeView = (
                         data={propertyTypes}
                         setFieldValue={selectePropertySubTypeId}
                         name="property_type_id"
+                        mainTabSelected={values["main_property_type"]}
+                        subTypeSelected={values["property_type_id"]}
                         />
                     </Col>)
                     }
@@ -159,6 +161,7 @@ export const LargeView = (
                                 setValue={setFieldValue}
                                 externalButton={true}
                                 value={values.images}
+                                openModal={()=>setPredefinedPicturesModal(true)}
                                 />
                             </Col>
                             <Col xs={12} >
@@ -169,6 +172,7 @@ export const LargeView = (
                                 setPrimary={setPrimary}
                                 value={values.images}
                                 setFieldValue={setFieldValue}
+                                images_to_delete={values.images_to_delete}
                                 
                                 />
                                 
@@ -270,6 +274,17 @@ export const LargeView = (
                         />
                     </Col>
                     <Col xs={12}>
+                        <TextArea 
+                        label={t('DescriptiveAddress')} 
+                        value={values.descriptive_address}
+                        setValue={setFieldValue}
+                        name="descriptive_address"
+                        handleBlur={handleBlur}
+                        error={errors['descriptive_address']}
+                        touched={touched['descriptive_address']}
+                        />
+                    </Col>
+                    <Col xs={12}>
                         <Row className="gy-3">
                             <Col xs={12} className="font-weight-bolder">
                                 {t("PhoneNumber")}
@@ -298,7 +313,7 @@ export const LargeView = (
                                             return (
                                                 <Col xs={6} key={index}>
                                                     <div className='number'>
-                                                        <span>{ele}</span>
+                                                        <span>{typeof(ele) !== 'string'?ele.phone?ele.phone:ele:ele}</span>
                                                         <span className="delete"
                                                         onClick={()=>deleteNumber(index)}>X</span>
                                                     </div>

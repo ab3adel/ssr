@@ -12,6 +12,7 @@ import Login from "./login/login";
 import Guest from "./guest";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import {getLocalStorage} from '../tools/getLocalstorage'
 let languages = [
   { title: "English", icon: UK },
   { title: "Arabic", icon: Arabic },
@@ -39,7 +40,7 @@ const LoginCard = () => {
     navigate("/");
   };
   useEffect(() => {
-     if (localStorage.getItem('token')){
+     if (getLocalStorage()){
          setNavigateToHome(true)
      }
   }, []);

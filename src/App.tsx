@@ -40,16 +40,9 @@ function App() {
         if (res.data) {
           let realImage = "";
           if (res.data.payload.profile_picture) {
-            let image_array = res.data.payload.profile_picture
-              .split("/")
-              .map((ele: string) => {
-                if (ele === "public") {
-                  return "storage";
-                }
-                return ele;
-              });
-            realImage =
-              "https://backend.instaaqar.com/" + image_array.join("/");
+            let img =res.data.payload.profile_picture.split('').slice(7).join('')
+            realImage = "https://backend.instaaqar.com/storage/"+img
+             
           }
           let required_data = {
             token: res.data.payload.token,
@@ -57,6 +50,7 @@ function App() {
             refresh_token: res.data.payload.refresh_token,
             role: res.data.payload.roles[0].id,
             profile_picture: realImage,
+            id:res.data.payload.id
           };
           setToken((pre: any) => ({
             ...pre,

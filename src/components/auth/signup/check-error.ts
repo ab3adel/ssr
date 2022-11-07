@@ -3,6 +3,7 @@ import {
   iPhoneNumbersError,
   iTouched,
   InitialValues,
+  initialValues,
 } from "./initial-values";
 
 export const nextBtnControl = (
@@ -10,7 +11,9 @@ export const nextBtnControl = (
   errors: Partial<iErrors>,
   title: string,
   setDisableNext: Function,
-  tab: number
+  tab: number,
+  values:Partial<InitialValues>,
+  setFieldError=(val:string,val1:string)=>{}
 ) => {
   if (title === "User") {
     if (Object.keys(touched).length === 0) return;
@@ -31,20 +34,26 @@ export const nextBtnControl = (
       }
 
       if (Boolean(full_name) || Boolean(email) || Boolean(phone)) {
+       
         setDisableNext(true);
       } else {
+        setFieldError('password','')
+        setFieldError('password_confirmation','')
         setDisableNext(false);
       }
     }
     if (tab === 1) {
-      if (Boolean(password) || Boolean(password_confirmation)) {
+      if (Boolean(password) || Boolean(password_confirmation) 
+      || !Boolean(values.password)  || !Boolean(values.password_confirmation) ) {
         setDisableNext(true);
+
       } else {
+        setFieldError('area_id','')
         setDisableNext(false);
       }
     }
     if (tab === 2) {
-      if (Boolean(area_id)) {
+      if (Boolean(area_id) ) {
         setDisableNext(true);
       } else {
         setDisableNext(false);
@@ -76,23 +85,25 @@ export const nextBtnControl = (
         Boolean(role_id) ||
         (category_ids && (category_ids as Array<any>).length > 0) ||
         Boolean(phone) ||
-        Boolean(profile_picture) ||
         Boolean(website)
       ) {
         setDisableNext(true);
       } else {
+        setFieldError('area_id','')
         setDisableNext(false);
       }
     }
     if (tab === 1) {
-      if (Boolean(area_id)) {
+      if (Boolean(area_id || !Boolean(values.area_id))) {
         setDisableNext(true);
       } else {
+        setFieldError('password','')
+        setFieldError('password_confirmation','')
         setDisableNext(false);
       }
     }
     if (tab === 2) {
-      if (Boolean(password) || Boolean(password_confirmation)) {
+      if (Boolean(password) || Boolean(password_confirmation) || !Boolean(values.password) || !Boolean(values.password_confirmation)) {
         setDisableNext(true);
       } else {
         setDisableNext(false);

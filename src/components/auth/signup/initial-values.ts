@@ -65,7 +65,7 @@ export interface InitialValues{
    ,longitude:string
    ,description:{ar:string,en:string}
    ,files: iFile []
-   ,predefined_post_pictures: string []
+   ,predefined_post_pictures: any []
    ,website:string
    ,facebook:string
    ,twitter:string

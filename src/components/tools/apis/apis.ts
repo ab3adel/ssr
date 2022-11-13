@@ -8,7 +8,9 @@ export const apis = {
     resend_email:(email:string)=>`resendEmail?type=forgotPassword&email=${email}`,
     forgot_password:'forgotPassword',
     login:'login',
-    categories:(is_category:number,category_id:number)=>`categories?is_category=${is_category}&category_id=${category_id}`,
+    categories:(is_category:number,category_id?:number)=>
+              is_category?`categories?is_category=${is_category}`:
+              `categories?is_category=${is_category}${category_id?`&category_id=${category_id}`:''}`,
     addGuest:'addNewGuest',
     rememberMe:'rememberMe',
     propertyType:'propertyTypes',

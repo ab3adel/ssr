@@ -8,7 +8,7 @@ export const useGetCategories=()=>{
     const [isCategoriesLoading,setLoading]=useState<boolean>(false)
     const [categoriesData,setData]=useState<any[]>()
     const [CategoriesError,setError]=useState<string>('')
-    const getCategories=useCallback((is_category:number,category_id=5)=>{
+    const getCategories=useCallback((is_category:number,category_id?:number)=>{
         setLoading(true)
         axios.get(apis.categories(is_category,category_id))
         .then(res=>{

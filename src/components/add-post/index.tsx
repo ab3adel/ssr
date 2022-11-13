@@ -435,7 +435,14 @@ const [mobileView,setMobileView]=useState(true)
     getPropertyType();
     getOffers(0);
     getPropertySites();
-    getCategories(1);
+  if (getLocalStorage() && getLocalStorage().role !==3){
+    
+    getCategories(1)
+  };
+  if (getLocalStorage() && getLocalStorage().role ===3){
+    
+    getCategories(0)
+  };
     getArea();
     if (getLocalStorage()) {
       setToken(getLocalStorage())
@@ -562,7 +569,7 @@ const [mobileView,setMobileView]=useState(true)
 
   useEffect(() => {
     if (token.role === 3) {
-      getCategories(1);
+      getCategories(0);
     }
   }, [token]);
   useEffect(() => {
@@ -649,7 +656,7 @@ const [mobileView,setMobileView]=useState(true)
 
         const initialization= async()=> await intializeValues(getPostsData.data)
       initialization()
-      console.log('become true')
+     
       setEnableFieldsUpdatedRegister(true)
       }
     }
@@ -763,7 +770,7 @@ const [mobileView,setMobileView]=useState(true)
          }
        });
   };
-console.log(formik.errors)
+
   return (
     <Col xs={12} className="addPostContainer">
       {

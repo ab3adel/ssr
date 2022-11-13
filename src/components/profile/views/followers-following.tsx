@@ -14,7 +14,7 @@ export const FollowersFollowing=({company,t}:iProps)=>{
                 <div className="verticalLine" />
                 <div className="mx-1">
                     <span>35</span>
-                    <span>{t("Following")}</span>
+                    <span>{t("Followers")}</span>
                 </div>
              </div>
              :<div className="bg single single-width">

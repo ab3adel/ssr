@@ -11,10 +11,11 @@ import { Data } from "../views/data";
 import { GreenButton } from "../../tools/buttons/green-button";
 import { FollowersFollowing } from "../views/followers-following";
 import {PublicProfileProps} from '../public-profile'
-export const CompanyPublicProfile = ({t}:PublicProfileProps) => {
+export const CompanyPublicProfile = ({t,lang}:PublicProfileProps) => {
   let company = true;
 
   let [tabIndex, setTabIndex] = useState(0);
+  const [posts,setPosts]=useState([])
   const formik = useFormik({
     initialValues: {
       twitter: "myTwitter.com",
@@ -90,8 +91,14 @@ export const CompanyPublicProfile = ({t}:PublicProfileProps) => {
             </Col>
             <Col xs={12}>
               <Tab num={tabIndex}>
-                <Info company={true} edit={false} publicProfile={true}  t={t}/>
-                <Posts />
+                <Info company={true} edit={false} 
+                setFieldValue={formik.setFieldValue}
+                handleBlur={formik.handleBlur}
+                publicProfile={true}  t={t}
+                lang={lang}
+                handleChange={formik.handleChange}
+                />
+                <Posts posts={posts} />
               </Tab>
             </Col>
           </Row>
@@ -142,7 +149,7 @@ export const CompanyPublicProfile = ({t}:PublicProfileProps) => {
             </Col>
             <Col xs={12}>
               <Tab num={tabIndex}>
-                <Posts />
+                <Posts posts={posts}/>
                 <Col xs={12}>
                   <Row>
                     <Col xs={12}>
@@ -151,6 +158,10 @@ export const CompanyPublicProfile = ({t}:PublicProfileProps) => {
                         edit={false}
                         publicProfile={true}
                         t={t}
+                        setFieldValue={formik.setFieldValue}
+                    handleBlur={formik.handleBlur}
+                    lang={lang}
+                    handleChange={formik.handleChange}
                       />
                     </Col>
                     <Col xs={12} className="px-0 py-2">

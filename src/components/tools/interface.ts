@@ -120,7 +120,23 @@ export interface iPost {
   owner?:boolean,
   user_id:number,
   navigateToUpdatePost?:(id:number)=>void,
-  page?:number
+  page?:number,
+  space?:string
 
 
+}
+export interface iGetProfile {
+  user_id:number,
+  company_id:number,
+  users:boolean,
+  full_name:string,
+  category_id:number,
+  PACIID:string,
+  special_comapnies:boolean,
+  can_add_post:boolean,
+  active:boolean,
+  email:string,
+  area_id:number,
+  phone_number:string,
+  role_id:number
 }

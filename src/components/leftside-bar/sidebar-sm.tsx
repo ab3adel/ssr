@@ -56,6 +56,7 @@ export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
     switch (num) {
       case 0:
         navigate("/");
+        
         break;
       case 1:
         navigate("/news");

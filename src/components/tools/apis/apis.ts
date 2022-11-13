@@ -1,4 +1,4 @@
-import {iGetPosts} from '../interface'
+import {iGetPosts, iGetProfile} from '../interface'
 export const apis = {
    predefiendPictures:'viewPredefinedCompanyImages',
     roles:'roles',
@@ -27,21 +27,28 @@ export const apis = {
                 area_from,area_to,number_of_room,number_of_bathroom,property_type_id
             }=params
           return( 
-            `posts?${page?`page=${page}`:'page=1'}${post_id?`&post_id=${post_id}`:''}${user_id?`&user_id=${user_id}`:''}${company_id?`&company_id=${company_id}`:''}${text?`&text=${text}`:''}${area_id?`&area_id=${area_id}`:''}${category_id?`&category_id=${category_id}`:''}
-            ${tag_id?`&tag_id=${tag_id}`:''}
-            ${price_from?`&price_from=${price_from}`:''}
-            ${price_to?`&price_to=${price_to}`:''}
-            ${property_type_id?`&property_type_id=${property_type_id}`:''}
-            ${offer_type_id?`&offer_type_id=${offer_type_id}`:''}
-            ${price_type_id?`&price_type_id=${price_type_id}`:''}
-            ${property_site_id?`&property_site_id=${property_site_id}`:''}
-            ${area_from?`&area_from=${area_from}`:''}
-            ${area_to?`&area_to=${area_to}`:''}
-            ${number_of_room?`&number_of_room=${number_of_room}`:''}
-            ${number_of_bathroom?`&number-of_bathroom=${number_of_bathroom}`:''}
-            `)
+            `posts?${page?`page=${page}`:'page=1'}${post_id?`&post_id=${post_id}`:''}`+
+           `${user_id?`&user_id=${user_id}`:''}${company_id?`&company_id=${company_id}`:''}`+
+            `${text?`&text=${text}`:''}`+
+            `${area_id?`&area_id=${area_id}`:''}${category_id?`&category_id=${category_id}`:''}`+
+            `${tag_id?`&tag_id=${tag_id}`:''}`+
+            `${price_from?`&price_from=${price_from}`:''}`+
+            `${price_to?`&price_to=${price_to}`:''}`+
+            `${property_type_id?`&property_type_id=${property_type_id}`:''}`+
+            `${offer_type_id?`&offer_type_id=${offer_type_id}`:''}`+
+            `${price_type_id?`&price_type_id=${price_type_id}`:''}`+
+            `${property_site_id?`&property_site_id=${property_site_id}`:''}`+
+            `${area_from?`&area_from=${area_from}`:''}`+
+            `${area_to?`&area_to=${area_to}`:''}`+
+            `${number_of_room?`&number_of_room=${number_of_room}`:''}`+
+            `${number_of_bathroom?`&number-of_bathroom=${number_of_bathroom}`:''}`
+            )
         },
-    updatePost:(id:number)=>`posts/${id}?_method=put`    
+    updatePost:(id:number)=>`posts/${id}?_method=put` ,
+    profile:({user_id}:Partial<iGetProfile>)=>   (
+      `/users?&${user_id?`user_id=${user_id}`:''}`
+    ),
+    updateProfile:`updateProfile?_method=put`
         
 
     

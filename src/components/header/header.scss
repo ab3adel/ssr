@@ -122,17 +122,17 @@
                    top: 90%;
                   
                 }
-                &:hover ,&:focus {
+               
 
-                    span {
+                .showUserName {
+                
+                    font-size: 0.8em;
+                    font-weight: bold;
+                    color:var(--dark-green);
+                    animation: hoverName 8s ease  1 forwards ;
                     
-                        font-size: 0.8em;
-                        font-weight: bold;
-                        color:var(--dark-green);
-                        animation: hoverName 8s ease  1 forwards ;
-                        
-                    }
                 }
+                
                 @keyframes hoverName {
                     from {
                         opacity: 1;

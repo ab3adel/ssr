@@ -6,7 +6,7 @@ import { Info } from "../views/info";
 import { FollowersFollowing } from "../views/followers-following";
 import { GreenButton } from "../../tools/buttons/green-button";
 import {PublicProfileProps} from '../public-profile'
-export const NormalUserPublicProfile = ({t}:PublicProfileProps) => {
+export const NormalUserPublicProfile = ({t,lang}:PublicProfileProps) => {
   let company = false;
   const formik = useFormik({
     initialValues: {
@@ -60,6 +60,9 @@ export const NormalUserPublicProfile = ({t}:PublicProfileProps) => {
                 values={formik.values}
                 handleChange={formik.handleChange}
                 t={t}
+                setFieldValue={formik.setFieldValue}
+                    handleBlur={formik.handleBlur}
+                    lang={lang}
               />
             </Col>
           </Col>
@@ -81,7 +84,11 @@ export const NormalUserPublicProfile = ({t}:PublicProfileProps) => {
             </Row>
           </Col>
           <Col xs={12} className=" py-2   bg-profile">
-            <Info company={company} edit={false} t={t} />
+            <Info company={company} edit={false} t={t} setFieldValue={formik.setFieldValue}
+                    handleBlur={formik.handleBlur}
+                    lang={lang}
+                    handleChange={formik.handleChange}
+                     />
           </Col>
           <Col xs={12} className=" bg-profile"></Col>
         </Row>

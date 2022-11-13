@@ -72,6 +72,28 @@
        
      
     }
+    .infoContainer {
+        .phoneNumber {
+            background-color: var(--back-color);
+            border-radius: 10px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5em;
+            span {
+                font-size: 0.8rem;
+                padding: 1px;
+                
+            }
+            .icon {
+                position: absolute;
+                right: 0;
+                top: 0;
+
+            }
+        }
+    }
     .deleteIcon {
         border:2px solid white;
         border-radius: 100%;
@@ -165,6 +187,8 @@
             border-radius: 10px;
             object-fit: cover;
             height: 100%;
+            width:120px;
+            height: 120px;
         }
     }
 }
@@ -236,6 +260,13 @@
         }
         .h-100vh {
             height: 100vh;
+        }
+        .infoContainer {
+            .phoneNumber{
+                span{
+                    padding: 1em;
+                }
+            }
         }
         
     }

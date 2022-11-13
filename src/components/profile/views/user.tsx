@@ -6,30 +6,38 @@ import editIcon from '../../../images/edit.svg'
 import {InputFile} from '../../tools/photoInput/photoInput'
 import {useFormik} from 'formik'
 import {SteadyIconInput} from '../../tools/steady-group/steady-icon-input/steady-icon-input'
-interface iProps {company:boolean,edit:boolean,t:Function}
-export const UserInfo=({company,edit=false,t}:iProps)=>{
-    const formik =useFormik({
-        initialValues:{
-            profile:'',
-            user_name:''
-        },
-        onSubmit:()=>{}
-    })
-    return (
+interface iProps {
+    company:boolean
+    ,edit:boolean
+    ,t:Function
+    ,full_name?:string
+    ,profile_picture?:string
+    ,setFieldValue?:Function
+    ,handleChange?:Function
+    ,handleBlur?:Function
+    ,errors?:{[key:string]:any}
+    ,touched?:{[key:string]:any}
+}
+export const UserInfo=({company,edit=false,t,profile_picture
+    ,full_name,setFieldValue=()=>{}
+    ,handleChange=()=>{},handleBlur=()=>{},
+    errors,touched
+}:iProps)=>{
+   return (
         <Col xs={12}>
                     <Row className="gy-2 user my-sm-0 my-1">
                         <Col sm={12} xs={4} className="d-flex justify-content-center ">
                            {edit?
                            
                            <InputFile 
-                             value={formik.values.profile}
-                             setValue={formik.setFieldValue}
+                             value={profile_picture}
+                             setValue={setFieldValue}
                              name='profile'
                              width={80}
                              height={80}
                              default_image={Profile}
                            />:
-                           <img src={Profile} className="profilePicture lg-view" />
+                           <img src={profile_picture?profile_picture:Profile} className="profilePicture lg-view" />
                         }
                         </Col>
                       
@@ -37,18 +45,21 @@ export const UserInfo=({company,edit=false,t}:iProps)=>{
                            <Col xs={8} sm={12}>
 
                                <SteadyIconInput 
-                               value={formik.values.user_name}
-                               handleBlur={formik.handleBlur}
-                               name="user_name"
+                               value={full_name}
+                               handleBlur={handleBlur}
+                               name="full_name"
                                type={"text"}
-                               onChange={formik.handleChange}
+                               onChange={handleChange}
                                label={t("FullName")}
+                               error={errors?errors['full_name']:''}
+                               touched={touched?touched['full_name']:false}
+
                                />
                            </Col>
 
                            :
                            <Col sm={12} xs={8} className="d-flex justify-content-sm-center  align-items-center align-items-sm-start ">
-                             <div className="fw-bold text">Jone Doe</div>
+                             <div className="fw-bold text">{full_name?full_name:'Unknown User'}</div>
                            </Col>
                            }
                         

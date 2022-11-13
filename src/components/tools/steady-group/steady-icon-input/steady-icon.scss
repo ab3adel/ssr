@@ -1,4 +1,5 @@
 .steadyIconInput {
+    position: relative;
     .form-text {
 
         .label {
@@ -36,5 +37,12 @@
             }
         }
         
+    }
+    .error {
+        font-size: 0.7rem;
+        color:red;
+        position: absolute;
+        left:20%;
+        bottom: 0;
     }
 }

@@ -35,7 +35,7 @@ export const HeaderLg = ({ token }: iProps) => {
                   name="search"
                   type="text"
                   className="searchInput"
-                  required={false}
+                  required={true}
                 />
               </Col>
             </Row>

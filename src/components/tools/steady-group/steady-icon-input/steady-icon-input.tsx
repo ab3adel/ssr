@@ -7,7 +7,7 @@ import React, { useState } from 'react'
 export const SteadyIconInput =(
     {
         value="",handleBlur,onChange,
-        disabled,icon,label,name,height
+        disabled,icon,label,name,height,touched,error
     }:iInput
 )=>{
     const {i18n}=useTranslation()
@@ -20,9 +20,10 @@ export const SteadyIconInput =(
       
     }
 return (
-    <Form className="steadyIconInput">
+    <Form className="steadyIconInput"
+   >
             <Form.Group 
-       
+                 
             >
                 <Form.Text>
                          
@@ -41,15 +42,24 @@ return (
                     onChange={handleChange}
                     value={value} 
                     type={'text'}
-                    style={{direction:i18n.language=='ar'?'rtl':'ltr'}}
+                    style={{direction:i18n.language=='ar'?'rtl':'ltr',
+                    border:Boolean(error)&&touched?'red 1px solid':''}}
                     disabled={disabled}
                     className="px-2"
+                 
+                    onBlur={handleBlur}
                     
                     
                     />
                
                 </div>
             </Form.Group>
+                { (touched && Boolean(error)) &&
+                (<span className="error"
+                style={i18n.language==='en'?{left:'auto',right:'20%'}:{left:'20%',right:'auto'}}>
+                    {error}
+                </span>)
+                }
     </Form>
 )
 }

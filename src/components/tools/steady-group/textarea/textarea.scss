@@ -19,6 +19,9 @@
         textarea {
             border:none;
         }
+        textarea.form-control:disabled {
+            background-color: white;
+        }
         .inputIcon {
             width:16px;
             height: 16px;

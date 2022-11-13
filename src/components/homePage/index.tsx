@@ -51,6 +51,7 @@ const HomePage =()=>{
                        setStoredIds(pre=>[...pre,ele.id])
                         let data= ele.images
                         let updated_at=null
+                        let profile_picture=null
                         if (ele.images && ele.images.length>0) {
                              data=ele.images.map((elem:any)=>{
                                 
@@ -64,6 +65,7 @@ const HomePage =()=>{
                 
                             })
                         }
+                       
                         if (ele.updated_at) {
                             const options = { year: 'numeric', month: 'short', day: 'numeric' } as const
                             updated_at={
@@ -123,13 +125,12 @@ const HomePage =()=>{
    }
    
  
- 
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 
         <Row className="p-1">
             {
-                storePosts.length>0 ?
+                storedPosts.length>0 ?
                 storedPosts.map((ele:any,index:number)=> 
                 <Col xs={12} sm={6} key={index}>
                   <PostCard {...ele} authenticated={authenticated} 

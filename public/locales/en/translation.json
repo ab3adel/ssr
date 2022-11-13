@@ -96,7 +96,10 @@
     "Info":"Info",
     "Data":"Data",
     "SaveChanges":"Save Changes",
-    "DescriptiveAddress":"Descriptive Address"
+    "DescriptiveAddress":"Descriptive Address",
+    "NewFile":"New File",
+    "Choose":"Choose"
+    
    
     
 }

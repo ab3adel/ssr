@@ -6,7 +6,7 @@ import { Info } from "../views/info";
 import { FollowersFollowing } from "../views/followers-following";
 import { GreenButton } from "../../tools/buttons/green-button";
 
-export const NormalUserProfile = ({ edit, setEdit,t }: iProps) => {
+export const NormalUserProfile = ({ edit, setEdit,t ,lang}: iProps) => {
   let company = false;
   const formik = useFormik({
     initialValues: {
@@ -79,6 +79,9 @@ export const NormalUserProfile = ({ edit, setEdit,t }: iProps) => {
                 values={formik.values}
                 handleChange={formik.handleChange}
                 t={t}
+                setFieldValue={formik.setFieldValue}
+                    handleBlur={formik.handleBlur}
+                    lang={lang}
               />
             </Col>
           </Col>
@@ -112,7 +115,11 @@ export const NormalUserProfile = ({ edit, setEdit,t }: iProps) => {
             </Row>
           </Col>
           <Col xs={12} className=" py-2   bg-profile h-100vh">
-            <Info company={company} edit={edit} t={t} />
+            <Info company={company} edit={edit} t={t} setFieldValue={formik.setFieldValue}
+                    handleBlur={formik.handleBlur}
+                    lang={lang}
+                    handleChange={formik.handleChange} 
+                    />
           </Col>
           <Col xs={12} className="h-20vh bg-profile">
             {edit ? (

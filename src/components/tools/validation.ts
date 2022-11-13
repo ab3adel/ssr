@@ -62,7 +62,8 @@ export const SignupSchema = (isUser: boolean, needCategory = true) =>
 export const AddPostSchema = (role_id: number) =>
   Yup.object().shape({
     title: Yup.object()
-      .shape({ ar: Yup.string(), en: Yup.string() })
+      .shape({ ar: Yup.string().required(lang === "en" ? "This field is required" : "هذا الحقل مطلوب")
+      , en: Yup.string().required(lang === "en" ? "This field is required" : "هذا الحقل مطلوب") })
       .required(lang === "en" ? "This field is required" : "هذا الحقل مطلوب"),
     area_id: Yup.number().required(
       lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
@@ -160,3 +161,10 @@ export const AddPostSchema = (role_id: number) =>
             )
         : Yup.number().notRequired(),
   });
+export const  editCompanyProfileSchema =()=>
+  Yup.object().shape({
+    website:Yup.string().url(lang==='en'?"Please enter valid URL":"أدخل رابط صالح من فضلك !"),
+    full_name:Yup.string().min(3,lang==='en'?'Your full name is too short':'الاسم الكامل قصير جدا'),
+    email:Yup.string().email(lang==='en'?'Enter valid email,please!':"ادخل ايميل صالح من فضلك !"),
+  
+  })

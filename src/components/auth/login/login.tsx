@@ -62,16 +62,16 @@ const Login = ({ setLogin }: iProps) => {
      
         if (res && res.data) {
           let realImage = "";
-          console.log(res.data)
           if (res.data.payload.profile_picture) {
-            realImage = res.data.payload.profile_picture
+            realImage = res.data.payload.profile_picture.split('').slice(7).join('')
+           
           }
           let required_data = {
             token: res.data.payload.token,
             full_name: res.data.payload.full_name,
             refresh_token: res.data.payload.refresh_token,
             role: res.data.payload.roles[0].id,
-            profile_picture: realImage,
+            profile_picture:"https://backend.instaaqar.com/storage/"+ realImage,
             phone_numbers:res.data.payload.phone_numbers,
             id:res.data.payload.id
             

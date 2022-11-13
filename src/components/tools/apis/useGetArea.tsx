@@ -8,24 +8,28 @@ export const useGetArea=()=>{
     const [isAreaLoading,setLoading]=useState<boolean>(false)
     const [areaData,setData]=useState<any[]>()
     const [areaError,setError]=useState<string>('')
-    const getCountries=useCallback((id:number)=>{
-        setLoading(true)
+    const [isCountriesLoading,setCountriesLoading]=useState<boolean>(false)
+    const [countriesData,setCountriesData]=useState<any[]>()
+    const [countriesError,setCountriesError]=useState<string>('')
+    const getCountries=useCallback(()=>{
+        setCountriesLoading(true)
         axios.get(apis.countries)
         .then(res=>{
-            setLoading(false)
+            
+            setCountriesLoading(false)
             if (res.data){
 
-                setLoading(false)
-                setData(res.data.payload)
+                setCountriesLoading(false)
+                setCountriesData(res.data.payload)
             }
            else {
-            setData([])
+            setCountriesData([])
            }
 
         })
         .catch(err=>{
-            setLoading(false)
-            setError(err.message)
+            setCountriesLoading(false)
+            setCountriesError(err.message)
         })
     },[])
     const getArea=useCallback((id=1)=>{
@@ -48,5 +52,6 @@ export const useGetArea=()=>{
             setError(err.message)
         })
     },[])
-    return {getCountries,getArea,areaData,areaError,isAreaLoading}
+    return {getCountries,getArea,areaData,countriesData
+        ,countriesError,isCountriesLoading,areaError,isAreaLoading}
 }

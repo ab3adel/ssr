@@ -20,6 +20,7 @@ interface iProps {
 export const HeaderSm = ({ token }: iProps) => {
   const [openSearch, setOpenSearch] = useState(false);
   const { setOpenSidebar, openSidebar } = useContext(SettingContext);
+  const [showUserName,setShowUserName]=useState(false)
   const { t } = useTranslation();
 
   return (
@@ -51,14 +52,16 @@ export const HeaderSm = ({ token }: iProps) => {
             </div>
           </Col>
           <Col xs={2} className="user">
-            <div className="iconContainer">
+            <div className="iconContainer"
+            onClick={()=>setShowUserName(true)}>
               {token && token.profile_picture ? (
                 <img src={token.profile_picture} className="icon" />
               ) : (
                 <img src={user} className="icon" />
               )}
             </div>
-            <span>{token?.full_name ? token.full_name : "user"}</span>
+            <span
+            className={showUserName?"showUserName":''}>{token?.full_name ? token.full_name : "user"}</span>
           </Col>
           <Col xs={2}>
             <List className="logo" onClick={() => setOpenSidebar(true)} />

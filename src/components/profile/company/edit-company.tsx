@@ -6,30 +6,207 @@ import { UserInfo } from "../views/user";
 import { SocialMedia } from "../views/social-media";
 import { useFormik } from "formik";
 import { Info } from "../views/info";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Data } from "../views/data";
 import { GreenButton } from "../../tools/buttons/green-button";
 import { Location } from "../views/location";
-
-export const EditCompanyProfile = ({ edit, setEdit ,t}: iProps) => {
+import SettingContext from "../../tools/context/setting-context/setting-context";
+import {useContext} from 'react'
+import {useGetArea} from '../../tools/apis/useGetArea'
+import { useGetCategories } from "../../tools/apis/useGetCategories";
+import { useGetRoles } from "../../tools/apis/useGetRoles";
+import { editCompanyProfileSchema } from "../../tools/validation";
+import axios from '../../tools/apis/axios'
+import {apis} from '../../tools/apis/apis'
+import { getLocalStorage } from "../../tools/getLocalstorage";
+export const EditCompanyProfile = ({ edit, setEdit ,t,lang,data}: iProps) => {
   let company = true;
-
+ let fieldsUpdatedRigester=useRef<string[]>([])
   let [tabIndex, setTabIndex] = useState(0);
-  const formik = useFormik({
+  let {mobileView} = useContext(SettingContext);
+  const [countries,setCountries]=useState<any>([])
+  const [categories,setCategories]=useState<any>([])
+  const [roles,setRoles]=useState<any>([])
+  const [area,setArea]=useState<any>([])
+  const [country,setCountry]=useState(0)
+  const [imagesToShow,setImagesToShow]=useState<string[]>([])
+  const{getArea,getCountries
+    ,isAreaLoading
+    ,areaData
+    ,areaError
+  ,countriesData
+,countriesError
+,isCountriesLoading}= useGetArea()
+const {getCategories,categoriesData,CategoriesError,isCategoriesLoading} =useGetCategories()
+const {getRoles,isGetRolesLoading,rolesData,rolesError}=useGetRoles()
+  const formik = useFormik<any>({
     initialValues: {
-      twitter: "myTwitter.com",
-      facebook: "myFacebook.com",
-      youtube: "myYoutube.com",
-      snapchat: "mySnapchat.com",
-      tiktok: "myTiktok.com",
-      instagram: "myInstagram.com",
-      description: "",
+      twitter: data?.company?.twitter ? data.company.twitter : "myTwitter.com",
+      facebook: data?.company?.facebook
+        ? data.company.facebook
+        : "myFacebook.com",
+      youtube: data?.company?.youtueb ? data.company.youtube : "myYoutube.com",
+      snapchat: data?.company?.snapchat
+        ? data.company.snapchat
+        : "mySnapchat.com",
+      tiktok: data?.company?.tiktok ? data.company.tiktok : "myTiktok.com",
+      instagram: data?.comapny?.instagram
+        ? data.company.instagram
+        : "myInstagram.com",
+      description: data?.company?.description
+        ? data?.company?.description
+        : { en: "", ar: "" },
+      country: data?.area?.country?data.area.country: {name:{en:'',ar:''},id:0},
+      area: data?.area ? data.area : { name: { en: "", ar: "" }, id: 0 },
+      flat: data?.flat ? data.flat : "",
+      floor: data?.floor ? data?.floor : "",
+      block: data?.block ? data.block : "",
+      email: data.email ? data.email : "",
+      phone_numbers: data.phone_numbers ? data.phone_numbers : [],
+      avenue: data?.avenue ? data.avenue : "",
+      street: data?.street ? data.street : "",
+      website: data?.company?.website ? data.company.website : "",
+      PACIID: data.PACIID ? data.PACIID : "",
+      building: data.building ? data.building : "",
+      role: data?.roles ? data.roles[0] : { name:{en: "", ar: ""} ,id: 0 },
+      pre_defined_images:[],
+      files:  [],
+      full_name:data.full_name?data.full_name:'',
+      profile_picture:data.profile_pictuer?data.profile_picture:null,
+      category:data.company?.categories?data.company.categories:[{id:0,name:{ar:'',en:''}}],
+      area_id:-1,
+      category_ids:[],
+      category_ids_delete:[],
+      categories:data?.company?.categories?data.company.categories:[],
+      predefined_post_pictures:[],
+      predefined_pictures_delete:[]
     },
     onSubmit: () => {},
+    enableReinitialize: true,
+    validationSchema:editCompanyProfileSchema
   });
-  return (
-    <Container className="p-1 ">
+  useEffect(()=>{
+    if (data && data.company&& data.company.files){
+     let{company:{files}}=data
+     if (files.length >0) {
+      let images_arr:any[]=[]
+      let files_arr:any[]=[]
+      let images_to_show :string[]=[]
+      files.map((ele:any)=>{
+        if (ele.file_purpose==='predefined_post_picture') {
+          images_arr.push(ele)
+          images_to_show.push(ele.path)
+        }
+        else {
+          files_arr.push(ele)
+        }
+      })
+      formik.setFieldValue('pre_defined_images',images_arr)
+      formik.setFieldValue('files',files_arr)
+      setImagesToShow(images_to_show)
+     }
+    }
+    if (data && data.area && data.area.country_id ) {
+      setCountry(data.area.country_id)
+    }
+  },[data])
+  const customSetFieldValue=(name:string,value:any)=>{
+    if (!fieldsUpdatedRigester.current.includes(name))fieldsUpdatedRigester.current.push(name)
+    formik.setFieldValue(name,value)
+  }
+  const customHandleChange=(e:React.ChangeEvent)=>{
+    let name =(e.target as HTMLInputElement).name
+    if (!fieldsUpdatedRigester.current.includes(name))fieldsUpdatedRigester.current.push(name)
+    formik.handleChange(e)
+  }
+
+  useEffect(()=>{
+    getCountries()
+    getCategories(1)
+    getRoles()
+  },[])
+  useEffect(()=>{
+    if(country)getArea(country)
+  },[country])
+  useEffect(()=>{
+    if(!countriesError) {
+      setCountries(countriesData)
+    }
+  },[isCountriesLoading])
+  useEffect(()=>{
+    if(!areaError) {
+      setArea(areaData)
+    }
+  },[isAreaLoading])
+useEffect(()=>{
+  if (!CategoriesError) {
+    setCategories(categoriesData)
+  }
+},[isCategoriesLoading])
+useEffect(()=>{
+  if(!rolesError) {
+    if (rolesData){
+  
+      setRoles(rolesData)
+    }
+  }
+},[isGetRolesLoading])
+const updateProfile =()=>{
+ if (fieldsUpdatedRigester.current.length>0) {
+  let formdata= new FormData()
+  formdata.append('user_id',getLocalStorage()?getLocalStorage().id:'')
+  fieldsUpdatedRigester.current.map(mainEle=>{
+    // for simple values like string and numbers
+    if (typeof(formik.values[mainEle]) ==='string' || typeof(formik.values[mainEle]) ==='number') {
+      formdata.append(mainEle,formik.values[mainEle])
+    }
+    
+    else {
+      // for complicated values like object and array
+      if (Array.isArray(formik.values[mainEle])) {
+        //for array 
+        if (mainEle !== 'phone_numbers' && mainEle !== 'files') {
+          formik.values[mainEle].map((ele:any,index:number)=>{
+            formdata.append(`${mainEle}[${index}]`,ele)
+          })
+        }
+        else {
+          if (mainEle==='files') {
+            formik.values[mainEle].map((ele:any,index:number)=>{
+              formdata.append(`${mainEle}[${index}][file]`,formik.values[mainEle][index]['file'])
+              formdata.append(`${mainEle}[${index}][name][ar]`,formik.values[mainEle][index]['name']['ar'])
+              formdata.append(`${mainEle}[${index}][name][er]`,formik.values[mainEle][index]['name']['en'])
+            })
+          }
+          if (mainEle==='phone_numbers') {
+             formik.values[mainEle].map((ele:any,index:number)=>{
+              formdata.append(`${mainEle}[${index}][phone]`,formik.values[mainEle][index]['phone'])
+              formdata.append(`${mainEle}[${index}][international_code]`,formik.values[mainEle][index]['international_code'])
+              formdata.append(`${mainEle}[${index}][primary]`,index===0?'1':'s')
+             })
+          }
+        }
+      }
+      if (mainEle === 'description') {
+        formdata.append(`${mainEle}[en]`,formik.values[mainEle]['en'])
+        formdata.append(`${mainEle}[ar]`,formik.values[mainEle]['ar'])
+      }
+    }
+  })
+  axios.post(apis.updateProfile,formdata,{
+    headers:{'Authorization':`Bearer ${getLocalStorage()?getLocalStorage().token:null}`
+  }
+  }).then(res=>console.log(res))
+  .catch(err=>console.log(err))
+
+ }
+  setEdit(false)
+}
+console.log(data)
+  return( 
+     <Container className="p-1 ">
+      { !mobileView?
       <Row className="justify-content-evenly d-none d-sm-flex">
         <Col
           sm={3}
@@ -38,7 +215,13 @@ export const EditCompanyProfile = ({ edit, setEdit ,t}: iProps) => {
         >
           <Row className="gy-3 justify-content-center">
             <Col xs={12}>
-              <UserInfo company={company} edit={edit} t={t}/>
+              <UserInfo company={company}
+               edit={edit} t={t}  
+              full_name={formik.values.full_name}
+              profile_picture={formik.values.profile_picture}
+              setFieldValue={customSetFieldValue}
+              handleChange={customHandleChange}
+              />
             </Col>
             <Col xs={10}>
               <GreenButton label={t("SaveChanges")} fun={() => setEdit(false)} />
@@ -83,22 +266,50 @@ export const EditCompanyProfile = ({ edit, setEdit ,t}: iProps) => {
             <Col xs={12}>
               <Tab num={tabIndex}>
                 <Row>
-                  <Info company={false} edit={edit} t={t} />
+                  <Info company={false} edit={edit} t={t} 
+                  setFieldValue={customSetFieldValue}
+                  handleBlur={formik.handleBlur}
+                  lang={lang}
+                  values={formik.values}
+                  countries={countries}
+                  categories={categories}
+                  roles={roles}
+                  errors={formik.errors}
+                  touched={formik.touched}
+                  handleChange={customHandleChange}
+                   />
                   <SocialMedia
                     values={formik.values}
-                    handleChange={formik.handleChange}
+                    handleChange={customHandleChange}
                     edit={edit}
                     t={t}
                   />
                 </Row>
-                <Location t={t} />
-                <Data t={t} />
+                <Location values={formik.values} 
+                setFieldValue={customSetFieldValue}
+                handleBlur={formik.handleBlur}
+                lang={lang}
+                t={t}
+                setCountry={setCountry}
+                countries={countries}
+                area={area}
+               
+                handleChange={customHandleChange} />
+                <Data t={t}
+                 setFieldValue={customSetFieldValue} 
+                handleBlur={formik.handleBlur} 
+                values={formik.values}
+                edit={true}
+                imagesToShow={imagesToShow}
+                lang={lang}
+                />
               </Tab>
             </Col>
           </Row>
         </Col>
       </Row>
-      {/* Mobile View */}
+      
+      :
       <Row
         className="justify-content-evenly d-flex d-sm-none mobileViewScroll gy-3 bg-profile"
         style={{ height: "fit-content" }}
@@ -106,11 +317,19 @@ export const EditCompanyProfile = ({ edit, setEdit ,t}: iProps) => {
         <Col sm={3} xs={12} className={`   flex-column`}>
           <Row className="gy-2 justify-content-center">
             <Col xs={12}>
-              <UserInfo company={company} edit={edit} t={t}/>
+              <UserInfo company={company} edit={edit} t={t} 
+               full_name={formik.values.full_name}
+               profile_picture={formik.values.profile_picture}
+               handleChange={customHandleChange}
+               handleBlur={formik.handleBlur}
+               setFieldValue={customHandleChange}
+               errors={formik.errors}
+               touched={formik.touched}
+               />
             </Col>
 
             <Col xs={10}>
-              <GreenButton label={"Save Changes"} fun={() => setEdit(false)} />
+              <GreenButton label={"Save Changes"} fun={() =>updateProfile()} />
             </Col>
           </Row>
         </Col>
@@ -145,14 +364,42 @@ export const EditCompanyProfile = ({ edit, setEdit ,t}: iProps) => {
             </Col>
             <Col xs={12}>
               <Tab num={tabIndex}>
-                <Location t={t}/>
-                <Info company={company} edit={edit} t={t} />
-                <Data t={t} />
+             
+                <Info company={company} edit={edit} t={t} 
+                    setFieldValue={customSetFieldValue}
+                    handleBlur={formik.handleBlur}
+                    lang={lang}
+                    values={formik.values}
+                    countries={countries}
+                    categories={categories}
+                    roles={roles}
+                    errors={formik.errors}
+                    handleChange={customHandleChange}
+                    touched={formik.touched}
+                    />
+                <Location t={t}  values={formik.values} 
+                  setFieldValue={customSetFieldValue}
+                  handleBlur={formik.handleBlur}
+                  lang={lang}
+                  setCountry={setCountry}
+                  countries={countries}
+                  area={area}
+                  handleChange={customHandleChange}
+                />
+                <Data t={t} 
+                 setFieldValue={customSetFieldValue} 
+                 handleBlur={formik.handleBlur} 
+                 values={formik.values}
+                 edit={true}
+                 lang={lang}
+                 imagesToShow={imagesToShow}
+                />
               </Tab>
             </Col>
           </Row>
         </Col>
       </Row>
+      }
     </Container>
   );
 };

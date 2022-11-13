@@ -23,6 +23,7 @@ import { Posts } from "../store";
 import { PredefiendPicturesModal } from "../tools/predefined-pictures-modal/predefined-pictures";
 import { useGetPredefinedPictures } from "../tools/apis/useGetPredefinedPictures";
 import { type } from "@testing-library/user-event/dist/type";
+import { getLocalStorage } from "../tools/getLocalstorage";
 interface iPhoneNumber {
   international_code: string;
   phone: string;
@@ -120,7 +121,7 @@ const AddPost = () => {
   const [propertySites, setPropertySites] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [tags, setTags] = useState<any[]>([]);
-  const { token, setToken } = useContext(authContext);
+  const [ token, setToken ] = useState({role:-1,token:''});
   const [area, setArea] = useState<iOption[]>([]);
   const [addPostLoading, setAddPostLoading] = useState(false);
   const { getPosts, getPostsData, getPostsError, isGetPostsLoading } =
@@ -436,6 +437,9 @@ const [mobileView,setMobileView]=useState(true)
     getPropertySites();
     getCategories(1);
     getArea();
+    if (getLocalStorage()) {
+      setToken(getLocalStorage())
+    }
   }, []);
 
   useEffect(() => {
@@ -759,7 +763,7 @@ const [mobileView,setMobileView]=useState(true)
          }
        });
   };
-console.log(formik.values)
+console.log(formik.errors)
   return (
     <Col xs={12} className="addPostContainer">
       {

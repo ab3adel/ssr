@@ -48,7 +48,9 @@ export const ManyPhotosInput = ({
       }
       let objUrl = URL.createObjectURL(file);
       arr.push(objUrl);
+      
       setValue(name, files_arr);
+      console.log(arr)
       setImages(arr);
     }
   };
@@ -83,6 +85,7 @@ export const ManyPhotosInput = ({
       }
     }
   };
+  
 
   return (
     <Row

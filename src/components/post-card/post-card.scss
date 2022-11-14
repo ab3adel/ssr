@@ -91,6 +91,9 @@
                 align-items: center;
                 justify-content: center;
                 width: fit-content;
+                span {
+                    white-space: initial;
+                }
             }
             .iconBtn {
                 display: flex;
@@ -194,6 +197,9 @@
             }
 
             .card-body {
+                .badge{
+                    font-size: 0.6rem;
+                }
                 .imgsGalery {
                     height: 250px;
                 }
@@ -206,7 +212,10 @@
                 }
                 .details {
                     .detail {
-                        justify-content: space-between;
+                        justify-content: start;
+                        span {
+                            margin:0 10px;
+                        }
                     }
                 }
             }

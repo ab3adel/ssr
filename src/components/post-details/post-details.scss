@@ -56,6 +56,8 @@ position: relative;
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        white-space: initial;
+                       
                     }
                     .iconBtn {
                         display: flex;
@@ -192,6 +194,9 @@ position: relative;
                             width: 20px;
                             height: 20px;
                         }
+                    }
+                    .badge{
+                        font-size: 0.6rem;
                     }
                 }
             }

@@ -32,7 +32,9 @@ export const ImagesGallery =({images,price,height,price_type,currency}:iProps)=>
      }
     return (
         <div className="imgsGalery" 
-                            style={{background:`url(${images[currentImage]})`,height:height?height:''}}
+                            style={{backgroundImage:`url(${images[currentImage]})`
+                            ,height:height?height:'',
+                        backgroundRepeat:'no-repeat',backgroundSize:'cover'}}
                             onClick={handleShow}
 
                             ref={ref}

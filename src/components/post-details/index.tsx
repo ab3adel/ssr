@@ -178,6 +178,8 @@ const PostDetails = () => {
             price: ele.price,
             description: ele.description,
             user_id: ele.user_id,
+            descriptive_address:ele.descriptive_address?ele.descriptive_address:null,
+            space:ele.space
           };
         })
         .filter((ele: any) => ele)[0];

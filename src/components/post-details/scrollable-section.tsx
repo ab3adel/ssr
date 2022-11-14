@@ -148,9 +148,11 @@ export const ScrollableSection = ({
                       </Button>
                     </Col>
                     <Col xs={12}>
-                      Est reprehenderit id elit Lorem dolore adipisicing
-                      occaecat. Commodo do proident eiusmod sit do anim. Culpa
-                      laborum id nulla laborum labore qui esse laboris commodo.
+                      {
+                        post.descriptive_address?
+                        i18n.language==='en'?
+                        post.descriptive_address.en:post.descriptive_address.ar:''
+                      }
                     </Col>
                   </Row>
                 </Col>
@@ -176,9 +178,11 @@ export const ScrollableSection = ({
                     </Col>
                     <Col lg={3} xs={4} className="detail">
                       <img src={area} />
-                      <span>
-                        200 m<sup>2</sup>{" "}
-                      </span>
+                     { post.space &&
+                     ( <span>
+                        {post.space} m<sup>2</sup>{" "}
+                      </span>)
+                      }
                     </Col>
                   </Row>
                 </Col>

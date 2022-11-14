@@ -38,8 +38,8 @@ export const MobileView = ({
   postLikes
 }: iProps) => {
   const { openSidebar } = useContext(SettingContext);
-  const { i18n } = useTranslation();
-  console.log(post)
+  const { i18n,t } = useTranslation();
+  
   return (
     <Col xs={12} className="scrollableSection">
       <Card>
@@ -179,42 +179,72 @@ export const MobileView = ({
                         <span>Go To Map</span>
                       </Button>
                     </Col>
+                
+                    { post.descriptive_address &&
+                      ( 
+                        <>
+                     <Col sm={4} xs={12} className="fw-bold fs-5">
+                     {t('DescriptiveAddress')}
+                     </Col>
                     <Col xs={12}>
-                      Est reprehenderit id elit Lorem dolore adipisicing
-                      occaecat. Commodo do proident eiusmod sit do anim. Culpa
-                      laborum id nulla laborum labore qui esse laboris commodo.
+                     
+                    
+                      <TextAccordion
+                       description={
+                        i18n.language==='en'?
+                        post.descriptive_address.en:post.descriptive_address.ar
+                       }
+                     />
+                       
+                    
+                      
                     </Col>
+                    </>
+                    )}
+                   
                   </Row>
                 </Col>
                 <Col xs={12}>
                   <Row>
+                  {post.number_of_rooms && (
                     <Col sm={3} xs={4} className="detail">
                       <img src={room} />
-                      {post.number_of_rooms && (
+                 
                         <>
                           <span>{post.number_of_rooms}</span>
                           <span>rooms</span>
                         </>
-                      )}
+                      
                     </Col>
+                    )}
+                    {post.number_of_bathrooms && (
                     <Col sm={3} xs={4} className="detail">
                       <img src={amenities} />
-                      {post.number_of_bathrooms && (
+                     
                         <>
                           <span>{post.number_of_bathrooms}</span>
                           <span>bath</span>
                         </>
-                      )}
-                    </Col>
-                    <Col sm={3} xs={4} className="detail">
+                    
+                    </Col>  )}
+                   { post.space &&
+                    (<Col sm={3} xs={4} className="detail">
                       <img src={area} />
                       <span>
-                        200 m<sup>2</sup>{" "}
+                        {post.space} m<sup>2</sup>{" "}
                       </span>
-                    </Col>
+                    </Col>)
+                    }
                   </Row>
                 </Col>
-                <Col xs={12}>
+                
+
+               { post.description &&
+               (
+               <Col xs={12}>
+                 <Col sm={4} xs={12} className="fw-bold fs-5">
+                  {t('Description')}
+                  </Col>
                   <TextAccordion
                     description={
                       i18n.language === "en"
@@ -223,19 +253,30 @@ export const MobileView = ({
                     }
                   />
                 </Col>
+                
+                )}
                 <Col xs={12}>
+                {
+                    post.services_available&&
+                   (
+                    <>
                   <Col sm={4} xs={12} className="fw-bold fs-5">
-                    Service Available
+                    {t('ServicesAvailable')}
                   </Col>
                   <Col xs={12}>
 
-                    {
-                    post.services_available?
-                    i18n.language === "en"
+                  <TextAccordion
+                    description={
+                      i18n.language === "en"
                       ? post.services_available?.en
-                      : post.services_available?.ar:''
+                      : post.services_available?.ar
                     }
+                  />
+                    
+                    
                   </Col>
+                  </>)
+}
                 </Col>
               </Row>
             </Col>

@@ -36,7 +36,7 @@ export const ImagesGallery =({imgs,setImgs,primary,setPrimary,value,setFieldValu
         if (images_to_delete) {
              deleted_images=[...images_to_delete]
             let id =imgs[num].id
-            deleted_images.push(id)
+            if(id)deleted_images.push(id)
             
         }
         if (primary === num) {

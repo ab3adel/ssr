@@ -56,7 +56,9 @@ export const SmallView = ({
   touched,
   addPostLoading,
   setPredefinedPicturesModal,
+  setFieldTouched
 }: iProps) => {
+  
   return (
     <Col xs={12} className="scrollable">
       <Row className="gy-2">
@@ -431,6 +433,9 @@ export const SmallView = ({
                     add={addPhone}
                     value={phoneNumber}
                     reset={resetPhone}
+                    error={errors['phone_numbers']?errors['phone_numbers'][0]['phone']:''}
+                    touched={touched['phone_numbers']}
+                    setFieldTouched={setFieldTouched}
                   />
                 </Col>
                 <Col xs={12} className="numbers">

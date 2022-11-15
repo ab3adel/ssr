@@ -22,8 +22,10 @@ import { useRecoilState } from "recoil";
 import { Posts } from "../store";
 import { PredefiendPicturesModal } from "../tools/predefined-pictures-modal/predefined-pictures";
 import { useGetPredefinedPictures } from "../tools/apis/useGetPredefinedPictures";
-import { type } from "@testing-library/user-event/dist/type";
+import SettingContext from "../tools/context/setting-context/setting-context";
 import { getLocalStorage } from "../tools/getLocalstorage";
+import {useNavigate} from 'react-router-dom'
+import { iFields } from "../auth/signup/signup";
 interface iPhoneNumber {
   international_code: string;
   phone: string;
@@ -51,6 +53,7 @@ export interface iProps {
   values: any;
   setFieldValue: Function;
   errors: any;
+  setFieldTouched:Function;
   handleBlur: Function;
   offersType: iOption[];
   pricesType: iOption[];
@@ -78,6 +81,7 @@ let postTags = [
 
 const AddPost = () => {
   const { post_id, page } = useParams();
+  const navigate =useNavigate()
   const { t, i18n } = useTranslation();
   const [checked, setChecked] = useState({
     profile_photo_as_image: false,
@@ -131,8 +135,8 @@ const AddPost = () => {
     useState(false);
   const [predefinedImages, setPredefinedImages] = useState<any[]>([]);
 const [enableFieldsUpdatedRegister,setEnableFieldsUpdatedRegister]=useState(false)
-const fieldsUpdatedRegister=useRef<any>({})
-const [mobileView,setMobileView]=useState(true)
+const fieldsUpdatedRegister=useRef<any>([])
+const {mobileView} =useContext(SettingContext)
   const formik = useFormik({
     initialValues: {
       input: { en: "", ar: "" },
@@ -176,7 +180,7 @@ const [mobileView,setMobileView]=useState(true)
     if (enableFieldsUpdatedRegister){
      
     
-      fieldsUpdatedRegister.current[name]=value
+     if (!fieldsUpdatedRegister.current.includes(name)) fieldsUpdatedRegister.current.push(name)
     }
     formik.setFieldValue(name,value)
   }
@@ -185,7 +189,7 @@ const [mobileView,setMobileView]=useState(true)
     if (enableFieldsUpdatedRegister){
     
       let target =e.target as HTMLInputElement
-      fieldsUpdatedRegister.current[target.name]=target.value
+     if (fieldsUpdatedRegister.current.includes(target.name)) fieldsUpdatedRegister.current.push(target.name)
     }
     formik.handleChange(e)
   }
@@ -224,14 +228,15 @@ const [mobileView,setMobileView]=useState(true)
     let phons = formik.values.phone_numbers.filter(
       (ele: any, index) => index !== num
     );
-    if (typeof(phoneNumbersArray[0] !== 'string')) {
+    if (typeof(phoneNumbersArray[num] !== 'string')) {
       let deleted_phones:any[]= [...formik.values.phone_numbers_to_delete]
       let id =phoneNumbersArray[num].id
-      deleted_phones.push(id)
+      if (!deleted_phones.includes(id)) deleted_phones.push(id)
      customSetFieldValue('phone_numbers_to_delete',deleted_phones)
     }
     setPhoneNumbersArray(newNumbers);
    customSetFieldValue("phone_numbers", phons);
+   formik.setFieldTouched('phone_numbers',true)
   };
   const selectePropertySubTypeId = (name: string, subType: number) => {
    customSetFieldValue(name, subType);
@@ -404,11 +409,7 @@ const [mobileView,setMobileView]=useState(true)
       });
   };
 
- useEffect(()=>{
-  if (window.innerWidth >567) {
-    setMobileView(false)
-  }
- },[window.innerWidth])
+
   useEffect(() => {
     let imgs_arr = [...formik.values.images]
       .filter((ele) => ele.file)
@@ -665,49 +666,165 @@ const [mobileView,setMobileView]=useState(true)
   }, [isGetPostsLoading]);
 
 
-
-
+console.log(formik.errors,formik.touched)
   const updatePost = () => {
+   
+    if (checkError()){ 
+  
+      return;}
+    if (phoneNumbersArray.length===0) {
     
-    if (checkError()) return;
-  console.log(fieldsUpdatedRegister.current)
+     formik.setFieldError('phone_numbers[0][phone]','This field can not be empty')
+      //formik.setFieldTouched('phone_numbers',true)
+      return
+    }
+ 
     setAddPostLoading(true);
     let formData = new FormData();
-    Object.keys(fieldsUpdatedRegister.current).map((key,index)=>{
+    let n=0
+      
+       
+      if (fieldsUpdatedRegister.current.includes('title') && (formik.values.title.ar || formik.values.title.en)) {
+       
+        formData.append("title[en]", formik.values.title.en);
+        formData.append("title[ar]", formik.values.title.ar);
+      }
+      if (fieldsUpdatedRegister.current.includes( 'area_id')) formData.append("area_id", formik.values.area_id);
+      if (token.role === 3 ) {
+        if (fieldsUpdatedRegister.current.includes('property_type_id')){
 
-      if (key !== 'phone_numbers' && key !=='images') {
-        if (Array.isArray(fieldsUpdatedRegister.current[key])){
-          
-          fieldsUpdatedRegister.current[key].map((elem:any)=>{
-            if (typeof(elem)=== 'string' || typeof(elem)==='number'){
-         
-              formData.append(`${key}[${index}]`,elem as string)
-            }
-          })
+          formData.append("property_type_id", formik.values.property_type_id);
+          formData.append(
+            "offer_type_id",
+            JSON.stringify(formik.values.offer_type_id)
+          );
         }
-        if (typeof(fieldsUpdatedRegister.current[key])=== 'string' || typeof(fieldsUpdatedRegister.current[key])=== 'number'){
-          formData.append(key,fieldsUpdatedRegister.current[key])
-        }
-        else {
-          Object.keys(fieldsUpdatedRegister.current[key]).map((ele:any,index)=>{
-           
-            if (typeof(fieldsUpdatedRegister.current[key][ele])=== 'string' || 'number'){
+        if (fieldsUpdatedRegister.current.includes('price_type_id')){
 
-              formData.append(`${key}[${ele}]`,fieldsUpdatedRegister.current[key][ele] as string)
-            }
-            else {
-              Object.keys(fieldsUpdatedRegister.current[key][ele]).map((element:any)=>{
-             
-                formData.append(`${key}[${ele}][${element}]`,fieldsUpdatedRegister.current[key][ele][element] as string)
-              })
-            }
-          })
+          formData.append("price_type_id", formik.values.price_type_id);
+        }
+        if (fieldsUpdatedRegister.current.includes('property_site_id')){
+
+          formData.append("property_site_id", formik.values.property_site_id);
+        }
+        if (fieldsUpdatedRegister.current.includes('location_link')){
+
+          formData.append("location_link", formik.values.location_link);
+        }
+        if (fieldsUpdatedRegister.current.includes('latitude')) {
+
+          formData.append("latitude", formik.values.latitude);
+        }
+        if (fieldsUpdatedRegister.current.includes('longitude')) {
+
+          formData.append("longitude", formik.values.longitude);
+        }
+        if (fieldsUpdatedRegister.current.includes('number_of_rooms')) {
+
+          formData.append("number_of_rooms", formik.values.number_of_rooms);
+        }
+        if (fieldsUpdatedRegister.current.includes('number_of_bathrooms')) {
+
+          formData.append("number_of_bathrooms", formik.values.number_of_bathrooms);
+        }
+        if (fieldsUpdatedRegister.current.includes('area')){
+
+          formData.append("area", formik.values.area);
         }
       }
-      if (key === 'images') {
+      if (token.role !== 3 && fieldsUpdatedRegister.current.includes('category_id')) {
+        formData.append("category_id", JSON.stringify(formik.values.category_id));
+      }
+      if ( fieldsUpdatedRegister.current.includes('tags_ids') &&formik.values.tags_ids.length > 0) {
+        formik.values.tags_ids.map((ele, index) => {
+          formData.append(`tags_ids[${index}]`, ele);
+        });
+      }
+  
+      if (fieldsUpdatedRegister.current.includes('description') &&(formik.values.description.ar || formik.values.description.en)) {
+        formData.append("description[en]", formik.values.description.en);
+        formData.append("description[ar]", formik.values.description.ar);
+      }
+  
+      if (
+        fieldsUpdatedRegister.current.includes('descriptive_address')&&
+      (  formik.values.descriptive_address.ar ||
+        formik.values.descriptive_address.en)
+      ) {
+        formData.append(
+          "descriptive_address[ar]",
+          formik.values.descriptive_address.ar
+        );
+        formData.append(
+          "descriptive_address[en]",
+          formik.values.descriptive_address.en
+        );
+      }
+  
+      if (
+        fieldsUpdatedRegister.current.includes('services_available')&&
+       ( formik.values.services_available.ar ||
+        formik.values.services_available.en)
+      ) {
+        formData.append(
+          `services_available[ar]`,
+          formik.values.services_available.ar
+        );
+        formData.append(
+          `services_available[en]`,
+          formik.values.services_available.en
+        );
+      }
+    if (fieldsUpdatedRegister.current.includes('PACIID')){
+
+      formData.append("PACIID", formik.values.PACIID);
+    }
+    if (fieldsUpdatedRegister.current.includes('price')) {
+
+      formData.append("price", formik.values.price);
+    }
+   if ( fieldsUpdatedRegister.current.includes('profile_photo_as_an_image')){
+
+      formData.append(
+        "profile_photo_as_an_image",
+        JSON.stringify(formik.values.profile_photo_as_an_image)
+      );
+    }
+  if (fieldsUpdatedRegister.current.includes('profile_photo_as_an_image_primary')){
+
+    formData.append(
+      "profile_photo_as_an_image_primary",
+      JSON.stringify(formik.values.profile_photo_as_an_image_primary)
+    );
+  }
+      if (
+        fieldsUpdatedRegister.current.includes('pre_defined_images') &&
+       ( formik.values.pre_defined_images.length > 0 &&
+        formik.values.pre_defined_images[0].id)
+      ) {
+        formik.values.pre_defined_images.map((ele, index) => {
+          formData.append(`pre_defined_images[${index}][id]`, ele["id"]);
+          formData.append(
+            `pre_defined_images[${index}][primary]`,
+            JSON.stringify(ele["primary"] ? 1 : 0)
+          );
+        });
+      }
+      if (fieldsUpdatedRegister.current.includes('phone_numbers_to_delete') ) {
+        formik.values['phone_numbers_to_delete'].map((ele,index)=>{
+          formData.append(`phone_numbers_to_delete[${index}]`,ele)
+        })
+      }
+      if (fieldsUpdatedRegister.current.includes('images_to_delete')) {
+        formik.values['images_to_delete'].map((ele,index)=>{
+          formData.append(`images_to_delete[${index}]`,ele)
+        })
+      }
+      
+      if (fieldsUpdatedRegister.current.includes('images')) {
         let new_image :any[]=[]
         let response_images=getPostsData.data[0].images
-       fieldsUpdatedRegister.current[key].map((ele:any,index:number)=>{
+        formik.values['images'].map((ele:any,index:number)=>{
         new_image=response_images.filter((elem:any)=>elem.file_name === ele.name.en)
        if (new_image.length ===0) {
         formData.append(`images[${index}][name][en]`, ele["name"]["en"]);
@@ -719,15 +836,15 @@ const [mobileView,setMobileView]=useState(true)
        })
        
       }
-      if (key === 'phone_numbers') {
+      if (fieldsUpdatedRegister.current.includes( 'phone_numbers')) {
         let new_numbers :any[]=[]
         let response_numbres=getPostsData.data[0].phone_numbers
-       fieldsUpdatedRegister.current[key].map((ele:any,index:number)=>{
+        formik.values['phone_numbers'].map((ele:any,index:number)=>{
         new_numbers=response_numbres.filter((elem:any)=>elem.phone === ele.phone)
        if (new_numbers.length ===0) {
-        formData.append(`${key}[${index}][phone]`, ele["phone"]);
+        formData.append(`phone_numbers[${index}][phone]`, ele["phone"]);
         formData.append(
-          `${key}[${index}][international_code]`,
+          `phone_numbers[${index}][international_code]`,
           ele["international_code"]
         );
       
@@ -736,39 +853,36 @@ const [mobileView,setMobileView]=useState(true)
        })
        
       }
-    })
-
-    
-
-    
    
 
-     axios
-       .post(apis.updatePost(post_id?parseInt(post_id):-1), formData, {
-         headers: { Authorization: `Bearer ${token.token}` },
-       })
-       .then((res) => {
-         setAddPostLoading(false);
-         if (res.data) {
-           setNotify((pre: any) => ({
-             ...pre,
-             type: true,
-             show: true,
-             message: "Your post has been added successfully",
-           }));
-         }
-       })
-       .catch((err) => {
-         setAddPostLoading(false);
-         if (err.response && err.response.data.message) {
-           setNotify((pre: any) => ({
-             ...pre,
-             type: false,
-             show: true,
-             message: err.response.data.message,
-           }));
-         }
-       });
+      axios
+        .post(apis.updatePost(post_id?parseInt(post_id):-1), formData, {
+          headers: { Authorization: `Bearer ${token.token}` },
+        })
+        .then((res) => {
+          setAddPostLoading(false);
+          if (res.data) {
+            setNotify((pre: any) => ({
+              ...pre,
+              type: true,
+              show: true,
+              message: "Your post has been changed successfully",
+            }));
+            formik.resetForm()
+            navigate('/addpost')
+          }
+        })
+        .catch((err) => {
+          setAddPostLoading(false);
+          if (err.response && err.response.data.message) {
+            setNotify((pre: any) => ({
+              ...pre,
+              type: false,
+              show: true,
+              message: err.response.data.message,
+            }));
+          }
+        });
   };
 
   return (
@@ -818,6 +932,7 @@ const [mobileView,setMobileView]=useState(true)
           handleAvailableServices={handleAvailableServices}
           touched={formik.touched}
           addPostLoading={addPostLoading}
+          setFieldTouched={formik.setFieldTouched}
         />
       </Col>
       :
@@ -864,6 +979,7 @@ const [mobileView,setMobileView]=useState(true)
           handleAvailableServices={handleAvailableServices}
           touched={formik.touched}
           addPostLoading={addPostLoading}
+          setFieldTouched={formik.setFieldTouched}
         />
       </Col>
 }

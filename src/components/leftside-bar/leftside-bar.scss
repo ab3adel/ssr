@@ -320,6 +320,8 @@
 }
 @media screen  and (max-width:567px){
     .sidebarContainerSm {
+        z-index: 10000;
+        position: absolute;
         .sidebarItems {
             .item {
                 padding: 0.6rem;

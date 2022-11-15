@@ -21,7 +21,8 @@ export const Input = ({
   phoneNumber = false,
   add,
   reset,
-  disabled
+  disabled,
+  setFieldTouched=()=>{}
 }: Partial<iInput>) => {
   const { i18n, t } = useTranslation();
   const [flaot, setFloat] = useState(false);
@@ -30,6 +31,9 @@ export const Input = ({
   const checkTyping = (e: React.FocusEvent) => {
     if ((e.target as HTMLInputElement).value === "") {
       setFloat(false);
+    }
+    if (phoneNumber && typeof(handleBlur)=== 'function') {
+      handleBlur(e)
     }
   };
   const focused = () => {
@@ -68,6 +72,10 @@ export const Input = ({
     }
     
   
+}
+const handlePhoneBlur=()=>{
+  
+  setFieldTouched('phone_numbers',true)
 }
   const controlNumber = (str: string) => {
     if (disabled) return
@@ -110,10 +118,13 @@ export const Input = ({
   if (unit && !numberControl && !phoneNumber) {
     compClass = compClass + " withUnit";
   }
-
+  
 if (phoneNumber) {
+  console.log(error && touched)
   return (
-        <Form.Group className="floatedInput" onClick={focused} onBlur={checkTyping}>
+        <Form.Group className="floatedInput" onClick={focused} onBlur={checkTyping}
+        
+       >
         <div
           className={"label float"}
           style={i18n.language === "en" ? { left: "1rem",right:'auto',background:disabled?'trasnparent':'' } : { right: "1rem",left:'auto',background:disabled?'trasnparent':'' }}
@@ -134,6 +145,8 @@ if (phoneNumber) {
        inputStyle={{'direction':i18n.language ==='en'?"ltr":'rtl',padding:i18n.language==='en'?'0 0 0 48px':'0 48px 0 0 '}}
        buttonClass={i18n.language==='en'?'':'arabic'}
        country="kw"
+       onBlur={handlePhoneBlur}
+       isValid={!(touched && error)}
        />
         
         
@@ -146,9 +159,10 @@ if (phoneNumber) {
             {t("Add")}
           </button>
         
-        {touched && error && (
+        {(touched && error) && (
           <Form.Control.Feedback
-            style={i18n.language === "en" ? { left: "40%" } : { right: "40%" }}
+          className="isValid"
+            style={i18n.language === "en" ? { left: "40%",right:'auto' } : { right: "40%" ,left:'auto'}}
           >
             {error}
           </Form.Control.Feedback>
@@ -175,7 +189,7 @@ if (phoneNumber) {
       )}
       <Form.Control
         type={"text"}
-        className={compClass}
+        className={ (Boolean(error) && touched)?`redBorder ${compClass}`:`${compClass}`}
         onInput={focused}
         value={value}
         onChange={changeChecker}
@@ -191,9 +205,10 @@ if (phoneNumber) {
               ? i18n.language === "en"
                 ? { paddingRight: "2.588em",paddingLeft:'1em' }
                 : { paddingLeft: "2.588em" ,paddingRight:'1em' }
-              : {}
+              : {backgroundPositionX:i18n.language==='en'?'90%':'10%'}
             : {}
         }
+        
       />
       {!numberControl && unit && <div className="unit"  style={i18n.language === "en" ? { right: "0.8rem" ,left:'auto'} : { left: "0.8rem" ,right:'auto'}}>{unit}</div>}
       {!phoneNumber && numberControl && (
@@ -213,10 +228,10 @@ if (phoneNumber) {
           {t("Add")}
         </button>
       )}
-      {touched && error && (
+      {(touched && error) && (
         <Form.Control.Feedback
         className="isValid"
-          style={i18n.language === "en" ? { left: "10%",right:'auto' } : { right: "10%",left:'auto' }}
+          style={i18n.language === "en" ? { right: "10%",left:'auto' } : { left: "10%",right:'auto' }}
         >
           {error}
         </Form.Control.Feedback>

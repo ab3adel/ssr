@@ -23,6 +23,7 @@ export interface iInput {
   reset?:Function,
   disabled?:boolean,
   height?:string,
+  setFieldTouched?:Function
  
 
 }

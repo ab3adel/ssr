@@ -24,7 +24,8 @@ export const LargeView = (
         ,setPhoneNumbersArray,setPrimary
         ,t,setFieldValue,values,errors,handleBlur,offersType,pricesType
         ,propertySites,categories,tags,language,addPost,handleChange,area,role,addTag,
-        selectePropertySubTypeId,handleAvailableServices,touched,addPostLoading,setPredefinedPicturesModal
+        selectePropertySubTypeId,handleAvailableServices,touched,addPostLoading
+        ,setPredefinedPicturesModal,  setFieldTouched
     }:iProps
 )=>{
 
@@ -298,10 +299,10 @@ export const LargeView = (
                                 add={addPhone}
                                 value={phoneNumber}
                                 reset={resetPhone}
-                                error={errors['phone_numbers']}
+                                error={errors['phone_numbers']?errors['phone_numbers'][0]['phone']:''}
                                 touched={touched['phone_numbers']}
                                 handleBlur={handleBlur}
-                                
+                                setFieldTouched={setFieldTouched}
 
                                 />
                             </Col>

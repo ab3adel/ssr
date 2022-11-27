@@ -193,7 +193,7 @@ const PostDetails = () => {
       setPostLikes(post.likes);
     }
   }, [post]);
-
+console.log(post)
   return (
     <Col xs={12} className="postDetailsContainer">
       <Col xs={0} sm={12} className="p-0">

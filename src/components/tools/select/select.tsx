@@ -56,7 +56,7 @@ const onBlur=(e:React.FocusEvent)=>{
         name={name}
         style={i18n.language ==="ar"?{backgroundPosition:"left 0.75rem center"}:{backgroundPosition:"right 0.75rem center"}}
         onBlur={onBlur}
-        isInvalid={Boolean(error)}
+        isInvalid={Boolean(error) && touched}
         multiple={multiSelect}
         >
             

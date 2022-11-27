@@ -45,7 +45,7 @@ export const Location = ({
   const addCountry = (id: number) => {
     setCountry(id);
   };
-  console.log(countries, area);
+
   return (
     <Col xs={12}>
       <Col xs={12} className="p-sm-1 p-0">

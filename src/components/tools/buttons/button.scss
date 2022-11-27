@@ -35,3 +35,41 @@
         opacity: 0.8;
     }
 }
+.buttonLightGreen {
+    background-color: white;
+    border-radius:5px ;
+    color: var(--light-green);
+    padding: 1px;
+    height: 30px;
+    box-shadow: none;
+    border:var(--light-green) 1px solid;
+    transition: all .2s ease;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    &:hover, &:focus {
+        opacity: 0.8;
+     
+        color:white;
+       animation: focusEffect 1s ease-in-out forwards 1;
+      
+    }
+    @keyframes focusEffect {
+        0% {
+            background-color: white;
+            color:var(--light-green)
+        }
+        50%{
+
+            background-color: var(--light-green);
+            color:white
+        }
+        100%{
+            background-color: white;
+            color:var(--light-green)
+        }
+    }
+}

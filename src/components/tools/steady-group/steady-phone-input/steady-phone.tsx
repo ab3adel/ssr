@@ -8,20 +8,21 @@ interface iProps {
     label:string,
     disabled:boolean,
     value:any,
-    setFieldValue:Function,
-    name:string
+    setFieldValue?:Function,
+    name:string,
+    exteriorFunction?:Function
 
 }
-export const SteadyPhoneInput =({label,disabled,value,setFieldValue,name}:iProps)=>{
+export const SteadyPhoneInput =({label,disabled,value,setFieldValue=()=>{},exteriorFunction=()=>{},name}:iProps)=>{
     const [currentValue,setCurrentValue]=useState({phone:'',international_code:''})
     const {i18n,t} =useTranslation()
 const handleChange= (e:string,data:any)=>{
-console.log(e,data)
+
     setCurrentValue({phone:e,international_code:data.dialCode})
 }
 const addNumber =()=>{
-    let phones=[...value,currentValue]
-    setFieldValue(name,phones)
+   
+  exteriorFunction(currentValue)
     setCurrentValue({phone:'',international_code:''})
 }
 
@@ -39,6 +40,8 @@ const addNumber =()=>{
                 onChange={(value:string,data:any,event:any,formattedValue:any)=>handleChange(value,data)}
                 disabled={disabled}
                 country="kw"
+                inputStyle={{'direction':i18n.language ==='en'?"ltr":'rtl'
+                ,padding:i18n.language==='en'?'0 0 0 25px':'0 25px 0 0 '}}
                 />
                { !disabled &&
                 (<div className="addNumber"

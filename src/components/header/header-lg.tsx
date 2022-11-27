@@ -62,9 +62,10 @@ export const HeaderLg = ({ token }: iProps) => {
               <Col sm={6} className=" d-none d-sm-block user">
                 <Col xs={12} className="d-flex justify-content-center">
                   {token?.profile_picture ? (
-                    <img src={token.profile_picture} className="icon ml-1" />
+                    <img src={token.profile_picture} className="icon ml-1 rounded-circle" />
                   ) : (
-                    <img src={user} className="icon ml-1" />
+                    <img src={user} className="icon ml-1 rounded-circle"
+                     />
                   )}
                 </Col>
                 <Col xs={12}>

@@ -28,7 +28,8 @@ interface iProps {
   removeToken: Function;
   collapsed: boolean;
   setCollapsed: Function;
-  authenticated?:boolean
+  authenticated?:boolean,
+
 }
 let mainCol_xl = 12;
 let mainCol_lg = 12;
@@ -42,13 +43,15 @@ export const SidebarLg = ({
   removeToken,
   collapsed,
   setCollapsed,
-  authenticated
+  authenticated,
+
 }: iProps) => {
   const { i18n, t } = useTranslation();
-  const [selected, setSelected] = useState(0);
-
-  const [logedIn, setLogedIn] = useState(false);
+ 
   const navigate = useNavigate();
+    const [selected, setSelected] = useState(0);
+  const [logedIn, setLogedIn] = useState(false);
+
   const handleLanguage = (index: number) => {
     if (index === 0) {
       localStorage.setItem("lang", "en");
@@ -62,32 +65,34 @@ export const SidebarLg = ({
     setLogedIn(true);
     navigate("/auth");
   };
-  const hanldeRoutes = (num: number) => {
-    setSelected(num);
-    switch (num) {
-      case 0:
-        navigate("/");
-        break;
-      case 1:
-        navigate("/news");
-        break;
-      case 2:
-        navigate('/search')
-        break;  
-      case 3:
-        navigate('/profile');
-        break;
-      case 7:
-        navigate("/addpost");
-        break;
-      case 5:
-        navigate('/messages');
-        break;
 
-      default:
-        navigate("/");
-    }
-  };
+    const hanldeRoutes = (num: number) => {
+        setSelected(num);
+        switch (num) {
+          case 0:
+            navigate("/");
+            break;
+          case 1:
+            navigate("/news");
+            break;
+          case 2:
+            navigate('/search')
+            break;  
+          case 3:
+            navigate('/profile');
+            break;
+          case 7:
+            navigate("/addpost");
+            break;
+          case 5:
+            navigate('/messages');
+            break;
+    
+          default:
+            navigate("/");
+        }
+      };
+    
 
   useEffect(() => {
     if (i18n.language === "ar") {
@@ -190,10 +195,11 @@ export const SidebarLg = ({
             <Col
               lg={col_lg}
 
-              onClick={() => hanldeRoutes(3)}
+              onClick={() => authenticated? hanldeRoutes(3) : {}}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
+              
             >
-              <div className={selected === 3 ? "item focused" : "item "}>
+              <div className={authenticated? selected === 3 ? "item focused" : "item ":"item disabled"}>
                 <img src={profile} className="icon" />
                 {!collapsed && (
                   <>

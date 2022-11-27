@@ -55,12 +55,15 @@ export const FixedSection = ({ post }: { post: any }) => {
               {i18n.language === "en" ? post.updated_at.en : post.updated_at.ar}
             </div>
           </Col>
+        { post?.PACIID && <>
           <Col lg={5} xs={6} className="fw-bold">
             PACIID
           </Col>
           <Col lg={4} xs={6}>
             <div className="tag grey">{post.PACIID ? post.PACIID : ""}</div>
           </Col>
+          </>
+          }
           <Col lg={5} xs={6} className="fw-bold">
             Direction
           </Col>

@@ -28,6 +28,13 @@
            border: none;
            border-radius: 10px;
            background-color: transparent;
+           .selected-flag {
+            .flag {
+             .arrow {
+                 display: none;
+             }
+            }
+        }
         }
        
     }

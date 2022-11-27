@@ -10,19 +10,21 @@ interface iProps {
   t: Function;
   name:string;
   setFieldValue:Function;
-  value:any
+  value:any,
+  lang:string
 }
-export const FileDownloader = ({ edit, uploaded_files, t ,setFieldValue,name,value}: iProps) => {
+export const FileDownloader = ({ edit, uploaded_files, t ,setFieldValue,name,value,lang}: iProps) => {
   const [files, setFiles] = useState<File[]>([]);
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     let prefiles = e.target.files;
+   
     if (prefiles && prefiles.length > 0 && prefiles[0]) {
       //let url= URL.createObjectURL(prefiles[0])
-      let newFiles=[...value, (prefiles as FileList)[0]]
+      let newFiles=[...value,(prefiles as FileList)[0]]
 
-      setFiles((pre: any) => [...pre, (prefiles as FileList)[0]]);
-      setFieldValue(name,newFiles)
+      setFiles((pre: any) => [...pre,(prefiles as FileList)[0] ]);
+      setFieldValue(name,[...value,{file:(prefiles as FileList)[0],name:{en:(prefiles as FileList)[0].name,ar:(prefiles as FileList)[0].name}}])
     }
   };
   const downloadFile = (num: number) => {
@@ -111,7 +113,7 @@ export const FileDownloader = ({ edit, uploaded_files, t ,setFieldValue,name,val
                           className="fw-bold text-center my-2 "
                           style={{ fontSize: "0.8rem" }}
                         >
-                          {ele.name ? ele.name : "file_name"}
+                          {ele.name ?lang==='en'? ele.name.en:ele.name.ar : "file_name"}
                         </span>
                         <input
                           type="file"
@@ -142,14 +144,15 @@ export const FileDownloader = ({ edit, uploaded_files, t ,setFieldValue,name,val
                         className="fw-bold text-center my-2 "
                         style={{ fontSize: "12px" }}
                       >
-                        {ele.file_name}
+                        {ele.file_name?lang==='en'?ele.file_name.en:ele.file_name.ar:'file_name'}
                       </span>
                       <a
-                        href={"#"}
-                        download={"downlad"}
-                        id={`file_number_${0}`}
+                        href={'#'}
+                        download={ele.path?ele.path:'#'}
+                        id={`file_number_${index}`}
+                        
                       />
-                      <GreenButton label="Download" fun={() => downloadFile(0)}>
+                      <GreenButton label="Download" fun={() => downloadFile(index)}>
                         <Download />
                       </GreenButton>
                     </Col>

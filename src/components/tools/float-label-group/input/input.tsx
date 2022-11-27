@@ -120,7 +120,7 @@ const handlePhoneBlur=()=>{
   }
   
 if (phoneNumber) {
-  console.log(error && touched)
+
   return (
         <Form.Group className="floatedInput" onClick={focused} onBlur={checkTyping}
         

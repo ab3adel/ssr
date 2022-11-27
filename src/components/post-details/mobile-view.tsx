@@ -39,7 +39,7 @@ export const MobileView = ({
 }: iProps) => {
   const { openSidebar } = useContext(SettingContext);
   const { i18n,t } = useTranslation();
-  
+ 
   return (
     <Col xs={12} className="scrollableSection">
       <Card>

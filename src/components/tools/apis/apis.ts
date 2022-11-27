@@ -47,10 +47,15 @@ export const apis = {
             )
         },
     updatePost:(id:number)=>`posts/${id}?_method=put` ,
-    profile:({user_id}:Partial<iGetProfile>)=>   (
-      `/users?&${user_id?`user_id=${user_id}`:''}`
+    profile:({user_id,page}:Partial<iGetProfile>)=>   (
+      `/users?&${user_id?`user_id=${user_id}`:''}&page=1`
     ),
-    updateProfile:`updateProfile?_method=put`
+    updateProfile:`updateProfile?_method=put`,
+    follow:(company_id:number)=>`follow?${company_id?`company_id=${company_id}`:''}`,
+    unFollow:(company_id:number)=>`unfollow?${company_id?`company_id=${company_id}`:''}`,
+    followings:`followings`,
+    followers:'followers'
+
         
 
     

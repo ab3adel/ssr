@@ -1,5 +1,5 @@
 import { Col ,Row} from "react-bootstrap"
-import Profile from '../../../images/profile/profile.png'
+import Profile from '../../../images/home/icon-profile.svg'
 
 import { GreenButton } from "../../tools/buttons/green-button"
 import editIcon from '../../../images/edit.svg'
@@ -23,6 +23,7 @@ export const UserInfo=({company,edit=false,t,profile_picture
     ,handleChange=()=>{},handleBlur=()=>{},
     errors,touched
 }:iProps)=>{
+
    return (
         <Col xs={12}>
                     <Row className="gy-2 user my-sm-0 my-1">
@@ -32,7 +33,7 @@ export const UserInfo=({company,edit=false,t,profile_picture
                            <InputFile 
                              value={profile_picture}
                              setValue={setFieldValue}
-                             name='profile'
+                             name='profile_picture'
                              width={80}
                              height={80}
                              default_image={Profile}

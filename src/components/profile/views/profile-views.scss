@@ -263,8 +263,11 @@
         }
         .infoContainer {
             .phoneNumber{
+                white-space: initial;
                 span{
-                    padding: 1em;
+                    font-size: 0.6rem;
+                    padding: 0.7em;
+                    
                 }
             }
         }

@@ -8,32 +8,39 @@ import './views/profile-views.scss'
 import {useGetProfile} from '../tools/apis/useGetProfile'
 import { getLocalStorage } from '../tools/getLocalstorage'
 import {Spinner} from '../tools/spinner'
+import {useGetFollowingFollowers} from '../tools/apis/useGetFollowersFollowings'
 
-
-export interface iProps { edit: boolean, setEdit: Function ,t:Function,data:any,lang:string}
+export interface iProps { edit: boolean, setEdit: 
+    Function ,t:Function,data:any,lang:string,
+   
+}
 const Profile = () => {
     const [editProfile, setEditProfile] = useState(false)
     const [normalUserType,setNormalUserType]=useState(false)
     const {t,i18n}=useTranslation()
     const {getProfile,getProfileData,getProfileError,isGetProfileLoading}=useGetProfile()
     const [profileData,setProfileData]=useState({})
+
+
     useEffect(()=>{
         if (getLocalStorage()) {
             let userInfo=getLocalStorage()
-       
+           
             getProfile({user_id:userInfo.id})
             if (userInfo.role >2) setNormalUserType(false)
             else {
                 setNormalUserType(true)
             }
+          
 
         }
+     
     },[])
     useEffect(()=>{
+       
         if(!getProfileError) {
-           if (getProfileData && getProfileData.data && getProfileData.data.length>0) {
-          
-            setProfileData(getProfileData.data[0])
+           if (getProfileData  && getProfileData.length>0) {
+            setProfileData(getProfileData[0])
            }
         }
     },[isGetProfileLoading])
@@ -59,6 +66,8 @@ const Profile = () => {
                     t={t}
                     data={profileData}
                     lang={i18n.language}
+                    
+                    
                 />}
                 </>
 
@@ -69,6 +78,7 @@ const Profile = () => {
                 t={t} 
                 data={profileData}
                 lang={i18n.language}
+              
                 />
 }
         </Col>

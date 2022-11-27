@@ -23,6 +23,7 @@ export const useGetProfile=()=>{
             )
         .then(res=>{
             setLoading(false)
+            
             if (res.data){
 
                 setLoading(false)

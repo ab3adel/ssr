@@ -24,7 +24,7 @@ const HomePage =()=>{
     const [userId,setUserId]=useState(-1)
     useEffect(()=>{
         let obj= getLocalStorage()
-        if (obj) {
+        if (obj && obj.id !== 'Guest' ) {
 
             if ( obj.role) setAuthenticated(true)
             if (obj.id) setUserId(obj.id)
@@ -102,7 +102,8 @@ const HomePage =()=>{
                            description:ele.description,
                            user_id:ele.user_id,
                            owner:ele.user_id === userId,
-                           page_number:page
+                           page_number:page,
+                           space:ele.space
                        
 
                          })
@@ -124,7 +125,7 @@ const HomePage =()=>{
         }
    }
    
- 
+
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 

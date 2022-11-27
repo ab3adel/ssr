@@ -62,7 +62,7 @@ axios.post('https://geolocation-db.com/json/')
 const addGuest= ()=>{
     myAxios.post(apis.addGuest,formik.values)
           .then(res=>{
-            localStorage.setItem('token',JSON.stringify({token:null,full_name:'Guest'}))
+            localStorage.setItem('token',JSON.stringify({token:null,full_name:'Guest',id:'Guest'}))
             setNotify((pre:any)=>({...pre,message:res.data.message,type:true,show:true}))
             formik.resetForm()
             navigate('/')
@@ -73,6 +73,7 @@ const addGuest= ()=>{
            
 }
 const handleGender=(male:boolean,female:boolean)=>{
+   
     setGender((pre:any)=>({male,female}))
     if (male) {
         formik.setFieldValue('gender','Male')
@@ -82,20 +83,22 @@ const handleGender=(male:boolean,female:boolean)=>{
     }
 }
 useEffect(()=>{
-    myAxios.get(apis.country_id(selectedCountry))
-          .then(res=>{
-           let options= res.data.payload.map((ele:any)=>{
-               if (i18n.language=== 'en'){
-                   return {name:ele.name.en,value:ele.id}
-               }
-               else {
-                   return {name:ele.name.ar,value:ele.id}
-               }
-   
-       })
-           setArea(pre=>({data:res.data.payload,options:options}))
-          })
-          .catch(err=>console.log(err))
+
+        myAxios.get(apis.country_id(selectedCountry))
+              .then(res=>{
+               let options= res.data.payload.map((ele:any)=>{
+                   if (i18n.language=== 'en'){
+                       return {name:ele.name.en,value:ele.id}
+                   }
+                   else {
+                       return {name:ele.name.ar,value:ele.id}
+                   }
+       
+           })
+               setArea(pre=>({data:res.data.payload,options:options}))
+              })
+              .catch(err=>console.log(err))
+    
 },[selectedCountry])
 useEffect(()=>{
     myAxios.get(apis.countries)
@@ -216,7 +219,7 @@ return (
                      
 
                                 <Button className={gender.female? "Btn right active":"Btn right inactive" }
-                                onClick={()=>()=>handleGender(false,true)}>
+                                onClick={()=>handleGender(false,true)}>
                                     <img src={female} />
                                     <span>{t("Female")}</span>
                                 </Button>

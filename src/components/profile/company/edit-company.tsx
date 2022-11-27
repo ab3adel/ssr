@@ -20,6 +20,7 @@ import { editCompanyProfileSchema } from "../../tools/validation";
 import axios from '../../tools/apis/axios'
 import {apis} from '../../tools/apis/apis'
 import { getLocalStorage } from "../../tools/getLocalstorage";
+import { reloadResources } from "i18next";
 export const EditCompanyProfile = ({ edit, setEdit ,t,lang,data}: iProps) => {
   let company = true;
  let fieldsUpdatedRigester=useRef<string[]>([])
@@ -63,7 +64,8 @@ const {getRoles,isGetRolesLoading,rolesData,rolesError}=useGetRoles()
       floor: data?.floor ? data?.floor : "",
       block: data?.block ? data.block : "",
       email: data.email ? data.email : "",
-      phone_numbers: data.phone_numbers ? data.phone_numbers : [],
+      pre_existed_phone_numbers: data.phone_numbers ? data.phone_numbers : [],
+      phone_numbers:[],
       avenue: data?.avenue ? data.avenue : "",
       street: data?.street ? data.street : "",
       website: data?.company?.website ? data.company.website : "",
@@ -78,9 +80,11 @@ const {getRoles,isGetRolesLoading,rolesData,rolesError}=useGetRoles()
       area_id:-1,
       category_ids:[],
       category_ids_delete:[],
-      categories:data?.company?.categories?data.company.categories:[],
       predefined_post_pictures:[],
-      predefined_pictures_delete:[]
+      predefined_pictures_delete:[],
+      phone_numbers_delete:[],
+      phone_number_old_primary:'',
+      phone_number_new_primary:''
     },
     onSubmit: () => {},
     enableReinitialize: true,
@@ -110,6 +114,12 @@ const {getRoles,isGetRolesLoading,rolesData,rolesError}=useGetRoles()
     if (data && data.area && data.area.country_id ) {
       setCountry(data.area.country_id)
     }
+    if (data && data.company && data.company.categories) {
+      let companyCategories=data.company.categories
+      if (companyCategories.length >0) {
+        getCategories(1,companyCategories[0].id)
+      }
+    }
   },[data])
   const customSetFieldValue=(name:string,value:any)=>{
     if (!fieldsUpdatedRigester.current.includes(name))fieldsUpdatedRigester.current.push(name)
@@ -123,7 +133,7 @@ const {getRoles,isGetRolesLoading,rolesData,rolesError}=useGetRoles()
 
   useEffect(()=>{
     getCountries()
-    getCategories(1)
+ 
     getRoles()
   },[])
   useEffect(()=>{
@@ -152,21 +162,31 @@ useEffect(()=>{
     }
   }
 },[isGetRolesLoading])
+
 const updateProfile =()=>{
  if (fieldsUpdatedRigester.current.length>0) {
   let formdata= new FormData()
   formdata.append('user_id',getLocalStorage()?getLocalStorage().id:'')
   fieldsUpdatedRigester.current.map(mainEle=>{
     // for simple values like string and numbers
-    if (typeof(formik.values[mainEle]) ==='string' || typeof(formik.values[mainEle]) ==='number') {
+    if (typeof(formik.values[mainEle]) ==='string' 
+    || typeof(formik.values[mainEle]) ==='number' && mainEle !== 'phone_number_old_primary') {
       formdata.append(mainEle,formik.values[mainEle])
     }
     
     else {
-      // for complicated values like object and array
+      
+      if (formik.values['phone_numbers'].length===0) {
+       
+        if (formik.values['pre_existed_phone_numbers'].length>0 && formik.values['pre_existed_phone_numbers'].length === formik.values['phoen_numbers_delete']) {
+         formik.setFieldError('phone_numbers','can not be empty')
+         return
+        }
+        
+      }
       if (Array.isArray(formik.values[mainEle])) {
         //for array 
-        if (mainEle !== 'phone_numbers' && mainEle !== 'files') {
+        if (mainEle !== 'phone_numbers' && mainEle !== 'files' && mainEle !=='predefined_post_pictures') {
           formik.values[mainEle].map((ele:any,index:number)=>{
             formdata.append(`${mainEle}[${index}]`,ele)
           })
@@ -176,15 +196,22 @@ const updateProfile =()=>{
             formik.values[mainEle].map((ele:any,index:number)=>{
               formdata.append(`${mainEle}[${index}][file]`,formik.values[mainEle][index]['file'])
               formdata.append(`${mainEle}[${index}][name][ar]`,formik.values[mainEle][index]['name']['ar'])
-              formdata.append(`${mainEle}[${index}][name][er]`,formik.values[mainEle][index]['name']['en'])
+              formdata.append(`${mainEle}[${index}][name][en]`,formik.values[mainEle][index]['name']['en'])
             })
           }
           if (mainEle==='phone_numbers') {
+
              formik.values[mainEle].map((ele:any,index:number)=>{
               formdata.append(`${mainEle}[${index}][phone]`,formik.values[mainEle][index]['phone'])
               formdata.append(`${mainEle}[${index}][international_code]`,formik.values[mainEle][index]['international_code'])
-              formdata.append(`${mainEle}[${index}][primary]`,index===0?'1':'s')
+              formdata.append(`${mainEle}[${index}][primary]`,formik.values['phone_number_old_primary']?index===0?'1':'0':'0')
              })
+          }
+          if (mainEle === 'predefined_post_pictures') {
+            formik.values[mainEle].map((ele:any,index:number)=>{
+              formdata.append(`${mainEle}[${index}]`,formik.values[mainEle][index]['file'])
+             
+            })
           }
         }
       }
@@ -192,18 +219,44 @@ const updateProfile =()=>{
         formdata.append(`${mainEle}[en]`,formik.values[mainEle]['en'])
         formdata.append(`${mainEle}[ar]`,formik.values[mainEle]['ar'])
       }
+      if (mainEle=== 'phone_number_old_primary') {
+   
+        formdata.append('phone_number_old_primary',formik.values['phone_number_old_primary'])
+       
+        if (formik.values['phone_numbers'].length===0) {
+        
+          let id = formik.values['pre_existed_phone_numbers'].map((ele:any)=>{
+            if (!formik.values['phone_numbers_delete'].includes(ele.id)) return ele
+            return null
+          }).filter((ele:any)=>ele)
+        
+          formdata.append('phone_number_new_primary',id.length>0?id[0].id:'')
+
+        }
+       
+      }
+      if (mainEle === 'profile_picture') {
+        formdata.append(mainEle,formik.values[mainEle])
+      }
+    
     }
   })
-  axios.post(apis.updateProfile,formdata,{
-    headers:{'Authorization':`Bearer ${getLocalStorage()?getLocalStorage().token:null}`
-  }
-  }).then(res=>console.log(res))
-  .catch(err=>console.log(err))
+  
+    axios.post(apis.updateProfile,formdata,{
+      headers:{'Authorization':`Bearer ${getLocalStorage()?getLocalStorage().token:null}`
+    }
+    }).then(res=>{
+    
+      fieldsUpdatedRigester.current=[]
+      window.location.reload()
+
+    })
+    .catch(err=>console.log(err))
 
  }
   setEdit(false)
 }
-console.log(data)
+
   return( 
      <Container className="p-1 ">
       { !mobileView?
@@ -322,13 +375,13 @@ console.log(data)
                profile_picture={formik.values.profile_picture}
                handleChange={customHandleChange}
                handleBlur={formik.handleBlur}
-               setFieldValue={customHandleChange}
+               setFieldValue={customSetFieldValue}
                errors={formik.errors}
                touched={formik.touched}
                />
             </Col>
 
-            <Col xs={10}>
+            <Col xs={8}>
               <GreenButton label={"Save Changes"} fun={() =>updateProfile()} />
             </Col>
           </Row>
@@ -376,6 +429,7 @@ console.log(data)
                     errors={formik.errors}
                     handleChange={customHandleChange}
                     touched={formik.touched}
+                    
                     />
                 <Location t={t}  values={formik.values} 
                   setFieldValue={customSetFieldValue}

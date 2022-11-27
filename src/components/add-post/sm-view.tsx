@@ -58,7 +58,7 @@ export const SmallView = ({
   setPredefinedPicturesModal,
   setFieldTouched
 }: iProps) => {
-  
+
   return (
     <Col xs={12} className="scrollable">
       <Row className="gy-2">
@@ -343,11 +343,11 @@ export const SmallView = ({
                         label={t("Area_m")}
                         type="number"
                         onChange={handleChange}
-                        name="area"
-                        value={values.area}
+                        name="space"
+                        value={values.space}
                         disabled={role !== 3}
-                        error={errors["area"]}
-                        touched={touched["area"]}
+                        error={errors["space"]}
+                        touched={touched["space"]}
                         handleBlur={handleBlur}
                       />
                     </Col>

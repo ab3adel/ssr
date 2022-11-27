@@ -118,7 +118,7 @@ export const AddPostSchema = (role_id: number) =>
               lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
             )
         : Yup.number().notRequired(),
-    area:
+    space:
       role_id === 3
         ? Yup.number()
             .min(

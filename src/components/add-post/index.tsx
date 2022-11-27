@@ -26,6 +26,7 @@ import SettingContext from "../tools/context/setting-context/setting-context";
 import { getLocalStorage } from "../tools/getLocalstorage";
 import {useNavigate} from 'react-router-dom'
 import { iFields } from "../auth/signup/signup";
+import {postInitializer} from './initialvalues'
 interface iPhoneNumber {
   international_code: string;
   phone: string;
@@ -130,49 +131,23 @@ const AddPost = () => {
   const [addPostLoading, setAddPostLoading] = useState(false);
   const { getPosts, getPostsData, getPostsError, isGetPostsLoading } =
     useGetPosts();
-  const [storedPosts] = useRecoilState(Posts);
+  const [storedPosts,setStoredPosts] = useRecoilState(Posts);
   const [openPredefinedPicturesModal, setPredefinedPicuturesModal] =
     useState(false);
   const [predefinedImages, setPredefinedImages] = useState<any[]>([]);
 const [enableFieldsUpdatedRegister,setEnableFieldsUpdatedRegister]=useState(false)
 const fieldsUpdatedRegister=useRef<any>([])
 const {mobileView} =useContext(SettingContext)
+
   const formik = useFormik({
-    initialValues: {
-      input: { en: "", ar: "" },
-      offer_type_id: 0,
-      tags_ids: [],
-      rent_freq: "",
-      title: { en: "", ar: "" },
-      description: { en: "", ar: "" },
-      services_available: { en: "", ar: "" },
-      area_id: "",
-      property_type_id: "1",
-      price_type_id: "",
-      property_site_id: "",
-      category_id: 0,
-      descriptive_address: { ar: "", en: "" },
-      location_link: "",
-      latitude: "",
-      longitude: "",
-      area: "",
-      price: "",
-      number_of_rooms: "",
-      number_of_bathrooms: "",
-      PACIID: "",
-      profile_photo_as_an_image: "0",
-      profile_photo_as_an_image_primary: "0",
-      pre_defined_images: [{ id: "", primary: "" }],
-      images: [{ name: { en: "", ar: "" }, file: "", primary: "" }],
-      pre_defined_phone_numbers: [],
-      phone_numbers: [{ phone: "", international_code: "" }],
-      images_to_delete:[],
-      phone_numbers_to_delete:[],
-      post_new_primary:'',
-    
-    },
+    initialValues:
+    postInitializer(
+      enableFieldsUpdatedRegister&& Boolean(post_id)
+    ,enableFieldsUpdatedRegister? 
+    getPostsData && getPostsData.data? getPostsData.data[0]:{}:{}),
     onSubmit: () => {},
     validationSchema: AddPostSchema(token.role),
+    enableReinitialize:true
     
   });
   const customSetFieldValue=(name:string,value:any)=>{
@@ -231,7 +206,7 @@ const {mobileView} =useContext(SettingContext)
     if (typeof(phoneNumbersArray[num] !== 'string')) {
       let deleted_phones:any[]= [...formik.values.phone_numbers_to_delete]
       let id =phoneNumbersArray[num].id
-      if (!deleted_phones.includes(id)) deleted_phones.push(id)
+      if (!deleted_phones.includes(id) && id) deleted_phones.push(id)
      customSetFieldValue('phone_numbers_to_delete',deleted_phones)
     }
     setPhoneNumbersArray(newNumbers);
@@ -286,7 +261,7 @@ const {mobileView} =useContext(SettingContext)
       formData.append("longitude", formik.values.longitude);
       formData.append("number_of_rooms", formik.values.number_of_rooms);
       formData.append("number_of_bathrooms", formik.values.number_of_bathrooms);
-      formData.append("area", formik.values.area);
+      formData.append("area", formik.values.space);
     }
     if (token.role !== 3) {
       formData.append("category_id", JSON.stringify(formik.values.category_id));
@@ -346,7 +321,7 @@ const {mobileView} =useContext(SettingContext)
       formik.values.pre_defined_images.length > 0 &&
       formik.values.pre_defined_images[0].id
     ) {
-      formik.values.pre_defined_images.map((ele, index) => {
+      formik.values.pre_defined_images.map((ele:any, index:Number) => {
         formData.append(`pre_defined_images[${index}][id]`, ele["id"]);
         formData.append(
           `pre_defined_images[${index}][primary]`,
@@ -585,67 +560,7 @@ const {mobileView} =useContext(SettingContext)
   }, [isAreaLoading]);
 
   // UPDATE POST ///////////////////////////////////////////////////////////////////////////////
-  const intializeValues =async (data:any)=>{
-    getPostsData.data.map((ele: any, index: number) => {
-      formik.setFieldValue("category_id", ele.category_id);
-  
-      formik.setFieldValue("title", ele.title);
-      formik.setFieldValue(
-        "description",
-        ele.description || { en: "", ar: "" }
-      );
-      formik.setFieldValue(
-        "services_available",
-        ele.services_available || { en: "", ar: "" }
-      );
-      formik.setFieldValue("price", parseInt(ele.price));
-      formik.setFieldValue("PACIID", ele.PACIID);
-      
-      formik.setFieldValue("area_id", ele.area_id);
-      formik.setFieldValue("property_type_id", ele.property_type?.id);
-      formik.setFieldValue("main_property_id", ele.property_type?.type_id);
-      formik.setFieldValue("offer_type_id", ele.offer_type_id);
-      formik.setFieldValue("price_type_id", ele.price_type_id);
-      formik.setFieldValue("property_site_id", ele.property_site_id);
-      formik.setFieldValue("location_link", ele.location_link);
-      formik.setFieldValue("latitude", ele.latitude);
-      formik.setFieldValue("longitude", ele.longitude);
-      formik.setFieldValue("number_of_rooms", ele.number_of_rooms);
-      formik.setFieldValue("number_of_bathrooms", ele.number_of_bathrooms);
-      formik.setFieldValue('area',200)
-      
-  
-      let oldPhoneNumbers: any[] = [];
-      let phones:any[]=[]
-      let idTags: any[] = [];
-      let oldImages: any[]=[]
-      let images: any[]=[]
-      ele.phone_numbers.map((ele: any) => {
-        phones.push(ele)
-        oldPhoneNumbers.push({phone:ele.phone,international_code:ele.international_code});
-      });
-     
-      if (ele.tags_ids && ele.tags_ids.length > 0) {
-        ele.tags_ids.map((ele: any) => {
-          idTags.push(ele.id);
-        });
-       
-      }
-      if (ele.images && ele.images.length>0) {
-        ele.images.map((ele:any)=>{
-          images.push(ele)
-          oldImages.push({name:{en:ele.file_name,ar:ele.file_name}
-            ,file:ele
-           ,primary:ele.primary_post_picture})
-        })
-      }
-      formik.setFieldValue("tags_ids", idTags);
-      setPhoneNumbersArray(phones);
-      formik.setFieldValue("phone_numbers", oldPhoneNumbers);
-      setImages(images)
-      formik.setFieldValue("images", oldImages);
-    });
-  }
+
   useEffect(() => {
     if (page && post_id) {
       getPosts({ page: parseInt(page), post_id: parseInt(post_id) });
@@ -654,9 +569,38 @@ const {mobileView} =useContext(SettingContext)
   useEffect(() => {
     if (!getPostsError) {
       if (getPostsData && getPostsData.data.length >0) {
-
-        const initialization= async()=> await intializeValues(getPostsData.data)
-      initialization()
+        
+        let oldPhoneNumbers: any[] = [];
+        let phones:any[]=[]
+        let idTags: any[] = [];
+        let oldImages: any[]=[]
+        let images: any[]=[]
+        getPostsData.data[0]?.phone_numbers.map((ele: any) => {
+          phones.push(ele)
+          oldPhoneNumbers.push({phone:ele.phone,international_code:ele.international_code});
+        });
+       
+        if (getPostsData.data[0]?.tags_ids && getPostsData.data[0]?.tags_ids.length > 0) {
+          getPostsData.data[0]?.tags_ids.map((ele: any) => {
+            idTags.push(ele.id);
+          });
+         
+        }
+        if (getPostsData.data[0]?.images && getPostsData.data[0]?.images.length>0) {
+          getPostsData.data[0]?.images.map((ele:any)=>{
+            images.push(ele)
+            oldImages.push({name:{en:ele.file_name,ar:ele.file_name}
+              ,file:ele
+             ,primary:ele.primary_post_picture})
+          })
+        }
+        
+        setPhoneNumbersArray(phones);
+      
+        setImages(images)
+       
+      //   const initialization= async()=> await intializeValues(getPostsData.data)
+      // initialization()
      
       setEnableFieldsUpdatedRegister(true)
       }
@@ -664,19 +608,49 @@ const {mobileView} =useContext(SettingContext)
     
 
   }, [isGetPostsLoading]);
+const updatePostImediately=(data:any)=>{
+ let newPosts= storedPosts.map(ele=>{
+    if (ele.id === parseInt(post_id as string)) {
+      return ({
+        ...ele,
+        title:data.title,
+        area:data.area.name,
+        offer_type:data.offer_type?data.offer_type.name:null,
+        main_property_type:data.main_property_type?data.main_property_type.name:null,
+        price_type:data.price_type?data.price_type.name:null,
+        number_of_rooms:data.number_of_rooms,
+        number_of_bathrooms:data.number_of_bathrooms,
+        images:data.images?data.images.map((ele:any)=>ele.path):[],
+        profile_picture:data.profile_picture,
+        property_site:data.property_site?data.property_site.name:null,
+        property_type:data.property_type?data.property_type.name:null,
+        tags:data.tags_ids && data.tags_ids.length>0?data.tags_ids:null,
+        currency:data.area.country.currency,
+        PACIID:data.PACIID,
+        services_available:data.services_available,
+        phone_numbers:data.phone_numbers,
+        category:data.category?data.category.name:null,
+        price:data.price,
+        description:data.description,
+        space:data.space
+      })
+    }
+    return ele
+  })
+  setStoredPosts(newPosts)
+}
 
-
-console.log(formik.errors,formik.touched)
   const updatePost = () => {
    
-    if (checkError()){ 
-  
-      return;}
+    
     if (phoneNumbersArray.length===0) {
     
      formik.setFieldError('phone_numbers[0][phone]','This field can not be empty')
       //formik.setFieldTouched('phone_numbers',true)
       return
+    }
+    else {
+      formik.setFieldError('phone_numbers[0][phone]','')
     }
  
     setAddPostLoading(true);
@@ -703,6 +677,10 @@ console.log(formik.errors,formik.touched)
 
           formData.append("price_type_id", formik.values.price_type_id);
         }
+        if (fieldsUpdatedRegister.current.includes('offer_type_id')){
+
+          formData.append("offer_type_id", formik.values.offer_type_id);
+        }
         if (fieldsUpdatedRegister.current.includes('property_site_id')){
 
           formData.append("property_site_id", formik.values.property_site_id);
@@ -727,9 +705,9 @@ console.log(formik.errors,formik.touched)
 
           formData.append("number_of_bathrooms", formik.values.number_of_bathrooms);
         }
-        if (fieldsUpdatedRegister.current.includes('area')){
+        if (fieldsUpdatedRegister.current.includes('space')){
 
-          formData.append("area", formik.values.area);
+          formData.append("space", formik.values.space);
         }
       }
       if (token.role !== 3 && fieldsUpdatedRegister.current.includes('category_id')) {
@@ -802,7 +780,7 @@ console.log(formik.errors,formik.touched)
        ( formik.values.pre_defined_images.length > 0 &&
         formik.values.pre_defined_images[0].id)
       ) {
-        formik.values.pre_defined_images.map((ele, index) => {
+        formik.values.pre_defined_images.map((ele:any, index:number) => {
           formData.append(`pre_defined_images[${index}][id]`, ele["id"]);
           formData.append(
             `pre_defined_images[${index}][primary]`,
@@ -862,6 +840,7 @@ console.log(formik.errors,formik.touched)
         .then((res) => {
           setAddPostLoading(false);
           if (res.data) {
+            updatePostImediately(res.data.payload)
             setNotify((pre: any) => ({
               ...pre,
               type: true,
@@ -874,17 +853,30 @@ console.log(formik.errors,formik.touched)
         })
         .catch((err) => {
           setAddPostLoading(false);
-          if (err.response && err.response.data.message) {
-            setNotify((pre: any) => ({
-              ...pre,
-              type: false,
-              show: true,
-              message: err.response.data.message,
-            }));
-          }
-        });
-  };
+          console.log(Array.isArray(err.response.data.error))
+          if (err.response && err.response.data.error) {
+            if (Array.isArray(err.response.data.error)) {
+              setNotify((pre: any) => ({
+                ...pre,
+                type: false,
+                show: true,
+                message: err.response.data.error[0],
+              }));
+            }
+           else {
 
+             setNotify((pre: any) => ({
+               ...pre,
+               type: false,
+               show: true,
+               message: err.response.data.error,
+             }));
+           }
+           }
+            })
+        };
+  ;
+console.log(formik.errors)
   return (
     <Col xs={12} className="addPostContainer">
       {

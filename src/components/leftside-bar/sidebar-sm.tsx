@@ -86,7 +86,7 @@ export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
         } `}
       >
         <Collapse in={openSidebar} dimension="width">
-          <Col xs={12} className="sidebarItems">
+          <Col xs={12} className="sidebarItems h-100">
             <Row className=" justify-content-between h-100 flex-grow-1 gy-4">
               <Col xs={12}>
                 <List className="logo" onClick={() => setOpenSidebar(false)} />
@@ -100,15 +100,14 @@ export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
                         i18n.language === "en"
                           ? {}
                           : {
-                              flexDirection: "row-reverse",
-                              justifyContent: "space-between",
+                              
+                            
                             }
                       }
                     >
                       <img src={home} className="icon" />
-                      {i18n.language === "ar" && <div className="empty"></div>}
-
-                      <span>{t("Home")}</span>
+                     <div className="empty"></div>
+                      <span className="">{t("Home")}</span>
                       {i18n.language === "en" && <div className="empty"></div>}
                     </div>
                   </Col>
@@ -119,13 +118,13 @@ export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
                         i18n.language === "en"
                           ? {}
                           : {
-                              flexDirection: "row-reverse",
-                              justifyContent: "space-between",
+                              
+                           
                             }
                       }
                     >
                       <img src={news} className="icon" />
-                      {i18n.language === "ar" && <div className="empty"></div>}
+                   <div className="empty"></div>
                       <span>{t("NewsFeed")}</span>
                       {i18n.language === "en" && <div className="empty"></div>}
                     </div>
@@ -137,30 +136,31 @@ export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
                         i18n.language === "en"
                           ? {}
                           : {
-                              flexDirection: "row-reverse",
-                              justifyContent: "space-between",
+                            
+                             
                             }
                       }
                     >
                       <img src={search} className="icon" />
-                      {i18n.language === "ar" && <div className="empty"></div>}
+                <div className="empty"></div>
                       <span>{t("Search")}</span>
                       {i18n.language === "en" && <div className="empty"></div>}
                     </div>
                   </Col>
-                  <Col xs={7} onClick={() => handleRoutes(3)}>
+                  <Col xs={7} onClick={() =>authenticated? handleRoutes(3):{} }>
                     <div
-                      className={selected === 3 ? "item focused" : "item "}
+                      className={authenticated? selected === 3 ? "item focused" : "item ": "item disabled"}
                       style={
                         i18n.language === "en"
                           ? {}
                           : {
-                              flexDirection: "row-reverse",
-                              justifyContent: "space-between",
+                             
+                            
                             }
                       }
                     >
                       <img src={profile} className="icon" />
+                   <div className="empty"></div>
 
                       <span>{t("Profile")}</span>
                     </div>
@@ -172,26 +172,27 @@ export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
                         i18n.language === "en"
                           ? {}
                           : {
-                              flexDirection: "row-reverse",
-                              justifyContent: "space-between",
+                            
+                             
                             }
                       }
                     >
-                      {i18n.language === "ar" && (
-                        <span className="notification" style={{ margin: "0" }}>
-                          10
-                        </span>
-                      )}
+                     
 
                       <div className="iconContainer">
                         <div className="dot"></div>
                         <img src={notification} className="icon" />
                       </div>
-
+                     <div className="empty"></div>
                       <span>{t("Notifications")}</span>
-                      {i18n.language === "en" && (
+                     
+                      {i18n.language === "en" ?(
                         <span className="notification">10</span>
-                      )}
+                      ):
+                      <span className="notification" style={{ margin: "0" }}>
+                      10
+                    </span>
+                    }
                     </div>
                   </Col>
                   <Col xs={7} onClick={() => handleRoutes(5)}>
@@ -201,25 +202,24 @@ export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
                         i18n.language === "en"
                           ? {}
                           : {
-                              flexDirection: "row-reverse",
-                              justifyContent: "space-between",
+                              
+                           
                             }
                       }
                     >
-                      {i18n.language === "ar" && (
-                        <span className="notification" style={{ margin: "0" }}>
-                          10
-                        </span>
-                      )}
+                     
                       <div className="iconContainer">
                         <div className="dot"></div>
                         <img src={messages} className="icon" />
                       </div>
-
+                     <div className="empty"></div>
                       <span>{t("Messages")}</span>
-                      {i18n.language === "en" && (
-                        <span className="notification">10</span>
-                      )}
+                      {i18n.language === "en" ? 
+                        <span className="notification">10</span>:
+                        <span className="notification" style={{ margin: "0" }}>
+                          10
+                        </span>
+                      }
                     </div>
                   </Col>
                   <Col xs={7} onClick={() => handleRoutes(6)}>
@@ -229,13 +229,14 @@ export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
                         i18n.language === "en"
                           ? {}
                           : {
-                              flexDirection: "row-reverse",
-                              justifyContent: "space-between",
+                          
                             }
                       }
                     >
                       <img src={about} className="icon" />
+                      <div className="empty"></div>
                       <span>{t("AboutInsta")}</span>
+                     
                     </div>
                   </Col>
                   <Col xs={8}>

@@ -59,6 +59,8 @@ function App() {
           
     }
   useEffect(() => {
+ 
+    if (getLocalStorage() && getLocalStorage().id === 'Guest') return
      if (!getLocalStorage() || !getLocalStorage().full_name) {
        navigate("/auth");
      } else {

@@ -48,7 +48,8 @@ useEffect(()=>{
         <Form.Group
             className={Boolean(error)? `mb-1 is_valid inputGroupWithIcon ${className}`:`mb-1 inputGroupWithIcon  ${className}`}
             style={{
-                padding:i18n.language === 'en'?'0.5em 2.9em 0.5em 0':'0.5em 0em 0.5em 2.9em',
+                padding:type==='password'?(i18n.language === 'en'?'0.5rem 2.9rem 0.5rem 0.1':'0.5rem 0.1rem 0.5rem 2.9rem'):
+                (i18n.language === 'en'?'0.5rem 2rem 0.5rem 0.1rem':'0.5rem 0.1rem 0.5rem 2rem'),
                 height:height?height:''
         }
                }

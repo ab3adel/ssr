@@ -48,6 +48,7 @@ export const Data = ({t,values,setFieldValue,handleBlur,edit,lang,imagesToShow=[
         setFieldValue={setFieldValue}
         name="files"
         value={values['files']}
+        lang={lang}
          />
       </Col>
       <Col xs={11}>

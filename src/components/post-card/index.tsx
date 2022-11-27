@@ -20,12 +20,13 @@ import { useLikePost } from "../tools/apis/uselikePost";
 import { useEffect, useState, useContext, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ImagesGallery } from "../tools/imgs-gallery/imgs-gallery";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { iPost } from "../tools/interface";
 import notificationContext from "../tools/context/notification/notification-context";
 import { useDeletePost } from "../tools/apis/useDeletePost";
 import { useRecoilState } from "recoil";
 import { Posts } from "../store";
+import {LightGreenButton} from '../tools/buttons/light-green-button'
 export const PostCard = ({
   title = { en: "", ar: "" },
   area = { en: "", ar: "" },
@@ -71,11 +72,32 @@ export const PostCard = ({
   const [postID, setPostID] = useState(-1);
   const [storedPosts, setStoredPosts] = useRecoilState(Posts);
   const navigateToDetails = (id: number) => {
-    navigate(`postdetails/${page}/${id}`);
+
+
+      navigate(`/postdetails/${page}/${id}`);
+
+    
   };
   const navigateToUpdatePost = (post_id: number) => {
-    navigate(`updatepost/${page}/${post_id}`);
+
+
+      navigate(`/updatepost/${page}/${post_id}`);
+
   };
+  const navigateProfile =()=>{
+    if (authenticated) {
+      navigate(`/publicprofile/${page}/${user_id}`)
+    }
+    else {
+      setNotify((pre: any) => ({
+        ...pre,
+        show: true,
+        type: "info",
+        message: "You have to login first !",
+      }));
+    }
+
+  }
   const deleteSpecificPost = (id: number) => {
     setOpenDialog(true);
     setPostID(id);
@@ -156,6 +178,10 @@ export const PostCard = ({
                         style={
                           small_size ? { width: "45px", height: "45px" } : {}
                         }
+                        onClick={()=>owner? navigate('/profile')  :
+                        navigateProfile()
+                      }
+                      
                       />
                     </Col>
                     <Col xs={9}>
@@ -218,9 +244,7 @@ export const PostCard = ({
                           </Dropdown.Item>
                         </>
                       )}
-                      <Dropdown.Item onClick={() => navigateToDetails(id)}>
-                        Details
-                      </Dropdown.Item>
+                     
                       <Dropdown.Item>Report</Dropdown.Item>
                       <Dropdown.Item>Hide</Dropdown.Item>
                     </Dropdown.Menu>
@@ -304,8 +328,9 @@ export const PostCard = ({
                       : ""}
                   </Row>
                 </Col>
+                {!for_profile && (
                 <Col xs={4}>
-                  {!for_profile && (
+                 
                     <Row>
                       <Col
                         xs={7}
@@ -321,8 +346,8 @@ export const PostCard = ({
                         <img src={share} />
                       </Col>
                     </Row>
-                  )}
                 </Col>
+                  )}
               </Row>
             </Col>
             <Col xs={12}>
@@ -331,7 +356,7 @@ export const PostCard = ({
               </div>
             </Col>
             <Col xs={12} className="details">
-              <Row className="gy-1 justify-content-between justify-content-sm-start">
+              <Row className="gy-3 justify-content-between justify-content-sm-start">
                 <Col lg={3} md={5} xs={5} className="detail">
                   <img
                     src={direction}
@@ -386,6 +411,17 @@ export const PostCard = ({
                     )}
                   </Col>
                 }
+                <Col xs={12}>
+                  <Row className='justify-content-center'>
+
+                    <Col xs={5}>
+                       <LightGreenButton 
+                       label={t("MoreDetails")}
+                       fun={() => navigateToDetails(id)}
+                       />
+                    </Col>
+                  </Row>
+                </Col>
               </Row>
             </Col>
           </Row>

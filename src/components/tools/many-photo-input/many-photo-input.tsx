@@ -50,7 +50,7 @@ export const ManyPhotosInput = ({
       arr.push(objUrl);
       
       setValue(name, files_arr);
-      console.log(arr)
+
       setImages(arr);
     }
   };

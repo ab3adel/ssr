@@ -139,5 +139,6 @@ export interface iGetProfile {
   email:string,
   area_id:number,
   phone_number:string,
-  role_id:number
+  role_id:number,
+  page:number
 }

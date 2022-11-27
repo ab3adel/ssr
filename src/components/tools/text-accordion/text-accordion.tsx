@@ -12,7 +12,7 @@ const [expand ,setExpand]=useState(false)
     return (
         <>
                     {
-                        description.length >200 ?
+                        description?.length >200 ?
                         !expand?
                     <Col xs={12} className="textAccordion">
                         <Col xs={12} className="textRistrected text">

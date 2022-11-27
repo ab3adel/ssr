@@ -30,19 +30,18 @@ export const SteadySelect=({label,options
                     }:iProps)=>{
    
     const {i18n,t} =useTranslation()
-   const [selection,setSelection]=useState(options )
    const [selected,setSelected]=useState(0)
 
 
 useEffect(()=>{
 if (Array.isArray(value)) {
-    if (value.length>0)setSelected(value[0].id)
+    if (value.length>0 && value[0] && value[0].id)setSelected(value[0].id)
     else {
         setSelected(0)
     }
 }
 else{
-   if (value) setSelected(value.id)
+   if (value && value.id) setSelected(value.id)
 }
 },[value])
 const handleSelect=(e:React.ChangeEvent<any>)=>{
@@ -87,10 +86,10 @@ const handleSelect=(e:React.ChangeEvent<any>)=>{
                         options.map((ele,index)=>{
                         
                             return <option 
-                                value={ele.id} 
+                                value={ele?ele.id:''} 
                             
                                 key={index}>
-                                {i18n.language==='en'?ele.name.en:ele.name.ar}
+                                {ele && ele.name?i18n.language==='en'?ele.name.en:ele.name.ar:''}
                                 </option>
                         })
                         :"" }

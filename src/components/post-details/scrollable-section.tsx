@@ -190,8 +190,8 @@ export const ScrollableSection = ({
                   <TextAccordion
                     description={
                       i18n.language === "en"
-                        ? post.description.en
-                        : post.description.ar
+                        ? post?.description?.en
+                        : post?.description?.ar
                     }
                   />
                 </Col>

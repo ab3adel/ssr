@@ -21,16 +21,19 @@ export const Rotues = (id: number): RouteObject[] => ([
             { index: true, element: <HomePage /> },
             {path:'/updatepost/:page/:post_id',element:<AddPost />},
             { path: '/postdetails/:page/:post_id', element: <PostDetails /> },
+            { path: '/publicprofile/:page/:user_id', element: <PublicProfile /> },
             { path: '/news', element: <NewsFeed /> },
            
             { path: '/addpost', element: id === 2 ? <Navigate to="/" /> : <AddPost /> },
             { path: '/messages', element: <Chat /> },
             { path: '/profile', element: <Profile /> },
-            { path: '/publicprofile', element: <PublicProfile /> },
+ 
             { path: '/search', element: <SearchPage /> },
+
         
 
         ]
     },
     { path: '/auth', element: <AuthenticationPage /> }
+  
 ])

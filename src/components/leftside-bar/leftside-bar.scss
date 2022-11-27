@@ -83,6 +83,10 @@
             margin:0 0px 0 5px;
             width:20px;
             height: 20px;
+            min-width: 20px;
+            min-height: 20px;
+            max-width: 20px;
+            max-height: 20px;
 
         }
         .postBtn {
@@ -130,6 +134,11 @@
                     font-weight: bold;
                 }
             }
+        }
+        .item.disabled {
+            transition: none;
+            color:gray;
+            pointer-events: none;
         }
         .item.focused {
             background-color: var(--back-color);
@@ -306,7 +315,9 @@
                 span.text {
                     font-size: calc(0.2em + 1vmin);
                 }
+
             }
+           
             .empty{
                 width: 1vmin;
                 height: 1vmin;
@@ -322,11 +333,26 @@
     .sidebarContainerSm {
         z-index: 10000;
         position: absolute;
+        min-height: 110vh;
         .sidebarItems {
             .item {
                 padding: 0.6rem;
                 span {
                     margin:0 4px;
+                }
+            }
+            .item.disabled {
+                pointer-events: none;
+                &:focus{
+                    span {
+                        color:gray;
+                        font-weight: normal;
+                    }
+                }
+                &:hover{
+                    span{
+                        font-weight: normal;
+                    }
                 }
             }
         }

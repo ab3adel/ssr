@@ -13,13 +13,26 @@ import { FollowersFollowing } from "../views/followers-following";
 import { useGetPosts } from "../../tools/apis/useGetPosts";
 import SettingContext from "../../tools/context/setting-context/setting-context";
 import {useContext} from 'react'
+
+import { Files } from "react-bootstrap-icons";
+import { useGetFollowingFollowers } from "../../tools/apis/useGetFollowersFollowings";
 export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
   let company = true;
   
   let [tabIndex, setTabIndex] = useState(0);
   let {mobileView} = useContext(SettingContext);
   let [posts,setPosts]=useState([])
+  const [followers,setFollowers]=useState<any>([])
+  const [following,setFollowing]=useState<any>([])
   let {getPosts,getPostsData,getPostsError,isGetPostsLoading} =useGetPosts()
+  let {getFollowers
+    ,getFollowings
+    ,followersData
+    ,followingData
+    ,followersError
+    ,followingError
+  ,isFollowersLoading
+,isFollowingLoading}=useGetFollowingFollowers()
   const formik = useFormik({
     initialValues: {
       twitter: data?.company?.twitter ? data.company.twitter : "myTwitter.com",
@@ -43,7 +56,7 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
       floor: data?.floor ? data?.floor : "",
       block: data?.block ? data.block : "",
       email: data.email ? data.email : "",
-      phone_numbers: data.phone_numbers ? data.phone_numbers : [],
+      pre_existed_phone_numbers: data.phone_numbers ? data.phone_numbers : [],
       avenue: data?.avenue ? data.avenue : "",
       street: data?.street ? data.street : "",
       website: data?.company?.website ? data.company.website : "",
@@ -52,20 +65,27 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
       role: data?.roles ? data.roles[0] : { name:{en: "", ar: ""} ,id: 0 },
       pre_defined_images: [],
       files: data?.comapny?.files ? data.company.files : [],
+      category:data?.company?.categories?data.company.categories: [{ name:{en: "", ar: ""} ,id: 0 }]
     },
     onSubmit: () => {},
     enableReinitialize: true,
   });
+  useEffect(()=>{
+    getFollowers()
+    getFollowings()
+  },[])
 
   useEffect(() => {
     if (data) {
 
       if ( data.company && data.company.files) {
-       
+       let required_files:any[]=[]
         let images = data.company.files.map((ele: any) => {
           if (ele.file_purpose === "predefined_post_picture") return ele.path;
-        });
+          if (ele.file_purpose === 'required_file') required_files.push(ele)
+        }).filter((ele:any)=>ele)
         formik.setFieldValue("pre_defined_images", images);
+        formik.setFieldValue('files',required_files)
       }
       if (data.id) {
         getPosts({user_id:data.id})
@@ -85,6 +105,7 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
               ar:new Date(ele.updated_at).toLocaleDateString('ar-EG',options)
           }
       }
+   
  
         return (
           {
@@ -126,7 +147,18 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
     }
   }
  },[isGetPostsLoading])
- 
+ useEffect(()=>{
+  if (!followersError && followersData && followersData.length>0) {
+    setFollowers(followersData[0])
+  }
+},[isFollowersLoading])
+useEffect(()=>{
+  if (!followingError && followingData && followingData.length>0) {
+     setFollowing(followingData[0])
+      
+  }
+    },[isFollowingLoading]) 
+
   return (
     <Container className="p-1 ">
       {!mobileView ? (
@@ -151,7 +183,10 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
                     />
                   </Col>
                   <Col xs={12} className="d-flex justify-content-center ">
-                    <FollowersFollowing company={company} t={t} />
+                    <FollowersFollowing company={company} t={t} 
+                    followers={followers}
+                    followings={following}
+                    />
                   </Col>
                 </Row>
               </Col>
@@ -224,7 +259,7 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
                     handleBlur={formik.handleBlur}
                     lang={lang}
                     handleChange={formik.handleChange}
-                    
+                    categories={formik.values['category']}
                   />
                   <Posts
                   posts={posts} />
@@ -250,13 +285,22 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
                 />
               </Col>
 
-              <Col xs={12} className="mt-2 justify-content-center d-flex">
-                <Col xs={10}>
-                  <GreenButton
-                    label={t("EditProfile")}
-                    fun={() => setEdit(true)}
-                  />
-                </Col>
+              <Col xs={12} className="mt-2  ">
+                <Row className='justify-content-center gy-2'>
+
+                  <Col xs={8}>
+                    <FollowersFollowing company={company} t={t}
+                     followers={followers}
+                     followings={following}
+                    />
+                  </Col>
+                  <Col xs={8}>
+                    <GreenButton
+                      label={t("EditProfile")}
+                      fun={() => setEdit(true)}
+                    />
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Col>
@@ -310,6 +354,7 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
                     handleBlur={formik.handleBlur}
                     lang={lang}
                     handleChange={formik.handleChange}
+                    categories={formik.values['category']}
                   />
 
                   <Data

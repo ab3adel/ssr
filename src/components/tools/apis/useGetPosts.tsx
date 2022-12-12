@@ -25,7 +25,7 @@ export const useGetPosts=()=>{
             setLoading(false)
             if (res.data){
 
-                setLoading(false)
+        
                 setData(res.data.payload)
             }
             

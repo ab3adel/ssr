@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState, useRef, RefObject } from "react";
-import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useRef } from "react";
+
 import "./multi-range.css";
 interface iValue {min:number,max:number}
 interface iProps{min:number,max:number,onChange:(value:iValue)=>void
@@ -22,7 +22,7 @@ const MultiRangeSlider = ({ min, max, onChange ,minVal,maxVal,name}:iProps) => {
     const maxPercent = getPercent(maxValRef.current);
 
     if (range.current) {
-      range.current.style.left = `${minPercent}%`;
+      range.current.style.right = `${minPercent}%`;
       range.current.style.width = `${maxPercent - minPercent}%`;
     }
   }, [minVal, getPercent]);
@@ -31,7 +31,7 @@ const MultiRangeSlider = ({ min, max, onChange ,minVal,maxVal,name}:iProps) => {
   useEffect(() => {
     const minPercent = getPercent(minValRef.current);
     const maxPercent = getPercent(maxVal);
-
+    
     if (range.current) {
       range.current.style.width = `${maxPercent - minPercent}%`;
     }

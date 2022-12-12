@@ -9,3 +9,7 @@ export const PostsIDs=atom <any[]>({
     key:'PostsIDs',
     default:[]
 })
+export const FilteredPosts=atom<any[]>({
+    key:'FilteredPosts',
+    default:[]
+})

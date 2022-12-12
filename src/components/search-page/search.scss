@@ -1,6 +1,8 @@
 .searchContainer {
     max-height: 80vh;
     overflow-y: scroll;
+    max-width: 100vw;
+    overflow-x: hidden;
 
     &::-webkit-scrollbar {
         display: none;

@@ -203,8 +203,8 @@ if (phoneNumber) {
           !numberControl
             ? unit
               ? i18n.language === "en"
-                ? { paddingRight: "2.588em",paddingLeft:'1em' }
-                : { paddingLeft: "2.588em" ,paddingRight:'1em' }
+                ? { paddingRight: "2.588em",paddingLeft:'1em' ,fontSize:'0.8rem'}
+                : { paddingLeft: "2.588em" ,paddingRight:'1em' ,fontSize:'0.8rem'}
               : {backgroundPositionX:i18n.language==='en'?'90%':'10%'}
             : {}
         }

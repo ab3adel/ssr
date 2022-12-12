@@ -1,0 +1,35 @@
+
+.paginationContainer {
+    height: 60px;
+    max-height: 60px;
+    min-height: 60px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    max-width: 500px;
+    .square {
+       
+        height:40px;
+        margin:0 0.1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1rem;
+    }
+    .square.active {
+        border: 1px solid var(--dark-green);
+        color:var(--dark-green);
+        font-weight: bold;
+       
+    }
+    .square.normal {
+        border:1px solid var(--light-green);
+        color:black;
+        cursor: pointer;
+    }
+    .square.inactive {
+        border:rgb(189, 188, 188) 1px solid;
+        color:var(--light-gray)
+    }
+
+}

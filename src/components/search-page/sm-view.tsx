@@ -38,7 +38,19 @@ let property_types= [
           
         ]} ]
 
-export const SmallView= ({setFieldValue,values}:iProps)=>{
+export const SmallView= ({
+    setFieldValue
+    ,values
+    ,offersType
+    ,pricesType
+    ,propertySites
+    ,tags
+    ,categories
+    ,area
+    ,handleChange
+    ,propertyTypes
+    ,startSearching
+}:iProps)=>{
     const {t,i18n}=useTranslation()
     return (
         <Col xs={12} style={{background:'white'}} className="d-block d-sm-none px-3 py-3 rounded">
@@ -46,22 +58,28 @@ export const SmallView= ({setFieldValue,values}:iProps)=>{
                 <Col xs={12}>
                     <Select 
                         label={t("Category")}
-                        options={[{title:{en:'type1',ar:'type1'},value:1}]}
+                        options={categories}
+                        setSelect={setFieldValue}
+                        selectedValue={values['category_id']}
+                        name="category_id"
+
                         />
                 </Col>
                 <Col xs={12} className="p-2 box">
                     <Col xs={12}>
                         <Select 
                         label={t("Post Tags")}
-                        options={[{title:{en:'tag1',ar:'tag1'},id:1}]} 
-                        
-                        name="tags_ids"
+                        options={tags}
+                        selectedValue={values['tag_id']} 
+                        setSelect={setFieldValue}
+                        name="tag_id"
+                       
                         
                         />
                     </Col>
                     
                         <Col xs={12}>
-                            <Row className="gx-2">
+                            {/* <Row className="gx-2">
                             {
                                 values.tags_ids.length >0 ?
                                 values.tags_ids.map((ele:any,index:number)=>{
@@ -88,7 +106,7 @@ export const SmallView= ({setFieldValue,values}:iProps)=>{
                                 }) 
                             :''
                                 }
-                            </Row>
+                            </Row> */}
                     </Col>
                 </Col>
                 <Col xs={12}>
@@ -96,32 +114,40 @@ export const SmallView= ({setFieldValue,values}:iProps)=>{
                                 <span className="font-weight-bolder"> {t("PropertyType")}</span>
                             </Col>
                             <Tabs 
-                            data={property_types}
-                            setFieldValue={()=>{}}
-                            name="property_type_id"
+                                data={propertyTypes}
+                                setFieldValue={setFieldValue}
+                                name="property_type_id"
+                                mainTabSelected={values["main_property_type"]}
+                                subTypeSelected={values["property_type_id"]}
+                                defaultToNull={true}
                             />
                 </Col>
                 <Col xs={12}>
                     <Select 
                     label={t("Area")}
-                    options={[{title:{en:'area',ar:'area'},value:1}]}
+                    options={area}
+                    setSelect={setFieldValue}
+                    name="area_id"
+                    selectedValue={values['area_id']}
                     />
                 </Col>
                 <Col xs={12}>
-                    <RangeSlider 
+                <RangeSlider 
                     label={t("PriceRange")}
                     setValue={setFieldValue}
-                    min={1000}
-                    max={1000000}
+                    min={10}
+                    max={100000}
                     minVal={values.priceRange.min}
                     maxVal={values.priceRange.max}
                     name="priceRange"
                     unit={"KWD"}
                     />
+               
+                   
                 </Col>
                 <Col xs={12} >
                     <Badge 
-                    items={property_sites}
+                    items={propertySites}
                     label={t("PropertySites")}
                     name="property_site_id"
                     selected={values.property_site_id}
@@ -130,7 +156,7 @@ export const SmallView= ({setFieldValue,values}:iProps)=>{
                 </Col>
                 <Col xs={12} >
                     <Badge 
-                    items={offer_type}
+                    items={offersType}
                     label={t('OfferType')}
                     name="offer_type_id"
                     selected={values.offer_type_id}
@@ -138,10 +164,10 @@ export const SmallView= ({setFieldValue,values}:iProps)=>{
                     />
                 </Col>
                 <Col xs={12}>
-                    <RangeSlider 
+                <RangeSlider 
                     label={t("AreaRange")}
                     setValue={setFieldValue}
-                    min={200}
+                    min={100}
                     max={1000}
                     minVal={values.areaRange.min}
                     maxVal={values.areaRange.max}
@@ -162,6 +188,11 @@ export const SmallView= ({setFieldValue,values}:iProps)=>{
                             <Input 
                                 label={t("Bathrooms")}
                                 numberControl={true}
+                                name="number_of_bathrooms"
+                                onChange={handleChange}
+                                value={values['number_of_bathrooms']}
+                                type="number"
+                                setValue={setFieldValue}
 
                             />
                             </Col>
@@ -169,12 +200,21 @@ export const SmallView= ({setFieldValue,values}:iProps)=>{
                                 <Input 
                                 label={t("Rooms")}
                                 numberControl={true}
+                                name="number_of_rooms"
+                                onChange={handleChange}
+                                value={values['number_of_rooms']}
+                                type="number"
+                                setValue={setFieldValue}
                                 />
                             </Col>
                         </Row>
                 </Col>
                 <Col xs={12} className='d-flex justify-content-center'>
-                    <GreenButton label={t("Search")} />
+                    <Col xs={9}>
+
+                        <GreenButton label={t("Search")}
+                        fun={()=>startSearching()} />
+                    </Col>
                 </Col>
             </Row>
 

@@ -21,7 +21,20 @@ let property_sites= [
     ,{title:{en:'item 3',ar:'item 3'},id:3}
     ,{title:{en:'item 4',ar:'item 4'},id:4}
 ]            
-export const LargeView = ({values,setFieldValue}:iProps)=>{
+export const LargeView = ({
+    values
+    ,setFieldValue
+    ,offersType
+    ,pricesType
+    ,propertySites
+    ,tags
+    ,categories
+    ,area
+    ,handleChange
+    ,propertyTypes
+    ,startSearching
+    
+}:iProps)=>{
    let {t,i18n}=useTranslation()
     return (
         <Col xs={12} style={{background:'white'}} className="rounded p-3 d-none d-sm-block">
@@ -32,21 +45,25 @@ export const LargeView = ({values,setFieldValue}:iProps)=>{
                         <Col xs={11}>
                             <Select 
                             label={t("Category")}
-                            options={[{title:{en:'type1',ar:'type1'},value:1}]}
+                            options={categories}
+                            setSelect={setFieldValue}
+                            selectedValue={values['category_id']}
+                            name="category_id"
                             />
                         </Col>
                         <Col xs={11} className="p-2 box">
                             <Col xs={12}>
                                 <Select 
                                 label={t("Post Tags")}
-                                options={[{title:{en:'tag1',ar:'tag1'},id:1}]} 
-                               
-                                name="tags_ids"
+                                options={tags}
+                                selectedValue={values['tag_id']} 
+                                setSelect={setFieldValue}
+                                name="tag_id"
                                
                                 />
                             </Col>
                             
-                                <Col xs={12}>
+                                {/* <Col xs={12}>
                                     <Row className="gx-2">
                                     {
                                         values.tags_ids.length >0 ?
@@ -75,31 +92,27 @@ export const LargeView = ({values,setFieldValue}:iProps)=>{
                                     :''
                                         }
                                     </Row>
-                                </Col>
+                                </Col> */}
                         </Col>
                         <Col xs={11}>
                             <Col xs={12}>
                                 <span className="font-weight-bolder"> {t("PropertyType")}</span>
                             </Col>
                             <Tabs 
-                            data={[
-                            {title:{en:'type1',ar:'typ1'}
-                            ,type_id:1,value:[
-                             {title:{en:'sub_type2',ar:'type2'},id:3}
-                            ,{title:{en:'sub_type3',ar:'type3'},id:4}]}
-                            ,{title:{en:'type2',ar:'typ12'}
-                            ,type_id:2,value:[{title:{en:'sub_type5',ar:'type2'},id:5}
-                            ,{title:{en:'sub_type4',ar:'type3'},id:6}
-                                  
-                                ]} ]}
-                            setFieldValue={()=>{}}
-                            name="property_type_id"
+                           data={propertyTypes}
+                           setFieldValue={setFieldValue}
+                           name="property_type_id"
+                           mainTabSelected={values["main_property_type"]}
+                           subTypeSelected={values["property_type_id"]}
                             />
                         </Col>
                         <Col xs={11}>
                             <Select 
-                            label={t("Area")}
-                            options={[{title:{en:'area',ar:'area'},value:1}]}
+                             label={t("Area")}
+                             options={area}
+                             setSelect={setFieldValue}
+                             name="area_id"
+                             selectedValue={values['area_id']}
                             />
                         </Col>
                     </Row>
@@ -111,8 +124,8 @@ export const LargeView = ({values,setFieldValue}:iProps)=>{
                             <RangeSlider 
                             label={t("PriceRange")}
                             setValue={setFieldValue}
-                            min={1000}
-                            max={1000000}
+                            min={10}
+                            max={100000}
                             minVal={values.priceRange.min}
                             maxVal={values.priceRange.max}
                             name="priceRange"
@@ -121,17 +134,17 @@ export const LargeView = ({values,setFieldValue}:iProps)=>{
                         </Col>
                         <Col xs={11} >
                             <Badge 
-                            items={property_sites}
-                            label={t("PropertySites")}
-                            name="property_site_id"
-                            selected={values.property_site_id}
-                            setSelected={setFieldValue}
+                          items={propertySites}
+                          label={t("PropertySites")}
+                          name="property_site_id"
+                          selected={values.property_site_id}
+                          setSelected={setFieldValue}
                             />
                         </Col>
                     
                    <Col xs={11} >
                             <Badge 
-                            items={offer_type}
+                            items={offersType}
                             label={t('OfferType')}
                             name="offer_type_id"
                             selected={values.offer_type_id}
@@ -142,7 +155,7 @@ export const LargeView = ({values,setFieldValue}:iProps)=>{
                             <RangeSlider 
                             label={t("AreaRange")}
                             setValue={setFieldValue}
-                            min={200}
+                            min={100}
                             max={1000}
                             minVal={values.areaRange.min}
                             maxVal={values.areaRange.max}
@@ -161,22 +174,35 @@ export const LargeView = ({values,setFieldValue}:iProps)=>{
 
                             <Col xs={5}>
                             <Input 
-                                label={t("Bathrooms")}
-                                numberControl={true}
+                               label={t("Bathrooms")}
+                               numberControl={true}
+                               name="number_of_bathrooms"
+                               onChange={handleChange}
+                               value={values['number_of_bathrooms']}
+                               type="number"
+                               setValue={setFieldValue}
 
                             />
                             </Col>
                             <Col xs={5}>
                                 <Input 
-                                label={t("Rooms")}
-                                numberControl={true}
+                                 label={t("Rooms")}
+                                 numberControl={true}
+                                 name="number_of_rooms"
+                                 onChange={handleChange}
+                                 value={values['number_of_rooms']}
+                                 type="number"
+                                 setValue={setFieldValue}
                                 />
                             </Col>
                         </Row>
                     </Col>
                     <Col xs={11} className="d-flex justify-content-end">
-                        <Col xs={4} >
-                            <GreenButton label={t("Search")} />
+                        <Col xs={5} style={{width:'182px',maxWidth:'182px',minWidth:'182px'}}>
+                            <GreenButton label={t("Search")} 
+                            fun={()=>startSearching()}
+                            
+                            />
                         </Col>
                     </Col>
                     </Row>

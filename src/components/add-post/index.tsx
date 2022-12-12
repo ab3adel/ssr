@@ -765,14 +765,14 @@ const updatePostImediately=(data:any)=>{
 
       formData.append(
         "profile_photo_as_an_image",
-        JSON.stringify(formik.values.profile_photo_as_an_image)
+       formik.values.profile_photo_as_an_image
       );
     }
   if (fieldsUpdatedRegister.current.includes('profile_photo_as_an_image_primary')){
 
     formData.append(
       "profile_photo_as_an_image_primary",
-      JSON.stringify(formik.values.profile_photo_as_an_image_primary)
+     formik.values.profile_photo_as_an_image_primary
     );
   }
       if (
@@ -876,7 +876,7 @@ const updatePostImediately=(data:any)=>{
             })
         };
   ;
-console.log(formik.errors)
+
   return (
     <Col xs={12} className="addPostContainer">
       {

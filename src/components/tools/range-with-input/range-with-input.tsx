@@ -1,14 +1,13 @@
 import { Col, Row } from 'react-bootstrap'
 import  Slider from '../multi-range-slider/multi-range'
 import {Input} from '../float-label-group/input/input'
-import { useCallback, useState } from 'react'
-import { JsxElement } from 'typescript'
+import {useTranslation} from 'react-i18next'
 
 
 interface iProps {min:number,max:number,setValue:Function,name:string
     ,minVal:number,maxVal:number,label:string,unit:string |JSX.Element}
 export const RangeSlider=({min,max,setValue,name,minVal,maxVal,label,unit}:iProps)=>{
-
+    const {t} =useTranslation()
     const onChange=(value:{min:number,max:number})=>{
      
     setValue(name,value)
@@ -41,13 +40,14 @@ export const RangeSlider=({min,max,setValue,name,minVal,maxVal,label,unit}:iProp
 
             </Col>
             <Col xs={2} className='d-flex align-items-center justify-content-center fw-bold'>
-                To
+                {t('To')}
             </Col>
             <Col xs={5}>
             <Input
                  type='number'
                  unit={unit}
                  value={maxVal.toString()}
+                 
                 />
             </Col>
           </Row>

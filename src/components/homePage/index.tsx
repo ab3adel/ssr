@@ -14,6 +14,7 @@ import  {useNavigate} from 'react-router-dom'
 const HomePage =()=>{
     const [posts,setPosts]=useState<any>([])
     const [page,setPage]=useState(1)
+    let previousePage=useRef(1)
     const [authenticated,setAuthenticated]=useState(false)
     const postsId=useRef<number[]>([])
     let waitMin=useRef<any>(false)
@@ -114,18 +115,27 @@ const HomePage =()=>{
                 setPosts((pre:any)=>([...pre,...data]))
                 storePosts(pre=>[...pre,...data])
             }
+            else {
+                if (getPostsData) {
+                    setPage(previousePage.current)
+                }
+            }
         }
     },[isGetPostsLoading])
 
    const fetchPost =(e:React.UIEvent<HTMLDivElement>)=>{
     let target =e.currentTarget
         if(target.scrollHeight- target.scrollTop === target.clientHeight) {
-            let newPage=   page +1
-            setPage(newPage)
+            if (!waitMin.current) {
+
+                previousePage.current=page
+                let newPage=   page +1
+                setPage(newPage)
+            }
         }
    }
    
-
+console.log(getPostsData)
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 

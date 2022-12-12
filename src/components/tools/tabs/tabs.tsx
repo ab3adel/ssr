@@ -9,11 +9,11 @@ import {Spinner} from '../spinner'
 interface iSubType {title:{ar:string,en:string},id:number}
 interface iData {title:{ar:string,en:string},type_id:number ,value:iSubType []}
 interface iProps {data:iData[],setFieldValue:Function,name:string
-     ,mainTabSelected?:any,subTypeSelected?:any}
+     ,mainTabSelected?:any,subTypeSelected?:any,defaultToNull?:boolean}
 
-export const Tabs =({data,setFieldValue,name,mainTabSelected,subTypeSelected}:iProps)=>{
+export const Tabs =({data,setFieldValue,name,mainTabSelected,subTypeSelected,defaultToNull=false}:iProps)=>{
     const {i18n}= useTranslation()
-    const [selected,setSelected]=useState(0)
+    const [selected,setSelected]=useState(!defaultToNull? 0:-1)
     const [selectedSubTypes,setSelectedSubTypes]=useState(0)
     const handleChoosedTab= (index:number)=>{
         setSelectedSubTypes(0)
@@ -56,7 +56,7 @@ export const Tabs =({data,setFieldValue,name,mainTabSelected,subTypeSelected}:iP
                             
                             >
                                     <Col xs={12}
-                                    className={selected === index ? "tab selected":"tab"}
+                                    className={selected !== -1? selected === index ? "tab selected":"tab":"tab"}
                                     onClick={()=>handleChoosedTab(index)}>
 
                                     <span>{i18n.language === 'en' ? ele.title.en: ele.title.ar}</span>
@@ -65,7 +65,9 @@ export const Tabs =({data,setFieldValue,name,mainTabSelected,subTypeSelected}:iP
                                 )
                         })
                         :
-                      <Spinner  />
+                        
+                        
+                      <Spinner />
                     }
                                        
                     
@@ -75,7 +77,7 @@ export const Tabs =({data,setFieldValue,name,mainTabSelected,subTypeSelected}:iP
                 <Row className='gy-2 px-2'>
 
                     {
-                        data.length>0?
+                       selected!== -1 && data.length>0?
                         data[selected].value.map((ele,index)=>{
                             return (
                                 
@@ -89,7 +91,13 @@ export const Tabs =({data,setFieldValue,name,mainTabSelected,subTypeSelected}:iP
                             )
                         })
                         :
-                        <Spinner />
+                        <>
+                        {
+                            defaultToNull?
+                            <></>:
+                            <Spinner />
+                        }
+                        </>
                     }
                 </Row>
             </Col>

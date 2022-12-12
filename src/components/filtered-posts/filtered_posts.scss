@@ -1,0 +1,40 @@
+
+.filteredPostsContainer {
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+   padding-bottom: 6rem;
+   position: relative;
+   .noResult {
+    height: 100vh;
+    div {
+        padding:2rem 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        font-size: 2rem;
+        color: var(--dark-green);
+        font-weight: bold;
+        height: 100%;
+        .hide1{
+            animation: hide 1.5s ease-in 1s infinite forwards ;
+        }
+        .hide2{
+            animation: hide 1.5s ease-in 1.5s infinite forwards ;
+        }
+        .hide3{
+            animation: hide 1.5s ease-in 2s infinite forwards ;
+        }
+    }
+    @keyframes hide {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+        
+    }
+   }
+}

@@ -9,7 +9,7 @@ export const apis = {
     forgot_password:'forgotPassword',
     login:'login',
     categories:(is_category:number,category_id?:number)=>
-              is_category?`categories?is_category=${is_category}`:
+              is_category?`categories?is_category=${is_category}&category_id=1`:
               `categories?is_category=${is_category}${category_id?`&category_id=${category_id}`:''}`,
     addGuest:'addNewGuest',
     rememberMe:'rememberMe',

@@ -2,20 +2,27 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import './filtered_posts.scss'
 import {PostCard} from '../post-card/'
-import {Posts} from '../store'
+import {Posts,FilteredPostsParams} from '../store'
 import {useRecoilState} from 'recoil'
 import {useSearchParams} from 'react-router-dom'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {useGetPosts} from '../tools/apis/useGetPosts'
 import { getLocalStorage } from '../tools/getLocalstorage'
 import {Pagination} from '../tools/pagination/pagination'
+import { isObject } from 'formik'
+import {useTranslation} from 'react-i18next'
+
+interface iObjParams{[key:string]:{id?:number,title:{en:string,ar:string},value?:number}}
 const FilteredPosts=()=>{
-const [storedPosts] =useRecoilState(Posts)
+
 const [params,setParams] =useSearchParams()
 const [posts,setPosts]=useState<any[]>([])
 const [authenticated,setAuthenticated]=useState(false)
+const [disabledTags,setDisabledTags]=useState<string[]>([])
 const [userId,setUserId]=useState(-1)
 const lastPage=useRef(1)
+const {i18n}=useTranslation()
+const [readableObj,setReadableObj]=useState<iObjParams>({})
 const [currentPage,setCurrentPage]=useState(1)
 const {
 
@@ -26,22 +33,34 @@ const {
 } =useGetPosts()
 let obj:any={}
 useEffect(()=>{
-console.log('fetching')
+
     // for (let entry of params.entries()) {
     // obj[entry[0]]=entry[1]
     // }
     params.forEach((value:string,key:string)=>{
         obj[key]=value
     })
-   
+    Object.keys(readableObj).map((ele:string)=>{
+        if (!disabledTags.includes(ele)) {
+             obj[ele]=readableObj[ele].value?readableObj[ele].value:readableObj[ele].id
+        }
+        else {
+            delete obj[ele]
+        }
+    })
+
     getPosts(obj)
+    if (sessionStorage.getItem('search_params')) {
+        setReadableObj(JSON.parse(sessionStorage.getItem('search_params') as string))
+    }
+   
 },[params])
 useEffect(()=>{
     let obj:any={}
     params.forEach((value:string,key:string)=>{
         obj[key]=value
     })
-   console.log(obj)
+  
 setParams({...obj,page:currentPage})
 },[currentPage])
 
@@ -55,6 +74,22 @@ useEffect(()=>{
 
 
 },[])
+useEffect(()=>{
+    let obj:any={}
+    params.forEach((value:string,key:string)=>{
+        obj[key]=value
+    })
+    Object.keys(readableObj).map((ele:string)=>{
+        if (!disabledTags.includes(ele)) {
+             obj[ele]=readableObj[ele].value?readableObj[ele].value:readableObj[ele].id
+        }
+        else {
+            delete obj[ele]
+        }
+    })
+   
+setParams({...obj,page:currentPage})
+},[disabledTags])
 useEffect(()=>{
     if(!getPostsError) {
         if (getPostsData && getPostsData.data&& getPostsData.data.length >0) {
@@ -137,12 +172,50 @@ const handleCurrentPage=(num:number)=>{
 setCurrentPage(num)
 
 }
+const changeSearch=(str:string)=>{
+    
+    if (disabledTags.includes(str)) {
+        let newTags=disabledTags.filter(ele=>ele !== str)
+        setDisabledTags(newTags)
+        
+    }
+    else {
+        let newTags=[...disabledTags,str]
+        setDisabledTags(newTags)
+    }
+    
+}
 
     return (
         <Col xs={12} className="filteredPostsContainer">
-            
+            <Row>
+                <Col xs={12}>
+                    <Row className="my-1 gy-2 px-1">
+                        {
+                            Object.entries(readableObj).map((ele:any[],key:number)=>
+                            <Col xs={3}  sm={2} key={key} style={{cursor:'pointer'}}
+                            onClick={()=>changeSearch(ele[0])}>
+                           <div className={
+                            disabledTags.includes(ele[0])? "searchTag inactive": "searchTag active"
+                           }
+                          
+                           >
+                           
+                             <span className='mx-1'
+                            >
+                                {isObject(ele[1])?i18n.language==='en'?ele[1].title?.en:ele[1].title?.ar:ele[1]}
+                             
+                             </span>
+                            </div>
+                        </Col>
+                            )
+                        }
+                        
+                    </Row>
+                </Col>
             {posts && posts.length>0?
             <Row>
+               
                { posts.map((ele,index)=>{
                     return (
                         <Col sm ={6} xs={12} key={index}>
@@ -177,7 +250,7 @@ setCurrentPage(num)
                     }
                 </Col>          
             }
-          
+          </Row>
         </Col>
     )
 }

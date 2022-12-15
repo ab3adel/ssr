@@ -95,7 +95,7 @@ let disableBtn= Boolean(formik.values.email)?Boolean(formik.errors.email):true
                                  handleBlur={formik.handleBlur}
                                  error={formik.errors.email}
                                  touched={formik.touched.email}
-                                 required={false}
+                                 required={true}
                                  />
                         </EmailForm>
                         }

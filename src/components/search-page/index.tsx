@@ -14,6 +14,8 @@ import { getLocalStorage } from "../tools/getLocalstorage";
 import SettingContext from '../tools/context/setting-context/setting-context'
 import { iOption } from "../tools/interface";
 import {useNavigate} from 'react-router-dom'
+import {FilteredPostsParams} from '../store'
+import {useRecoilState} from 'recoil'
 export interface iProps {
   values:any
   ,setFieldValue:Function
@@ -212,22 +214,51 @@ useEffect(() => {
    
   },[formik.values.category_id])
   const filteredPosts=()=>{
+    let readableObj:any={}
+    
     let values = formik.values as any
     let url=`/filteredposts/page=1?`
     Object.keys(formik.values).map((ele)=>{
       if (values[ele] && ele !== 'priceRange' && ele !=='areaRange') {
-        console.log (ele)
+        
         url += `&${ele}=${values[ele]}`
+        if (ele === 'property_site_id') {
+          readableObj['property_site_id']=propertySites.filter(elem=>elem.id === values[ele])[0]
+        }
+        if (ele==='offer_type_id') {
+          readableObj['offer_type_id']=offersType.filter(elem=>elem.id === values[ele])[0]
+        }
+        if (ele==='property_type_id'){
+          readableObj['property_type_id']=propertyTypes.map(elem=>{
+           return elem.value.filter((subElem:any)=>subElem.id ===values[ele])[0]
+          }).filter(ele=>ele)[0]
+        }
+        if (ele=== 'area_id') {
+          readableObj['area_id']=area.filter(elem=>elem.value === values[ele])[0]
+        }
+        if (ele==='tag_id') {
+          readableObj['tag_id']=tags.filter(elem=>elem.value === values[ele])[0]
+        }
+        if (ele==='category_id'){
+          readableObj['category_id']=categories.filter(elem=>elem.value===values[ele])[0]
+        }
+        if (ele==='number_of_rooms') {
+          readableObj['number_of_rooms']={title:{en:`rooms ${values[ele]}`,ar:`${values[ele]} غرف`},value:values[ele]}
+        }
+        if (ele==='number_of_bathrooms') {
+          readableObj['number_of_bathrooms']={title:{en:`${values[ele]} bathrooms`,ar:`${values[ele]} حمام`},value:values[ele]}
+        }
       }
       
     })
     url+=
      `${ values['priceRange']['max'] !== 100000 || values['priceRange']['min'] !== 10 ?`&price_to=${values['priceRange']['max']}&price_from=${values['priceRange']['min']}`:''} `
      +`${values['areaRange']['min'] !== 100 || values['areaRange']['max'] !== 1000?`&area_from=${values['areaRange']['min']}&area_to=${values['areaRange']['max']}`:''}`
-
-    navigate(url)
+    
+     sessionStorage.setItem('search_params',JSON.stringify(readableObj) )
+      navigate(url) 
   }
-  console.log(formik.values)
+ 
     return (
         <Container className='searchContainer' >
             {

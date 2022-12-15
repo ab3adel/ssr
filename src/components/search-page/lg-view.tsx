@@ -99,11 +99,12 @@ export const LargeView = ({
                                 <span className="font-weight-bolder"> {t("PropertyType")}</span>
                             </Col>
                             <Tabs 
-                           data={propertyTypes}
-                           setFieldValue={setFieldValue}
-                           name="property_type_id"
-                           mainTabSelected={values["main_property_type"]}
-                           subTypeSelected={values["property_type_id"]}
+                        data={propertyTypes}
+                        setFieldValue={setFieldValue}
+                        name="property_type_id"
+                        mainTabSelected={values["main_property_type"]}
+                        subTypeSelected={values["property_type_id"]}
+                        defaultToNull={true}
                             />
                         </Col>
                         <Col xs={11}>

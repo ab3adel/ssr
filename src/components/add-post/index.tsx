@@ -373,13 +373,26 @@ const {mobileView} =useContext(SettingContext)
       })
       .catch((err) => {
         setAddPostLoading(false);
-        if (err.response && err.response.data.message) {
-          setNotify((pre: any) => ({
-            ...pre,
-            type: false,
-            show: true,
-            message: err.response.data.message,
-          }));
+        if (err.response && err.response.data.error) {
+          if (Array.isArray(err.response.data.error)) {
+            err.response.data.error.forEach((ele:string)=>{
+              setNotify((pre: any) => ({
+                ...pre,
+                type: false,
+                show: true,
+                message: ele,
+              }));
+            })
+          }
+          else {
+
+            setNotify((pre: any) => ({
+              ...pre,
+              type: false,
+              show: true,
+              message: err.response.data.error,
+            }));
+          }
         }
       });
   };

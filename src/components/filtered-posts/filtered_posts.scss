@@ -6,8 +6,24 @@
     overflow-x: hidden;
    padding-bottom: 6rem;
    position: relative;
+   .searchTag {
+     text-align: center;
+     padding: 7px;
+     font-size: 0.8rem;
+   
+    
+     border-radius: 10px;
+   }
+   .searchTag.active {
+    background-color: white;
+    color:var(--light-green);
+   }
+   .searchTag.inactive {
+    background-color: var(--light-grey);
+    color:var(--white-back)
+   }
    .noResult {
-    height: 100vh;
+  
     div {
         padding:2rem 0;
         display: flex;
@@ -37,4 +53,13 @@
         
     }
    }
+}
+
+@media screen and (max-width:567px) {
+    .filteredPostsContainer{
+        .searchTag {
+            font-size: 0.6rem;
+        }
+    }
+    
 }

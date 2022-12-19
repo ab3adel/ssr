@@ -48,7 +48,7 @@ useEffect(()=>{
         <Form.Group
             className={Boolean(error)? `mb-1 is_valid inputGroupWithIcon ${className}`:`mb-1 inputGroupWithIcon  ${className}`}
             style={{
-                padding:type==='password'?(i18n.language === 'en'?'0.5rem 2.9rem 0.5rem 0.1':'0.5rem 0.1rem 0.5rem 2.9rem'):
+                padding:type==='password'?(i18n.language === 'en'?'0.5rem 2.9rem 0.5rem 0.1rem':'0.5rem 0.1rem 0.5rem 2.9rem'):
                 (i18n.language === 'en'?'0.5rem 2rem 0.5rem 0.1rem':'0.5rem 0.1rem 0.5rem 2rem'),
                 height:height?height:''
         }
@@ -57,7 +57,7 @@ useEffect(()=>{
             >
                 
                  <div className="inputLabel "
-                    style={i18n.language==='ar'?{right:'5%',justifyContent:"flex-start"}:{left:'5%',justifyContent:"flex-end"}}>
+                    style={i18n.language==='ar'?{right:'5%',justifyContent:"flex-start",left:'auto'}:{left:'5%',justifyContent:"flex-end",right:'auto'}}>
                        
                        {
                        !isTyping &&
@@ -94,7 +94,7 @@ useEffect(()=>{
                 
                 />
                 {(touched && error) &&(<Form.Control.Feedback
-                                       style={i18n.language==='en'?{left:'40%'}:{right:'40%'}}>
+                                       style={{marginLeft:'auto',marginRight:'auto',left:'0',right:'0',textAlign:'center'}}>
                                                     {error}
                                         </Form.Control.Feedback>)}
                 {

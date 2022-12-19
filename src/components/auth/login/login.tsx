@@ -59,7 +59,7 @@ const Login = ({ setLogin }: iProps) => {
     axios
       .post(apis.login, formdata)
       .then((res: any) => {
-     
+        console.log(res)
         if (res && res.data) {
           let realImage = "";
           if (res.data.payload.profile_picture) {
@@ -71,7 +71,7 @@ const Login = ({ setLogin }: iProps) => {
             full_name: res.data.payload.full_name,
             refresh_token: res.data.payload.refresh_token,
             role: res.data.payload.roles[0].id,
-            profile_picture:"https://backend.instaaqar.com/storage/"+ realImage,
+            profile_picture:realImage?"https://backend.instaaqar.com/storage/"+ realImage:null,
             phone_numbers:res.data.payload.phone_numbers,
             id:res.data.payload.id
             
@@ -93,7 +93,7 @@ const Login = ({ setLogin }: iProps) => {
         if (err && err.response && err.response.data) {
           setNotify((pre: any) => ({
             ...pre,
-            message: err.response.data.message,
+            message: err.response.data.error,
             type: false,
             show: true,
           }));

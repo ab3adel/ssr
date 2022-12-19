@@ -1,0 +1,26 @@
+.geustBarContainer {
+    height: 50px;
+    background-color: var(--dark-green);
+    padding: 10px;
+    border-radius: 10px;
+    bottom:1rem;
+    z-index: 5;
+    font-size: 1rem;
+    color:white;
+    text-align: center;
+  
+}
+@media screen and (max-width:1024px) and (min-width:567px) {
+    .geustBarContainer {
+        font-size: 0.7rem;
+      padding: 5px;
+      
+    }
+}
+@media screen and (max-width:567px) {
+    .geustBarContainer {
+        font-size: 0.6rem;
+      padding: 5px;
+      
+    }
+}

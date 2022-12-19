@@ -7,7 +7,7 @@ export const initialValues=[
         full_name:'',
         email:'',
         role_id:2,
-        area_id:-1,
+        area_id:2,
         password:'',
         password_confirmation:'',
         phone_numbers:[

@@ -54,7 +54,8 @@ export const apis = {
     follow:(company_id:number)=>`follow?${company_id?`company_id=${company_id}`:''}`,
     unFollow:(company_id:number)=>`unfollow?${company_id?`company_id=${company_id}`:''}`,
     followings:`followings`,
-    followers:'followers'
+    followers:'followers',
+    changePassword:'passwordReset?_method=put'
 
         
 

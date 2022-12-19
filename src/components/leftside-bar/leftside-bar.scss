@@ -310,10 +310,11 @@
             justify-content: flex-start;
             .item{
                 padding:1vmin ;
-                justify-content: space-between;
+               
                 
                 span.text {
-                    font-size: calc(0.2em + 1vmin);
+                    font-size: 0.7rem;
+                    white-space: break-spaces;
                 }
 
             }
@@ -321,6 +322,8 @@
             .empty{
                 width: 1vmin;
                 height: 1vmin;
+                min-width: 1vmin;
+                display: none;
             }
             .logoutBtn {
                 display: flex;

@@ -75,7 +75,7 @@ export const HeaderSm = ({ token }: iProps) => {
                 name="search"
                 type="text"
                 className="searchInput"
-                required={false}
+                required={true}
               />
             </Collapse>
           </Col>

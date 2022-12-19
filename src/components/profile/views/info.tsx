@@ -181,7 +181,7 @@ if (values) {
   return (
     <Col xs={12} className="infoContainer">
       <Col xs={12} className="p-sm-1 p-0">
-        <Row className="d-flex justify-content-center">
+        <Row className="d-flex justify-content-center gy-1">
           <Col sm={10} xs={12}>
             <Row className="p-sm-1 pb-3 pb-sm-1 justify-content-start gy-sm-2">
               {info.map((ele, index: number) => {
@@ -258,7 +258,7 @@ if (values) {
                       <Row className="gy-1">
                         <Col sm={6} xs={12}>
                           <SteadyPhoneInput
-                            label={t("phone")}
+                            label={t("PhoneNumber")}
                             disabled={!edit}
                             value={values["phone_numbers"]}
                             exteriorFunction={addPhone}

@@ -127,7 +127,7 @@ if (phoneNumber) {
        >
         <div
           className={"label float"}
-          style={i18n.language === "en" ? { left: "1rem",right:'auto',background:disabled?'trasnparent':'' } : { right: "1rem",left:'auto',background:disabled?'trasnparent':'' }}
+          style={{ left: "1rem",right:'auto',background:disabled?'trasnparent':'' } }
         >
           {label}
         </div>
@@ -142,7 +142,7 @@ if (phoneNumber) {
        <PhoneNumberComponent 
        value={value}
        onChange={handlePhoneChange}
-       inputStyle={{'direction':i18n.language ==='en'?"ltr":'rtl',padding:i18n.language==='en'?'0 0 0 48px':'0 48px 0 0 '}}
+       inputStyle={{'direction':"ltr",padding:'0 0 0 48px'}}
        buttonClass={i18n.language==='en'?'':'arabic'}
        country="kw"
        onBlur={handlePhoneBlur}
@@ -152,7 +152,7 @@ if (phoneNumber) {
         
     
           <button
-            style={i18n.language === "en" ? { right: "1rem" ,left:'auto'} : { left: "1rem" ,right:'auto'}}
+            style={{ right: "1rem" ,left:'auto'}}
             className=" addBtn"
             onClick={fun}
           >

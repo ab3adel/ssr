@@ -34,7 +34,7 @@ return (
                                     </span>
                             
                 </Form.Text>
-                <div className={`input-container ${disabled?'px-4':'px-2'}`}>
+                <div className={`input-container ${disabled?'px-4 px-md-0 px-lg-4':'px-2 px-md-0 px-lg-2'}`}>
                     {icon && (<img src={icon} className="inputIcon" />) }
                     <Form.Control
                     as={'input'}

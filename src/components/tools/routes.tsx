@@ -37,6 +37,7 @@ export const Rotues = (id: number): RouteObject[] => ([
 
         ]
     },
-    { path: '/auth', element: <AuthenticationPage /> }
+    { path: '/auth', element: <AuthenticationPage /> },
+    {path:'/*',element:<HomePage />}
   
 ])

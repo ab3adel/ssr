@@ -286,7 +286,7 @@ export const MobileView = ({
       <Col
         xs={12}
         className={
-          openSidebar ? "d-none" : "fixed-bottom d-flex justify-content-center"
+          openSidebar ? "d-none" : "fixed-chat-button d-flex justify-content-center"
         }
       >
         <Col xs={10} className="chatBtn  ">

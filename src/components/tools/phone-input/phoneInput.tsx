@@ -33,13 +33,14 @@ const blurHandler =(e:React.FocusEvent)=>{
 
             <Input 
             onChange={handleChange}
-            inputStyle={{'direction':i18n.language ==='en'?"ltr":'rtl'
-            ,padding:i18n.language==='en'?'0 0 0 27px':'0 27px 0 0 '}}
+            inputStyle={{'direction':"ltr"
+            ,padding:'0 0 0 3rem'}}
             value={phone}
             isValid={ !(Boolean(phoneNumberError))}
             onBlur={blurHandler}
             country="kw"
-          buttonStyle={i18n.language==='en'?{direction:'ltr'}:{direction:'rtl'}}
+          buttonStyle={{direction:'rtl'}}
+         
         
           
             

@@ -148,7 +148,32 @@
 @media screen and (min-width:567px) and (max-width:1024px) {
     .postCardContainer {
         .card {
+            .card-header {
+                .profile {
+                    width: 44px;
+                    height: 44px;
+                }
+                .options{
+                    .dropdown {
+                        .dropdown-toggle {
+                            .icon{
+                                width: 22px;
+                                height: 25px;
+                            }
+                        }
+                    }
+                }
+            }
             .card-body {
+                .title {
+                    font-size: 1rem;
+                }
+                .iconBtn {
+                    img {
+                        width: 22px;
+                        height: 22px;
+                    }
+                }
                 .badge {
                     font-size: 1vmin;
                 }

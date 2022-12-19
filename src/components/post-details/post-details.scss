@@ -171,7 +171,13 @@ position: relative;
     }
    }
 }
-
+.fixed-chat-button {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 4;
+}
 @media screen and (max-width:567px) {
     .postDetailsContainer {
         padding: 0.5em 0em 3em 0em ;

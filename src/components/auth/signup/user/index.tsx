@@ -36,7 +36,7 @@ interface iProps {tab:number,children?:React.ReactNode[]}
                                              {t("Security")}
                                        </span>
                                     </Col>
-                                    <Col xs={4}
+                                    {/* <Col xs={4}
                                     
                                     
                                     className={tab===2?"tab tabActive":"tab tabInactive"}
@@ -44,7 +44,7 @@ interface iProps {tab:number,children?:React.ReactNode[]}
                                        <span>
                                              Location
                                        </span>
-                                    </Col> 
+                                    </Col>  */}
                                 </Row>
                             </Col>
                             <Col xs={12}>

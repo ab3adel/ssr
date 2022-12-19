@@ -46,7 +46,7 @@ export interface iFields {
 
 const SignUp = ({ setLogin }: iProps) => {
   const [tab, setTab] = useState(0);
-  const [btn, setBtn] = useState({ title: "User", maxTabs: 2 });
+  const [btn, setBtn] = useState({ title: "User", maxTabs: 1 });
   const [show, setShow] = useState(false);
   const [verification, setVerification] = useState({
     emailVerification: "",
@@ -405,14 +405,14 @@ const SignUp = ({ setLogin }: iProps) => {
                   errors={formik.errors}
                 />
 
-                <LocationForm
+                {/* <LocationForm
                   type="User"
                   touched={formik.touched}
                   values={formik.values}
                   errors={formik.errors}
                   handleBlur={formik.setFieldTouched}
                   setValue={formik.setFieldValue}
-                />
+                /> */}
               </UserType>
             ) : (
               <CommercialType tab={tab} setTab={setTab}>

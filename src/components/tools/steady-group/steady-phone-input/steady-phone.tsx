@@ -40,13 +40,13 @@ const addNumber =()=>{
                 onChange={(value:string,data:any,event:any,formattedValue:any)=>handleChange(value,data)}
                 disabled={disabled}
                 country="kw"
-                inputStyle={{'direction':i18n.language ==='en'?"ltr":'rtl'
-                ,padding:i18n.language==='en'?'0 0 0 25px':'0 25px 0 0 '}}
+                inputStyle={{direction:'ltr',
+                padding:'0 25px 0 30px'}}
                 />
                { !disabled &&
                 (<div className="addNumber"
                 onClick={()=>addNumber()}
-                style={i18n.language==='ar'?{right:'auto',left:'1rem'}:{left:'auto',right:'1rem'}}
+                style={{right:'1rem',left:'auto'}}
                 >
                     {t('Add')}
                 </div>)

@@ -36,7 +36,7 @@ const LoginCard = () => {
   };
 
   const homeNavigatieon = () => {
-    if (!navigateToHome) return;
+    
     navigate("/");
   };
   useEffect(() => {
@@ -47,7 +47,7 @@ const LoginCard = () => {
   return (
     <Container fluid className="authContainer">
       <Row className="auth">
-        <Col xs={12} sm={6} className="p-0">
+        <Col xs={12} lg={6} className="p-0">
           <div className="authBackground">
             <div className="backgroundText">
               <span>{t("FindThe")}</span>
@@ -56,7 +56,7 @@ const LoginCard = () => {
           </div>
         </Col>
 
-        <Col xs={12} sm={6} className="authFormContainer">
+        <Col xs={12} lg={6} className="authFormContainer">
           <Row className="gy-3 authForm">
             <Col xs={12} className="authHeader p-1">
               <Col xs={12}>
@@ -93,11 +93,11 @@ const LoginCard = () => {
                     <SignUp setLogin={setLogin} />
                   )}
                 </Col>
-                <Col xs={12}>
+                {/* <Col xs={12}>
                   <div className="guest" onClick={() => setGuest(true)}>
                     <a>{t("ContinueGuest")}</a>
                   </div>
-                </Col>
+                </Col> */}
               </>
             )}
           </Row>

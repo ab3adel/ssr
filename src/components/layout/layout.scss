@@ -1,6 +1,7 @@
 
 .layoutContainer {
-   
+   max-width: 100vw;
+   overflow-x: hidden;
     .sidebarSection {
         background-color: white;
         transition: width .3s steps(20);

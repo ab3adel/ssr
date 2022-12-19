@@ -19,7 +19,7 @@ const Profile = () => {
     const [normalUserType,setNormalUserType]=useState(false)
     const {t,i18n}=useTranslation()
     const {getProfile,getProfileData,getProfileError,isGetProfileLoading}=useGetProfile()
-    const [profileData,setProfileData]=useState({})
+    const [profileData,setProfileData]=useState<any[]>([{}])
 
 
     useEffect(()=>{
@@ -39,8 +39,9 @@ const Profile = () => {
     useEffect(()=>{
        
         if(!getProfileError) {
-           if (getProfileData  && getProfileData.length>0) {
-            setProfileData(getProfileData[0])
+           if (getProfileData  && getProfileData.data && getProfileData.data.length>0) {
+            
+            setProfileData(getProfileData.data[0])
            }
         }
     },[isGetProfileLoading])

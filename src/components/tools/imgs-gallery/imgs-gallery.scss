@@ -62,6 +62,11 @@
     }
 
 }
+@media screen and (min-width:567px) and (max-width:1024px) {
+    .imgsGalery {
+        height: 233px;
+    }
+}
 @media screen and (max-width:567px) {
     .imgsGalery {
         width:100%;

@@ -4,6 +4,7 @@
     max-width: 220px;
     max-height: 50px;
     align-items: center;
+    min-width: 100%;
     .dropdown {
         padding:1em;
     
@@ -12,7 +13,7 @@
             color:black;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             border: 1px solid rgb(173, 171, 171,0.4);
             padding:5px;
         
@@ -21,7 +22,7 @@
                 width: 100%;
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: center;
 
               
                 .icon {
@@ -52,6 +53,10 @@
 @media screen and (min-width:567px) and (max-width:1024px) {
     .customSelect {
         .dropdown {
+           .dropdown-menu {
+            min-width: 90%;
+           }
+            
             button.dropdown-toggle {
                 a {
                     .icon {

@@ -16,7 +16,7 @@ export const Posts=({posts}:iProps)=>{
                 {
                     posts && posts.length>0?
                     posts.map((ele,index)=>
-                        <Col sm={6} xs={12} key={index}>
+                        <Col lg={6} md={12} xs={12} key={index}>
                             <PostCard
                             title={ele.title?ele.title:{en:'',ar:''}}
                             area={ele.area?ele.area:{en:'',ar:''}}

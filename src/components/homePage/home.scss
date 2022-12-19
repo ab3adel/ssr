@@ -6,6 +6,7 @@
    display: block;
    max-width: 100wv;
    overflow-x: hidden;
+   position: relative;
    &::-webkit-scrollbar {
     display: none;
    }

@@ -11,6 +11,7 @@ import {useRecoilState} from 'recoil'
 import {Posts,PostsIDs} from '../store'
 import {getLocalStorage} from '../tools/getLocalstorage'
 import  {useNavigate} from 'react-router-dom'
+import GuestBar from '../tools/guest-bar/guestBar'
 const HomePage =()=>{
     const [posts,setPosts]=useState<any>([])
     const [page,setPage]=useState(1)
@@ -23,14 +24,24 @@ const HomePage =()=>{
     const [storedIDs,setStoredIds] =useRecoilState(PostsIDs)
     const navigate =useNavigate()
     const [userId,setUserId]=useState(-1)
+    const [isGeuest,setIsGuest]=useState(false)
     useEffect(()=>{
         let obj= getLocalStorage()
         if (obj && obj.id !== 'Guest' ) {
 
             if ( obj.role) setAuthenticated(true)
             if (obj.id) setUserId(obj.id)
+            setIsGuest(false)
         }
-    
+        if (!obj) {
+            localStorage.setItem('token',JSON.stringify({token:null,full_name:'Guest',id:'Guest'}))
+            setIsGuest(true)
+        }
+        else {
+            if (obj && obj.id==='Guest') {
+                setIsGuest(true)
+            }
+        }
     
     },[])
     useEffect(()=>{
@@ -135,7 +146,7 @@ const HomePage =()=>{
         }
    }
    
-console.log(getPostsData)
+
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 
@@ -175,6 +186,8 @@ return (
             </Row>
        </Fade> 
        }
+
+    
     </Col>
 )
 

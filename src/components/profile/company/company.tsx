@@ -13,6 +13,7 @@ import { FollowersFollowing } from "../views/followers-following";
 import { useGetPosts } from "../../tools/apis/useGetPosts";
 import SettingContext from "../../tools/context/setting-context/setting-context";
 import {useContext} from 'react'
+import { ChangePassword } from "../../tools/change-password/changePassword";
 
 import { Files } from "react-bootstrap-icons";
 import { useGetFollowingFollowers } from "../../tools/apis/useGetFollowersFollowings";
@@ -24,6 +25,7 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
   let [posts,setPosts]=useState([])
   const [followers,setFollowers]=useState<any>([])
   const [following,setFollowing]=useState<any>([])
+  const [showChangePassword,setShowChangePassword]=useState(false)
   let {getPosts,getPostsData,getPostsError,isGetPostsLoading} =useGetPosts()
   let {getFollowers
     ,getFollowings
@@ -215,7 +217,9 @@ useEffect(()=>{
                       />
                     </Col>
                     <Col xs={11}>
-                      <GreenButton label={t("ChangePassword")} />
+                      <GreenButton label={t("ChangePassword")}
+                      fun={()=>setShowChangePassword(true)}
+                       />
                     </Col>
                   </Row>
                 )}
@@ -300,6 +304,11 @@ useEffect(()=>{
                       fun={() => setEdit(true)}
                     />
                   </Col>
+                  <Col xs={8}>
+                      <GreenButton label={t("ChangePassword")}
+                      fun={()=>setShowChangePassword(true)}
+                       />
+                    </Col>
                 </Row>
               </Col>
             </Row>
@@ -376,6 +385,10 @@ useEffect(()=>{
           </Col>
         </Row>
       )}
+      <ChangePassword 
+      open={showChangePassword}
+      onClose={()=>setShowChangePassword(false)}
+      />
     </Container>
   );
 };

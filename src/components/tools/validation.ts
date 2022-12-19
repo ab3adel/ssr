@@ -10,8 +10,8 @@ export const SignupSchema = (isUser: boolean, needCategory = true) =>
   Yup.object().shape({
     full_name: Yup.string().required("This field is required"),
     email: isUser
-      ? Yup.string().email().required("This field is required")
-      : Yup.string().email().required("This field is required"),
+      ? Yup.string()
+      : Yup.string(),
     phone_numbers: Yup.array().of(
       Yup.object().shape({
         phone: Yup.string().required("This field is required"),
@@ -28,19 +28,19 @@ export const SignupSchema = (isUser: boolean, needCategory = true) =>
         [Yup.ref("password"), null],
         "Passowrd Confirmation doesn't match"
       ),
-    area_id: Yup.number()
+    area_id: !isUser?
+    Yup.number()
       .min(0, "This Field is required")
-      .required("This field is Required"),
+      .required("This field is Required"):
+      Yup.number()
+      ,
     profile_picture: isUser
       ? Yup.mixed()
       : Yup.mixed(),
     website: isUser
       ? Yup.string().url().notRequired()
       : Yup.string()
-          .url("This field must be a valid url")
-          .required("This field is required")
-
-          .required("This field is required"),
+          .url("This field must be a valid url"),
     category_ids: !isUser
       ? needCategory
         ? Yup.array()

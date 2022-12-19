@@ -154,7 +154,7 @@ export const SidebarLg = ({
 
                 {!collapsed && (
                   <>
-                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 1rem ':'0 1rem 0 2px '}}>{t("Home")}</span>
+                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 0.5rem ':'0 0.5rem 0 2px '}}>{t("Home")}</span>
                     <div className="empty"></div>
                   </>
                 )}
@@ -170,7 +170,7 @@ export const SidebarLg = ({
                 <img src={news} className="icon" />
                 {!collapsed && (
                   <>
-                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 1em ':'0 1em 0 2px '}}>{t("NewsFeed")}</span>
+                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 0.5rem ':'0 0.5rem 0 2px '}}>{t("NewsFeed")}</span>
                     <div className="empty"></div>
                   </>
                 )}
@@ -186,7 +186,7 @@ export const SidebarLg = ({
                 <img src={search} className="icon" />
                 {!collapsed && (
                   <>
-                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 1rem ':'0 1rem 0 2px '}}>{t("Search")}</span>
+                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 0.5rem ':'0 0.5rem 0 2px '}}>{t("Search")}</span>
                     <div className="empty"></div>
                   </>
                 )}
@@ -203,7 +203,7 @@ export const SidebarLg = ({
                 <img src={profile} className="icon" />
                 {!collapsed && (
                   <>
-                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 1rem ':'0 1rem 0 2px '}}>{t("Profile")}</span>
+                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 0.5rem ':'0 0.5rem 0 2px '}}>{t("Profile")}</span>
                   </>
                 )}
               </div>
@@ -222,7 +222,7 @@ export const SidebarLg = ({
 
                 {!collapsed && (
                   <>
-                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 1rem ':'0 1rem 0 2px '}}>{t("Notifications")}</span>
+                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 0.5rem ':'0 0.5rem 0 2px '}}>{t("Notifications")}</span>
                     <div className="notification">10</div>
                   </>
                 )}
@@ -241,7 +241,7 @@ export const SidebarLg = ({
                 </div>
                 {!collapsed && (
                   <>
-                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 1rem ':'0 1rem 0 2px '}}>{t("Messages")}</span>
+                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 0.5rem ':'0 0.5rem 0 2px '}}>{t("Messages")}</span>
                     <span className="notification">10</span>
                   </>
                 )}
@@ -257,7 +257,7 @@ export const SidebarLg = ({
                 <img src={about} className="icon" />
                 {!collapsed && (
                   <>
-                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 1rem ':'0 1rem 0 2px '}}>{t("AboutInsta")}</span>
+                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 0.5rem ':'0 0.5rem 0 2px '}}>{t("AboutInsta")}</span>
                   </>
                 )}
               </div>

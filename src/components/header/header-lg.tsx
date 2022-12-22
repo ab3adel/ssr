@@ -11,9 +11,7 @@ import user from "../../images/auth/profile.svg";
 import { useTranslation } from "react-i18next";
 import { iToken } from "../tools/interface";
 import { useState, useEffect } from "react";
-interface iProps {
-  token?: iToken;
-}
+import {iProps} from './'
 export const HeaderLg = ({ token }: iProps) => {
   const { t } = useTranslation();
 

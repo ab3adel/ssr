@@ -11,11 +11,12 @@ import {useState,useEffect,useContext} from 'react'
 import {Outlet} from 'react-router-dom'
 import { getLocalStorage } from '../tools/getLocalstorage'
 import GuestBar from '../tools/guest-bar/guestBar'
-
+import chatContext from '../tools/context/chat-context/chat-context'
 const Layout = ()=>{
    
     const [collapsed,setCollapsed]=useState(false)
    const {token,setToken}=useContext(authContext)
+   const {chatData,setChatData,socket} =useContext(chatContext)
    const [isGeuest,setIsGuest]=useState(false)
     const removeToken=()=>{
             localStorage.removeItem('token')
@@ -40,6 +41,42 @@ const Layout = ()=>{
                 }
             }
         
+        },[])
+        useEffect(()=>{
+        
+            if (getLocalStorage() && getLocalStorage().id !== 'Guest'){
+                let myId = getLocalStorage().id
+                socket.on('connect',()=>{
+                    console.log(socket.id)
+                })
+                socket.on('my-chats', ({data}:{data:any})=>{
+                    console.log(data)
+                    let total_number=0
+                    let messages_per_user=[{unread_messages:0,chat_id:'0'}]
+                    let new_messages_per_user:any[]=[]
+                    data.map((ele:any)=>{
+                        let user= myId === parseInt(ele.user_1)?'user_1':'user_2'
+                      
+                        console.log(user,ele[`${user}_unreaded_messages`])
+                        if (ele[`${user}_unreaded_messages`]>0) {
+                            total_number=total_number+1
+                           new_messages_per_user.push({unread_messages:ele[`${user}_unreaded_messages`],chat_id:ele.id})
+                        }
+                    })
+                    setChatData((pre:any)=>({...pre,notification:{total_number,messages_per_user:new_messages_per_user.length>0?new_messages_per_user:messages_per_user}}))
+                })
+            }
+            return ()=>{
+                
+                socket.removeAllListeners()
+            }
+        },[])
+        useEffect(()=>{
+            if (getLocalStorage() && getLocalStorage().id !== 'Guest') {
+                socket.emit('i_am_online',getLocalStorage().id)
+                socket.emit('get-chats',getLocalStorage().id)
+            }
+    
         },[])
 
 let sidebarCol_md=2

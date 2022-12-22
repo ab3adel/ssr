@@ -9,10 +9,10 @@ import Fade from 'react-bootstrap/Fade'
 import { useTranslation } from "react-i18next";
 import user from "../../images/auth/profile.svg";
 
-import { chatData } from "./"
+import {chatData} from '../tools/context/chat-context/chat-provider'
 interface elemntProps {
     ele: chatData,
-    activeChat: number | null,
+    activeChat: number | null ,
     setActiveChat: Function
 }
 

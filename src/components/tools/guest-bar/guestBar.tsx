@@ -12,7 +12,7 @@ const {t} =useTranslation()
     return (
         <Col xs={12} className="d-flex justify-content-start align-items-center" style={{position:'absolute',bottom:'1rem'}}>
             <Col xs={11} sm={8} className="geustBarContainer">
-            <Row className="p-1">
+            <Row className="">
                 <Col xs={4} sm={3}>
                     <GreenButton label={t('Login')}
                     fun={()=>navigate('/auth')}

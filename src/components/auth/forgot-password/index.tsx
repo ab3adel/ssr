@@ -13,6 +13,7 @@ import email from '../../../images/auth/icon-email.svg'
 import axios from '../../tools/apis/axios'
 import {apis} from '../../tools/apis/apis'
 import notificationContext from '../../tools/context/notification/notification-context'
+import {useTranslation} from 'react-i18next'
 interface iProps {show:boolean,setShow:()=>void}
 
 
@@ -20,6 +21,7 @@ const ForgotPassword =({show,setShow}:iProps)=>{
 const [done ,setDone]=useState(false)
 const {setNotify} = useContext(notificationContext)
 const [isLoading,setIsloading]=useState(false)
+const {i18n}=useTranslation()
 const formik =useFormik({
     initialValues:{
         email:''
@@ -31,9 +33,12 @@ const formik =useFormik({
 })
 
 const hanldeDone=()=>{
+    let formdata= new FormData()
+    formdata.append('email',formik.values.email)
+    formdata.append('locale',i18n.language)
     setIsloading(true)
 axios.post(apis.forgot_password,
-    formik.values)
+   formdata)
       .then(res=>{
        setIsloading(false)
         setNotify((pre:any)=>({...pre,message:res.data.message,type:true,show:true}))

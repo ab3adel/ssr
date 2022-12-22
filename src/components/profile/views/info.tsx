@@ -26,7 +26,8 @@ interface iProps {
   area?: any;
   errors?: { [key: string]: any };
   touched?: { [key: string]: any };
-  setCountry?:Function
+  setCountry?:Function,
+ 
 }
 let editCompany = [
   { label: "CompanyType", name: "role", type: "select" },
@@ -84,23 +85,30 @@ export const Info = ({
   area,
   errors,
   touched,
-  setCountry=()=>{}
+  setCountry=()=>{},
+
 }: iProps) => {
-  const [selectedCategroy, setSelectedCategroy] = useState<any[]>(company? values['category']:[]);
-  const [phoneNumbers,setPhoneNumbers]=useState(values["pre_existed_phone_numbers"])
+  const [selectedCategroy, setSelectedCategroy] = useState<any>([] );
+  const [phoneNumbers,setPhoneNumbers]=useState<any>([])
   if (edit) companyInfo = editCompany;
   let info = company ? companyInfo : userInfo;
   let updatedOnce=useRef<boolean>(false)
 
 useEffect(()=>{
-if (values) {
-  if (values['pre_existed_phone_numbers'] && !updatedOnce.current){
-    setPhoneNumbers(values["pre_existed_phone_numbers"])
+
+  if (values && values['pre_existed_phone_numbers'] && values['pre_existed_phone_numbers'].length>0 && !updatedOnce.current){
+   
+    setPhoneNumbers(values['pre_existed_phone_numbers'])
     updatedOnce.current=true
   }
+  if (company && values && values['category'] &&values['category'].length>0 && values['category'][0].id ){
+    console.log(values['category'])
+    setSelectedCategroy(values['category'])
+     
+   }
 
-}
 },[values])
+
 
 
   const deletePhoneNumber = (id: number) => {
@@ -177,7 +185,7 @@ if (values) {
   const addCountry = (id: number) => {
     setCountry(id);
   }
-
+console.log(values)
   return (
     <Col xs={12} className="infoContainer">
       <Col xs={12} className="p-sm-1 p-0">

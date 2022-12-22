@@ -264,6 +264,7 @@ useEffect(()=>{
                     lang={lang}
                     handleChange={formik.handleChange}
                     categories={formik.values['category']}
+                    
                   />
                   <Posts
                   posts={posts} />
@@ -364,6 +365,7 @@ useEffect(()=>{
                     lang={lang}
                     handleChange={formik.handleChange}
                     categories={formik.values['category']}
+                    
                   />
 
                   <Data

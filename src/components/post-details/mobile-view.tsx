@@ -19,15 +19,8 @@ import chat from "../../images/post-details/chat-icon.svg";
 import SettingContext from "../tools/context/setting-context/setting-context";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
-interface iProps {
-  images: string[];
-  description: string;
-  handleReact: Function;
-  react: boolean;
-  post: any;
-  authenticated?: boolean;
-  postLikes: number;
-}
+import { getLocalStorage } from "../tools/getLocalstorage";
+import {iProps} from './'
 
 export const MobileView = ({
   images,
@@ -35,12 +28,12 @@ export const MobileView = ({
   handleReact,
   react,
   post,
-  postLikes
+  postLikes,
+  handleChat
 }: iProps) => {
   const { openSidebar } = useContext(SettingContext);
   const { i18n,t } = useTranslation();
- 
-  return (
+return (
     <Col xs={12} className="scrollableSection">
       <Card>
         <Card.Header>
@@ -289,7 +282,8 @@ export const MobileView = ({
           openSidebar ? "d-none" : "fixed-chat-button d-flex justify-content-center"
         }
       >
-        <Col xs={10} className="chatBtn  ">
+        <Col xs={10} className="chatBtn  "
+        onClick={()=>handleChat()}>
           <img src={chat} />
           <span>Chat</span>
         </Col>

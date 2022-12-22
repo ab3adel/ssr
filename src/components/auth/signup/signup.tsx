@@ -151,6 +151,7 @@ const SignUp = ({ setLogin }: iProps) => {
         "phone_numbers[0][international_code]",
         (formik.values.phone_numbers as Array<any>)[0]["international_code"]
       );
+     
     } else {
       let { category_ids, predefined_post_pictures, files, description } =
         formik.values;
@@ -217,7 +218,7 @@ const SignUp = ({ setLogin }: iProps) => {
       formdata.append("yuotube", formik.values.youtube as string);
       formdata.append("instagram", formik.values.instagram as string);
     }
-
+    formdata.append('locale',i18n.language)
     setIsLoading(true);
     axios
       .post(apis.register, formdata)

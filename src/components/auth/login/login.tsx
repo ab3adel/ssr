@@ -40,7 +40,7 @@ const Login = ({ setLogin }: iProps) => {
         "This field has to be 8 characters at least"
       ),
     }),
-    onSubmit: () => { },
+    onSubmit: () => {},
   });
   const [show, setShow] = useState(false);
 
@@ -56,25 +56,28 @@ const Login = ({ setLogin }: iProps) => {
     formdata.append("email", formik.values.email);
     formdata.append("password", formik.values.password);
     formdata.append("remember_me", "1");
+    formdata.append('locale',i18n.language)
     axios
       .post(apis.login, formdata)
       .then((res: any) => {
-        console.log(res)
         if (res && res.data) {
           let realImage = "";
           if (res.data.payload.profile_picture) {
-            realImage = res.data.payload.profile_picture.split('').slice(7).join('')
-           
+            realImage = res.data.payload.profile_picture
+              .split("")
+              .slice(7)
+              .join("");
           }
           let required_data = {
             token: res.data.payload.token,
             full_name: res.data.payload.full_name,
             refresh_token: res.data.payload.refresh_token,
             role: res.data.payload.roles[0].id,
-            profile_picture:realImage?"https://backend.instaaqar.com/storage/"+ realImage:null,
-            phone_numbers:res.data.payload.phone_numbers,
-            id:res.data.payload.id
-            
+            profile_picture: realImage
+              ? "https://backend.instaaqar.com/storage/" + realImage
+              : null,
+            phone_numbers: res.data.payload.phone_numbers,
+            id: res.data.payload.id,
           };
 
           setNotify((pre: any) => ({

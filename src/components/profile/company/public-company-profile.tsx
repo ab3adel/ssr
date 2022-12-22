@@ -80,7 +80,7 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
   useEffect(()=>{
     getFollowers()
     getFollowings()
-  },[])
+  },[isFollowed])
   useEffect(()=>{
     if (data) {
       let {id,company}=data
@@ -168,7 +168,7 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
       setIsFollowed(false)
     }
   }
-
+console.log(data)
   return (
     <Container className="p-1 ">
       {!mobileView?

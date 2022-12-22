@@ -14,14 +14,14 @@ import { useState, useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import SettingContext from "../tools/context/setting-context/setting-context";
 import { iToken } from "../tools/interface";
-interface iProps {
-  token?: iToken;
-}
-export const HeaderSm = ({ token }: iProps) => {
+import {useNavigate} from 'react-router-dom'
+import {iProps} from './'
+export const HeaderSm = ({ token,chat_notification }: iProps) => {
   const [openSearch, setOpenSearch] = useState(false);
   const { setOpenSidebar, openSidebar } = useContext(SettingContext);
   const [showUserName,setShowUserName]=useState(false)
   const { t } = useTranslation();
+  const navigate = useNavigate()
 
   return (
     <Navbar className="navbarSmContainer d-block d-sm-none">
@@ -40,9 +40,15 @@ export const HeaderSm = ({ token }: iProps) => {
             </div>
           </Col>
           <Col xs={2}>
-            <div className="iconContainer">
+            <div className="iconContainer"
+            onClick={()=>navigate('/messages')}>
               <img src={message} className="icon" />
-              <div className="dot"></div>
+              {
+                chat_notification>0 &&
+              (<div className="dot">
+                {chat_notification}
+              </div>)
+              }
             </div>
           </Col>
           <Col xs={2}>

@@ -16,7 +16,19 @@ import { iPost } from "../tools/interface";
 import { useLikePost } from "../tools/apis/uselikePost";
 import { useGetPosts } from "../tools/apis/useGetPosts";
 import { getLocalStorage } from "../tools/getLocalstorage";
+import {useNavigate} from 'react-router-dom'
 import notificationContext from "../tools/context/notification/notification-context";
+
+export interface iProps {
+  images: string[];
+  description: string;
+  handleReact: Function;
+  react: boolean;
+  post: any;
+  authenticated?: boolean;
+  postLikes: number;
+  handleChat:Function
+}
 let images = [image1, image2, image3, image4];
 
 let description = `
@@ -40,6 +52,7 @@ const PostDetails = () => {
   const { setNotify } = useContext(notificationContext);
   const [react, setReact] = useState(false);
   const [storedPosts] = useRecoilState(Posts);
+  const navigate =useNavigate()
   const { likeData, likeError, isLikeLoading, setLike, setUnLike } =
     useLikePost();
   const [authenticated, setAuthenticated] = useState(false);
@@ -193,6 +206,24 @@ const PostDetails = () => {
       setPostLikes(post.likes);
     }
   }, [post]);
+  const handleChat=()=>{
+    if (getLocalStorage() && getLocalStorage().id && getLocalStorage().id !== 'Guest'){
+  
+      if (post.user_id ) {
+      
+        navigate('/messages',{state:{action:'create-chat',body:{user_1:getLocalStorage().id,user_2:post.user_id}}})
+      }
+    }
+    else {
+      setNotify((pre: any) => ({
+        ...pre,
+        show: true,
+        type: "info",
+        message: "You have to login first !",
+      }));
+    }
+   }
+    
 console.log(post)
   return (
     <Col xs={12} className="postDetailsContainer">
@@ -207,6 +238,7 @@ console.log(post)
               post={post}
               authenticated={authenticated}
               postLikes={postLikes}
+              handleChat={handleChat}
             />
           </Col>
           <FixedSection post={post} />
@@ -221,6 +253,7 @@ console.log(post)
           post={post}
           authenticated={authenticated}
           postLikes={postLikes}
+          handleChat={handleChat}
         />
       </Col>
     </Col>

@@ -76,7 +76,7 @@ export const FileDownloader = ({ edit, uploaded_files, t ,setFieldValue,name,val
                   <input
                     type="file"
                     id={`file_input_number_${99}`}
-                    className="hide"
+                    className="invisible"
                     style={{ height: "1px" }}
                     onChange={handleFile}
                   />
@@ -118,7 +118,7 @@ export const FileDownloader = ({ edit, uploaded_files, t ,setFieldValue,name,val
                         <input
                           type="file"
                           id={`file_input_number_${99}`}
-                          className="hide"
+                          className="invisible"
                           style={{ height: "1px" }}
                           onChange={handleFile}
                         />

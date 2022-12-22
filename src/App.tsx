@@ -44,7 +44,7 @@ function App() {
                    full_name: data.full_name,
                    refresh_token: data.refresh_token,
                    role:data?.roles? data.roles[0].id:-1,
-                   profile_picture:"https:backend.instaaqar.com/storage/"+ real_image,
+                   profile_picture:real_image?"https:backend.instaaqar.com/storage/"+ real_image:null,
                    id:data.id
                  };
                  localStorage.removeItem('token')

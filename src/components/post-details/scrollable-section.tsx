@@ -17,15 +17,7 @@ import { TextAccordion } from "../tools/text-accordion/text-accordion";
 import { useEffect } from "react";
 import i18n from "../../i18n";
 import {useGetPosts} from '../tools/apis/useGetPosts'
-interface iProps {
-  images: string[];
-  description: string;
-  handleReact: Function;
-  react: boolean;
-  post: any;
-  authenticated: boolean;
-  postLikes: number;
-}
+import {iProps} from './'
 export const ScrollableSection = ({
   images,
   description,

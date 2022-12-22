@@ -31,10 +31,10 @@ useEffect(()=>{
 },[user_id])
 useEffect(()=>{
     if(!getProfileError) {
-       if (getProfileData &&  getProfileData.length>0) {
-      
-        setProfileData(getProfileData[0])
-       }
+        if (getProfileData  && getProfileData.data && getProfileData.data.length>0) {
+            
+            setProfileData(getProfileData.data[0])
+           }
     }
 },[isGetProfileLoading])
 console.log(profileData)

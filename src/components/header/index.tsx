@@ -5,31 +5,92 @@ import authContext from '../tools/context/auth-context/auth-context'
 import {useState, useEffect,useContext} from 'react'
 import { getLocalStorage } from '../tools/getLocalstorage'
 import { iToken } from '../tools/interface'
-import chatContext from '../tools/context/chat-context/chat-context'
+import ContactElement from '../tools/contact-element/contact-element'
+import NotificationContainer from '../tools/notification-container/notification-container'
+import {useNavigate} from 'react-router-dom'
+import {useFormik} from 'formik'
+
 export interface iProps {
     token?: iToken;
-    chat_notification:number
+    chat_notification:number;
+    handleNotificationClick:(e:React.MouseEvent)=>void,
+    setSearch:Function,
+    handleSearch:(key:React.KeyboardEvent)=>void,
+    search:string
   }
-const Header =()=>{
+interface myProps {chatData:any,socket:any}  
+const Header =({chatData,socket}:myProps)=>{
 const [token,setToken]=useState<iToken>()
-const {chatData} =useContext(chatContext)
+const [setActiveChat,activeChat]=useState(0)
+const navigate =useNavigate()
+const formik=useFormik({
+  initialValues:{search:''},
+  onSubmit:()=>{}
+})
+
+
+const [notificationControl,setNotificationControl]=useState({show:false,left:0,top:0})
+
 useEffect(()=>{
    
 if (getLocalStorage()) {
 setToken(getLocalStorage())
 }
 },[])
-console.log(chatData)
+const handleNotificationClick=(e:React.MouseEvent)=>{
+  if(getLocalStorage() && getLocalStorage().id !== 'Guest') {
+
+setNotificationControl(pre=>({...pre,show:!pre.show,left:e.clientX-120,top:e.clientY+30}))
+  }
+}
+const handleActiveChat=(ele:any)=>{
+  if(getLocalStorage() && getLocalStorage().id !== 'Guest') {
+    
+    socket.emit('set-active-chat',{userId:getLocalStorage().id,chat_id:ele.chat_id})
+    navigate('/messages')
+    setNotificationControl(pre=>({...pre,show:false}))
+
+  }
+}
+const handleSearch=(key:React.KeyboardEvent)=>{
+
+  if (key.nativeEvent.code === 'Enter') {
+
+    let url=`/filteredposts/page=1?text=${formik.values.search}`
+    navigate(url)
+    formik.resetForm()
+  }
+
+}
+
     return (
        <>
        <HeaderLg 
        token={token}
        chat_notification={chatData.notification.total_number}
+       handleNotificationClick={handleNotificationClick}
+       setSearch={formik.setFieldValue}
+       handleSearch={handleSearch}
+       search={formik.values.search}
        />
        <HeaderSm 
        token={token}
        chat_notification={chatData.notification.total_number}
+       handleNotificationClick={handleNotificationClick}
+       setSearch={formik.setFieldValue}
+       handleSearch={handleSearch}
+       search={formik.values.search}
        />
+        <NotificationContainer
+         show={notificationControl.show} 
+        left={notificationControl.left} 
+        top={notificationControl.top} 
+        RenderElement={ ContactElement }
+        data={chatData.contacts}
+        elementClicked={handleActiveChat}
+       
+        
+        />
        </>
     )
 }

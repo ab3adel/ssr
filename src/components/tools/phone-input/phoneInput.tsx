@@ -13,8 +13,9 @@ export const PhoneInput =({phone,internationalCode,handleBlur
                          ,setValue,touched,phoneNumberError}:iProps)=>{
                             const {i18n}=useTranslation()
 const handleChange =(value: string, data: {} | CountryData, event: React.ChangeEvent<HTMLInputElement>, formattedValue: string): void=>{
-   
-    let phone_numbers=[{phone: value,international_code: (data as CountryData).dialCode}]
+ 
+    let phone_numbers=[{phone: value.replace((data as CountryData).dialCode,'')
+    ,international_code: (data as CountryData).dialCode}]
     
    setValue('phone_numbers',phone_numbers)
 
@@ -35,7 +36,7 @@ const blurHandler =(e:React.FocusEvent)=>{
             onChange={handleChange}
             inputStyle={{'direction':"ltr"
             ,padding:'0 0 0 3rem'}}
-            value={phone}
+          
             isValid={ !(Boolean(phoneNumberError))}
             onBlur={blurHandler}
             country="kw"

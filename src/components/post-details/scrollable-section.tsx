@@ -15,9 +15,10 @@ import amenities from "../../images/post-details/amenities.svg";
 import room from "../../images/post-details/room.svg";
 import { TextAccordion } from "../tools/text-accordion/text-accordion";
 import { useEffect } from "react";
-import i18n from "../../i18n";
+
 import {useGetPosts} from '../tools/apis/useGetPosts'
 import {iProps} from './'
+import { useTranslation } from "react-i18next";
 export const ScrollableSection = ({
   images,
   description,
@@ -26,7 +27,7 @@ export const ScrollableSection = ({
   post,
   postLikes,
 }: iProps) => {
-
+const {t,i18n}=useTranslation()
   return (
     <Col xs={7} className="scrollableSection">
       <Card>
@@ -136,7 +137,7 @@ export const ScrollableSection = ({
                     <Col xs={4}>
                       <Button className="mapBtn">
                         <img src={map} />
-                        <span>Go To Map</span>
+                        <span>{t("GoToMap")}</span>
                       </Button>
                     </Col>
                     <Col xs={12}>
@@ -155,7 +156,7 @@ export const ScrollableSection = ({
                       {post.number_of_rooms && (
                         <>
                           <span>{post.number_of_rooms}</span>
-                          <span>rooms</span>
+                          <span>{t('Rooms')}</span>
                         </>
                       )}
                     </Col>
@@ -164,7 +165,7 @@ export const ScrollableSection = ({
                       {post.number_of_bathrooms && (
                         <>
                           <span>{post.number_of_bathrooms}</span>
-                          <span>bath</span>
+                          <span>{t('Bath')}</span>
                         </>
                       )}
                     </Col>
@@ -189,7 +190,7 @@ export const ScrollableSection = ({
                 </Col>
                 <Col xs={12}>
                   <Col lg={4} xs={5} className="fw-bold fs-5">
-                    Service Available
+                    {t('ServiceAvailable')}
                   </Col>
                   <Col xs={12}>
                     {post.services_available?

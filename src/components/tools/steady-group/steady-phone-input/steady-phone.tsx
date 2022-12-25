@@ -18,7 +18,7 @@ export const SteadyPhoneInput =({label,disabled,value,setFieldValue=()=>{},exter
     const {i18n,t} =useTranslation()
 const handleChange= (e:string,data:any)=>{
 
-    setCurrentValue({phone:e,international_code:data.dialCode})
+    setCurrentValue({phone:e.replace(data.dialCode,''),international_code:data.dialCode})
 }
 const addNumber =()=>{
    
@@ -36,7 +36,7 @@ const addNumber =()=>{
             </Form.Text>
             <div className="relativeContainer"> 
                 <Input 
-                value={currentValue.phone}
+              
                 onChange={(value:string,data:any,event:any,formattedValue:any)=>handleChange(value,data)}
                 disabled={disabled}
                 country="kw"

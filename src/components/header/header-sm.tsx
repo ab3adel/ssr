@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import instaLogo from "../../images/instaaqarlogo.svg";
 import { InputWithIcon } from "../tools/input/inputIcon";
-import search from "../../images/input-search-icon.svg";
+import Search from "../../images/input-search-icon.svg";
 import message from "../../images/home/message-icon.svg";
 import notification from "../../images/home/bell-icon-1.svg";
 import user from "../../images/auth/profile.svg";
@@ -16,13 +16,17 @@ import SettingContext from "../tools/context/setting-context/setting-context";
 import { iToken } from "../tools/interface";
 import {useNavigate} from 'react-router-dom'
 import {iProps} from './'
-export const HeaderSm = ({ token,chat_notification }: iProps) => {
+export const HeaderSm = ({ token,chat_notification ,handleNotificationClick ,search,setSearch,handleSearch
+}: iProps) => {
   const [openSearch, setOpenSearch] = useState(false);
   const { setOpenSidebar, openSidebar } = useContext(SettingContext);
   const [showUserName,setShowUserName]=useState(false)
   const { t } = useTranslation();
   const navigate = useNavigate()
-
+const searchDone=(e:React.KeyboardEvent)=>{
+  setOpenSearch(false)
+  handleSearch(e)
+}
   return (
     <Navbar className="navbarSmContainer d-block d-sm-none">
       <Container>
@@ -33,7 +37,7 @@ export const HeaderSm = ({ token,chat_notification }: iProps) => {
           <Col xs={2}>
             <div className="iconContainer">
               <img
-                src={search}
+                src={Search}
                 className="icon"
                 onClick={() => setOpenSearch(!openSearch)}
               />
@@ -41,7 +45,7 @@ export const HeaderSm = ({ token,chat_notification }: iProps) => {
           </Col>
           <Col xs={2}>
             <div className="iconContainer"
-            onClick={()=>navigate('/messages')}>
+             onClick={handleNotificationClick}>
               <img src={message} className="icon" />
               {
                 chat_notification>0 &&
@@ -72,8 +76,12 @@ export const HeaderSm = ({ token,chat_notification }: iProps) => {
           <Col xs={2}>
             <List className="logo" onClick={() => setOpenSidebar(true)} />
           </Col>
-          <Col xs={12} id="searchInput">
-            <Collapse in={openSearch}>
+          <Col xs={12} id="searchInput"
+          onKeyUp={searchDone}
+          >
+            <Collapse in={openSearch}
+            
+            >
               <InputWithIcon
                 icon={search}
                 label={t("SearchLocations")}
@@ -82,6 +90,9 @@ export const HeaderSm = ({ token,chat_notification }: iProps) => {
                 type="text"
                 className="searchInput"
                 required={true}
+                value={search}
+                onChange={setSearch}
+                
               />
             </Collapse>
           </Col>

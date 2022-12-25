@@ -108,6 +108,7 @@
         height: 40px;
         display: block;
         border-radius: 50%;
+        min-width: 40px;
     }
 
     .contactName,
@@ -150,6 +151,7 @@
         height: 40px;
         display: block;
         border-radius: 50%;
+       
     }
 
     .statusCircle {
@@ -207,6 +209,7 @@
         height: 50vh;
         overflow-y: scroll;
         display: block;
+        scroll-behavior: smooth;
 
         &::-webkit-scrollbar {
             width: 3px;
@@ -242,6 +245,7 @@
         width: 86%;
         column-gap: 15px;
         margin-bottom: 12px;
+        align-items: flex-end;
     }
 
     .chatimgCont {
@@ -287,7 +291,14 @@
         border-radius: 10px 10px 10px 0px;
         background: #F3F3F3;
     }
-
+    .chat-msg-status {
+        max-width: 15px;
+        max-height: 15px;
+        width:15px;
+        height: 15px;
+        min-width: 15px;
+        min-height: 15px;
+    }
     .otherUserSender {
         padding: 10px;
         letter-spacing: 1.01px;
@@ -433,7 +444,14 @@
         .chatMessages {
             height: 58vh;
         }
-
+        .chat-msg-status {
+            max-width: 10px;
+            max-height: 10px;
+            width: 10px;
+            height: 10px;
+            min-height: 10px;
+            min-width: 10px;
+        }
         .iAmSender,
         .otherUserSender {
             font: normal normal 600 13px/17px Cairo;

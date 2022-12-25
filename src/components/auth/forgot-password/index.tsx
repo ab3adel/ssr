@@ -27,14 +27,21 @@ const formik =useFormik({
         email:''
     },
     validationSchema:Yup.object().shape({
-        email:Yup.string().email().required('This field is required')
+        email:Yup.string().required('This field is required')
     }),
     onSubmit:()=>{}
 })
 
 const hanldeDone=()=>{
     let formdata= new FormData()
-    formdata.append('email',formik.values.email)
+    let number_test= new RegExp (/^\d+$/)
+    if (number_test.test(formik.values.email)) {
+        formdata.append('phone',formik.values.email)
+    }
+    else {
+
+        formdata.append('email',formik.values.email)
+    }
     formdata.append('locale',i18n.language)
     setIsloading(true)
 axios.post(apis.forgot_password,
@@ -54,7 +61,9 @@ axios.post(apis.forgot_password,
       })
 }
 const resendEmail =()=>{
-    axios.get(apis.resend_email(formik.values.email))
+    let number_test= new RegExp (/^\d+$/)
+    let isPhone= number_test.test(formik.values.email)?true:false
+    axios.get(apis.resend_email(isPhone,formik.values.email))
     .then(res=>{
      
         setNotify((pre:any)=>({...pre,message:res.data.message,type:true,show:true}))
@@ -90,7 +99,7 @@ let disableBtn= Boolean(formik.values.email)?Boolean(formik.errors.email):true
                   
                         >
                                <InputWithIcon
-                                 label="Email Address"
+                                 label="Email Address/Phone number"
                                  icon={email}
                                  id="email"
                                  name="email"

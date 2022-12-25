@@ -4,33 +4,54 @@ import Card from "react-bootstrap/Card";
 import chat from "../../images/post-details/chat-icon.svg";
 
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { getLocalStorage } from "../tools/getLocalstorage";
+import {useNavigate} from 'react-router-dom'
+import notificationContext from "../tools/context/notification/notification-context";
 export const FixedSection = ({ post }: { post: any }) => {
-  const { i18n } = useTranslation();
+  const { i18n,t } = useTranslation();
   let [style,setStyle]= useState({left:'auto',top:'auto',right:'auto'})
+  const { setNotify } = useContext(notificationContext);
+  const navigate =useNavigate()
   useEffect(()=>{
     if (window.innerWidth > 567) {
       
       setStyle(()=> 
         i18n.language==='en'?
-      {left:'auto',top:'1rem',right:'1rem'}
+      {left:'auto',top:'1rem',right:'auto'}
       :
-      {left:'1rem',top:'1rem',right:'auto'})
+      {left:'auto',top:'1rem',right:'auto'})
     }
   },[i18n.language])
- 
+  const handleChat=()=>{
+    if (getLocalStorage() && getLocalStorage().id && getLocalStorage().id !== 'Guest'){
+  
+      if (post.user_id ) {
+      
+        navigate('/messages',{state:{action:'create-chat',body:{user_1:getLocalStorage().id,user_2:post.user_id}}})
+      }
+    }
+    else {
+      setNotify((pre: any) => ({
+        ...pre,
+        show: true,
+        type: "info",
+        message: "You have to login first !",
+      }));
+    }
+   }
   return (
     <Col sm={4} xs={12} className="fixedSection p-sm-1 p-0"
     style={style}>
       <Card className="p-sm-2 p-0">
         <Row className="gy-3 p-2">
           <Col xs={12} className="fw-bold fs-5">
-            Property Information
+           {t('PropertyInformation')}
           </Col>
           {post.offer_type && (
             <>
               <Col lg={5} xs={6} className="fw-bold">
-                Type
+                {t('Type')}
               </Col>
               <Col lg={4} xs={6}>
                 <div className="tag grey">{i18n.language==='en' ? post.offer_type.en:post.offer_type.ar}</div>
@@ -40,7 +61,7 @@ export const FixedSection = ({ post }: { post: any }) => {
           {post.price_type && (
             <>
               <Col lg={5} xs={6} className="fw-bold">
-                Purpose
+                {t("Purpose")}
               </Col>
               <Col lg={4} xs={6}>
                 <div className="tag grey">{i18n.language==='en' ?post.price_type.en : post.price_type.ar}</div>
@@ -48,7 +69,7 @@ export const FixedSection = ({ post }: { post: any }) => {
             </>
           )}
           <Col lg={5} xs={6} className="fw-bold">
-            Added on
+            {t('AddedOn')}
           </Col>
           <Col lg={4} xs={6}>
             <div className="tag grey">
@@ -65,13 +86,13 @@ export const FixedSection = ({ post }: { post: any }) => {
           </>
           }
           <Col lg={5} xs={6} className="fw-bold">
-            Direction
+            {t('Direction')}
           </Col>
           <Col lg={4} xs={6}>
             <div className="tag grey">North West</div>
           </Col>
           <Col xs={12} className="fw-bold fs-5">
-            Contact Owners
+            {t('ContactOwners')}
           </Col>
           <Col xs={12}>
             <Row className="gy-1">
@@ -98,9 +119,10 @@ export const FixedSection = ({ post }: { post: any }) => {
           sm={12}
           className="mt-4 p-1 d-none d-sm-flex justiyf-content-center"
         >
-          <Col xs={9} className="chatBtn  ">
+          <Col xs={9} className="chatBtn  "
+          onClick={()=>handleChat()}>
             <img src={chat} />
-            <span>Chat</span>
+            <span>{t('Chat')}</span>
           </Col>
         </Col>
       </Card>

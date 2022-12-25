@@ -12,6 +12,7 @@ import axios from '../../tools/apis/axios'
 import {apis} from '../../tools/apis/apis'
 import {getLocalStorage} from '../../tools/getLocalstorage'
 import { useGetArea } from "../../tools/apis/useGetArea";
+import { ChangePassword } from "../../tools/change-password/changePassword";
 interface iValues  {
   pre_existed_phone_numbers: any [],
   email:string,
@@ -39,6 +40,7 @@ export const NormalUserProfile = ({ edit, setEdit,t ,lang,data}: iProps) => {
   const [country,setCountry]=useState(0)
   const [countries,setCountries]=useState<any>([])
   const fieldsUpdatedRigester=useRef<string[]>([])
+  const [showChangePassword,setShowChangePassword]=useState(false)
   let {followingData,getFollowings,followingError,isFollowingLoading} =useGetFollowingFollowers()
   const{getArea,getCountries
     ,isAreaLoading
@@ -214,9 +216,11 @@ setEdit(false)
                     fun={() => updateProfile()}
                   />
                 ) : (
-                  <GreenButton label={t("ChangePassword")} />
+                  <GreenButton label={t("ChangePassword")} 
+                  fun={()=>setShowChangePassword(true)}/>
                 )}
               </Col>
+              
             </Row>
           </Col>
           <Col
@@ -274,6 +278,10 @@ setEdit(false)
                   />
                 </Col>
               )}
+              <Col xs={7}>
+                 <GreenButton label={t("ChangePassword")} 
+                 fun={()=>setShowChangePassword(true)}/>
+              </Col>
             </Row>
           </Col>
           <Col xs={12} className=" py-2   bg-profile h-100vh">
@@ -288,14 +296,18 @@ setEdit(false)
                     area={area}
                     />
           </Col>
-          <Col xs={12} className="h-20vh bg-profile">
+          {/* <Col xs={12} className="h-20vh bg-profile">
             {edit ? (
               <GreenButton label={t("SaveChanges")} fun={() => setEdit(false)} />
             ) : (
-              <GreenButton label={t("ChangePassword")} />
+             
             )}
-          </Col>
+          </Col> */}
         </Row>
+        <ChangePassword 
+      open={showChangePassword}
+      onClose={()=>setShowChangePassword(false)}
+      />
       </Container>
 }
     </>

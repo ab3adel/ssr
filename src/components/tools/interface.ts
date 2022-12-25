@@ -60,6 +60,7 @@ export interface iText {
   handleBlur: any;
   label?: string;
   disabled?:boolean;
+  className?:string
 }
 
 export interface iToken {

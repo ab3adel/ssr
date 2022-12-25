@@ -6,7 +6,8 @@ import {iText} from '../interface'
 
 export const Textarea =({
     value,error,touched,
-    setValue,name,handleBlur
+    setValue,name,handleBlur,
+    className
 
 }:iText)=>{
 const {t,i18n}= useTranslation()
@@ -17,7 +18,7 @@ const handleChange=(e:React.ChangeEvent)=>{
 }
 
     return (
-        <div className="textareaContainer">
+        <div className={`textareaContainer ${className}`}>
                 <Input.Control
                 style={i18n.language === 'en'?{direction:"ltr"}:{direction:"rtl"}}
                  className="input"
@@ -29,6 +30,7 @@ const handleChange=(e:React.ChangeEvent)=>{
                     onBlur={handleBlur}
                     name={name}
                     value={i18n.language ==='en' ? value.en : value.ar}
+                    
                
                     />
                     {

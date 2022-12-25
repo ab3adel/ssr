@@ -169,7 +169,7 @@ return (
                     <Col sm={4} xs={7}>
                       <Button className="mapBtn">
                         <img src={map} />
-                        <span>Go To Map</span>
+                        <span>{t("GoToMap")}</span>
                       </Button>
                     </Col>
                 
@@ -205,7 +205,7 @@ return (
                  
                         <>
                           <span>{post.number_of_rooms}</span>
-                          <span>rooms</span>
+                          <span>{t("Rooms")}</span>
                         </>
                       
                     </Col>
@@ -216,7 +216,7 @@ return (
                      
                         <>
                           <span>{post.number_of_bathrooms}</span>
-                          <span>bath</span>
+                          <span>{t("Baths")}</span>
                         </>
                     
                     </Col>  )}

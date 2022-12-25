@@ -1,11 +1,12 @@
 import {iGetPosts, iGetProfile} from '../interface'
+import {getI18n} from 'react-i18next'
 export const apis = {
    predefiendPictures:'viewPredefinedCompanyImages',
     roles:'roles',
     countries:'countries',
     country_id:(num:number)=>`countries?country_id=${num}`,
     register:'register',
-    resend_email:(email:string)=>`resendEmail?type=forgotPassword&email=${email}`,
+    resend_email:(isPhone:boolean,value:string)=>`resendEmail?type=forgotPassword&${isPhone?`phone=${value}`:`email=${value}`}&locale=${getI18n().language}`,
     forgot_password:'forgotPassword',
     login:'login',
     categories:(is_category:number,category_id?:number)=>
@@ -55,7 +56,10 @@ export const apis = {
     unFollow:(company_id:number)=>`unfollow?${company_id?`company_id=${company_id}`:''}`,
     followings:`followings`,
     followers:'followers',
-    changePassword:'passwordReset?_method=put'
+    changePassword:'passwordReset?_method=put',
+    verifyPhoneNumber:(userId:number,code:number)=> `phone/verify/${userId}/${code}?locale=${getI18n().language}`,
+    resend:(isPhone:boolean,value:string)=> `resendEmail?${isPhone?`phone=${value}`:`email=${value}`}&type=Verification&locale=${getI18n().language}`
+
 
         
 

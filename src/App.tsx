@@ -37,14 +37,20 @@ function App() {
          if (response&& response.data && response.data.payload) {
         
           let data =response.data.payload
+          let realImage=null
+          if (response.data.payload.profile_picture) {
+            realImage = response.data.payload.profile_picture
+              .split("")
+              .slice(7)
+              .join("");
+          }
          
-          let real_image= data?.profile_picture
                  let required_data = {
                    token: data.token,
                    full_name: data.full_name,
                    refresh_token: data.refresh_token,
                    role:data?.roles? data.roles[0].id:-1,
-                   profile_picture:real_image?"https:backend.instaaqar.com/storage/"+ real_image:null,
+                   profile_picture:realImage?"https://backend.instaaqar.com/storage/"+ realImage:null,
                    id:data.id
                  };
                  localStorage.removeItem('token')

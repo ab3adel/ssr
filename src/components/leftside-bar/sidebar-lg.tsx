@@ -29,6 +29,7 @@ interface iProps {
   collapsed: boolean;
   setCollapsed: Function;
   authenticated?:boolean,
+  chat_notification:number
 
 }
 let mainCol_xl = 12;
@@ -44,7 +45,7 @@ export const SidebarLg = ({
   collapsed,
   setCollapsed,
   authenticated,
-
+  chat_notification
 }: iProps) => {
   const { i18n, t } = useTranslation();
  
@@ -160,7 +161,7 @@ export const SidebarLg = ({
                 )}
               </div>
             </Col>
-            <Col
+            {/* <Col
               lg={col_lg}
 
               onClick={() => hanldeRoutes(1)}
@@ -175,7 +176,7 @@ export const SidebarLg = ({
                   </>
                 )}
               </div>
-            </Col>
+            </Col> */}
             <Col
               lg={col_lg}
 
@@ -231,18 +232,18 @@ export const SidebarLg = ({
             <Col
               lg={col_lg}
 
-              onClick={() => hanldeRoutes(5)}
+              onClick={ () => authenticated? hanldeRoutes(5):{}}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
-              <div className={selected === 5 ? "item focused" : "item "}>
+              <div className={authenticated?selected === 5 ? "item focused" : "item ":'item disabled'}>
                 <div className="iconContainer">
-                  <div className="dot"></div>
+                { chat_notification>0 && <div className="dot"></div>}
                   <img src={messages} className="icon" />
                 </div>
                 {!collapsed && (
                   <>
                     <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 0.5rem ':'0 0.5rem 0 2px '}}>{t("Messages")}</span>
-                    <span className="notification">10</span>
+                   { chat_notification>0 && (<span className="notification">{ chat_notification}</span>)}
                   </>
                 )}
               </div>

@@ -51,6 +51,8 @@ const SignUp = ({ setLogin }: iProps) => {
   const [verification, setVerification] = useState({
     emailVerification: "",
     phoneVerification: "",
+    phone:'',
+    email:''
   });
   const [disableNext, setDisableNext] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -226,6 +228,7 @@ const SignUp = ({ setLogin }: iProps) => {
         setShow(true);
         setIsLoading(false);
         if (res && res.data) {
+          
           setNotify((pre: any) => ({
             ...pre,
             show: true,
@@ -233,6 +236,7 @@ const SignUp = ({ setLogin }: iProps) => {
             message: res.data.message,
           }));
         }
+        localStorage.setItem('temp_user',JSON.stringify({id:res.data.payload?.id}))
         formik.resetForm();
       })
       .catch((err) => {
@@ -301,7 +305,7 @@ const SignUp = ({ setLogin }: iProps) => {
   useEffect(() => {
     if (formik.values.email) {
       let emailVerification = formik.values.email;
-      setVerification((pre) => ({ ...pre, emailVerification }));
+      setVerification((pre) => ({ ...pre, emailVerification ,email:formik.values.email as string}));
     }
     if (
       formik.values.phone_numbers &&
@@ -318,7 +322,7 @@ const SignUp = ({ setLogin }: iProps) => {
         airstiks.slice(0, -4).join("") +
         number[number.length - 2] +
         number[number.length - 1];
-      setVerification((pre) => ({ ...pre, phoneVerification }));
+      setVerification((pre) => ({ ...pre, phoneVerification ,phone:(formik.values.phone_numbers as any)[0].phone}));
     }
   }, [formik.values]);
   useEffect(() => {
@@ -514,6 +518,9 @@ const SignUp = ({ setLogin }: iProps) => {
         setShow={closeAccountVerification}
         emailVerification={verification.emailVerification}
         phoneVerification={verification.phoneVerification}
+        phone={verification.phone}
+        email={verification.email}
+        
       />
     </Row>
   );

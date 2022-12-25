@@ -12,9 +12,19 @@ import { useTranslation } from "react-i18next";
 import { iToken } from "../tools/interface";
 import { useState, useEffect } from "react";
 import {iProps} from './'
-export const HeaderLg = ({ token }: iProps) => {
-  const { t } = useTranslation();
+import { useNavigate } from "react-router-dom";
 
+export const HeaderLg = ({ 
+  token
+  ,chat_notification 
+  ,handleNotificationClick
+  ,setSearch
+  ,handleSearch
+  ,search
+}: iProps) => {
+  const { t } = useTranslation();
+  const navigate = useNavigate()
+  
   return (
     <Navbar
       className="navbarContainer d-none d-sm-block"
@@ -25,7 +35,8 @@ export const HeaderLg = ({ token }: iProps) => {
         <Row className="navbarRow">
           <Col sm={8} xs={10}>
             <Row>
-              <Col sm={6} xs={12}>
+              <Col sm={6} xs={12}
+              onKeyUp={handleSearch}>
                 <InputWithIcon
                   icon={search}
                   label={t("SearchLocations")}
@@ -34,6 +45,9 @@ export const HeaderLg = ({ token }: iProps) => {
                   type="text"
                   className="searchInput"
                   required={true}
+                  value={search}
+                  onChange={setSearch}
+                  
                 />
               </Col>
             </Row>
@@ -46,8 +60,9 @@ export const HeaderLg = ({ token }: iProps) => {
           >
             <Row className="pr-1">
               <Col sm={3} xs={6}>
-                <div className="iconContainer">
-                  <div className="dot"></div>
+                <div className="iconContainer"
+                onClick={handleNotificationClick}>
+                  {chat_notification >0 && <div className="dot">{chat_notification}</div>}
                   <img src={message} className="icon" />
                 </div>
               </Col>
@@ -76,6 +91,7 @@ export const HeaderLg = ({ token }: iProps) => {
           </Col>
         </Row>
       </Container>
+     
     </Navbar>
   );
 };

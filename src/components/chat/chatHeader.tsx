@@ -16,6 +16,7 @@ interface elemntProps {
 
 const ChatHeader = ({ activeUser }: elemntProps) => {
     const { t } = useTranslation();
+    
     return (
         <>
             {activeUser ?

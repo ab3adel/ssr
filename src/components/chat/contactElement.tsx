@@ -13,12 +13,15 @@ import {chatData} from '../tools/context/chat-context/chat-provider'
 interface elemntProps {
     ele: chatData,
     activeChat: number | null ,
-    setActiveChat: Function
+    setActiveChat: Function,
+    setInActiveChat:Function,
 }
 
 
-const ContactElement = ({ ele, activeChat, setActiveChat }: elemntProps) => {
+const ContactElement = ({ ele, activeChat, setActiveChat,setInActiveChat }: elemntProps) => {
+
     const { t } = useTranslation();
+  
     return (
         <div className={`d-flex contctElement ${activeChat === ele.id ? "activeChat" : ""} `} onClick={() => setActiveChat()}>
             <div className='d-flex contactTextParent'>

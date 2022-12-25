@@ -1,9 +1,10 @@
-import React ,{ useEffect ,useState}  from 'react'
+import React ,{ useEffect ,useState,useContext}  from 'react'
 import './leftside-bar.scss'
 import {getLocalStorage} from '../tools/getLocalstorage'
 import {useNavigate} from 'react-router-dom'
+
 const LeftSideBar= (props:any)=>{
-  
+   
 
     return (
         <>
@@ -13,7 +14,7 @@ const LeftSideBar= (props:any)=>{
                         return (React.cloneElement(child,{authenticated:true,key:index}))
                     }
                     else {
-                        return (React.cloneElement(child,{authenticated:false,key:index}))
+                        return (React.cloneElement(child,{authenticated:false,key:index }))
                     }
                 })
             }

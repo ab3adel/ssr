@@ -23,7 +23,8 @@ import SettingContext from "../tools/context/setting-context/setting-context";
 interface iProps {
   token?: iToken;
   removeToken: Function;
-  authenticated?:boolean
+  authenticated?:boolean,
+  chat_notification:number
 }
 
 let languages = [
@@ -31,7 +32,7 @@ let languages = [
   { title: "Arabic", icon: kw },
 ];
 
-export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
+export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}: iProps) => {
   const { openSidebar, setOpenSidebar } = useContext(SettingContext);
   const { i18n, t } = useTranslation();
   const [selected, setSelected] = useState(0);
@@ -111,7 +112,7 @@ export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
                       {i18n.language === "en" && <div className="empty"></div>}
                     </div>
                   </Col>
-                  <Col xs={7} onClick={() => handleRoutes(1)}>
+                  {/* <Col xs={7} onClick={() => handleRoutes(1)}>
                     <div
                       className={selected === 1 ? "item focused" : "item "}
                       style={
@@ -128,7 +129,7 @@ export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
                       <span>{t("NewsFeed")}</span>
                       {i18n.language === "en" && <div className="empty"></div>}
                     </div>
-                  </Col>
+                  </Col> */}
                   <Col xs={7} onClick={() => handleRoutes(2)}>
                     <div
                       className={selected === 2 ? "item focused" : "item "}
@@ -214,11 +215,12 @@ export const SidebarSm = ({ token, removeToken,authenticated }: iProps) => {
                       </div>
                      <div className="empty"></div>
                       <span>{t("Messages")}</span>
-                      {i18n.language === "en" ? 
-                        <span className="notification">10</span>:
+                      {chat_notification>0? i18n.language === "en" ? 
+                        <span className="notification">{chat_notification}</span>:
                         <span className="notification" style={{ margin: "0" }}>
-                          10
+                        {chat_notification}
                         </span>
+                        :null
                       }
                     </div>
                   </Col>

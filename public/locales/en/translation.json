@@ -104,7 +104,17 @@
     "Cancel":"Cancel",
     "OldPassword":"Old Password",
     "NewPassword":"New Password",
-    "WelcomeGuest":"Welcome to Instaaqar , In order to get advantage of the website's services please login "
+    "WelcomeGuest":"Welcome to Instaaqar , In order to get advantage of the website's services please login ",
+    "Chat":"Chat",
+    "PropertyInformation":"Property Information",
+    "Type":"Type",
+    "Purpose":"Purpose",
+    "AddedOn":"Added on",
+    "ContactOwners":"Contact Owners",
+    "ServiceAvailable":"Service Available",
+    "Bath":"Baths",
+    "GoToMap":"Go To Map"
+    
     
 
     

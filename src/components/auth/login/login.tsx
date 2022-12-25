@@ -34,7 +34,7 @@ const Login = ({ setLogin }: iProps) => {
       password: "",
     },
     validationSchema: Yup.object().shape({
-      email: Yup.string().email().required("This field is required"),
+      email: Yup.string().required("This field is required"),
       password: Yup.string().min(
         8,
         "This field has to be 8 characters at least"
@@ -53,13 +53,26 @@ const Login = ({ setLogin }: iProps) => {
   }, [formik.values]);
   const handleLogin = () => {
     let formdata = new FormData();
-    formdata.append("email", formik.values.email);
+    let number_test= new RegExp (/^\d+$/)
+    // var mailFormat = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/;
+    // if (!mailFormat.test(formik.values.email)) {
+    //   formik.setFieldError('email','Email/Phonenumber is not valid ')
+    //   return
+    // }
+    if (number_test.test(formik.values.email)){
+
+      formdata.append("phone", formik.values.email);
+    }
+    else {
+      formdata.append("email", formik.values.email);
+    }
     formdata.append("password", formik.values.password);
     formdata.append("remember_me", "1");
     formdata.append('locale',i18n.language)
     axios
       .post(apis.login, formdata)
       .then((res: any) => {
+        console.log(res.data)
         if (res && res.data) {
           let realImage = "";
           if (res.data.payload.profile_picture) {
@@ -94,12 +107,26 @@ const Login = ({ setLogin }: iProps) => {
       })
       .catch((err) => {
         if (err && err.response && err.response.data) {
-          setNotify((pre: any) => ({
-            ...pre,
-            message: err.response.data.error,
-            type: false,
-            show: true,
-          }));
+          
+          if (err.response.data.error){
+
+            setNotify((pre: any) => ({
+              ...pre,
+              message: err.response.data.error,
+              type: false,
+              show: true,
+            }));
+          }
+          if (err.response.data.errors) {
+            
+              setNotify((pre: any) => ({
+                ...pre,
+                message: err.response.data.message,
+                type: false,
+                show: true,
+              }));
+            
+          }
         }
       });
   };
@@ -111,6 +138,7 @@ const Login = ({ setLogin }: iProps) => {
       .then((res) => res)
       .catch((err) => console.log(err));
   };
+
   return (
     <Col xs={12} className="loginBody">
       <Col sm={9} xs={12}>

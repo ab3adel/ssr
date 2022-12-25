@@ -18,7 +18,7 @@ interface iChatData {
     error:string
     ,contacts:chatData[]
     ,chats:any[]
-    ,active_chat:any[]
+    ,active_chat:{messages:any[],active_user:any,chat_id:number}
     ,notification:{total_number:number,messages_per_user:iNotication_per_user[]}
 }
 const ChatContextProvider=(props:any)=> {
@@ -26,7 +26,7 @@ const ChatContextProvider=(props:any)=> {
     const [chatData,setChatData]=useState<iChatData>({error:''
     ,chats:[]
     ,contacts:[]
-    ,active_chat:[]
+    ,active_chat:{messages:[],active_user:{},chat_id:0}
     ,notification:{total_number:0,messages_per_user:[{unread_messages:0,chat_id:'0'}]}
 })
   

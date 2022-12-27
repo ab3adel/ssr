@@ -21,13 +21,13 @@ const ForgotPassword =({show,setShow}:iProps)=>{
 const [done ,setDone]=useState(false)
 const {setNotify} = useContext(notificationContext)
 const [isLoading,setIsloading]=useState(false)
-const {i18n}=useTranslation()
+const {i18n,t}=useTranslation()
 const formik =useFormik({
     initialValues:{
         email:''
     },
     validationSchema:Yup.object().shape({
-        email:Yup.string().required('This field is required')
+        email:Yup.string().required(i18n.language==='en'?'This field is required':'هذا الحقل مطلوب')
     }),
     onSubmit:()=>{}
 })
@@ -99,8 +99,8 @@ let disableBtn= Boolean(formik.values.email)?Boolean(formik.errors.email):true
                   
                         >
                                <InputWithIcon
-                                 label="Email Address/Phone number"
-                                 icon={email}
+                                 label={t('UserName')}
+                               
                                  id="email"
                                  name="email"
                                  type='email'

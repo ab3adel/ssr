@@ -34,6 +34,7 @@ setSelected(e)
              options={options}
              onMenuToggle={menuToggleHandler}
              disabled={needCategory? options.length >0? false:true:true}
+             
             />
             
                { (Boolean(error) && touched) ? (

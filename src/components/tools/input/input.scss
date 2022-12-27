@@ -7,9 +7,7 @@
     flex-direction: column;
     padding:0.5em 2.9em 0.5em 0 ;
     border:1px solid rgb(165, 157, 157,0.4);
-    &:focus {
-       
-    }
+  
     .inputLabel {
         background-color: transparent;
         border-right: none;
@@ -39,10 +37,10 @@
       
         height: 100%;
         border:none;
-        &:focus,&::selection {
-                      
-            box-shadow: 2px 0px  2px var(--dark-geen);
-        }
+       &:focus {
+        box-shadow: none;
+       }
+        
     }
     
     .valid-feedback {
@@ -74,6 +72,9 @@
 }
 @media screen and (max-width:567px) {
     .inputGroupWithIcon {
+        .inputLabel {
+            font-size: 0.7rem;
+        }
         .passwordIcon {
             width:20px;
             height: 20px;

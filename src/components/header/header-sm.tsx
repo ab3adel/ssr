@@ -26,7 +26,7 @@ export const HeaderSm = ({
   const { t } = useTranslation();
   const navigate = useNavigate()
 const searchDone=(e:React.KeyboardEvent)=>{
-  setOpenSearch(false)
+  
   handleSearch(e)
 }
 

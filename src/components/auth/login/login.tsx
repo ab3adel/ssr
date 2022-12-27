@@ -34,10 +34,13 @@ const Login = ({ setLogin }: iProps) => {
       password: "",
     },
     validationSchema: Yup.object().shape({
-      email: Yup.string().required("This field is required"),
+      email: Yup.string().required(i18n.language==='en'?
+      "This field is required":'هذا الحقل مطلوب'),
       password: Yup.string().min(
         8,
-        "This field has to be 8 characters at least"
+        i18n.language==='en'?
+        "This field has to be 8 characters at least":
+        "هذا الحقل على الأقل 8 أحرف"
       ),
     }),
     onSubmit: () => {},

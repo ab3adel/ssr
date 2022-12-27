@@ -193,13 +193,14 @@ export const PersonalInfoForm  = (props:iProps)=>{
                                     /> */}
                                     <MyMultiSelect 
                                      options={categories?.categoriesOption as any[]}
-                                     label="category"
+                                     label={t("Category")}
                                      name="category_ids"
                                      setSelect={setValue}
                                      error={errors.category_ids as string}
                                      touched={touched.category_ids as boolean}
                                      handleBlur={setFieldTouched}
                                      needCategory={needCategory}
+                                     
 
                                     />
                                 </Col>

@@ -264,15 +264,21 @@ console.log(values)
                   return (
                     <Col xs={12} key={index}>
                       <Row className="gy-1">
-                        <Col sm={6} xs={12}>
-                          <SteadyPhoneInput
+                        
+                        <Col sm={6} xs={12}
+                        className='fw-bold'>
+                          {edit?
+                            <SteadyPhoneInput
                             label={t("PhoneNumber")}
                             disabled={!edit}
                             value={values["phone_numbers"]}
                             exteriorFunction={addPhone}
                             name="phone_numbers"
-                          />
+                          />:
+                          t("PhoneNumber")
+                          }
                         </Col>
+                        
                         <Col xs={12}>
                           <Row className="gy-2">
                             {phoneNumbers&&
@@ -325,7 +331,7 @@ console.log(values)
               <Col sm={10} xs={12}>
                 <TextArea
                   name="description"
-                  label="Description"
+                  label={t("Description")}
                   value={
                     lang === "en"
                       ? values.description.en
@@ -354,7 +360,7 @@ console.log(values)
                     <Row className="gy-2">
                       <Col xs={12}>
                         <span className="fw-bold">
-                          Predefined Post Pictures
+                         {t("PredefinedPostPicture")}
                         </span>
                       </Col>
                       <Col sm={9} xs={12} style={{ height: "174px" }}>

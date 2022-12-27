@@ -355,6 +355,7 @@ console.log(data)
                             t={t}
                           />
                         </Col>
+                        <Col xs={12} style={{height:'40px'}} ></Col>
                       </Row>
                     </Col>
                   </Row>

@@ -4,6 +4,7 @@ import Col from  'react-bootstrap/Col'
 import back from '../../../images/auth/forgot-back.svg'
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
+import { useTranslation } from 'react-i18next'
 
 interface iProps {
     hanldeDone:Function
@@ -16,7 +17,7 @@ export const EmailForm=({
     enableBtn,
     isLoading
 }:iProps)=>{
-
+const {i18n,t} =useTranslation()
     return (
         <Row className="gy-3">
                             <Col xs={12}
@@ -25,12 +26,24 @@ export const EmailForm=({
                             </Col>
                             <Col xs={12} className="text">
                                 <div className="title">
-                                    Forgot password ?
+                                    {i18n.language==='en'?
+                                    'Forgot password ?':
+                                    'نسيت كلمة السر؟'
+                                    
+                                }
                                 </div>
                                 <div className="subtitle">
-                                    <span>Please enter your email address</span> 
+                                    {i18n.language==='en'?
+                                    <>
+                                    <span>Please enter your email or phone number without country code</span> 
                                     <span>associated
                                     with your account</span>
+                                    </>:
+                                    <>
+                                    <span>رجاءا ادخل بريدك الالكتروني او رقم هاتفك بدون رمز النداء</span> 
+                                    <span>المرافق لحسابك</span>
+                                    </>
+                                    }
                                 </div>
 
                             </Col>
@@ -46,7 +59,7 @@ export const EmailForm=({
                                        { 
                                        isLoading?
                                        <Spinner animation="border" />:
-                                       <>Submit</>
+                                       <>{t("Submit")}</>
                                        }
                                     </Button>
                                 </Col>

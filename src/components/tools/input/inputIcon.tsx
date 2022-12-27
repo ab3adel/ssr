@@ -110,6 +110,7 @@ export const InputWithIcon = ({
         style={{ direction: i18n.language == "ar" ? "rtl" : "ltr" }}
         onFocus={() => setIsTyping(true)}
         required={required}
+        
       />
       {touched && error && (
         <Form.Control.Feedback

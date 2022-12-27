@@ -306,7 +306,7 @@ useEffect(()=>{
               </Col>
 
               <Col xs={12} className="mt-2  ">
-                <Row className='justify-content-center gy-2'>
+                <Row className='justify-content-center gy-4'>
 
                   <Col xs={8}>
                     <FollowersFollowing company={company} t={t}
@@ -315,21 +315,26 @@ useEffect(()=>{
                     />
                   </Col>
                   <Col xs={8}>
-                    <GreenButton
-                      label={t("EditProfile")}
-                      fun={() => setEdit(true)}
-                    />
+                    <Row className="gy-2">
+
+                      <Col xs={12} >
+                        <GreenButton
+                          label={t("EditProfile")}
+                          fun={() => setEdit(true)}
+                        />
+                      </Col>
+                      <Col xs={12}>
+                          <GreenButton label={t("ChangePassword")}
+                          fun={()=>setShowChangePassword(true)}
+                          />
+                        </Col>
+                      <Col xs={12}>
+                          <WhiteButton label={t("DeleteAccount")}
+                          fun={()=>setShowDeleteAccount(true)}
+                          />
+                        </Col>
+                    </Row>
                   </Col>
-                  <Col xs={8}>
-                      <GreenButton label={t("ChangePassword")}
-                      fun={()=>setShowChangePassword(true)}
-                       />
-                    </Col>
-                  <Col xs={8}>
-                      <WhiteButton label={t("DeleteAccount")}
-                      fun={()=>setShowDeleteAccount(true)}
-                       />
-                    </Col>
                 </Row>
               </Col>
             </Row>

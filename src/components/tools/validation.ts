@@ -8,30 +8,31 @@ if (localStorage.getItem('lang')) {
 
 export const SignupSchema = (isUser: boolean, needCategory = true) =>
   Yup.object().shape({
-    full_name: Yup.string().required("This field is required"),
+    full_name: Yup.string().required(lang==='en'?"This field is required":"هذا الحقل مطلوب"),
     email: isUser
       ? Yup.string()
       : Yup.string(),
     phone_numbers: Yup.array().of(
       Yup.object().shape({
-        phone: Yup.string().required("This field is required"),
-        internationl_code: Yup.string().required("This field is required"),
+        phone: Yup.string().required(lang==='en'?"This field is required":"هذا الحقل مطلوب"),
+        internationl_code: Yup.string().required(lang==='en'?"This field is required":"هذا الحقل مطلوب"),
       })
     ),
     password: Yup.string()
-      .min(8, "Password must be at least 8 characters")
+      .min(8, lang==='en'?"Password must be at least 8 characters":"كلمة السر 8 أحرف على الأقل")
       .max(255)
-      .required("This field is Required"),
+      .required(lang==='en'?"This field is required":"هذا الحقل مطلوب"),
     password_confirmation: Yup.string()
-      .required("This field is Required")
+      .required(lang==='en'?"This field is required":"هذا الحقل مطلوب")
       .oneOf(
         [Yup.ref("password"), null],
-        "Passowrd Confirmation doesn't match"
+        lang==='en'?"Passowrd Confirmation doesn't match":
+        "مطابقة كلمة السر خاطئة"
       ),
     area_id: !isUser?
     Yup.number()
-      .min(0, "This Field is required")
-      .required("This field is Required"):
+      .min(0, lang==='en'?"This field is required":"هذا الحقل مطلوب")
+      .required(lang==='en'?"This field is required":"هذا الحقل مطلوب"):
       Yup.number()
       ,
     profile_picture: isUser
@@ -40,23 +41,23 @@ export const SignupSchema = (isUser: boolean, needCategory = true) =>
     website: isUser
       ? Yup.string().url().notRequired()
       : Yup.string()
-          .url("This field must be a valid url"),
+          .url(lang==='en'?"This field must be a valid url":"ادخل رابط صالح رجاءا"),
     category_ids: !isUser
       ? needCategory
         ? Yup.array()
             .of(Yup.number())
-            .min(1, "You have to choose category")
-            .required("You have to choose category")
+            .min(1, lang==='en'?"You have to choose category":"اختر صنف رجاءا")
+            .required(lang==='en'?"This field is required":"هذا الحقل مطلوب")
         : Yup.array().of(Yup.number()).notRequired()
       : Yup.array().notRequired(),
     description: isUser
       ? Yup.object().nullable().notRequired()
       : Yup.object()
           .shape({
-            ar: Yup.string().required("This field is required"),
-            en: Yup.string().required("This field is required"),
+            ar: Yup.string().required(lang==='en'?"This field is required":"هذا الحقل مطلوب"),
+            en: Yup.string().required(lang==='en'?"This field is required":"هذا الحقل مطلوب"),
           })
-          .required("This field is required"),
+          .required(lang==='en'?"This field is required":"هذا الحقل مطلوب"),
   });
 
 export const AddPostSchema = (role_id: number) =>

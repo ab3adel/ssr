@@ -159,7 +159,7 @@ return (
 
         <Row className="p-1">
             {
-                storedPosts.length>0 ?
+                storedPosts.length>0?
                 storedPosts.map((ele:any,index:number)=> 
                 <Col xs={12} sm={6} key={index}>
                   <PostCard {...ele} authenticated={authenticated} 

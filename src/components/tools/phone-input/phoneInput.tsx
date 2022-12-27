@@ -30,6 +30,7 @@ const blurHandler =(e:React.FocusEvent)=>{
     return (
         <div 
         className={ (Boolean(phoneNumberError)) ?"phoneInputContainer invalid" :"phoneInputContainer"}
+        style={{direction:'ltr'}}
         >
 
             <Input 
@@ -40,7 +41,7 @@ const blurHandler =(e:React.FocusEvent)=>{
             isValid={ !(Boolean(phoneNumberError))}
             onBlur={blurHandler}
             country="kw"
-          buttonStyle={{direction:'rtl'}}
+          buttonStyle={{direction:'ltr'}}
          
         
           

@@ -30,6 +30,7 @@
         .dropdown-container{
             .dropdown-heading{
                 .dropdown-heading-value {
+                    visibility: hidden;
                     span {
                         color:black;
                     }
@@ -38,6 +39,30 @@
         }
     }
 
+    .rmsc.myMultiSelect.selected {
+        .dropdown-container{
+            .dropdown-heading{
+                .dropdown-heading-value {
+                    
+                    span {
+                        color:black;
+                    }
+                }
+            }
+        }
+    }
+}
+.rmsc{
+    .dropdown-container{
+        .dropdown-heading{
+            .dropdown-heading-value {
+                visibility: hidden;
+                span {
+                    color:black;
+                }
+            }
+        }
+    }
 }
 .myMultiSelectContainer.invalid {
     .rmsc.myMultiSelect {

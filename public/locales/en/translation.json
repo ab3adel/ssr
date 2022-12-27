@@ -7,7 +7,7 @@
     "Done": "Done",
     "WelcomeTo": "Welcome To",
     "IntaAqar": "Insta Aqar",
-    "UserName": "Phone or Email",
+    "UserName": "Phone (without country code) or Email",
     "Password": "Password",
     "ConfirmPassword": "Confirm Password",
     "ForgotPassword": "Forgot Password ?",
@@ -91,7 +91,7 @@
     "ChangePassword":"Change Password",
     "Following":"Following",
     "Followers":"Followers",
-    "SocialMediaAccountes":"Social Media Accountes",
+    "SocialMediaAccountes":"Social Media Accounts",
     "Posts":"Posts",
     "Info":"Info",
     "Data":"Data",
@@ -118,7 +118,10 @@
     "Privacy":"Privacy plicy",
     "DeleteAccountWarning":"Are you sure you want to delete your account  from InstaAqar??",
     "DeleteAccount":"Delete Account",
-    "SomethingWrong":"Something wrong happend try later !!"
+    "SomethingWrong":"Something wrong happend try later !!",
+    "Submit":"Submit",
+    "Socials" :"Social Media"
+    
     
     
 

@@ -24,7 +24,12 @@ export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean
     }
     else {
       console.log('style')
-      setStyle(pre=>({...pre,left:'1rem',top:'1rem',right:'auto'}))
+      
+      setStyle(pre=>
+        i18n.language==='en'?
+        ({...pre,right:'1rem',top:'1rem',left:'auto'}):
+        ({...pre,right:'auto',top:'1rem',left:'1rem'})
+        )
     }
   },[i18n.language,mobileView])
   const handleChat=()=>{

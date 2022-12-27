@@ -28,6 +28,7 @@ export const ScrollableSection = ({
   postLikes,
 }: iProps) => {
 const {t,i18n}=useTranslation()
+console.log(post.description)
   return (
     <Col xs={7} className="scrollableSection">
       <Card>
@@ -35,7 +36,7 @@ const {t,i18n}=useTranslation()
           <Row className="gy-1">
             <Col xs={12}>
               <Row className="justify-content-between ">
-                <Col xs={10} sm={8}>
+                <Col xs={10} sm={10}>
                   <Row className="gy-3">
                     <Col xs={4} style={{width:'fit-content'}}>
                       <img
@@ -47,9 +48,11 @@ const {t,i18n}=useTranslation()
                         className="profile"
                       />
                     </Col>
-                    <Col xs={8} className="d-flex  align-items-center">
+                    <Col xs={7} className="d-flex  align-items-center">
                       <div className="userName">
-                        <span>{post.username}</span>
+                        <span>{post.username} 
+                         
+                        </span>
                         <img className="icon" src={valid} />
                       </div>
                     </Col>
@@ -112,7 +115,7 @@ const {t,i18n}=useTranslation()
               <Col xs={6}>
                 <div>
                   {i18n.language === "en" ? post.currency.en : post.currency.ar}{" "}
-                  <span className="fw-bold">{post.price}</span>{" "}
+                  <span className="fw-bold">{post.price}</span>{" / "}
                   {post.price_type
                     ? i18n.language === "en"
                       ? post.price_type.en
@@ -180,6 +183,9 @@ const {t,i18n}=useTranslation()
                   </Row>
                 </Col>
                 <Col xs={12}>
+                 <Col lg={4} xs={5} className="fw-bold fs-5">
+                    {t('Description')}
+                  </Col>
                   <TextAccordion
                     description={
                       i18n.language === "en"

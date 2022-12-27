@@ -18,7 +18,7 @@ import { useGetPosts } from "../tools/apis/useGetPosts";
 import { getLocalStorage } from "../tools/getLocalstorage";
 import {useNavigate} from 'react-router-dom'
 import notificationContext from "../tools/context/notification/notification-context";
-
+import SettingContext from "../tools/context/setting-context/setting-context";
 export interface iProps {
   images: string[];
   description: string;
@@ -27,7 +27,8 @@ export interface iProps {
   post: any;
   authenticated?: boolean;
   postLikes: number;
-  handleChat:Function
+  handleChat:Function,
+  mobileView:boolean
 }
 let images = [image1, image2, image3, image4];
 
@@ -58,6 +59,7 @@ const PostDetails = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [postLikes, setPostLikes] = useState(0);
   const previouseLikesNumber = useRef(0);
+  const {mobileView} =useContext(SettingContext)
   const { getPosts, getPostsData, getPostsError, isGetPostsLoading } =
     useGetPosts();
 
@@ -224,10 +226,11 @@ const PostDetails = () => {
     }
    }
     
-console.log(post)
+
   return (
     <Col xs={12} className="postDetailsContainer">
-      <Col xs={0} sm={12} className="p-0">
+      
+      <Col xs={0} lg={12} className="p-0">
         <Row className="justify-content-evenly d-none d-sm-flex">
           <Col xs={12} className="d-flex  scrollableContainer">
             <ScrollableSection
@@ -239,9 +242,10 @@ console.log(post)
               authenticated={authenticated}
               postLikes={postLikes}
               handleChat={handleChat}
+              mobileView={mobileView}
             />
           </Col>
-          <FixedSection post={post} />
+          <FixedSection post={post} mobileView={mobileView} />
         </Row>
       </Col>
       <Col xs={12} className="d-block d-sm-none">
@@ -254,6 +258,7 @@ console.log(post)
           authenticated={authenticated}
           postLikes={postLikes}
           handleChat={handleChat}
+          mobileView={mobileView}
         />
       </Col>
     </Col>

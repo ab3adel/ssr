@@ -10,8 +10,10 @@ import back from '../../images/home/home-back.svg'
 import {useRecoilState} from 'recoil'
 import {Posts,PostsIDs} from '../store'
 import {getLocalStorage} from '../tools/getLocalstorage'
-import  {useNavigate} from 'react-router-dom'
+import  {useNavigate,useLocation} from 'react-router-dom'
 import GuestBar from '../tools/guest-bar/guestBar'
+import { useTranslation } from 'react-i18next'
+
 const HomePage =()=>{
     const [posts,setPosts]=useState<any>([])
     const [page,setPage]=useState(1)
@@ -25,6 +27,8 @@ const HomePage =()=>{
     const navigate =useNavigate()
     const [userId,setUserId]=useState(-1)
     const [isGeuest,setIsGuest]=useState(false)
+    const location =useLocation()
+    const {i18n,t}=useTranslation()
     useEffect(()=>{
         let obj= getLocalStorage()
         if (obj && obj.id !== 'Guest' ) {
@@ -48,10 +52,13 @@ const HomePage =()=>{
 
         if (!isGetPostsLoading && !waitMin.current) {
             waitMin.current=true
-            getPosts({page})
+                getPosts({page})
             setTimeout(()=>waitMin.current=false,5000)
         }
-    },[page])
+    },[page,location])
+    useEffect(()=>{
+        
+    },[location])
    
     useEffect(()=>{
         if(!getPostsError) {
@@ -146,7 +153,7 @@ const HomePage =()=>{
         }
    }
    
-
+console.log(location)
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 
@@ -166,8 +173,24 @@ return (
                             <img src={back} />
                         </Col> 
                         <div className="text">
-                            <span>Your following list is empty</span>
+                            {i18n.language==='en'?
+                            <>
+                            <span>
+                            Your following list is empty
+                            
+                            </span>
                             <span>follow some users to see their recent posts</span>
+                            </>
+                            :
+                            <>
+                            <span>
+                                لا يوجد بوستات لنعرضها لك
+                            </span>
+                            <span>
+                                اتبع بعض المستخدمين لتحص على المزيد من البوستات
+                            </span>
+                            </>
+                            }
                         </div>
                 </Col>
                 </Col>

@@ -10,7 +10,9 @@ import AddPost from '../add-post'
 import Chat from '../chat'
 import PublicProfile from '../profile/public-profile'
 import FilteredPosts from '../filtered-posts'
-
+import About from '../about'
+import Privacy from '../privacy'
+import Term from '../term'
 
 
 export const Rotues = (id: number): RouteObject[] => ([
@@ -24,13 +26,15 @@ export const Rotues = (id: number): RouteObject[] => ([
             { path: '/postdetails/:page/:post_id', element: <PostDetails /> },
             { path: '/publicprofile/:page/:user_id', element: <PublicProfile /> },
 
-            { path: '/news', element: <NewsFeed /> },
-           
             { path: '/addpost', element: id === 2 ? <Navigate to="/" /> : <AddPost /> },
             { path: '/messages', element: <Chat /> },
             { path: '/profile', element: <Profile /> },
  
             { path: '/search', element: <SearchPage /> },
+            {path:'/about',element:<About />},
+            {path:'/terms&conditions',element:<Term />},
+            {path:'/privacy',element:<Privacy />},
+            {path:'/newsfeeds',element:<NewsFeed />}
 
 
         

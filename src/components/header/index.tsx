@@ -16,7 +16,8 @@ export interface iProps {
     handleNotificationClick:(e:React.MouseEvent)=>void,
     setSearch:Function,
     handleSearch:(key:React.KeyboardEvent)=>void,
-    search:string
+    search:string,
+    headerNavigation:(str:string)=>void
   }
 interface myProps {chatData:any,socket:any}  
 const Header =({chatData,socket}:myProps)=>{
@@ -62,6 +63,14 @@ const handleSearch=(key:React.KeyboardEvent)=>{
   }
 
 }
+const headerNavigation=(str:string)=>{
+if (str==='home') {
+  navigate('/')
+}
+if (str==='profile') {
+  navigate('/profile')
+}
+}
 
     return (
        <>
@@ -72,6 +81,7 @@ const handleSearch=(key:React.KeyboardEvent)=>{
        setSearch={formik.setFieldValue}
        handleSearch={handleSearch}
        search={formik.values.search}
+       headerNavigation={headerNavigation}
        />
        <HeaderSm 
        token={token}
@@ -80,6 +90,7 @@ const handleSearch=(key:React.KeyboardEvent)=>{
        setSearch={formik.setFieldValue}
        handleSearch={handleSearch}
        search={formik.values.search}
+       headerNavigation={headerNavigation}
        />
         <NotificationContainer
          show={notificationControl.show} 

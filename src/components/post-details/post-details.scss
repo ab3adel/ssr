@@ -28,13 +28,18 @@ position: relative;
                         border-radius: 100%;
                     }
                     .userName {
+                        text-overflow: clip;
+                        overflow: hidden;
                         span {
                             font-weight: bold;
+                            word-wrap: break-word;
                         }
                         .icon {
                             width: 19px;
                             height: 19px;
                             margin:0 5px;
+                            filter: invert(83%) sepia(53%) saturate(373%) hue-rotate(77deg) brightness(90%) contrast(87%);
+
                         }
                     }
                     .category {
@@ -178,6 +183,25 @@ position: relative;
     bottom: 0;
     left: 0;
     z-index: 4;
+}
+@media screen and (max-width:1024px) and (min-width:567px) {
+    .postDetailsContainer {
+        .scrollableSection {
+
+            .card {
+
+                .card-header {
+
+                    .userName {
+                        font-size: 0.8rem;
+                        .icon{
+
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 @media screen and (max-width:567px) {
     .postDetailsContainer {

@@ -29,7 +29,8 @@ export const MobileView = ({
   react,
   post,
   postLikes,
-  handleChat
+  handleChat,
+  mobileView
 }: iProps) => {
   const { openSidebar } = useContext(SettingContext);
   const { i18n,t } = useTranslation();
@@ -150,7 +151,7 @@ return (
             </Col>
             <Col xs={12}></Col>
             <Col xs={12} className="p-0">
-              <FixedSection post={post} />
+              <FixedSection post={post} mobileView={mobileView}/>
             </Col>
             <Col xs={12}>
               <Row className="mt-1 gy-3">

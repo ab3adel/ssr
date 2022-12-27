@@ -1,6 +1,7 @@
 import './dialogbox.scss'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
+import { useTranslation } from 'react-i18next';
 
 interface iProps {show:boolean
                    ,setShow:Function
@@ -11,6 +12,7 @@ interface iProps {show:boolean
 
 export const DialogBox=({show,setShow,message,title,doit}:iProps)=>{
 const handleClose=()=>setShow(false)
+const {t}=useTranslation()
 const continueAction=()=>{
 if (typeof(doit)==='function') doit()
 setShow(false)
@@ -23,10 +25,10 @@ setShow(false)
         <Modal.Body>{message}</Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
-            Cancel
+            {t('Cancel')}
           </Button>
           <Button variant="danger" onClick={continueAction}>
-            OK
+            {t('OK')}
           </Button>
         </Modal.Footer>
       </Modal>

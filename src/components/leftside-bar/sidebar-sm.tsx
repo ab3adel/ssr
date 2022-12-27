@@ -19,6 +19,7 @@ import Collapse from "react-bootstrap/Collapse";
 import Fade from "react-bootstrap/Fade";
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
+import {Shield,Safe} from 'react-bootstrap-icons'
 import SettingContext from "../tools/context/setting-context/setting-context";
 interface iProps {
   token?: iToken;
@@ -60,7 +61,7 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
         
         break;
       case 1:
-        navigate("/news");
+        navigate("/newsfeeds");
         break;
       case 2:
         navigate("/search");
@@ -74,7 +75,15 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
       case 5:
         navigate("/messages");
         break;
-
+      case 6:
+        navigate('/about');
+        break
+      case 8:
+          navigate('/terms&conditions');
+          break
+      case 9:
+        navigate('/privacy');
+        break    
       default:
         navigate("/");
     }
@@ -112,7 +121,7 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
                       {i18n.language === "en" && <div className="empty"></div>}
                     </div>
                   </Col>
-                  {/* <Col xs={7} onClick={() => handleRoutes(1)}>
+                   <Col xs={7} onClick={() => handleRoutes(1)}>
                     <div
                       className={selected === 1 ? "item focused" : "item "}
                       style={
@@ -129,7 +138,7 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
                       <span>{t("NewsFeed")}</span>
                       {i18n.language === "en" && <div className="empty"></div>}
                     </div>
-                  </Col> */}
+                  </Col> 
                   <Col xs={7} onClick={() => handleRoutes(2)}>
                     <div
                       className={selected === 2 ? "item focused" : "item "}
@@ -238,6 +247,42 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
                       <img src={about} className="icon" />
                       <div className="empty"></div>
                       <span>{t("AboutInsta")}</span>
+                     
+                    </div>
+                  </Col>
+                  <Col xs={7} onClick={() => handleRoutes(8)}>
+                    <div
+                      className={selected === 8 ? "item focused" : "item "}
+                      style={
+                        i18n.language === "en"
+                          ? {}
+                          : {
+                          
+                            }
+                      }
+                    >
+                      {/* <img src={about} className="icon" /> */}
+                      <Safe className="icon" />
+                      <div className="empty"></div>
+                      <span>{t("Term")}</span>
+                     
+                    </div>
+                  </Col>
+                  <Col xs={7} onClick={() => handleRoutes(9)}>
+                    <div
+                      className={selected === 9 ? "item focused" : "item "}
+                      style={
+                        i18n.language === "en"
+                          ? {}
+                          : {
+                          
+                            }
+                      }
+                    >
+                      {/* <img src={about} className="icon" /> */}
+                      <Shield className="icon" />
+                      <div className="empty"></div>
+                      <span>{t("Privacy")}</span>
                      
                     </div>
                   </Col>

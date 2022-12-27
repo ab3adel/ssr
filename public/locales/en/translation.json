@@ -113,7 +113,12 @@
     "ContactOwners":"Contact Owners",
     "ServiceAvailable":"Service Available",
     "Bath":"Baths",
-    "GoToMap":"Go To Map"
+    "GoToMap":"Go To Map",
+    "Term":"Term & Conditions",
+    "Privacy":"Privacy plicy",
+    "DeleteAccountWarning":"Are you sure you want to delete your account  from InstaAqar??",
+    "DeleteAccount":"Delete Account",
+    "SomethingWrong":"Something wrong happend try later !!"
     
     
 

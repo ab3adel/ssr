@@ -19,6 +19,7 @@ import Arabic from "../../images/auth/kw.svg";
 import { useNavigate } from "react-router-dom";
 import { iToken } from '../tools/interface'
 import show from "../../images/home/show.svg";
+import {Shield,Safe} from 'react-bootstrap-icons'
 let languages = [
   { title: "English", icon: UK },
   { title: "Arabic", icon: Arabic },
@@ -74,7 +75,7 @@ export const SidebarLg = ({
             navigate("/");
             break;
           case 1:
-            navigate("/news");
+            navigate("/newsfeeds");
             break;
           case 2:
             navigate('/search')
@@ -88,6 +89,15 @@ export const SidebarLg = ({
           case 5:
             navigate('/messages');
             break;
+            case 6:
+              navigate('/about');
+              break
+            case 8:
+              navigate('/terms&conditions');
+              break
+            case 9:
+              navigate('/privacy');
+              break
     
           default:
             navigate("/");
@@ -161,7 +171,7 @@ export const SidebarLg = ({
                 )}
               </div>
             </Col>
-            {/* <Col
+           <Col
               lg={col_lg}
 
               onClick={() => hanldeRoutes(1)}
@@ -176,7 +186,7 @@ export const SidebarLg = ({
                   </>
                 )}
               </div>
-            </Col> */}
+            </Col> 
             <Col
               lg={col_lg}
 
@@ -217,14 +227,14 @@ export const SidebarLg = ({
             >
               <div className={selected === 4 ? "item focused" : "item "}>
                 <div className="iconContainer">
-                  <div className="dot"></div>
+                  {/* <div className="dot"></div> */}
                   <img src={notification} className="icon" />
                 </div>
 
                 {!collapsed && (
                   <>
                     <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 0.5rem ':'0 0.5rem 0 2px '}}>{t("Notifications")}</span>
-                    <div className="notification">10</div>
+                    {/* <div className="notification">10</div> */}
                   </>
                 )}
               </div>
@@ -259,6 +269,38 @@ export const SidebarLg = ({
                 {!collapsed && (
                   <>
                     <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 0.5rem ':'0 0.5rem 0 2px '}}>{t("AboutInsta")}</span>
+                  </>
+                )}
+              </div>
+            </Col>
+            <Col
+              lg={col_lg}
+
+              onClick={() => hanldeRoutes(8)}
+              className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
+            >
+              <div className={selected === 8 ? "item focused" : "item "}>
+                {/* <img src={about} className="icon" /> */}
+                <Safe className="icon" />
+                {!collapsed && (
+                  <>
+                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 0.5rem ':'0 0.5rem 0 2px '}}>{t("Term")}</span>
+                  </>
+                )}
+              </div>
+            </Col>
+            <Col
+              lg={col_lg}
+
+              onClick={() => hanldeRoutes(9)}
+              className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
+            >
+              <div className={selected === 9 ? "item focused" : "item "}>
+                {/* <img src={about} className="icon" /> */}
+                <Shield className="icon" />
+                {!collapsed && (
+                  <>
+                    <span className="text" style={{margin:i18n.language==='en'?'0 2px 0 0.5rem ':'0 0.5rem 0 2px '}}>{t("Privacy")}</span>
                   </>
                 )}
               </div>

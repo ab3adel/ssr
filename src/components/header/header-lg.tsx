@@ -21,6 +21,7 @@ export const HeaderLg = ({
   ,setSearch
   ,handleSearch
   ,search
+  ,headerNavigation
 }: iProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate()
@@ -68,12 +69,13 @@ export const HeaderLg = ({
               </Col>
               <Col sm={3} xs={6}>
                 <div className="iconContainer">
-                  <div className="dot"></div>
+                  {/* {<div className="dot"></div>} */}
                   <img src={notification} className="icon" />
                 </div>
               </Col>
               <Col sm={6} className=" d-none d-sm-block user">
-                <Col xs={12} className="d-flex justify-content-center">
+                <Col xs={12} className="d-flex justify-content-center"
+                onClick={()=>  headerNavigation('profile')}>
                   {token?.profile_picture ? (
                     <img src={token.profile_picture} className="icon ml-1 rounded-circle" />
                   ) : (

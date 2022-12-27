@@ -8,21 +8,25 @@ import { useContext, useEffect, useState } from "react";
 import { getLocalStorage } from "../tools/getLocalstorage";
 import {useNavigate} from 'react-router-dom'
 import notificationContext from "../tools/context/notification/notification-context";
-export const FixedSection = ({ post }: { post: any }) => {
+export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean }) => {
   const { i18n,t } = useTranslation();
-  let [style,setStyle]= useState({left:'auto',top:'auto',right:'auto'})
+  let [style,setStyle]= useState({})
   const { setNotify } = useContext(notificationContext);
   const navigate =useNavigate()
   useEffect(()=>{
-    if (window.innerWidth > 567) {
-      
+    if (mobileView) {
+     
       setStyle(()=> 
         i18n.language==='en'?
       {left:'auto',top:'1rem',right:'auto'}
       :
       {left:'auto',top:'1rem',right:'auto'})
     }
-  },[i18n.language])
+    else {
+      console.log('style')
+      setStyle(pre=>({...pre,left:'1rem',top:'1rem',right:'auto'}))
+    }
+  },[i18n.language,mobileView])
   const handleChat=()=>{
     if (getLocalStorage() && getLocalStorage().id && getLocalStorage().id !== 'Guest'){
   
@@ -40,6 +44,7 @@ export const FixedSection = ({ post }: { post: any }) => {
       }));
     }
    }
+   console.log(mobileView)
   return (
     <Col sm={4} xs={12} className="fixedSection p-sm-1 p-0"
     style={style}>

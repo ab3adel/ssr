@@ -115,5 +115,10 @@
     "ContactOwners":"معلومات الاتصال",
     "ServiceAvailable":"خدمات متاحة",
     "Bath":"حمامات",
-    "GoToMap":"الحريطة"
+    "GoToMap":"الخريطة",
+    "Term":"الشروط والاحكام",
+    "Privacy":"سياسة الخصوصية",
+    "DeleteAccountWarning":"هل أنت واثق من انك تريد حذف حسابك نهائيا من انستاعقار؟",
+    "DeleteAccount":"حذف الحساب",
+    "SomethingWrong":"حصل خطأ ما , حاول لاحقا "
 }

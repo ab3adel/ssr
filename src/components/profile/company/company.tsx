@@ -17,7 +17,10 @@ import { ChangePassword } from "../../tools/change-password/changePassword";
 
 import { Files } from "react-bootstrap-icons";
 import { useGetFollowingFollowers } from "../../tools/apis/useGetFollowersFollowings";
-export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
+
+import { WhiteButton } from "../../tools/buttons/white-button";
+
+export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccount}: iProps) => {
   let company = true;
   
   let [tabIndex, setTabIndex] = useState(0);
@@ -25,7 +28,10 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
   let [posts,setPosts]=useState([])
   const [followers,setFollowers]=useState<any>([])
   const [following,setFollowing]=useState<any>([])
+  
   const [showChangePassword,setShowChangePassword]=useState(false)
+
+
   let {getPosts,getPostsData,getPostsError,isGetPostsLoading} =useGetPosts()
   let {getFollowers
     ,getFollowings
@@ -35,6 +41,7 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang}: iProps) => {
     ,followingError
   ,isFollowersLoading
 ,isFollowingLoading}=useGetFollowingFollowers()
+
   const formik = useFormik({
     initialValues: {
       twitter: data?.company?.twitter ? data.company.twitter : "myTwitter.com",
@@ -162,7 +169,9 @@ useEffect(()=>{
     },[isFollowingLoading]) 
 
   return (
-    <Container className="p-1 ">
+    <Container className="p-1 " style={{height:'100vh'
+    ,maxHeight:'100vh',overflowY:'scroll',overflowX:'hidden',maxWidth:'100vw'
+    }}>
       {!mobileView ? (
         <Row className="justify-content-evenly d-none d-sm-flex">
           <Col
@@ -221,6 +230,11 @@ useEffect(()=>{
                       fun={()=>setShowChangePassword(true)}
                        />
                     </Col>
+                    <Col xs={11}>
+                      <WhiteButton label={t("DeleteAccount")}
+                      fun={()=>setShowDeleteAccount(true)}
+                       />
+                    </Col>
                   </Row>
                 )}
               </Col>
@@ -275,8 +289,9 @@ useEffect(()=>{
         </Row>
       ) : (
         <Row
-          className="justify-content-evenly d-flex d-sm-none mobileViewScroll gy-3 bg-profile"
-          style={{ height: "fit-content" }}
+          className="justify-content-evenly d-flex d-sm-none mobileViewScroll
+           gy-3 bg-profile h-100"
+          
         >
           <Col sm={3} xs={12} className={`   flex-column`}>
             <Row className="gy-2">
@@ -310,11 +325,16 @@ useEffect(()=>{
                       fun={()=>setShowChangePassword(true)}
                        />
                     </Col>
+                  <Col xs={8}>
+                      <WhiteButton label={t("DeleteAccount")}
+                      fun={()=>setShowDeleteAccount(true)}
+                       />
+                    </Col>
                 </Row>
               </Col>
             </Row>
           </Col>
-          <Col sm={8} xs={12} className="  py-sm-3 pb-5 pb-sm-3 ">
+          <Col sm={8} xs={12} className="  py-3 pb-5 pb-sm-3  ">
             <Row className="gy-3">
               <Col xs={12}>
                 <Row className="p-sm-2 justify-content-center">
@@ -391,6 +411,8 @@ useEffect(()=>{
       open={showChangePassword}
       onClose={()=>setShowChangePassword(false)}
       />
+     
+
     </Container>
   );
 };

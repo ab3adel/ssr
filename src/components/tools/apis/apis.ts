@@ -58,7 +58,10 @@ export const apis = {
     followers:'followers',
     changePassword:'passwordReset?_method=put',
     verifyPhoneNumber:(userId:number,code:number)=> `phone/verify/${userId}/${code}?locale=${getI18n().language}`,
-    resend:(isPhone:boolean,value:string)=> `resendEmail?${isPhone?`phone=${value}`:`email=${value}`}&type=Verification&locale=${getI18n().language}`
+    resend:(isPhone:boolean,value:string)=> `resendEmail?${isPhone?`phone=${value}`:`email=${value}`}&type=Verification&locale=${getI18n().language}`,
+    page:(title:string)=> `websitePages?title=${title}`,
+    newsfeed:(page_number:number)=>`newsfeeds?page=${page_number}`,
+    deleteAccount:(user_id:number)=>`deleteAccount?user_id=${user_id}`
 
 
         

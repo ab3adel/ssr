@@ -1,5 +1,5 @@
 import {atom} from 'recoil'
-
+interface iNewsFeeds {posts:any[],postsIds:number[]}
 
 export const Posts=atom<any[]>({
     key:'Posts',
@@ -12,4 +12,13 @@ export const PostsIDs=atom <any[]>({
 export const FilteredPostsParams=atom<any>({
     key:'FilteredPosts',
     default:[]
+})
+
+export const newsFeedsPosts = atom<iNewsFeeds> ({
+    key:'NewsFeedsPosts',
+   default:
+    {posts:[],postsIds:[]}
+   
+    
+    
 })

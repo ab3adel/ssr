@@ -19,8 +19,8 @@
             border-radius: 100%;
         }
         .profilePicture.lg-view {
-            width: 80px;
-            height: 80px;
+            width: 50px;
+            height: 50px;
         }
         .text {
           font-size: 16px;
@@ -246,8 +246,11 @@
     .profileContainer{
         padding: 0 ;
         max-height: 100vh;
+    
         .mobileViewScroll {
-          height: 150vh;
+            max-width: 100vw;
+            overflow-x: hidden;
+         
             &::-webkit-scrollbar {
                 display: none;
             }

@@ -36,5 +36,34 @@ export const useGetPosts=()=>{
             setError(err.message)
         })
     },[])
-    return {getPosts,getPostsData,getPostsError,isGetPostsLoading }
+    const getNewsFeeds=useCallback((
+        page:number
+      )=>{
+         
+          setLoading(true)
+          axios.get(apis.newsfeed(
+               page
+              ),
+              {
+                  headers: { Authorization: `Bearer ${getLocalStorage()?getLocalStorage().token:''}` },
+                }
+            
+              )
+          .then(res=>{
+              setLoading(false)
+              if (res.data){
+  
+          
+                  setData(res.data.payload)
+              }
+              
+  
+          })
+          .catch(err=>{
+              setLoading(false)
+              setError(err.message)
+          })
+      },[])
+
+    return {getPosts,getPostsData,getPostsError,isGetPostsLoading ,getNewsFeeds}
 }

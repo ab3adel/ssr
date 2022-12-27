@@ -1,0 +1,39 @@
+.termContainer {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    max-height: 100vh;
+    max-width: 100vw;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    .logo {
+        max-width: 125px;
+        max-height: 100px;
+        object-fit: contain;
+    }
+    .title {
+        font-size: 2rem;
+        font-weight: bold;
+        color:var(--dark-green);
+        margin: 1rem;
+    }
+    .text {
+        padding: 1rem 1rem 2rem 1rem;
+        color:var(--dark-green);
+        text-align: center;
+        font-size: 1.1rem;
+        color: var(--dark-green);
+
+        
+    }
+    .spacer {
+        height: 40px;
+    }
+}
+@media screen and (max-width:567px) {
+    .aboutContainer {
+        .title {
+            font-size: 1rem;
+        }
+    }
+}

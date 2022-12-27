@@ -16,7 +16,9 @@ import SettingContext from "../tools/context/setting-context/setting-context";
 import { iToken } from "../tools/interface";
 import {useNavigate} from 'react-router-dom'
 import {iProps} from './'
-export const HeaderSm = ({ token,chat_notification ,handleNotificationClick ,search,setSearch,handleSearch
+export const HeaderSm = ({ 
+  token,chat_notification ,handleNotificationClick 
+  ,search,setSearch,handleSearch,headerNavigation
 }: iProps) => {
   const [openSearch, setOpenSearch] = useState(false);
   const { setOpenSidebar, openSidebar } = useContext(SettingContext);
@@ -27,11 +29,14 @@ const searchDone=(e:React.KeyboardEvent)=>{
   setOpenSearch(false)
   handleSearch(e)
 }
+
   return (
     <Navbar className="navbarSmContainer d-block d-sm-none">
       <Container>
         <Row className="gy-2">
-          <Col xs={2}>
+          <Col xs={2}
+          onClick={()=>headerNavigation('home')}
+          >
             <img src={instaLogo} className="logo" />
           </Col>
           <Col xs={2}>
@@ -58,12 +63,12 @@ const searchDone=(e:React.KeyboardEvent)=>{
           <Col xs={2}>
             <div className="iconContainer">
               <img src={notification} className="icon" />
-              <div className="dot"></div>
+              {/* <div className="dot"></div> */}
             </div>
           </Col>
           <Col xs={2} className="user">
             <div className="iconContainer"
-            onClick={()=>setShowUserName(true)}>
+            onClick={()=>  headerNavigation('profile')}>
               {token && token.profile_picture ? (
                 <img src={token.profile_picture} className="icon" />
               ) : (

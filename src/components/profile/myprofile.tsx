@@ -16,7 +16,8 @@ import { useNavigate } from 'react-router-dom'
 
 export interface iProps { edit: boolean, setEdit: 
     Function ,t:Function,data:any,lang:string,
-    setShowDeleteAccount:(val:boolean)=>void
+    setShowDeleteAccount:(val:boolean)=>void,
+    setNotify:(pre:any)=>void
    
 }
 const Profile = () => {
@@ -81,6 +82,7 @@ const Profile = () => {
                     lang={i18n.language}
                     data={profileData}
                     setShowDeleteAccount={setShowDeleteAccount}
+                    setNotify={setNotify}
                 />
                 :
                 <CompanyProfile
@@ -90,6 +92,7 @@ const Profile = () => {
                     data={profileData}
                     lang={i18n.language}
                     setShowDeleteAccount={setShowDeleteAccount}
+                    setNotify={setNotify}
                     
                     
                 />}
@@ -103,6 +106,7 @@ const Profile = () => {
                 data={profileData}
                 lang={i18n.language}
                 setShowDeleteAccount={setShowDeleteAccount}
+                setNotify={setNotify}
               
                 />
 }

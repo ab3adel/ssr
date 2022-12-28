@@ -32,7 +32,8 @@ const searchDone=(e:React.KeyboardEvent)=>{
 
   return (
     <Navbar className="navbarSmContainer d-block d-sm-none">
-      <Container>
+      <Container className="">
+        <Col xs={12}>
         <Row className="gy-2">
           <Col xs={2}
           onClick={()=>headerNavigation('home')}
@@ -102,6 +103,7 @@ const searchDone=(e:React.KeyboardEvent)=>{
             </Collapse>
           </Col>
         </Row>
+        </Col>
       </Container>
     </Navbar>
   );

@@ -122,5 +122,19 @@
     "DeleteAccount":"حذف الحساب",
     "SomethingWrong":"حصل خطأ ما , حاول لاحقا ",
     "Submit":"أرسل",
-    "Socials":"تواصل اجتماعي"
+    "Socials":"تواصل اجتماعي",
+    "Resend":"اعادة ارسال",
+    "Success":"نجاح",
+    "ShareMedia":"شارك عبر حسابك للتواصل الاجتماعي",
+    "Later":"ليس الأن",
+    "Edit":"تعديل",
+    "Delete":"حذف",
+    "Report":"ابلاغ",
+    "Hide":"اخفاء",
+    "Files":"ملفات",
+    "Download":"تنزيل",
+    "Upload":"رفع",
+    "PostTag":"وسم البوست"
+
+   
 }

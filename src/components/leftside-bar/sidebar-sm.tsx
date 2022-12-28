@@ -190,19 +190,19 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
                      
 
                       <div className="iconContainer">
-                        <div className="dot"></div>
+                        {/* {<div className="dot"></div>} */}
                         <img src={notification} className="icon" />
                       </div>
                      <div className="empty"></div>
                       <span>{t("Notifications")}</span>
                      
-                      {i18n.language === "en" ?(
+                      {/*i18n.language === "en" ?(
                         <span className="notification">10</span>
                       ):
                       <span className="notification" style={{ margin: "0" }}>
                       10
                     </span>
-                    }
+                      */}
                     </div>
                   </Col>
                   <Col xs={7} onClick={() => handleRoutes(5)}>
@@ -219,7 +219,7 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
                     >
                      
                       <div className="iconContainer">
-                        <div className="dot"></div>
+                        {chat_notification>0 && <div className="dot"></div>}
                         <img src={messages} className="icon" />
                       </div>
                      <div className="empty"></div>

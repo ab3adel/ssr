@@ -54,7 +54,7 @@ const handleActiveChat=(ele:any)=>{
   }
 }
 const handleSearch=(key:React.KeyboardEvent)=>{
-console.log(key)
+
   if (key.nativeEvent.code === 'Enter') {
 
     let url=`/filteredposts/page=1?text=${formik.values.search}`

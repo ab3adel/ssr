@@ -1,6 +1,10 @@
 .postCardContainer {
     padding:1em;
+   display: flex;
+   flex-direction: column;
+   min-height: 100%;
     .card {
+       flex: 1;
         .card-header {
             border:none;
             background-color: transparent;
@@ -83,7 +87,7 @@
             }
         }
         .card-body {
-           
+          display: flex;
             .badge {
                 background-color: var(--back-color);
                 color:black;
@@ -121,6 +125,7 @@
                 color:var(--dark-green)
             }
             .details {
+                flex:1;
                 .detail {
                     display: flex;
                     color:#D4D4D4;
@@ -234,6 +239,7 @@
             }
 
             .card-body {
+                min-height: none;
                 .badge{
                     font-size: 0.6rem;
                 }

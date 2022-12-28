@@ -68,7 +68,7 @@ export const SmallView= ({
                 <Col xs={12} className="p-2 box">
                     <Col xs={12}>
                         <Select 
-                        label={t("Post Tags")}
+                        label={t("PostTag")}
                         options={tags}
                         selectedValue={values['tag_id']} 
                         setSelect={setFieldValue}

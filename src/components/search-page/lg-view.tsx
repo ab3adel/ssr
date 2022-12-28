@@ -54,7 +54,7 @@ export const LargeView = ({
                         <Col xs={11} className="p-2 box">
                             <Col xs={12}>
                                 <Select 
-                                label={t("Post Tags")}
+                                label={t("PostTags")}
                                 options={tags}
                                 selectedValue={values['tag_id']} 
                                 setSelect={setFieldValue}

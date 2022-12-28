@@ -27,7 +27,7 @@ setSelected(e)
         <div className={(Boolean(error)) ? "myMultiSelectContainer invalid":"myMultiSelectContainer"}>
 
             <MultiSelect 
-             className={selected.length>0  ?"myMultiSelect selected":"myMultiSelect"}
+             className={selected.length>0  ?"myMultiSelect selected has-value":"myMultiSelect"}
              labelledBy={label}
              value={selected}
              onChange={handleChange}

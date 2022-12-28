@@ -153,7 +153,7 @@ const HomePage =()=>{
         }
    }
    
-console.log(location)
+
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 
@@ -161,7 +161,7 @@ return (
             {
                 storedPosts.length>0?
                 storedPosts.map((ele:any,index:number)=> 
-                <Col xs={12} sm={6} key={index}>
+                <Col xs={12} sm={9} lg={6} key={index}>
                   <PostCard {...ele} authenticated={authenticated} 
                 />
                 </Col>

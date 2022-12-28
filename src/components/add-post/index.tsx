@@ -364,7 +364,8 @@ const {mobileView} =useContext(SettingContext)
             ...pre,
             type: true,
             show: true,
-            message: "Your post has been added successfully",
+            message:i18n.language==='en'? "Your post has been added successfully":
+            "تم اضافة البوست بنجاح",
           }));
           formik.resetForm()
           setPhoneNumbersArray([])
@@ -658,7 +659,7 @@ const updatePostImediately=(data:any)=>{
     
     if (phoneNumbersArray.length===0) {
     
-     formik.setFieldError('phone_numbers[0][phone]','This field can not be empty')
+     formik.setFieldError('phone_numbers[0][phone]',i18n.language==='en'?'This field can not be empty':'لا يمكن ان يكون هذا الحقل فارغا')
       //formik.setFieldTouched('phone_numbers',true)
       return
     }
@@ -858,7 +859,8 @@ const updatePostImediately=(data:any)=>{
               ...pre,
               type: true,
               show: true,
-              message: "Your post has been changed successfully",
+              message: i18n.language==='en'?"Your post has been changed successfully":
+              "تم تعديل البوست بنجاح",
             }));
             formik.resetForm()
             navigate('/addpost')
@@ -866,7 +868,7 @@ const updatePostImediately=(data:any)=>{
         })
         .catch((err) => {
           setAddPostLoading(false);
-          console.log(Array.isArray(err.response.data.error))
+         
           if (err.response && err.response.data.error) {
             if (Array.isArray(err.response.data.error)) {
               setNotify((pre: any) => ({

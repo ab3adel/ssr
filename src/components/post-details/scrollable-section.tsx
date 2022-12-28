@@ -154,32 +154,37 @@ console.log(post.description)
                 </Col>
                 <Col xs={12}>
                   <Row>
+                  {post.number_of_rooms && (
                     <Col lg={3} xs={4} className="detail">
                       <img src={room} />
-                      {post.number_of_rooms && (
+                    
                         <>
                           <span>{post.number_of_rooms}</span>
                           <span>{t('Rooms')}</span>
                         </>
-                      )}
+                    
                     </Col>
+                      )}
+                    {post.number_of_bathrooms  &&
                     <Col lg={3} xs={4} className="detail">
                       <img src={amenities} />
-                      {post.number_of_bathrooms && (
+                      (
                         <>
                           <span>{post.number_of_bathrooms}</span>
                           <span>{t('Bath')}</span>
                         </>
-                      )}
-                    </Col>
+                      )
+                    </Col>}
+                    { post.space &&
                     <Col lg={3} xs={4} className="detail">
                       <img src={area} />
-                     { post.space &&
+                    
                      ( <span>
                         {post.space} m<sup>2</sup>{" "}
                       </span>)
-                      }
+                      
                     </Col>
+}
                   </Row>
                 </Col>
                 <Col xs={12}>

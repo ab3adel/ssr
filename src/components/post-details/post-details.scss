@@ -74,8 +74,10 @@ position: relative;
                             height: 31px;
                         }
                         span {
-                            font-size: 0.8rem;
+                            font-size: 1rem;
                             font-weight: bold;
+                            text-align: center;
+                            margin:auto
                         }
                     }
                     .locationIcon {
@@ -199,6 +201,13 @@ position: relative;
                         }
                     }
                 }
+                .card-body {
+                    .iconBtn {
+                        span {
+                            font-size: 0.8rem;
+                        }
+                    }
+                }
             }
         }
     }
@@ -225,6 +234,9 @@ position: relative;
                 }
                 .card-body {
                     .iconBtn {
+                        span {
+                            font-size: 0.8rem;
+                        }
                         img {
                             width: 20px;
                             height: 20px;

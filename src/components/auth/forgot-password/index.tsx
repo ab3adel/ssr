@@ -96,7 +96,6 @@ let disableBtn= Boolean(formik.values.email)?Boolean(formik.errors.email):true
                         hanldeDone={hanldeDone}
                         enableBtn={disableBtn}
                         isLoading={isLoading}
-                  
                         >
                                <InputWithIcon
                                  label={t('UserName')}

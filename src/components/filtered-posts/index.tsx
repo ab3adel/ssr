@@ -53,6 +53,9 @@ useEffect(()=>{
     if (sessionStorage.getItem('search_params')) {
         setReadableObj(JSON.parse(sessionStorage.getItem('search_params') as string))
     }
+    return ()=>{
+        sessionStorage.removeItem('search_params')
+    }
    
 },[params])
 useEffect(()=>{

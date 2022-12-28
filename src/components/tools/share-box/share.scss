@@ -1,0 +1,32 @@
+.shareContainer {
+    .title {
+        font-size: 1rem;
+        color:var(--dark-green)
+    }
+    .icon {
+        max-width: 64px;
+        max-height: 64px;
+        border-radius: 100%;
+    }
+
+}
+@media screen and (max-width:1034px) and (min-width:567px) {
+    .shareContainer {
+        .icon {
+            max-width: 60px;
+            max-height: 60px;
+            border-radius: 100%;
+        }
+    
+    }
+}
+@media screen and (max-width:567px) {
+    .shareContainer {
+        .icon {
+            max-width: 60px;
+            max-height: 60px;
+            border-radius: 100%;
+        }
+    
+    }
+}

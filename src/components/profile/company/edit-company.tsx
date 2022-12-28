@@ -21,7 +21,9 @@ import axios from '../../tools/apis/axios'
 import {apis} from '../../tools/apis/apis'
 import { getLocalStorage } from "../../tools/getLocalstorage";
 import { reloadResources } from "i18next";
-export const EditCompanyProfile = ({ edit, setEdit ,t,lang,data}: iProps) => {
+import { useTranslation } from "react-i18next";
+
+export const EditCompanyProfile = ({ edit, setEdit ,t,lang,data,setNotify}: iProps) => {
   let company = true;
  let fieldsUpdatedRigester=useRef<string[]>([])
   let [tabIndex, setTabIndex] = useState(0);
@@ -32,6 +34,7 @@ export const EditCompanyProfile = ({ edit, setEdit ,t,lang,data}: iProps) => {
   const [area,setArea]=useState<any>([])
   const [country,setCountry]=useState(0)
   const [imagesToShow,setImagesToShow]=useState<string[]>([])
+  const {i18n} =useTranslation()
   const{getArea,getCountries
     ,isAreaLoading
     ,areaData
@@ -167,6 +170,7 @@ const updateProfile =()=>{
  if (fieldsUpdatedRigester.current.length>0) {
   let formdata= new FormData()
   formdata.append('user_id',getLocalStorage()?getLocalStorage().id:'')
+  formdata.append('locale',i18n.language)
   fieldsUpdatedRigester.current.map(mainEle=>{
     // for simple values like string and numbers
     if (typeof(formik.values[mainEle]) ==='string' 
@@ -194,9 +198,12 @@ const updateProfile =()=>{
         else {
           if (mainEle==='files') {
             formik.values[mainEle].map((ele:any,index:number)=>{
-              formdata.append(`${mainEle}[${index}][file]`,formik.values[mainEle][index]['file'])
+              if (formik.values[mainEle][index]['name'] 
+              && formik.values[mainEle][index]['name']['ar']
+              )
+             { formdata.append(`${mainEle}[${index}][file]`,formik.values[mainEle][index]['file'])
               formdata.append(`${mainEle}[${index}][name][ar]`,formik.values[mainEle][index]['name']['ar'])
-              formdata.append(`${mainEle}[${index}][name][en]`,formik.values[mainEle][index]['name']['en'])
+              formdata.append(`${mainEle}[${index}][name][en]`,formik.values[mainEle][index]['name']['en'])}
             })
           }
           if (mainEle==='phone_numbers') {
@@ -251,11 +258,17 @@ const updateProfile =()=>{
       window.location.reload()
 
     })
-    .catch(err=>console.log(err))
+    .catch(err=>{
+      setNotify((pre:any)=>(
+        {...pre,type:false,message:i18n.language==='en'?'Something wrong happend !!':
+        'حدث خطأ ما'
+      }))
+    })
 
  }
   setEdit(false)
 }
+
 
   return( 
      <Container className="p-1 ">
@@ -319,7 +332,7 @@ const updateProfile =()=>{
             <Col xs={12}>
               <Tab num={tabIndex}>
                 <Row>
-                  <Info company={false} edit={edit} t={t} 
+                  <Info company={true} edit={edit} t={t} 
                   setFieldValue={customSetFieldValue}
                   handleBlur={formik.handleBlur}
                   lang={lang}

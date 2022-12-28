@@ -30,7 +30,7 @@
         .dropdown-container{
             .dropdown-heading{
                 .dropdown-heading-value {
-                    visibility: hidden;
+                   
                     span {
                         color:black;
                     }
@@ -43,7 +43,7 @@
         .dropdown-container{
             .dropdown-heading{
                 .dropdown-heading-value {
-                    
+                    visibility: visible;
                     span {
                         color:black;
                     }
@@ -52,17 +52,18 @@
         }
     }
 }
-.rmsc{
-    .dropdown-container{
-        .dropdown-heading{
-            .dropdown-heading-value {
-                visibility: hidden;
-                span {
-                    color:black;
+.myMultiSelectContainer{
+
+    .rmsc{
+        
+            .dropdown-heading{
+                .dropdown-heading-value {
+                  visibility: hidden;
                 }
             }
-        }
+        
     }
+ 
 }
 .myMultiSelectContainer.invalid {
     .rmsc.myMultiSelect {
@@ -75,9 +76,12 @@
     .invalid {
         color: red;
         bottom: 0;
-        left:1rem;
+        left:auto;
+        right:auto;
         font-size: 0.8em;
         position: absolute;
+        width:100%;
+        text-align: center;
         
     }
 }

@@ -75,6 +75,7 @@ export const HeaderLg = ({
               </Col>
               <Col sm={6} className=" d-none d-sm-block user">
                 <Col xs={12} className="d-flex justify-content-center"
+                style={{cursor:'pointer'}}
                 onClick={()=>  headerNavigation('profile')}>
                   {token?.profile_picture ? (
                     <img src={token.profile_picture} className="icon ml-1 rounded-circle" />

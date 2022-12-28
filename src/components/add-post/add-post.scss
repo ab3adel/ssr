@@ -217,8 +217,8 @@
                 border-radius: 20px;
                 background-color: var(--back-color);
                 color:black;
-                display: inline-flex;
-                justify-content: space-between;
+                display: flex;
+                justify-content: flex-end;
                 font-size: 12px;
                 align-items: center;
                 padding:5px;
@@ -227,6 +227,7 @@
                 span {
                     max-width: 90%;
                     overflow: hidden;
+                    margin:0 5px
                 }
                 .delete {
                     border-radius: 100%;

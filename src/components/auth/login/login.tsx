@@ -100,7 +100,7 @@ const Login = ({ setLogin }: iProps) => {
             ...pre,
             show: true,
             type: true,
-            message: res.data.message,
+            message: t(res.data.message),
           }));
           navigate("/");
           localStorage.setItem("token", JSON.stringify(required_data));

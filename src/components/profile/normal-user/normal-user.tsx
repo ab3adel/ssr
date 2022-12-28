@@ -14,6 +14,7 @@ import {getLocalStorage} from '../../tools/getLocalstorage'
 import { useGetArea } from "../../tools/apis/useGetArea";
 import { ChangePassword } from "../../tools/change-password/changePassword";
 import { WhiteButton } from "../../tools/buttons/white-button";
+import { useTranslation } from "react-i18next";
 interface iValues  {
   pre_existed_phone_numbers: any [],
   email:string,
@@ -33,8 +34,9 @@ interface iValues  {
   phone_number_old_primary:string
 } 
   type key = keyof iValues
-export const NormalUserProfile = ({ edit, setEdit,t ,lang,data,setShowDeleteAccount}: iProps) => {
+export const NormalUserProfile = ({ edit, setEdit,t ,lang,data,setShowDeleteAccount,setNotify}: iProps) => {
   let company = false;
+  const {i18n} =useTranslation()
   let {mobileView}= useContext(SettingContext)
   const [followings,setFollowings]=useState()
   const [area,setArea]=useState<any>([])
@@ -168,7 +170,12 @@ const updateProfile =() =>{
 
 
   })
-  .catch(err=>console.log(err))
+  .catch(err=>{
+    setNotify((pre:any)=>(
+      {...pre,type:false,message:i18n.language==='en'?'Something wrong happend !!':
+      'حدث خطأ ما'
+    }))
+  })
 }
 setEdit(false)
 }

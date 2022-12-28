@@ -185,7 +185,7 @@ useEffect(()=>{
   const addCountry = (id: number) => {
     setCountry(id);
   }
-console.log(values)
+
   return (
     <Col xs={12} className="infoContainer">
       <Col xs={12} className="p-sm-1 p-0">
@@ -193,6 +193,7 @@ console.log(values)
           <Col sm={10} xs={12}>
             <Row className="p-sm-1 pb-3 pb-sm-1 justify-content-start gy-sm-2">
               {info.map((ele, index: number) => {
+                console.log(ele.name,edit,(!edit && ele.name !== 'category' ))
                 if (ele.type === "select" ) {
                   if (ele.name === 'category' && (values['role'].id <=3)) { 
                     return <React.Fragment key={index}></React.Fragment>
@@ -200,7 +201,8 @@ console.log(values)
                   return (
                     <React.Fragment key={index}>
                       <Col sm={6} xs={12} >
-                        <SteadySelect
+                       { !edit ? ele.name !== 'category'?
+                          <SteadySelect
                           label={t(ele.label)}
                           name={ele.name}
                           options={
@@ -225,7 +227,35 @@ console.log(values)
                           handleBlur={handleBlur}
                           error={errors ? errors[ele.name] : ""}
                           touched={touched ? touched[ele.name] : false}
-                        />
+                        />: null :
+                        <SteadySelect
+                        label={t(ele.label)}
+                        name={ele.name}
+                        options={
+                          edit
+                            ? 
+                              (ele.name ==='role' && roles)||
+                              (ele.name === "category" && categories) ||
+                              (ele.name === "country" && countries) ||
+                              (ele.name === "area" && area)
+                            : [values[ele.name]]
+                        }
+                        disabled={!edit || ele.name==='role'}
+                        value={values[ele.name]}
+                        exteriorFunction={
+
+                         ( ele.name === "category" && addCategory ) ||
+                         (!company && ele.name==='area' && addArea) ||
+                         (!company && ele.name==='country' && addCountry) ||
+                       (  ()=>{})
+                        
+                        }
+                        handleBlur={handleBlur}
+                        error={errors ? errors[ele.name] : ""}
+                        touched={touched ? touched[ele.name] : false}
+                      />
+
+                        }
                       </Col>
                       {ele.name === "category" && (
                         <Col xs={12} key={index+10}>

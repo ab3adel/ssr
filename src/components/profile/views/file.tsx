@@ -1,9 +1,13 @@
 import { Col, Row } from "react-bootstrap";
-import { useState } from "react";
+import { useState ,useContext} from "react";
 import fileIcon from "../../../images/file.svg";
 import { GreenButton } from "../../tools/buttons/green-button";
 import { Download } from "react-bootstrap-icons";
 import Delete from "../../../images/delete-icon.svg";
+import axios from '../../tools/apis/axios'
+import notificationContext from "../../tools/context/notification/notification-context";
+
+
 interface iProps {
   edit: boolean;
   uploaded_files: any[];
@@ -15,7 +19,7 @@ interface iProps {
 }
 export const FileDownloader = ({ edit, uploaded_files, t ,setFieldValue,name,value,lang}: iProps) => {
   const [files, setFiles] = useState<File[]>([]);
-
+const {setNotify}=useContext(notificationContext)
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     let prefiles = e.target.files;
    
@@ -24,34 +28,45 @@ export const FileDownloader = ({ edit, uploaded_files, t ,setFieldValue,name,val
       let newFiles=[...value,(prefiles as FileList)[0]]
 
       setFiles((pre: any) => [...pre,(prefiles as FileList)[0] ]);
-      setFieldValue(name,[...value,{file:(prefiles as FileList)[0],name:{en:(prefiles as FileList)[0].name,ar:(prefiles as FileList)[0].name}}])
+      setFieldValue(name,[...value,{file:(prefiles as FileList)[0]
+        ,name:{en:(prefiles as FileList)[0].name,ar:(prefiles as FileList)[0].name}}])
     }
   };
-  const downloadFile = (num: number) => {
+  const downloadFile = (num: number,path:string) => {
     let anchor = document.querySelector(
       `#file_number_${num}`
     ) as HTMLAnchorElement;
-
+  
     anchor.click();
   };
   const uploadFile = (num: number) => {
     let input = document.querySelector(
       `#file_input_number_${num}`
     ) as HTMLInputElement;
-
+  
     input.click();
   };
-  const deleteFile = (num: number) => {
-    let newFiles = [...files].filter((ele, index) => index !== num);
+  const deleteFile = (has_id:boolean,num: number) => {
+    console.log (num)
+    let newFiles:any[]=[]
+    if (has_id) {
+      newFiles=uploaded_files.filter((ele)=>ele.id !== num)
+    }
+    else {
+
+       newFiles =uploaded_files.filter((ele, index) => index !== num);
+    }
+    
     setFiles(newFiles);
     setFieldValue(name,newFiles)
   };
+
 
   return (
     <Col xs={12} className="files">
       <Row className="gy-1">
         <Col xs={12}>
-          <span className="fw-bold">Files</span>
+          <span className="fw-bold">{t("Files")}</span>
         </Col>
 
         <Col xs={12}>
@@ -80,7 +95,7 @@ export const FileDownloader = ({ edit, uploaded_files, t ,setFieldValue,name,val
                     style={{ height: "1px" }}
                     onChange={handleFile}
                   />
-                  <GreenButton label="Upload" fun={() => uploadFile(99)}>
+                  <GreenButton label={t("Upload")} fun={() => uploadFile(99)}>
                     <Download style={{ transform: "rotate(180deg)" }} />
                   </GreenButton>
                 </Col>
@@ -99,12 +114,12 @@ export const FileDownloader = ({ edit, uploaded_files, t ,setFieldValue,name,val
                         key={index}
                         className="d-flex justify-content-center flex-column align-items-center file mx-1 position-relative"
                       >
-                        <div
+                        {/* <div
                           className="deleteIcon"
-                          onClick={() => deleteFile(index)}
+                          onClick={() => deleteFile(ele.id?true:false,ele.id?ele.id:index)}
                         >
                           <img src={Delete} />
-                        </div>
+                        </div> */}
                         <img
                           src={fileIcon}
                           style={{ width: "24px", height: "28px" }}
@@ -147,12 +162,13 @@ export const FileDownloader = ({ edit, uploaded_files, t ,setFieldValue,name,val
                         {ele.file_name?lang==='en'?ele.file_name.en:ele.file_name.ar:'file_name'}
                       </span>
                       <a
-                        href={'#'}
-                        download={ele.path?ele.path:'#'}
+                       href={ele.path}
+                        download={lang==='en'?ele.file_name.en:ele.file_name_ar}
+                        target="_blank"
                         id={`file_number_${index}`}
                         
                       />
-                      <GreenButton label="Download" fun={() => downloadFile(index)}>
+                      <GreenButton label={t("Download" )}fun={() => downloadFile(index,ele.path)}>
                         <Download />
                       </GreenButton>
                     </Col>

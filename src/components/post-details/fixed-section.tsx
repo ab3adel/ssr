@@ -23,7 +23,7 @@ export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean
       {left:'auto',top:'1rem',right:'auto'})
     }
     else {
-      console.log('style')
+      
       
       setStyle(pre=>
         i18n.language==='en'?
@@ -94,13 +94,16 @@ export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean
             <div className="tag grey">{post.PACIID ? post.PACIID : ""}</div>
           </Col>
           </>
-          }
-          <Col lg={5} xs={6} className="fw-bold">
-            {t('Direction')}
-          </Col>
-          <Col lg={4} xs={6}>
-            <div className="tag grey">North West</div>
-          </Col>
+           }
+           {/* {<>
+           <Col lg={5} xs={6} className="fw-bold">
+             {t('Direction')}
+           </Col>
+           <Col lg={4} xs={6}>
+             <div className="tag grey">North West</div>
+           </Col>
+           </> */}
+           
           <Col xs={12} className="fw-bold fs-5">
             {t('ContactOwners')}
           </Col>

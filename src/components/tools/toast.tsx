@@ -2,6 +2,7 @@ import Toast from 'react-bootstrap/Toast'
 import {Check,X,InfoCircleFill} from 'react-bootstrap-icons'
 import ToastContainer from 'react-bootstrap/ToastContainer'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 
 interface iProps {
@@ -16,20 +17,21 @@ export const Notify =({
    ,type
    
 }:iProps)=>{
+  const {t,i18n}=useTranslation()
   let bg='bg-danger'
-  let text='Failed'
+  let text=i18n.language==='en'?'Failed':"فشل"
   let icon= <X/>
  if (typeof (type) === 'boolean') {
   if (type) {
     bg='bg-success'
-    text='Successfull'
+    text=i18n.language==='en'?'Successfull':"نجاح"
     icon=<Check/>
   }
  }
  if (typeof(type)==='string') {
   if (type==='info') {
     bg='bg-info'
-    text='Information'
+    text=i18n.language==='en'?'Information':"معلومة"
     icon=<InfoCircleFill/>
   }
  }

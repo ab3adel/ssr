@@ -4,9 +4,10 @@ import Col from  'react-bootstrap/Col'
 import back from '../../../images/auth/email-info.svg'
 import {CheckCircleFill} from 'react-bootstrap-icons'
 import Button from 'react-bootstrap/Button'
+import { useTranslation } from 'react-i18next'
 interface iProps {resendEmail:Function,end:Function}
 export const EmailInfo=({resendEmail,end}:iProps)=>{
-
+    const {i18n,t} =useTranslation()
     return (
         <Row className="gy-3">
                             <Col xs={12}
@@ -19,11 +20,21 @@ export const EmailInfo=({resendEmail,end}:iProps)=>{
                             </Col>
                             <Col xs={12} className="text">
                                 <div className="title">
-                                    Check your Email
+                                    {i18n.language==='en'?'Check your whatsapp or Email':
+                                    'تحقق من حسابك واتساب أو ايميلك'
+                                    }
                                 </div>
                                 <div className="subtitle">
+                                      { i18n.language==='en'?
+                                       <>
                                     <span>A new password has been sent to</span> 
-                                    <span>your email, please check your inbox</span>
+                                    <span>your email/whatsapp, please check your inbox</span>
+                                   </>:
+                                   <>
+                                    <span>كلمة سر جديدة  أرسلت</span>
+                                    <span>الى حسابك واتساب\ايميلك </span>
+                                   </>
+                                   }
                                 </div>
 
                             </Col>
@@ -45,7 +56,7 @@ export const EmailInfo=({resendEmail,end}:iProps)=>{
                                         <a href='#' 
                                         onClick={()=>resendEmail()}>
 
-                                            Resend Email
+                                            {t('Resend')}
                                         </a>
                                     </div>
                                 </Col>

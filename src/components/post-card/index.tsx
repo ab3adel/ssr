@@ -27,6 +27,8 @@ import { useDeletePost } from "../tools/apis/useDeletePost";
 import { useRecoilState } from "recoil";
 import { Posts } from "../store";
 import {LightGreenButton} from '../tools/buttons/light-green-button'
+import ShareBox from "../tools/share-box";
+import axios from '../tools/apis/axios'
 export const PostCard = ({
   title = { en: "", ar: "" },
   area = { en: "", ar: "" },
@@ -71,6 +73,7 @@ export const PostCard = ({
     useDeletePost();
   const [postID, setPostID] = useState(-1);
   const [storedPosts, setStoredPosts] = useRecoilState(Posts);
+  const [openShare,setOpenShare]=useState(false)
   const navigateToDetails = (id: number) => {
 
 
@@ -93,7 +96,8 @@ export const PostCard = ({
         ...pre,
         show: true,
         type: "info",
-        message: "You have to login first !",
+        message:i18n.language==='en'? "You have to login first !":
+        "عليك تسجيل الدخول أولا !",
       }));
     }
 
@@ -124,7 +128,8 @@ export const PostCard = ({
         ...pre,
         show: true,
         type: "info",
-        message: "You have to login first !",
+        message:i18n.language==='en'? "You have to login first !":
+        "عليك تسجيل الدخول أولا !",
       }));
     }
   };
@@ -134,7 +139,8 @@ export const PostCard = ({
         ...pre,
         show: true,
         type: false,
-        message: "Something wrong has happend !!",
+        message:i18n.language==='en'? "Something wrong has happend !":
+        "حدث خطأ ما",
       }));
       setReact(!react);
       setPostLikes(previouseLikesNumber.current);
@@ -147,7 +153,8 @@ export const PostCard = ({
           ...pre,
           show: true,
           type: true,
-          message: "Post has been removed successfully",
+          message:i18n.language==='en'? "Post has been removed successfully":
+          "تم حذف البوسا بنجاح",
         }));
         let newPosts = [...storedPosts].filter((ele) => ele.id !== postID);
         setStoredPosts(newPosts);
@@ -157,11 +164,12 @@ export const PostCard = ({
         ...pre,
         show: true,
         type: false,
-        message: "Something wrong has happend !",
+        message:i18n.language==='en'? "Something wrong has happend !":
+        "حدث خطأ ما",
       }));
     }
   }, [isDeletePostLoading]);
- 
+
   return (
     <Col xs={12} sm={12} className="postCardContainer">
       <Card>
@@ -237,16 +245,16 @@ export const PostCard = ({
                           <Dropdown.Item
                             onClick={() => navigateToUpdatePost(id)}
                           >
-                            Edit
+                            {t("Edit")}
                           </Dropdown.Item>
                           <Dropdown.Item onClick={() => deleteSpecificPost(id)}>
-                            Delete
+                            {t("Delete")}
                           </Dropdown.Item>
                         </>
                       )}
                      
-                      <Dropdown.Item>Report</Dropdown.Item>
-                      <Dropdown.Item>Hide</Dropdown.Item>
+                      <Dropdown.Item>{t("Report")}</Dropdown.Item>
+                      <Dropdown.Item>{t("Hide")}</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 </Col>
@@ -294,7 +302,8 @@ export const PostCard = ({
           </Row>
         </Card.Header>
         <Card.Body>
-          <Row className="gy-1">
+          <Col xs={12} className='h-100'>
+          <Row className="gy-1 sm-h-100 flex-column">
             <Col xs={12} className="p-0 p-sm-1">
               <ImagesGallery
                 images={images as any[]}
@@ -307,8 +316,9 @@ export const PostCard = ({
             <Col xs={12}>
               <Row className="justify-content-between">
                 <Col xs={8}>
+                  {tags && tags.length>0 &&
                   <Row className="gy-1">
-                    {tags && tags?.length > 0
+                    {tags && tags?.length > 0 && tags[0].name.en
                       ? tags?.map((ele, index) => (
                           <Col sm={4} xs={6} key={index}>
                             <div
@@ -326,7 +336,7 @@ export const PostCard = ({
                           </Col>
                         ))
                       : ""}
-                  </Row>
+                  </Row>}
                 </Col>
                 {!for_profile && (
                 <Col xs={4}>
@@ -342,7 +352,8 @@ export const PostCard = ({
                         </span>
                         <img src={react ? heartFilled : heart} />
                       </Col>
-                      <Col xs={5} className="iconBtn">
+                      <Col xs={5} className="iconBtn"
+                      onClick={()=>setOpenShare(true)}>
                         <img src={share} />
                       </Col>
                     </Row>
@@ -356,8 +367,9 @@ export const PostCard = ({
               </div>
             </Col>
             <Col xs={12} className="details">
-              <Row className="gy-3 justify-content-between justify-content-sm-start">
-                <Col lg={3} md={5} xs={5} className="detail">
+              <Row className="gy-3 justify-content-between justify-content-sm-start"
+              >
+                {/* <Col lg={3} md={5} xs={5} className="detail">
                   <img
                     src={direction}
                     style={
@@ -367,8 +379,8 @@ export const PostCard = ({
                   <span style={small_size ? { fontSize: "12px" } : {}}>
                     North West
                   </span>
-                </Col>
-                {number_of_rooms && (
+                </Col> */}
+                { Boolean(number_of_rooms) && number_of_rooms !== 0 && (
                   <Col lg={3} md={5} xs={5} className="detail">
                     <img
                       src={room}
@@ -381,7 +393,7 @@ export const PostCard = ({
                     </span>
                   </Col>
                 )}
-                {number_of_bathrooms && (
+                {Boolean(number_of_bathrooms) && number_of_bathrooms !== 0 && (
                   <Col lg={3} md={5} xs={5} className="detail">
                     <img
                       src={amenities}
@@ -394,7 +406,7 @@ export const PostCard = ({
                     </span>
                   </Col>
                 )}
-                {
+                {space &&
                   <Col lg={3} md={5} xs={5} className="detail">
                     <img
                       src={Area}
@@ -411,8 +423,8 @@ export const PostCard = ({
                     )}
                   </Col>
                 }
-                <Col xs={12}>
-                  <Row className='justify-content-center'>
+                <Col xs={12} className="">
+                  <Row className='justify-content-center m-auto'>
 
                     <Col xs={5}>
                        <LightGreenButton 
@@ -425,6 +437,7 @@ export const PostCard = ({
               </Row>
             </Col>
           </Row>
+          </Col>
         </Card.Body>
       </Card>
       <DialogBox
@@ -434,6 +447,12 @@ export const PostCard = ({
         title={"Delete Post"}
         doit={() => doDeletePost(postID)}
       />
+      <ShareBox 
+      open={openShare}
+      setOpen={()=>setOpenShare(false)}
+      url={`https://instaaqar.com/postdetails/${page}/${id}`}
+      />
+
     </Col>
   );
 };

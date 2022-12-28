@@ -120,7 +120,19 @@
     "DeleteAccount":"Delete Account",
     "SomethingWrong":"Something wrong happend try later !!",
     "Submit":"Submit",
-    "Socials" :"Social Media"
+    "Socials" :"Social Media",
+    "Resend":"Resend",
+    "Success":"Success",
+    "ShareMedia":"Share with your socail media account",
+    "Later":"Later",
+    "Edit":"Edit",
+    "Delete":"Delete",
+    "Report":"Report",
+    "Hide":"Hide",
+    "Files":"Files",
+    "Download":"Download",
+    "Upload":"Upload",
+    "PostTag": "Post Tag"
     
     
     

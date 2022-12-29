@@ -18,9 +18,11 @@ import {useNavigate} from 'react-router-dom'
 import {iProps} from './'
 export const HeaderSm = ({ 
   token,chat_notification ,handleNotificationClick 
-  ,search,setSearch,handleSearch,headerNavigation
+  ,search,setSearch,handleSearch,headerNavigation,
+  openSearch
+  ,setOpenSearch=()=>{}
 }: iProps) => {
-  const [openSearch, setOpenSearch] = useState(false);
+  
   const { setOpenSidebar, openSidebar } = useContext(SettingContext);
   const [showUserName,setShowUserName]=useState(false)
   const { t } = useTranslation();
@@ -36,6 +38,7 @@ const searchDone=(e:React.KeyboardEvent)=>{
         <Col xs={12}>
         <Row className="gy-2">
           <Col xs={2}
+          className="p-0"
           onClick={()=>headerNavigation('home')}
           >
             <img src={instaLogo} className="logo" />

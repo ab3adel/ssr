@@ -102,7 +102,7 @@ import { useTranslation } from 'react-i18next'
                            title:ele.title,
                            username:ele.username,
                            area:ele.area.name,
-                           role:ele.role[0].name,
+                           role:ele.role && ele.role.length>0?ele.role[0].name:'',
                            offer_type:ele.offer_type?ele.offer_type.name:null,
                            main_property_type:ele.main_property_type?ele.main_property_type.name:null,
                            price_type:ele.price_type?ele.price_type.name:null,
@@ -136,7 +136,7 @@ import { useTranslation } from 'react-i18next'
               
                 setPosts((pre:any)=>([...pre,...data]))
                 let newPosts= [...storedPosts.posts]
-                newPosts.push(data[0])
+                if (data && data[0])newPosts.push(data[0])
                 storePosts(pre=>({...pre,posts:newPosts}))
             }
             else {
@@ -158,15 +158,16 @@ import { useTranslation } from 'react-i18next'
             }
         }
    }
-   console.log(storedPosts)
+  
     return (
         <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 
         <Row className="p-1">
             {
+                storedPosts.posts && 
                 storedPosts.posts.length>0 ?
                 storedPosts.posts.map((ele:any,index:number)=> 
-                <Col xs={12} sm={6} key={index}>
+                <Col xs={12} sm={9} lg={6} key={index} className="mx-sm-auto mx-lg-0">
                   <PostCard {...ele} authenticated={authenticated} 
                 />
                 </Col>

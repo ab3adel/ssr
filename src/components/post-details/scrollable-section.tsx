@@ -115,11 +115,11 @@ console.log(post.description)
               <Col xs={6}>
                 <div>
                   {i18n.language === "en" ? post.currency.en : post.currency.ar}{" "}
-                  <span className="fw-bold">{post.price}</span>{" / "}
+                  <span className="fw-bold">{post.price}</span>{}
                   {post.price_type
                     ? i18n.language === "en"
-                      ? post.price_type.en
-                      : post.price_type.ar
+                      ? " / "+ post.price_type.en
+                      : " / " + post.price_type.ar
                     : ""}
                 </div>
               </Col>

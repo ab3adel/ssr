@@ -17,11 +17,16 @@ import {useContext} from 'react'
 import {useGetPosts} from '../../tools/apis/useGetPosts'
 import {useFollowUnFollow} from '../../tools/apis/useFollowCompany'
 import {useGetFollowingFollowers} from '../../tools/apis/useGetFollowersFollowings'
+import notificationContext from "../../tools/context/notification/notification-context";
+
 export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
   let company = true;
   let [isFollowed,setIsFollowed]=useState( data?.followed)
-  const previousFollowState=useRef()
+  const previousFollowState=useRef<boolean>(false)
+  const immediateFollowers=useRef<any[]>([])
+  const [tempFollowers,setTempFollowers]=useState<any[]>([])
   const {mobileView} =useContext(SettingContext)
+  const {setNotify} =useContext(notificationContext)
 
   let [tabIndex, setTabIndex] = useState(0);
   let [posts,setPosts]=useState([])
@@ -88,16 +93,21 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
         getPosts({user_id:data.id})
       }
       setIsFollowed(data.followed)
-     
+      setTempFollowers(data?.followers)
+      
+      immediateFollowers.current=data?.followers
+      previousFollowState.current=data?.followed
+      
     }
 
   },[data])
   useEffect(()=>{
     if(!getPostsError) {
       if (getPostsData && getPostsData.data && getPostsData.data.length>0) {
-  
+      
         let returnedPosts =getPostsData.data.map((ele:any)=>{
         let   updated_at=null
+        let handled_images:string[]=[]
           if (ele.updated_at) {
             const options = { year: 'numeric', month: 'short', day: 'numeric' } as const
             updated_at={
@@ -105,7 +115,10 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
                 ar:new Date(ele.updated_at).toLocaleDateString('ar-EG',options)
             }
         }
-   
+        if (ele.images && ele.images.length>0) {
+          handled_images=ele.images.map((ele:any)=>ele.path)
+        }
+  
           return (
             {
                     id:ele.id,
@@ -118,7 +131,7 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
                     price_type:ele.price_type?ele.price_type.name:null,
                     number_of_rooms:ele.number_of_rooms,
                     number_of_bathrooms:ele.number_of_bathrooms,
-                    images:ele.images,
+                    images:handled_images,
                     profile_picture:ele.profile_picture,
                     property_site:ele.property_site?ele.property_site.name:null,
                     property_type:ele.property_type?ele.property_type.name:null,
@@ -147,10 +160,15 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
     }
    },[isGetPostsLoading])
    useEffect(()=>{
-    if(!followersError) {
-      console.log(followersData)
+    if(!followError) {
+      return
     }
-   },[isFollowersLoading])
+    else {
+      setIsFollowed(previousFollowState.current)
+      setTempFollowers(immediateFollowers.current )
+      setNotify((pre:any)=>({...pre,type:false,message:lang==='en'?'Something wrong happend':"حدث خطا ما"}))
+    }
+   },[isFollowLoading])
    useEffect(()=>{
     if(!followingError) {
       setFollowings(followingData)
@@ -160,15 +178,25 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
     if (data && data.company) {
       setFollow(data.company.id)
       setIsFollowed(true)
+      let newFollowers=[...tempFollowers,{id:''}]
+
+      setTempFollowers(newFollowers)
+      
+
     }
   }
    const unFollow = ()=>{
     if (data && data.company) {
       setUnFollow(data.company.id)
       setIsFollowed(false)
+      
+      let newFollowers=[...tempFollowers].slice(0,-1)
+
+      setTempFollowers(newFollowers)
     }
+   
   }
-console.log(data)
+
   return (
     <Container className="p-1 ">
       {!mobileView?
@@ -188,7 +216,7 @@ console.log(data)
                 profile_picture={data.profile_picture}/>
               </Col>
               <Row className="mt-2 justify-content-center d-flex gy-1 ">
-                <Col xs={5}>
+                <Col sm={9} lg={5}>
                  { 
                  isFollowed?
                  <WhiteButton label={t('Unfollow')} 
@@ -203,8 +231,8 @@ console.log(data)
                 </Col>
                 <Col xs={9}>
                   <FollowersFollowing company={true} t={t} 
-                  followers={data.followers}
-                  followings={folloings}
+                  followers={tempFollowers}
+                  followings={folloings?folloings[0]:[]}
                   />
                 </Col>
               </Row>
@@ -293,8 +321,8 @@ console.log(data)
                 </Col>
                 <Col xs={10}>
                   <FollowersFollowing company={true} t={t}
-                   followers={data.followers}
-                   followings={folloings}
+                   followers={tempFollowers}
+                   followings={folloings?folloings[0]:[]}
                   />
                 </Col>
               </Row>
@@ -323,7 +351,13 @@ console.log(data)
             </Col>
             <Col xs={12}>
               <Tab num={tabIndex}>
-                <Posts posts={posts}/>
+                <>
+                  <Col xs={12}>
+
+                  <Posts posts={posts}/>
+                  </Col>
+                  <Col xs={12} style={{height:'60px'}} ></Col>
+                </>
                 <Col xs={12}>
                   <Row>
                     <Col xs={12}>
@@ -355,9 +389,9 @@ console.log(data)
                             t={t}
                           />
                         </Col>
-                        <Col xs={12} style={{height:'40px'}} ></Col>
                       </Row>
                     </Col>
+                    <Col xs={12} style={{height:'60px'}} ></Col>
                   </Row>
                 </Col>
               </Tab>

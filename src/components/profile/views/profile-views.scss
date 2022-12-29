@@ -242,7 +242,23 @@
 .socialMediaContainer {
     min-height: 8.1rem;
 }
+@media screen and (max-width:1024px) and ( min-width:567px) {
+    .profileContainer{
+        .user {
+            .text {
+            font-size: 0.8rem;
+            }
+        }
+    }
+    .fowllowingFollowers {
+        .double {
+            span {
 
+                font-size: 0.6rem;
+            }
+        }
+    }
+}
 @media only  screen  and (max-width:567px) {
     .profileContainer{
         padding: 0 ;
@@ -260,7 +276,10 @@
             height: 20vh;
         }
         .user {
-            
+            .profilePicture {
+                max-width: 50px;
+                max-height: 50px;
+            }
         }
         .h-100vh {
             height: 100vh;

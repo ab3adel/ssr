@@ -210,6 +210,15 @@ position: relative;
                 }
             }
         }
+        .fixedSection {
+
+            .card {
+    
+                .tag.grey {
+                    font-size: 0.7rem;
+                }
+            }
+        }
     }
 }
 @media screen and (max-width:567px) {
@@ -265,7 +274,8 @@ position: relative;
             .fixedSection{
                 position: relative;
                 left: auto;
-                top:auto
+                top:auto;
+               
             }
         }
     }

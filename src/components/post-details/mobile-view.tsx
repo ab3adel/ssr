@@ -108,14 +108,14 @@ return (
                         {i18n.language === "en"
                        
                           ? post.currency?.en
-                          : post.currency?.ar}{"/"}
+                          : post.currency?.ar}
                           </span>
                        
                         <span>
                         {post.price_type
                           ? i18n.language === "en"
-                            ? post.price_type?.en
-                            : post.price_type?.ar
+                            ? "/ " + post.price_type?.en
+                            :"/ " + post.price_type?.ar
                           : ""}
                           </span>
                       </>

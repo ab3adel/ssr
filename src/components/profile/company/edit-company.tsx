@@ -430,37 +430,54 @@ const updateProfile =()=>{
             </Col>
             <Col xs={12}>
               <Tab num={tabIndex}>
-             
-                <Info company={company} edit={edit} t={t} 
+                <>
+              <Col xs={12}>
+
+                  <Info company={company} edit={edit} t={t} 
+                      setFieldValue={customSetFieldValue}
+                      handleBlur={formik.handleBlur}
+                      lang={lang}
+                      values={formik.values}
+                      countries={countries}
+                      categories={categories}
+                      roles={roles}
+                      errors={formik.errors}
+                      handleChange={customHandleChange}
+                      touched={formik.touched}
+                      
+                      />
+              </Col>
+              <Col xs={12} style={{height:'60px'}} ></Col>
+                </>
+                <>
+                  <Col xs={12}>
+                  
+                  <Location t={t}  values={formik.values} 
                     setFieldValue={customSetFieldValue}
                     handleBlur={formik.handleBlur}
                     lang={lang}
-                    values={formik.values}
+                    setCountry={setCountry}
                     countries={countries}
-                    categories={categories}
-                    roles={roles}
-                    errors={formik.errors}
+                    area={area}
                     handleChange={customHandleChange}
-                    touched={formik.touched}
-                    
-                    />
-                <Location t={t}  values={formik.values} 
-                  setFieldValue={customSetFieldValue}
-                  handleBlur={formik.handleBlur}
+                  />
+                  </Col>
+                  <Col xs={12} style={{height:'60px'}} ></Col>
+                </>
+                <>
+                <Col xs={12}>
+
+                  <Data t={t} 
+                  setFieldValue={customSetFieldValue} 
+                  handleBlur={formik.handleBlur} 
+                  values={formik.values}
+                  edit={true}
                   lang={lang}
-                  setCountry={setCountry}
-                  countries={countries}
-                  area={area}
-                  handleChange={customHandleChange}
-                />
-                <Data t={t} 
-                 setFieldValue={customSetFieldValue} 
-                 handleBlur={formik.handleBlur} 
-                 values={formik.values}
-                 edit={true}
-                 lang={lang}
-                 imagesToShow={imagesToShow}
-                />
+                  imagesToShow={imagesToShow}
+                  />
+                </Col>
+                <Col xs={12} style={{height:'60px'}} ></Col>
+                </>
               </Tab>
             </Col>
           </Row>

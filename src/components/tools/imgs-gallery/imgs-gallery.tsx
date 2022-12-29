@@ -30,6 +30,7 @@ export const ImagesGallery =({images,price,height,price_type,currency}:iProps)=>
             }
         }
      }
+  
     return (
         <div className="imgsGalery" 
                             style={{backgroundImage:`url(${images[currentImage]})`

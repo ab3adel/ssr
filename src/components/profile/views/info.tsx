@@ -193,7 +193,7 @@ useEffect(()=>{
           <Col sm={10} xs={12}>
             <Row className="p-sm-1 pb-3 pb-sm-1 justify-content-start gy-sm-2">
               {info.map((ele, index: number) => {
-                console.log(ele.name,edit,(!edit && ele.name !== 'category' ))
+              
                 if (ele.type === "select" ) {
                   if (ele.name === 'category' && (values['role'].id <=3)) { 
                     return <React.Fragment key={index}></React.Fragment>

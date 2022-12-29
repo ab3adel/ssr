@@ -17,12 +17,15 @@ export interface iProps {
     setSearch:Function,
     handleSearch:(key:React.KeyboardEvent)=>void,
     search:string,
-    headerNavigation:(str:string)=>void
+    headerNavigation:(str:string)=>void,
+    openSearch?:boolean,
+    setOpenSearch?:Function
   }
 interface myProps {chatData:any,socket:any}  
 const Header =({chatData,socket}:myProps)=>{
 const [token,setToken]=useState<iToken>()
 const [setActiveChat,activeChat]=useState(0)
+const [openSearch,setOpenSearch]=useState(false)
 const navigate =useNavigate()
 const formik=useFormik({
   initialValues:{search:''},
@@ -55,11 +58,12 @@ const handleActiveChat=(ele:any)=>{
 }
 const handleSearch=(key:React.KeyboardEvent)=>{
 
-  if (key.nativeEvent.code === 'Enter') {
+  if (key.key === 'Enter' ) {
 
     let url=`/filteredposts/page=1?text=${formik.values.search}`
     navigate(url)
     formik.resetForm()
+    setOpenSearch(false)
   }
 
 }
@@ -91,6 +95,8 @@ if (str==='profile') {
        handleSearch={handleSearch}
        search={formik.values.search}
        headerNavigation={headerNavigation}
+       openSearch={openSearch}
+       setOpenSearch={setOpenSearch}
        />
         <NotificationContainer
          show={notificationControl.show} 

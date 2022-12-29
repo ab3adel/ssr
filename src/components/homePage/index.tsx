@@ -157,11 +157,11 @@ const HomePage =()=>{
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 
-        <Row className="p-1">
+        <Row className="p-1 ">
             {
                 storedPosts.length>0?
                 storedPosts.map((ele:any,index:number)=> 
-                <Col xs={12} sm={9} lg={6} key={index}>
+                <Col xs={12} sm={9} lg={6} key={index} className="mx-sm-auto mx-lg-0">
                   <PostCard {...ele} authenticated={authenticated} 
                 />
                 </Col>

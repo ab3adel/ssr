@@ -9,7 +9,7 @@ import { iPost } from '../../tools/interface'
 interface iProps{ posts:Partial<iPost>[]}
 
 export const Posts=({posts}:iProps)=>{
-
+console.log(posts)
     return (
         <Col xs={12}>
             <Row>
@@ -39,6 +39,9 @@ export const Posts=({posts}:iProps)=>{
                             for_profile={true}
                             user_id={ele.user_id?ele.user_id:-1}
                             space={ele.space}
+                            profile_picture={ele.profile_picture?ele.profile_picture:''}
+                            authenticated={ele.authenticated}
+                            owner={ele.owner}
                             />
                         </Col>
                     )

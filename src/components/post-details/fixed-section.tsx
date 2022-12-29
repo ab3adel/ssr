@@ -55,7 +55,7 @@ export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean
     style={style}>
       <Card className="p-sm-2 p-0">
         <Row className="gy-3 p-2">
-          <Col xs={12} className="fw-bold fs-5">
+          <Col xs={12} className="fw-bold fs-lg-5">
            {t('PropertyInformation')}
           </Col>
           {post.offer_type && (
@@ -104,7 +104,7 @@ export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean
            </Col>
            </> */}
            
-          <Col xs={12} className="fw-bold fs-5">
+          <Col xs={12} className="fw-bold fs-lg-5">
             {t('ContactOwners')}
           </Col>
           <Col xs={12}>

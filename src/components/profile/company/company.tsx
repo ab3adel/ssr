@@ -107,6 +107,7 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccou
 
       let returnedPosts =getPostsData.data.map((ele:any)=>{
       let   updated_at=null
+      let handled_images:string[]=[]
         if (ele.updated_at) {
           const options = { year: 'numeric', month: 'short', day: 'numeric' } as const
           updated_at={
@@ -115,7 +116,9 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccou
           }
       }
    
- 
+      if (ele.images && ele.images.length>0) {
+        handled_images=ele.images.map((ele:any)=>ele.path)
+      }
         return (
           {
                   id:ele.id,
@@ -128,7 +131,7 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccou
                   price_type:ele.price_type?ele.price_type.name:null,
                   number_of_rooms:ele.number_of_rooms,
                   number_of_bathrooms:ele.number_of_bathrooms,
-                  images:ele.images,
+                  images:handled_images,
                   profile_picture:ele.profile_picture,
                   property_site:ele.property_site?ele.property_site.name:null,
                   property_type:ele.property_type?ele.property_type.name:null,
@@ -145,7 +148,8 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccou
                   description:ele.description,
                   user_id:ele.user_id,
                   owner:ele.user_id === data.id,
-                  space:ele.space
+                  space:ele.space,
+                  authenticated:true
 
           }
           )
@@ -378,8 +382,16 @@ useEffect(()=>{
               </Col>
               <Col xs={12}>
                 <Tab num={tabIndex}>
-                  <Posts 
-                  posts={posts}/>
+                  <>
+                    <Col xs={12}>
+
+                    <Posts 
+                    posts={posts}/>
+                    </Col>
+                    <Col xs={12} style={{height:'80px'}} ></Col>
+                  </>
+                  <>
+                  <Col xs={12}>
                   <Info
                     company={company}
                     edit={edit}
@@ -392,20 +404,32 @@ useEffect(()=>{
                     categories={formik.values['category']}
                     
                   />
-
-                  <Data
-                    t={t}
-                    setFieldValue={formik.setFieldValue}
-                    handleBlur={formik.handleBlur}
-                    values={formik.values}
-                    edit={false}
-                    lang={lang}
-                  />
+                  </Col>
+                  <Col xs={12} style={{height:'80px'}} ></Col>
+                  </>
+                  <>
+                    <Col xs={12}>
+                    <Data
+                      t={t}
+                      setFieldValue={formik.setFieldValue}
+                      handleBlur={formik.handleBlur}
+                      values={formik.values}
+                      edit={false}
+                      lang={lang}
+                    />
+                    </Col>
+                    <Col xs={12} style={{height:'60px'}} ></Col>
+                  </>
+                  <>
+                  <Col xs={12}>
                   <SocialMedia
                     values={formik.values}
                     handleChange={formik.handleChange}
                     t={t}
                   />
+                  </Col>
+                    <Col xs={12} style={{height:'80px'}} ></Col>
+                  </>
                 </Tab>
               </Col>
             </Row>

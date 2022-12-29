@@ -1,6 +1,6 @@
 
 
-interface iProps {company:boolean,t:Function,followings?:any,followers?:any}
+interface iProps {company:boolean,t:Function,followings?:any[],followers?:any[]}
 export const FollowersFollowing=({company,t,followers,followings}:iProps)=>{
 
     return (

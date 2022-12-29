@@ -37,7 +37,7 @@ useEffect(()=>{
            }
     }
 },[isGetProfileLoading])
-console.log(profileData)
+
     return (
         <Col xs={12} className="profileContainer">
 

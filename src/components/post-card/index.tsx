@@ -89,7 +89,11 @@ export const PostCard = ({
   };
   const navigateProfile =()=>{
     if (authenticated) {
-      navigate(`/publicprofile/${page}/${user_id}`)
+      if (for_profile) return
+      else {
+
+        navigate(`/publicprofile/${page}/${user_id}`)
+      }
     }
     else {
       setNotify((pre: any) => ({
@@ -186,8 +190,9 @@ export const PostCard = ({
                         style={
                           small_size ? { width: "45px", height: "45px" } : {}
                         }
-                        onClick={()=>owner? navigate('/profile')  :
-                        navigateProfile()
+                        onClick={()=>
+                          !for_profile?owner? navigate('/profile')  :
+                        navigateProfile():{}
                       }
                       
                       />
@@ -301,9 +306,9 @@ export const PostCard = ({
             </Col>
           </Row>
         </Card.Header>
-        <Card.Body>
-          <Col xs={12} className='h-100'>
-          <Row className="gy-1 sm-h-100 flex-column">
+        <Card.Body >
+          
+          <Row className="gy-1 flex-fill flex-column ">
             <Col xs={12} className="p-0 p-sm-1">
               <ImagesGallery
                 images={images as any[]}
@@ -367,7 +372,9 @@ export const PostCard = ({
               </div>
             </Col>
             <Col xs={12} className="details">
-              <Row className="gy-3 justify-content-between justify-content-sm-start"
+              <Row
+               className="gy-3 justify-content-between justify-content-sm-start flex-fill "
+               style={{alignItems:'flex-end'}}
               >
                 {/* <Col lg={3} md={5} xs={5} className="detail">
                   <img
@@ -426,7 +433,7 @@ export const PostCard = ({
                 <Col xs={12} className="">
                   <Row className='justify-content-center m-auto'>
 
-                    <Col xs={5}>
+                    <Col xs={6} sm={5}>
                        <LightGreenButton 
                        label={t("MoreDetails")}
                        fun={() => navigateToDetails(id)}
@@ -437,7 +444,7 @@ export const PostCard = ({
               </Row>
             </Col>
           </Row>
-          </Col>
+          
         </Card.Body>
       </Card>
       <DialogBox

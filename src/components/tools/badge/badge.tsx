@@ -32,7 +32,7 @@ useEffect(()=>{
     return (
 
         <Col xs={12}  className="badgeContainer">
-            <Row className="">
+            <Row className="px-2">
                 <Col xs={12} className="text-right font-weight-bolder mb-2">
                             {label}
                 </Col>

@@ -89,9 +89,7 @@ export const AddPostSchema = (role_id: number) =>
         : Yup.number().notRequired(),
     property_site_id:
       role_id === 3
-        ? Yup.number().required(
-            lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
-          )
+        ? Yup.number()
         : Yup.number().notRequired(),
     category_id:
       role_id !== 3
@@ -115,9 +113,7 @@ export const AddPostSchema = (role_id: number) =>
       role_id === 3
         ? Yup.string()
             .url()
-            .required(
-              lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
-            )
+            
         : Yup.number().notRequired(),
     space:
       role_id === 3
@@ -128,13 +124,11 @@ export const AddPostSchema = (role_id: number) =>
                 ? "only positive numbers are accepted"
                 : "الأرقام الموجبة فقط مقبولة"
             )
-            .required(
-              lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
-            )
+          
         : Yup.number().notRequired(),
     price: Yup.number()
       .min(0)
-      .required(lang === "en" ? "This field is required" : "هذا الحقل مطلوب"),
+     ,
     number_of_rooms:
       role_id === 3
         ? Yup.number()
@@ -144,9 +138,7 @@ export const AddPostSchema = (role_id: number) =>
                 ? "only positive numbers are accepted"
                 : "الأرقام الموجبة فقط مقبولة"
             )
-            .required(
-              lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
-            )
+            
         : Yup.number().notRequired(),
     number_of_bathrooms:
       role_id === 3
@@ -157,11 +149,9 @@ export const AddPostSchema = (role_id: number) =>
                 ? "only positive numbers are accepted"
                 : "الأرقام الموجبة فقط مقبولة"
             )
-            .required(
-              lang === "en" ? "This field is required" : "هذا الحقل مطلوب"
-            )
+            
         : Yup.number().notRequired(),
-    phone_numbers:Yup.array().of(
+    phone_numbers:Yup.array().min(1,lang === "en" ? "This field is required" : "هذا الحقل مطلوب").of(
       Yup.object().shape({
         phone:Yup.string().required( lang === "en" ? "This field is required" : "هذا الحقل مطلوب")
       })

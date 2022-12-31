@@ -173,7 +173,7 @@ export const SidebarLg = ({
             </Col>
            <Col
               lg={col_lg}
-
+              style={{display:authenticated?'':'none'}}
               onClick={() => hanldeRoutes(1)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -189,7 +189,7 @@ export const SidebarLg = ({
             </Col> 
             <Col
               lg={col_lg}
-
+              style={{display:authenticated?'':'none'}}
               onClick={() => hanldeRoutes(2)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -205,7 +205,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-
+              style={{display:authenticated?'':'none'}}
               onClick={() => authenticated? hanldeRoutes(3) : {}}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
               
@@ -221,7 +221,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-
+              style={{display:authenticated?'':'none'}}
               onClick={() => hanldeRoutes(4)}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >
@@ -241,7 +241,7 @@ export const SidebarLg = ({
             </Col>
             <Col
               lg={col_lg}
-
+              style={{display:authenticated?'':'none'}}
               onClick={ () => authenticated? hanldeRoutes(5):{}}
               className={collapsed ? "d-flex  " : "p-md-0 p-lg-1"}
             >

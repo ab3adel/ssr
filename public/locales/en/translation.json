@@ -62,7 +62,7 @@
     "YourAccountVerified": "Your account is verified now",
     "VerifyYourAccount": "Verify your account",
     "Male": "Male",
-    "SearchLocations": "Search Locations",
+    "SearchLocations": "Quick Search",
     "PostCategory": "Post Category",
     "Area_m": "Area",
     "ServicesAvailable": "Services Available",
@@ -132,7 +132,11 @@
     "Files":"Files",
     "Download":"Download",
     "Upload":"Upload",
-    "PostTag": "Post Tag"
+    "PostTag": "Post Tag",
+    "ChooseOfferType":"Choose Offer purpose",
+    "MoreDetailsToPost":"Add some details to distinquish your property",
+    "PACIID":"PACIID",
+    "Property":"Property"
     
     
     

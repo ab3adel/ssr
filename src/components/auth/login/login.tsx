@@ -75,8 +75,9 @@ const Login = ({ setLogin }: iProps) => {
     axios
       .post(apis.login, formdata)
       .then((res: any) => {
-        console.log(res.data)
+       
         if (res && res.data) {
+     
           let realImage = "";
           if (res.data.payload.profile_picture) {
             realImage = res.data.payload.profile_picture
@@ -94,6 +95,7 @@ const Login = ({ setLogin }: iProps) => {
               : null,
             phone_numbers: res.data.payload.phone_numbers,
             id: res.data.payload.id,
+
           };
 
           setNotify((pre: any) => ({

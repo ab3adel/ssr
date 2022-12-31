@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import { Rotues } from "./components/tools/routes";
@@ -17,6 +17,7 @@ function App() {
   const navigate = useNavigate();
   const { notify, setNotify } = useContext(notificationContext);
   const { token, setToken } = useContext(authContext);
+  let timer= useRef<any>().current
   const [checkToken,setCheckToken]=useState(false)
 
   let routes = useRoutes(Rotues(token.role));
@@ -25,11 +26,10 @@ function App() {
     setNotify((pre: any) => ({ ...pre, show: false }));
 
     const getRememberMe=async()=>{
-     
+      if (getLocalStorage() && getLocalStorage().id === 'Guest') return
       let formdata= new FormData()
         formdata.append('remember_me_token',getLocalStorage()?getLocalStorage().refresh_token:'')
-
-
+        timer=setTimeout(()=>getRememberMe(),2000000)
           let response= await axios.post(apis.rememberMe,formdata)
         
                                     
@@ -51,30 +51,32 @@ function App() {
                    refresh_token: data.refresh_token,
                    role:data?.roles? data.roles[0].id:-1,
                    profile_picture:realImage?"https://backend.instaaqar.com/storage/"+ realImage:null,
-                   id:data.id
+                   id:data.id,
+                   phone_numbers: response.data.payload.phone_numbers,
                  };
                  localStorage.removeItem('token')
                  localStorage.setItem("token", JSON.stringify(required_data));
                  setToken(required_data)
          }
          else {
-          navigate("/auth");
+          let required_data = {
+            token: null,
+            full_name:"Guest",
+            id:"Guest",
+           
+          };
+          localStorage.setItem("token", JSON.stringify(required_data));
+          setToken(required_data)
          }
        
       
           
     }
   useEffect(() => {
- 
-    if (getLocalStorage() && getLocalStorage().id === 'Guest') return
-     if (!getLocalStorage() || !getLocalStorage().full_name) {
-       navigate("/auth");
-     } else {
-      getRememberMe()
-        setInterval(() => getRememberMe(), 800000);
-        setToken(getLocalStorage())
-     }
-     
+    getRememberMe()
+        return () =>{
+          clearTimeout(timer)
+        }
   }, []);
 
 

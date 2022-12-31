@@ -56,7 +56,25 @@ axios.post(apis.forgot_password,
         console.log(err)
         if (err && err.response && err.response.data) {
 
-            setNotify((pre:any)=>({...pre,message:err.response.data.message,type:false,show:true}))
+            if (err.response.data.error){
+
+                setNotify((pre: any) => ({
+                  ...pre,
+                  message: err.response.data.error,
+                  type: false,
+                  show: true,
+                }));
+              }
+              if (err.response.data.errors) {
+                
+                  setNotify((pre: any) => ({
+                    ...pre,
+                    message: err.response.data.message,
+                    type: false,
+                    show: true,
+                  }));
+                
+              }
         }
       })
 }

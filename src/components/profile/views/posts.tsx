@@ -9,7 +9,7 @@ import { iPost } from '../../tools/interface'
 interface iProps{ posts:Partial<iPost>[]}
 
 export const Posts=({posts}:iProps)=>{
-console.log(posts)
+
     return (
         <Col xs={12}>
             <Row>

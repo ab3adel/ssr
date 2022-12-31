@@ -1,0 +1,46 @@
+.tribleContainer {
+    .border {
+        border-radius: 10px;
+        border:1px solid black;
+        .btn {
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: bold;
+            width:100%;
+            border:none
+        }
+        .active {
+            background-color: var(--light-green);
+            color:white
+        }
+        .inActive {
+            background-color: white;
+            color:black
+    }
+    }
+
+}
+@media screen and (min-width:567px) and (max-width:1024px) {
+    .tribleContainer {
+        .border {
+
+            .btn {
+                font-size: 0.7rem;
+            }
+        }
+    }
+}
+@media screen and (max-width:567px) {
+    .tribleContainer {
+        .border {
+
+            .btn {
+                font-size: 0.7rem;
+            }
+        }
+    }
+}

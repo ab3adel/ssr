@@ -22,6 +22,7 @@ export const Select = ({
   const [selected, setSelected] = useState("");
   const [selection, setSelection] = useState<iOption[]>(options as iOption[]);
   const handleChange = (e: React.ChangeEvent) => {
+    console.log(e)
     setHasSelection(true);
     let select = e.target as HTMLSelectElement;
 

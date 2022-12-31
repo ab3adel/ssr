@@ -65,7 +65,7 @@ const HomePage =()=>{
             if (getPostsData && getPostsData.length >0) {
             
                 let data= getPostsData.map((ele:any,index:number)=>{
-                    
+                  
                     if (!storedIDs.includes(ele.id)) {
                        setStoredIds(pre=>[...pre,ele.id])
                         let data= ele.images
@@ -92,7 +92,7 @@ const HomePage =()=>{
                                 ar:new Date(ele.updated_at).toLocaleDateString('ar-EG',options)
                             }
                         }
-                   
+                       
                         return ({
                            id:ele.id,
                            title:ele.title,
@@ -153,6 +153,8 @@ const HomePage =()=>{
         }
    }
    
+console.log(storedPosts)
+console.log(userId)
 
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >

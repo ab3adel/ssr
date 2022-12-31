@@ -121,7 +121,8 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
                       {i18n.language === "en" && <div className="empty"></div>}
                     </div>
                   </Col>
-                   <Col xs={7} onClick={() => handleRoutes(1)}>
+                   <Col xs={7} onClick={() => handleRoutes(1)}
+                   style={{display:authenticated?'':'none'}}>
                     <div
                       className={selected === 1 ? "item focused" : "item "}
                       style={
@@ -139,7 +140,8 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
                       {i18n.language === "en" && <div className="empty"></div>}
                     </div>
                   </Col> 
-                  <Col xs={7} onClick={() => handleRoutes(2)}>
+                  <Col xs={7} onClick={() => handleRoutes(2)}
+                     style={{display:authenticated?'':'none'}}>
                     <div
                       className={selected === 2 ? "item focused" : "item "}
                       style={
@@ -157,7 +159,8 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
                       {i18n.language === "en" && <div className="empty"></div>}
                     </div>
                   </Col>
-                  <Col xs={7} onClick={() =>authenticated? handleRoutes(3):{} }>
+                  <Col xs={7} onClick={() =>authenticated? handleRoutes(3):{} }
+                     style={{display:authenticated?'':'none'}}>
                     <div
                       className={authenticated? selected === 3 ? "item focused" : "item ": "item disabled"}
                       style={
@@ -175,7 +178,8 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
                       <span>{t("Profile")}</span>
                     </div>
                   </Col>
-                  <Col xs={7} onClick={() => handleRoutes(4)}>
+                  <Col xs={7} onClick={() => handleRoutes(4)}
+                     style={{display:authenticated?'':'none'}}>
                     <div
                       className={selected === 4 ? "item focused" : "item "}
                       style={
@@ -205,7 +209,8 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
                       */}
                     </div>
                   </Col>
-                  <Col xs={7} onClick={() => handleRoutes(5)}>
+                  <Col xs={7} onClick={() => handleRoutes(5)}
+                     style={{display:authenticated?'':'none'}}>
                     <div
                       className={selected === 5 ? "item focused" : "item "}
                       style={

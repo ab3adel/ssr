@@ -120,7 +120,7 @@ export const InputWithIcon = ({
             left: "0",
             right: "0",
             textAlign: "center",
-            bottom:'-4px'
+            bottom:'-1px'
           }}
         >
           {error}

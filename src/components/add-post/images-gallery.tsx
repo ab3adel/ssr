@@ -69,9 +69,9 @@ export const ImagesGallery =({imgs,setImgs,primary,setPrimary,value,setFieldValu
         setImgs(newImages)
         setFieldValue('images_to_delete',deleted_images)
     }
-
+    if (imgs.length ===0) return null
     return (
-        <div className={imgs.length >0 ? 'show':'hide'}>
+        <div className={imgs.length >0 ? 'visible':'invisible'}>
         <Col xs={12} className={`imagesGallery `}>
             <Col xs={12} className="scroll" id="scroll">
                 <div className=" innerContainer" id="innerContainer">

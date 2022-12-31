@@ -61,7 +61,7 @@
     "Congratulations": "مبروك !",
     "YourAccountVerified": " تم التحقق من حسابك",
     "VerifyYourAccount": "تحقق من حسابك !",
-    "SearchLocations": "ابحث عن مواقع",
+    "SearchLocations": "البحث السريع",
     "PostCategory": "نوع المنشور",
     "Area_m": "المساحة",
     "PostTags": "تاغات  (3 حدأقصى)",
@@ -71,7 +71,7 @@
     "Bathrooms": "حمامات",
     "Price": "سعر",
     "PredefinedPostPicture": "صورة مسبقة التعريف  ",
-    "AddProfilePicture": "أضف صورة البروفايل   ",
+    "AddProfilePicture": "استخدم صورة البروفايل",
     "SetProfilePrimary": " صورة البروفايل كصورة غلاف ",
     "primary": "صورة غلاف",
     "SharePost": "مشاركة",
@@ -134,7 +134,11 @@
     "Files":"ملفات",
     "Download":"تنزيل",
     "Upload":"رفع",
-    "PostTag":"وسم البوست"
+    "PostTag":"وسم البوست",
+    "ChooseOfferType":"اختر غرض العرض",
+    "MoreDetailsToPost":"اضف بعض التفاصيل الى منشورك",
+    "PACIID":"الرمز الألي",
+    "Property":"الملكية"
 
    
 }

@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import upload from "../../../images/upload-icon.svg";
 
 import "./many-input.scss";
+import { useTranslation } from "react-i18next";
 
 interface iProps {
   value: any;
@@ -30,6 +31,7 @@ export const ManyPhotosInput = ({
   externalButton = false,
   openModal=()=>{}
 }: iProps) => {
+  const{i18n}=useTranslation()
   const handleChange = (e: React.ChangeEvent) => {
     let input = e.target as HTMLInputElement;
     let file = null;
@@ -96,11 +98,21 @@ export const ManyPhotosInput = ({
       <Col xs={12} className="inputContainer">
         <div className="icon" >
           <img src={upload} onClick={hanldeInput} />
-          <span onClick={hanldeInput} className="text">Click to upload</span>
-          <span className="faintText">or drag and drop here</span>
+          <span onClick={hanldeInput} className="text">{i18n.language==='en'?
+          'Click to upload':'اضف صورة'
+        }
+          </span>
+          <span className="faintText">{ 
+          i18n.language==='en'?
+          'or drag and drop here':'اسحب الصورة الى هنا'
+          }
+          </span>
           {externalButton && (
             <button className="externalBtn" onClick={()=>openModal()}>
-              Choose from predefined pictures
+              {
+              i18n.language==='en'?
+              'Choose from predefined pictures':"اختر من الصور المعرفة مسبقا"
+            }
             </button>
           )}
         </div>

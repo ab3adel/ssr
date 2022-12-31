@@ -72,6 +72,7 @@ export interface iProps {
   touched: any;
   addPostLoading: boolean;
   setPredefinedPicturesModal: Function;
+  propertySubTypes: iOption[]
 }
 
 let postTags = [
@@ -121,6 +122,7 @@ const AddPost = () => {
   } = useGetPredefinedPictures();
   const { setNotify } = useContext(notificationContext);
   const [propertyTypes, setPropertyTypse] = useState<any[]>([]);
+  const [propertySubTypes,setPropertySubTypes]=useState<any[]>([])
   const [offersType, setOffersType] = useState<any[]>([]);
   const [pricesType, setPricesType] = useState<any[]>([]);
   const [propertySites, setPropertySites] = useState<any[]>([]);
@@ -128,6 +130,7 @@ const AddPost = () => {
   const [tags, setTags] = useState<any[]>([]);
   const [ token, setToken ] = useState({role:-1,token:''});
   const [area, setArea] = useState<iOption[]>([]);
+
   const [addPostLoading, setAddPostLoading] = useState(false);
   const { getPosts, getPostsData, getPostsError, isGetPostsLoading } =
     useGetPosts();
@@ -183,6 +186,7 @@ const {mobileView} =useContext(SettingContext)
     setPhoneNumber(value);
   };
   const addPhone = (value: iPhoneNumber) => {
+    console.log(value)
     let phons = [...formik.values.phone_numbers].filter((ele) => ele.phone);
     let newNumbers = [...phoneNumbersArray];
     phons.push(value);
@@ -238,6 +242,7 @@ const {mobileView} =useContext(SettingContext)
   };
 
   const addPost = () => {
+    console.log(checkError())
     if (checkError()) return;
     setAddPostLoading(true);
     let formData = new FormData();
@@ -374,14 +379,14 @@ const {mobileView} =useContext(SettingContext)
       })
       .catch((err) => {
         setAddPostLoading(false);
-        if (err.response && err.response.data.error) {
-          if (Array.isArray(err.response.data.error)) {
-            err.response.data.error.forEach((ele:string)=>{
+        if (err.response && err.response.data) {
+          if (err.response.data.errors) {
+           Object.keys(err.response.data.errors).forEach((ele:string)=>{
               setNotify((pre: any) => ({
                 ...pre,
                 type: false,
                 show: true,
-                message: ele,
+                message:err.response.data.errors[ele],
               }));
             })
           }
@@ -434,8 +439,19 @@ const {mobileView} =useContext(SettingContext)
     getCategories(0)
   };
     getArea();
+  
     if (getLocalStorage()) {
       setToken(getLocalStorage())
+   console.log(getLocalStorage())
+      if (!post_id) {
+        let phone_numbers=getLocalStorage().phone_numbers
+        if (phone_numbers && phone_numbers.length>0) {
+          let phone_number:iPhoneNumber = {phone:phone_numbers[0].phone
+            ,international_code:phone_numbers[0].international_code}
+          
+            addPhone(phone_number)
+        }
+      }
     }
   }, []);
 
@@ -456,21 +472,51 @@ const {mobileView} =useContext(SettingContext)
       }
     }
   }, [isPredefinedPicturesLoading]);
+ useEffect(()=>{
+  if (getLocalStorage() && getLocalStorage().role ===3) {
+    let lang=i18n.language
+    if (formik.values.area_id >0 && formik.values.price_type_id>0 
+      && formik.values.property_type_id>0  && !formik.touched.title && !post_id){
+       let property_type=propertySubTypes.filter( ele=>
+        ele.value=== formik.values.property_type_id
+        )[0]
+        let offer_type=offersType.filter(ele=>
+          ele.id === formik.values.offer_type_id
+          )[0]
 
+        let theArea =area.filter(ele=>ele.value === formik.values.area_id)[0]
+     
+        if (offer_type.title && property_type.title && theArea.title) {
+
+          let post_title=`${property_type.title[lang]}`+
+                             ` ${lang==='en'?' for ':'لل' }`+
+                            `${offer_type.title[lang]} ${lang==='en'?' in ':' في'} `+
+                            ` ${theArea.title?(theArea.title as any)[lang]:''} `
+        
+          formik.setFieldValue('title',{en:post_title,ar:post_title})    
+        }
+
+      }
+  }
+
+ },[formik.values.area_id,formik.values.price_type_id])
   useEffect(() => {
     if (!propertyTypesError) {
       if (propertyTypesData.length > 0) {
+     
+        let sub_types:any[]=[]
         let data = propertyTypesData.map((ele) => {
           let type = {
             title: { ar: ele.name.ar, en: ele.name.en },
-            type_id: ele.id,
-            value: [],
+            value: ele.id,
+            values: [],
           };
           if (ele.sub_types.length > 0) {
             ele.sub_types.map((elem: any) => {
-              (type["value"] as any).push({
+              (type.values as any).push({
                 title: { ar: elem.name.ar, en: elem.name.en },
-                id: elem.id,
+                value: elem.id,
+                ...elem
               });
             });
           }
@@ -479,10 +525,11 @@ const {mobileView} =useContext(SettingContext)
 
         if (data.length > 0) {
           setPropertyTypse(data);
-          selectePropertySubTypeId(
-            "property_type_id",
-            (data[0].value[0] as any).id
-          );
+          // selectePropertySubTypeId(
+          //   "property_type_id",
+          //   (data[0].value[0] as any).id
+          // );
+          
         }
       }
     }
@@ -505,6 +552,9 @@ const {mobileView} =useContext(SettingContext)
         });
 
         setPricesType(prices);
+        if (prices && prices.length>0 && prices.length <2) {
+          formik.setFieldValue('price_type_id',prices[0].id)
+        }
       }
     }
   }, [isOffersTypeLoading]);
@@ -556,6 +606,17 @@ const {mobileView} =useContext(SettingContext)
       getCategories(0, formik.values.category_id);
     }
   }, [formik.values.category_id]);
+  useEffect(()=>{
+    if (formik.values.main_property_type && formik.values.main_property_type >0) {
+      let sub_properties= propertyTypes.map((ele)=>{
+        if (ele.value === formik.values.main_property_type) {
+          return ele.values
+        }
+        return null
+      }).filter(ele=>ele)
+      setPropertySubTypes(sub_properties[0])
+    }
+  },[formik.values.main_property_type])
 
   useEffect(() => {
     if (token.role === 3) {
@@ -892,6 +953,8 @@ const updatePostImediately=(data:any)=>{
         };
   ;
 
+console.log(formik.errors)
+console.log(formik.values)
   return (
     <Col xs={12} className="addPostContainer">
       {
@@ -940,6 +1003,7 @@ const updatePostImediately=(data:any)=>{
           touched={formik.touched}
           addPostLoading={addPostLoading}
           setFieldTouched={formik.setFieldTouched}
+          propertySubTypes={propertySubTypes}
         />
       </Col>
       :
@@ -956,7 +1020,7 @@ const updatePostImediately=(data:any)=>{
 
           setFieldValue={customSetFieldValue}
           handleChange={customHanldChange}
-
+          propertySubTypes={propertySubTypes}
           errors={formik.errors}
           handleBlur={formik.handleBlur}
           handlePhone={handlePhone}

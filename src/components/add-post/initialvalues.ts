@@ -12,7 +12,7 @@ if (!isUpdatePost) {
             description: { en: "", ar: "" },
             services_available: { en: "", ar: "" },
             area_id: "",
-            property_type_id: "1",
+            property_type_id:"",
             price_type_id: "",
             property_site_id: "",
             category_id: 0,
@@ -34,6 +34,7 @@ if (!isUpdatePost) {
             images_to_delete:[],
             phone_numbers_to_delete:[],
             post_new_primary:'',
+            main_property_type:0
           
           }
     )

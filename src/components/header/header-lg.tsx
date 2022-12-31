@@ -2,17 +2,17 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Fade from "react-bootstrap/Fade";
+
 import { InputWithIcon } from "../tools/input/inputIcon";
-import search from "../../images/input-search-icon.svg";
+
 import message from "../../images/home/message-icon.svg";
 import notification from "../../images/home/bell-icon-1.svg";
 import user from "../../images/auth/profile.svg";
 import { useTranslation } from "react-i18next";
-import { iToken } from "../tools/interface";
-import { useState, useEffect } from "react";
+
 import {iProps} from './'
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const HeaderLg = ({ 
   token
@@ -25,7 +25,7 @@ export const HeaderLg = ({
 }: iProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate()
-  
+
   return (
     <Navbar
       className="navbarContainer d-none d-sm-block"
@@ -84,8 +84,11 @@ export const HeaderLg = ({
                      />
                   )}
                 </Col>
-                <Col xs={12}>
-                  <div className="user_name mw-100">
+                <Col xs={12}
+               >
+
+                  <div className={"user_name mw-100"}
+                  >
                     {token?.full_name ? token?.full_name : "user_33892"}
                   </div>
                 </Col>

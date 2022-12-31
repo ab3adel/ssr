@@ -186,7 +186,7 @@ const {mobileView} =useContext(SettingContext)
     setPhoneNumber(value);
   };
   const addPhone = (value: iPhoneNumber) => {
-    console.log(value)
+   
     let phons = [...formik.values.phone_numbers].filter((ele) => ele.phone);
     let newNumbers = [...phoneNumbersArray];
     phons.push(value);
@@ -260,7 +260,7 @@ const {mobileView} =useContext(SettingContext)
 
       formData.append("price_type_id", formik.values.price_type_id);
 
-      formData.append("property_site_id", formik.values.property_site_id);
+      formData.append("property_site_id", formik.values.property_site_id=== 0?'':formik.values.property_site_id);
       formData.append("location_link", formik.values.location_link);
       formData.append("latitude", formik.values.latitude);
       formData.append("longitude", formik.values.longitude);

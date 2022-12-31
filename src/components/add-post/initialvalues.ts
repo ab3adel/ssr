@@ -14,7 +14,7 @@ if (!isUpdatePost) {
             area_id: "",
             property_type_id:"",
             price_type_id: "",
-            property_site_id: "",
+            property_site_id: '',
             category_id: 0,
             descriptive_address: { ar: "", en: "" },
             location_link: "",

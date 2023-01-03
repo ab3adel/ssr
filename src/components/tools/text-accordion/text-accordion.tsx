@@ -14,8 +14,8 @@ const [expand ,setExpand]=useState(false)
                     {
                         description?.length >200 ?
                         !expand?
-                    <Col xs={12} className="textAccordion">
-                        <Col xs={12} className="textRistrected text">
+                    <Col xs={12} className="textAccordion px-1">
+                        <Col xs={12} className="textRistrected text px-1">
 
                            { description.slice(0,200) + ' . . .'}
                         </Col>
@@ -27,9 +27,9 @@ const [expand ,setExpand]=useState(false)
                     </Col>
                         
                         :
-                        <Col xs={12} className="textAccordion ">
+                        <Col xs={12} className="textAccordion px-1">
 
-                            <Col xs={12}  className="textExpanded text">
+                            <Col xs={12}  className="textExpanded text px-1">
 
                                 { description}
                             </Col>
@@ -41,7 +41,7 @@ const [expand ,setExpand]=useState(false)
                         </Col>
                         :
                         
-                        <Col xs={12}>
+                        <Col xs={12} className="px-1">
 
                         { description}
                         </Col> 

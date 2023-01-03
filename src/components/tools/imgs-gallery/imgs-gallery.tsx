@@ -1,5 +1,5 @@
 import './imgs-gallery.scss'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useHide} from '../use-hide'
 import Fade from 'react-bootstrap/Fade'
 import leftArrow from '../../../images/home/left-arrow-icon.svg'
@@ -30,15 +30,23 @@ export const ImagesGallery =({images,price,height,price_type,currency,post_detai
             }
         }
      }
-  
-    return (
-        <div className={`imgsGalery ${post_detail?'square-image':''} `}
-                            style={{backgroundImage:`url(${images[currentImage]})`
-                            ,height:height?height:'',
-                        backgroundRepeat:'no-repeat',backgroundSize:'cover'}}
-                            onClick={handleShow}
+     useEffect(()=>{
+        if(post_detail){
 
+       
+        }
+     },[post_detail])
+
+    return (
+        <div className={`imgsGalery  `}
+                            style={{
+                               backgroundImage:`url(${images[currentImage]}) `
+                             ,backgroundSize:'cover',backgroundRepeat:'no-repeat'
+                           , height:height?height:'',
+                     }}
                             ref={ref}
+                            id ={`${post_detail?'square-image':''}`}
+                            onClick={handleShow}
                            >
                                { price && 
                                 (<div className="price">
@@ -50,6 +58,7 @@ export const ImagesGallery =({images,price,height,price_type,currency,post_detai
                                         </span>
                                 </div>)
                                 }
+                               
                                 <Fade in={hide}>
 
                                     <img src={leftArrow} className="icon left" 

@@ -2,9 +2,12 @@
     position: relative;
     background-size: cover;
     background: url('../../../images/home/image1.png');
-    height: 348px;
+   
     border-radius: 10px;
+    height: 365px;
     background-repeat: no-repeat;
+
+    
     .price {
         position: absolute;
         left:1rem;
@@ -62,31 +65,36 @@
     }
 
 }
-.square-image {
-    height: 348px;
-    width:348px
+#square-image {
+    width: 500px;
+    height: 500px;
+    background-size: cover;
+    
 }
 @media screen and (min-width:567px) and (max-width:1024px) {
     .imgsGalery {
-        height: 233px;
+        
     }
-    .square-image {
-        height: 233px;
-        width:233px
+    #square-image {
+        width: 360px;
+        height: 360px;
+        background-size: cover;
+        
     }
 }
 @media screen and (max-width:567px) {
     .imgsGalery {
-        width:100%;
-        max-width: 100%;
+       background-size:cover ;
        height: 233px;
        .icon {
         width:20px;
         height: 21px;
        }
     }
-    .square-image {
+    #square-image {
         height: 356px;
+        width:356px;
+        background-position: center;
         
     }
       

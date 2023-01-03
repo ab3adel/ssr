@@ -103,7 +103,7 @@ position: relative;
                     .detail {
                         display: flex;
                         color:black;
-                        justify-content: space-evenly;
+                     
                         img {
                             width: 21px;
                             height: 25px;
@@ -151,14 +151,15 @@ position: relative;
             border:1px solid var(--light-green);
             background-size: cover;
             background-position: center;
-            
-            justify-content:right;
+            width:100%;
+            justify-content:space-between;
             align-items: center;
             display: flex;
             padding: 5px;
+         
 
             span {
-                font-size: 1rem;
+                font-size: 0.8rem;
                 margin:0 3px;
             }
 

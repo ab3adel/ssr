@@ -14,7 +14,7 @@ import area from "../../images/post-details/area.svg";
 import amenities from "../../images/post-details/amenities.svg";
 import room from "../../images/post-details/room.svg";
 import { TextAccordion } from "../tools/text-accordion/text-accordion";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import {useGetPosts} from '../tools/apis/useGetPosts'
 import {iProps} from './'
@@ -30,7 +30,8 @@ export const ScrollableSection = ({
   navigateProfile
 }: iProps) => {
 const {t,i18n}=useTranslation()
-
+const elemRef =useRef()
+console.log( post.services_available && post.services_available.en  )
   return (
     <Col xs={7} className="scrollableSection">
       <Card>
@@ -76,8 +77,8 @@ const {t,i18n}=useTranslation()
         </Card.Header>
         <Card.Body>
           <Row className="gy-3">
-            <Col xs={12}>
-              <ImagesGallery images={post.images} />
+            <Col xs={12} className="d-flex justify-content-center align-items-center">
+              <ImagesGallery images={post.images} post_detail={true} />
             </Col>
 
             <Col xs={12}>
@@ -207,9 +208,11 @@ const {t,i18n}=useTranslation()
                   />
                 </Col>
                 <Col xs={12}>
-                  <Col lg={4} xs={5} className="fw-bold fs-5">
+                 {( post.services_available && post.services_available.en )&&
+                 (<Col lg={4} xs={5} className="fw-bold fs-5">
                     {t('ServiceAvailable')}
-                  </Col>
+                  </Col>)
+                  }
                   <Col xs={12}>
                     {post.services_available?
                     i18n.language === "en"

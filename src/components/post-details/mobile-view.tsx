@@ -80,8 +80,8 @@ return (
         </Card.Header>
         <Card.Body>
           <Row className="gy-3">
-            <Col xs={12} className="p-0 p-sm-1">
-              <ImagesGallery images={post.images}  />
+            <Col xs={12} className="p-0 p-sm-1 d-flex justify-content-center align-items-center">
+              <ImagesGallery images={post.images} post_detail={true} />
             </Col>
             <Col xs={12}>
               <Row className='gy-3'>
@@ -169,7 +169,7 @@ return (
                     <Col
                       sm={3}
                       xs={5}
-                      className="d-flex justify-content-evenly align-items-center"
+                      className="d-flex align-items-center"
                     >
                       <img className="locationIcon" src={location} />
                       <span className="mx-1"style={{fontSize:'0.777rem'}}>

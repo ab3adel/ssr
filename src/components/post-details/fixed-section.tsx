@@ -2,13 +2,13 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import chat from "../../images/post-details/chat-icon.svg";
-
+import call from '../../images/post-details/call-icon.svg'
 import { useTranslation } from "react-i18next";
 import { useContext, useEffect, useState } from "react";
 import { getLocalStorage } from "../tools/getLocalstorage";
 import {useNavigate} from 'react-router-dom'
 import notificationContext from "../tools/context/notification/notification-context";
-import {Whatsapp} from 'react-bootstrap-icons'
+import {PhoneVibrate,Whatsapp} from 'react-bootstrap-icons'
 export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean }) => {
   const { i18n,t } = useTranslation();
   let [style,setStyle]= useState({})
@@ -50,16 +50,24 @@ export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean
       }));
     }
    }
-
+const callPhone =()=>{
+  let ele =document.querySelector('#call') as HTMLAnchorElement
+  ele.click()
+}
+const callWhatsapp =(ele:string)=>{
+ 
+  window.open(`https://wa.me/${ele}/?text=msg`)
+ 
+}
   return (
     <Col sm={4} xs={12} className="fixedSection p-sm-1 p-0"
     style={style}>
       <Card className="p-sm-2 p-0">
-        <Row className="gy-3 p-2">
-          <Col xs={12} className="fw-bold fs-lg-5">
+        <Row className="gy-3 p-2 ">
+          <Col xs={12} className="fw-bold fs-lg-5 d-none">
            {t('PropertyInformation')}
           </Col>
-          {post.offer_type && (
+          {false && (
             <>
               <Col lg={5} xs={6} className="fw-bold">
                 {t('Type')}
@@ -69,7 +77,7 @@ export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean
               </Col>
             </>
           )}
-          {post.price_type && (
+          {false && (
             <>
               <Col lg={5} xs={6} className="fw-bold">
                 {t("Purpose")}
@@ -79,15 +87,15 @@ export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean
               </Col>
             </>
           )}
-          <Col lg={5} xs={6} className="fw-bold">
+          <Col lg={5} xs={6} className="fw-bold d-none">
             {t('AddedOn')}
           </Col>
-          <Col lg={4} xs={6}>
+          <Col lg={4} xs={6} className='d-none'>
             <div className="tag grey">
               {i18n.language === "en" ? post.updated_at.en : post.updated_at.ar}
             </div>
           </Col>
-        { post?.PACIID && <>
+        { false&& <>
           <Col lg={5} xs={6} className="fw-bold">
             {t("PACIID")}
           </Col>
@@ -113,18 +121,41 @@ export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean
               {post.phone_numbers && post.phone_numbers.length > 0
                 ? post.phone_numbers.map((ele: any, index: number) => (
                     <Col
-                      lg={10}
+                     
                       xs={12}
                       key={index}
-                      className="d-flex 
-                           justify-content-between 
-                           align-items-center "
+                     
+                          
                     >
-                      <span>{ele.phone}</span>
-                      <div className="call">
-                        <Whatsapp />
-                       <span>Whatsapp</span> 
-                        </div>
+                      <Row>
+                        <Col xs={4}>
+
+                        <span>{ele.phone}</span>
+                        </Col>
+                        <Col xs={4}>
+
+                          <div className="call"
+                          onClick={()=>callPhone()}
+                          style={{cursor:'pointer'}}
+                          >
+                            <PhoneVibrate className='mx-1'/>
+                          <span>Call</span> 
+                          <a href={`tel:${ele.phone}`} id="call"/>
+                            </div>
+                        </Col>
+                        <Col xs={4}>
+
+                          <div className="call"
+                          onClick={()=>callWhatsapp(ele.phone)}
+                          style={{cursor:'pointer'}}
+                          >
+                            <Whatsapp className='mx-1'/>
+                          <span>Whatsapp</span> 
+                          
+                            </div>
+                        </Col>
+                      
+                      </Row>
                     </Col>
                   ))
                 : ""}

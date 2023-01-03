@@ -148,14 +148,19 @@ position: relative;
             border-radius: 5px;
             height: 29px;
             text-align: center;
-            background-image: url('../../images/post-details/call-back.png');
+            border:1px solid var(--light-green);
             background-size: cover;
             background-position: center;
-            width: 64px;
+            
             justify-content:right;
             align-items: center;
             display: flex;
             padding: 5px;
+
+            span {
+                font-size: 1rem;
+                margin:0 3px;
+            }
 
         }
         
@@ -211,8 +216,12 @@ position: relative;
             }
         }
         .fixedSection {
-
             .card {
+                .call {
+                    span {
+                        font-size: 0.7rem;
+                    }
+                }
     
                 .tag.grey {
                     font-size: 0.7rem;
@@ -275,7 +284,14 @@ position: relative;
                 position: relative;
                 left: auto;
                 top:auto;
-               
+                .card {
+
+                    .call{
+                     span {
+                         font-size: 0.7rem;
+                     }
+                    }
+                }
             }
         }
     }

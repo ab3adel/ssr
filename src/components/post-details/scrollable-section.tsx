@@ -26,9 +26,11 @@ export const ScrollableSection = ({
   react,
   post,
   postLikes,
+  setOpenbox,
+  navigateProfile
 }: iProps) => {
 const {t,i18n}=useTranslation()
-console.log(post.description)
+
   return (
     <Col xs={7} className="scrollableSection">
       <Card>
@@ -38,7 +40,8 @@ console.log(post.description)
               <Row className="justify-content-between ">
                 <Col xs={10} sm={10}>
                   <Row className="gy-3">
-                    <Col xs={4} style={{width:'fit-content'}}>
+                    <Col xs={4} style={{width:'fit-content'}}
+                    onClick={()=>navigateProfile()}>
                       <img
                         src={
                           post.profile_picture
@@ -57,7 +60,7 @@ console.log(post.description)
                       </div>
                     </Col>
                     <Col xs={8}>
-                      <div className="category">
+                      <div className={post.category?"category":'invisible'}>
                         {post.category
                           ? i18n.language === "en"
                             ? post.category.en
@@ -104,7 +107,8 @@ console.log(post.description)
                       <img src={react ? heartFilled : heart} />
                       <span className="mx-1 h5 fw-bold">{postLikes}</span>
                     </Col>
-                    <Col xs={6} className="iconBtn">
+                    <Col xs={6} className="iconBtn"
+                          onClick={()=>setOpenbox(true)}>
                       <img src={share} />
                     </Col>
                   </Row>
@@ -114,12 +118,15 @@ console.log(post.description)
             <Col xs={12}>
               <Col xs={6}>
                 <div>
-                  {i18n.language === "en" ? post.currency.en : post.currency.ar}{" "}
-                  <span className="fw-bold">{post.price}</span>{}
+                  {post.price? i18n.language === "en" ? post.currency.en : post.currency.ar:''}{" "}
+                  <span className="fw-bold">{post.price?
+                    parseInt(post.price).toLocaleString(i18n.language==='en'?'en':'ar-EG')
+                      :''
+                    }</span>{}
                   {post.price_type
                     ? i18n.language === "en"
-                      ? " / "+ post.price_type.en
-                      : " / " + post.price_type.ar
+                      ?(post.price? " / ":'') + post.price_type?.en 
+                      :(post.price? " / ":'') +  post.price_type?.ar 
                     : ""}
                 </div>
               </Col>
@@ -138,10 +145,10 @@ console.log(post.description)
                       </span>
                     </Col>
                     <Col xs={4}>
-                      <Button className="mapBtn">
+                      {/* <Button className="mapBtn">
                         <img src={map} />
                         <span>{t("GoToMap")}</span>
-                      </Button>
+                      </Button> */}
                     </Col>
                     <Col xs={12}>
                       {
@@ -157,12 +164,12 @@ console.log(post.description)
                   {post.number_of_rooms && (
                     <Col lg={3} xs={4} className="detail">
                       <img src={room} />
-                    
+                    (
                         <>
                           <span>{post.number_of_rooms}</span>
                           <span>{t('Rooms')}</span>
                         </>
-                    
+                    )
                     </Col>
                       )}
                     {post.number_of_bathrooms  &&

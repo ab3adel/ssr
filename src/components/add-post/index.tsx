@@ -237,6 +237,12 @@ const {mobileView} =useContext(SettingContext)
     Object.keys(formik.errors).forEach((element) => {
       formik.setFieldTouched(element, true);
     });
+    if ( formik.values.images.length===0) {
+      if (!formik.values.profile_photo_as_an_image_primary){
+        formik.setFieldTouched('images',true)
+        formik.setFieldError('images',i18n.language==='en'?'This field is required':'هذا الحقل مطلوب')
+      }
+    }
    
     return Object.keys(formik.errors).length > 0;
   };
@@ -261,12 +267,12 @@ const {mobileView} =useContext(SettingContext)
       formData.append("price_type_id", formik.values.price_type_id);
 
       formData.append("property_site_id", formik.values.property_site_id=== 0?'':formik.values.property_site_id);
-      formData.append("location_link", formik.values.location_link);
-      formData.append("latitude", formik.values.latitude);
-      formData.append("longitude", formik.values.longitude);
-      formData.append("number_of_rooms", formik.values.number_of_rooms);
-      formData.append("number_of_bathrooms", formik.values.number_of_bathrooms);
-      formData.append("area", formik.values.space);
+      if (formik.values.location_link)formData.append("location_link", formik.values.location_link);
+      if (formik.values.latitude)formData.append("latitude", formik.values.latitude);
+     if (formik.values.longitude) formData.append("longitude", formik.values.longitude);
+      if(formik.values.number_of_rooms)formData.append("number_of_rooms", formik.values.number_of_rooms);
+      if(formik.values.number_of_bathrooms)formData.append("number_of_bathrooms", formik.values.number_of_bathrooms);
+      if (formik.values.space) formData.append("area", formik.values.space);
     }
     if (token.role !== 3) {
       formData.append("category_id", JSON.stringify(formik.values.category_id));
@@ -310,9 +316,9 @@ const {mobileView} =useContext(SettingContext)
       );
     }
 
-    formData.append("PACIID", formik.values.PACIID);
+    if (formik.values.PACIID)formData.append("PACIID", formik.values.PACIID);
 
-    formData.append("price", formik.values.price);
+    if (formik.values.price)formData.append("price", formik.values.price);
 
     formData.append(
       "profile_photo_as_an_image",
@@ -379,6 +385,7 @@ const {mobileView} =useContext(SettingContext)
       })
       .catch((err) => {
         setAddPostLoading(false);
+        console.log(err)
         if (err.response && err.response.data) {
           if (err.response.data.errors) {
            Object.keys(err.response.data.errors).forEach((ele:string)=>{
@@ -396,7 +403,7 @@ const {mobileView} =useContext(SettingContext)
               ...pre,
               type: false,
               show: true,
-              message: err.response.data.error,
+              message:typeof err.response.data.error ==='string'? err.response.data.error:err.response.data.message,
             }));
           }
         }
@@ -442,7 +449,7 @@ const {mobileView} =useContext(SettingContext)
   
     if (getLocalStorage()) {
       setToken(getLocalStorage())
-   console.log(getLocalStorage())
+  
       if (!post_id) {
         let phone_numbers=getLocalStorage().phone_numbers
         if (phone_numbers && phone_numbers.length>0) {
@@ -553,7 +560,8 @@ const {mobileView} =useContext(SettingContext)
 
         setPricesType(prices);
         if (prices && prices.length>0 && prices.length <2) {
-          formik.setFieldValue('price_type_id',prices[0].id)
+          
+          customSetFieldValue('price_type_id',prices[0].id)
         }
       }
     }
@@ -727,6 +735,13 @@ const updatePostImediately=(data:any)=>{
     else {
       formik.setFieldError('phone_numbers[0][phone]','')
     }
+   if (formik.values.images.length===0) {
+    if (!formik.values.profile_photo_as_an_image) {
+      formik.setFieldTouched('images',true)
+      formik.setFieldError('images',i18n.language==='en'?'You can not leave this field empty':"يجب ان ترفص المنشور بصورة")
+      return
+    }
+   }
  
     setAddPostLoading(true);
     let formData = new FormData();
@@ -889,7 +904,7 @@ const updatePostImediately=(data:any)=>{
        })
        
       }
-      if (fieldsUpdatedRegister.current.includes( 'phone_numbers')) {
+      if (fieldsUpdatedRegister.current.includes('phone_numbers')) {
         let new_numbers :any[]=[]
         let response_numbres=getPostsData.data[0].phone_numbers
         formik.values['phone_numbers'].map((ele:any,index:number)=>{
@@ -924,6 +939,9 @@ const updatePostImediately=(data:any)=>{
               "تم تعديل البوست بنجاح",
             }));
             formik.resetForm()
+            
+            setPhoneNumbersArray([])
+            setImages([])
             navigate('/addpost')
           }
         })
@@ -931,30 +949,32 @@ const updatePostImediately=(data:any)=>{
           setAddPostLoading(false);
          
           if (err.response && err.response.data.error) {
-            if (Array.isArray(err.response.data.error)) {
-              setNotify((pre: any) => ({
-                ...pre,
-                type: false,
-                show: true,
-                message: err.response.data.error[0],
-              }));
-            }
-           else {
-
-             setNotify((pre: any) => ({
-               ...pre,
-               type: false,
-               show: true,
-               message: err.response.data.error,
-             }));
-           }
+            if (err.response.data.errors) {
+              Object.keys(err.response.data.errors).forEach((ele:string)=>{
+                 setNotify((pre: any) => ({
+                   ...pre,
+                   type: false,
+                   show: true,
+                   message:err.response.data.errors[ele],
+                 }));
+               })
+             }
+             else {
+   
+               setNotify((pre: any) => ({
+                 ...pre,
+                 type: false,
+                 show: true,
+                 message: err.response.data.error,
+               }));
+             }
            }
             })
         };
   ;
-
-console.log(formik.errors)
 console.log(formik.values)
+console.log(formik.errors)
+console.log(formik.touched)
   return (
     <Col xs={12} className="addPostContainer">
       {

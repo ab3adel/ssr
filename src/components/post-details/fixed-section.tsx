@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import { getLocalStorage } from "../tools/getLocalstorage";
 import {useNavigate} from 'react-router-dom'
 import notificationContext from "../tools/context/notification/notification-context";
+import {Whatsapp} from 'react-bootstrap-icons'
 export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean }) => {
   const { i18n,t } = useTranslation();
   let [style,setStyle]= useState({})
@@ -49,7 +50,7 @@ export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean
       }));
     }
    }
-   console.log(mobileView)
+
   return (
     <Col sm={4} xs={12} className="fixedSection p-sm-1 p-0"
     style={style}>
@@ -88,7 +89,7 @@ export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean
           </Col>
         { post?.PACIID && <>
           <Col lg={5} xs={6} className="fw-bold">
-            PACIID
+            {t("PACIID")}
           </Col>
           <Col lg={4} xs={6}>
             <div className="tag grey">{post.PACIID ? post.PACIID : ""}</div>
@@ -120,7 +121,10 @@ export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean
                            align-items-center "
                     >
                       <span>{ele.phone}</span>
-                      <div className="call">Call</div>
+                      <div className="call">
+                        <Whatsapp />
+                       <span>Whatsapp</span> 
+                        </div>
                     </Col>
                   ))
                 : ""}

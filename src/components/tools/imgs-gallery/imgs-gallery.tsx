@@ -7,8 +7,8 @@ import rightArrow from '../../../images/home/right-arrow-icon.svg'
 import {useTranslation} from 'react-i18next'
 interface iProps {images: any []
     ,price?:string,currency?:{en:string,ar:string}
-,price_type?:{en:string,ar:string} ,height?:string}
-export const ImagesGallery =({images,price,height,price_type,currency}:iProps)=>{
+,price_type?:{en:string,ar:string} ,height?:string,post_detail?:boolean}
+export const ImagesGallery =({images,price,height,price_type,currency,post_detail=false}:iProps)=>{
     const {ref,hide,handleShow} =useHide()
     const [currentImage,setCurrentImage]=useState(0)
     const {i18n} =useTranslation()
@@ -32,7 +32,7 @@ export const ImagesGallery =({images,price,height,price_type,currency}:iProps)=>
      }
   
     return (
-        <div className="imgsGalery" 
+        <div className={`imgsGalery ${post_detail?'square-image':''} `}
                             style={{backgroundImage:`url(${images[currentImage]})`
                             ,height:height?height:'',
                         backgroundRepeat:'no-repeat',backgroundSize:'cover'}}

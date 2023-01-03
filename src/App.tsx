@@ -11,6 +11,7 @@ import { apis } from "./components/tools/apis/apis";
 import axios from "./components/tools/apis/axios";
 import { useGetRememberMe } from "./components/tools/apis/useGetRememberMe";
 import { getLocalStorage } from "./components/tools/getLocalstorage";
+import SEO from "./components/tools/seo";
 function App() {
   const { i18n } = useTranslation();
 
@@ -81,6 +82,18 @@ function App() {
 
 
   return (
+    <>
+    <SEO 
+    name="InstaAqar"
+    description={`
+
+    انستاعقار خيارك الأول في كل ما يخص العقارات من بيع وشراء واجار
+    بالاضافة الى خدمات أخرى مرتبطة بالعقارات
+    `}
+    title="InstaAqar App"
+    type="article"
+    
+    />
     <div
       className="App"
       style={{ direction: i18n.language === "en" ? "ltr" : "rtl" }}
@@ -88,6 +101,7 @@ function App() {
       {routes}
       <Notify {...notify}  close={handleCloseNotify} />
     </div>
+    </>
   );
 }
 

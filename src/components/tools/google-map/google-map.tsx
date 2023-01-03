@@ -3,9 +3,11 @@ import GoogleMapReact from 'google-map-react'
 import Modal from 'react-bootstrap/Modal'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
+import { useTranslation } from 'react-i18next'
 
 interface iProps {show:boolean,setShow:()=>void}
 export const GoogleMap=({show,setShow}:iProps)=>{
+  const {i18n}=useTranslation()
     const defaultProps = {
         center: {
           lat: 10.99835602,
@@ -19,7 +21,7 @@ export const GoogleMap=({show,setShow}:iProps)=>{
         onHide={setShow}>
             <Modal.Header closeButton
             onClick={setShow}>
-                <span>Set your Location :</span>
+                <span>{i18n.language?'Set your Location :':'حدد موقعك على الخريطة:'}</span>
             </Modal.Header>
             <Modal.Body
              className="h-100">
@@ -29,6 +31,8 @@ export const GoogleMap=({show,setShow}:iProps)=>{
                           <GoogleMapReact 
                            center={defaultProps.center}
                            zoom={defaultProps.zoom}
+                         
+                           bootstrapURLKeys={{key:'AIzaSyAi51d5XZLV8oquto7pmBaEJqt2GYzJJvY'}}
                           >
                         
                           </GoogleMapReact>

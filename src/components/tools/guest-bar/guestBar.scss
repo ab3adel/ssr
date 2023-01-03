@@ -8,6 +8,13 @@
     font-size: 1rem;
     color:white;
     text-align: center;
+    position:relative;
+    .closeButton {
+      position: absolute;
+      top:0;
+      left:5px;
+      font-weight: bold;
+    }
   
 }
 @media screen and (max-width:1024px) and (min-width:567px) {

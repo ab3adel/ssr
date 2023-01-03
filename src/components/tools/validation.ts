@@ -155,7 +155,8 @@ export const AddPostSchema = (role_id: number) =>
       Yup.object().shape({
         phone:Yup.string().required( lang === "en" ? "This field is required" : "هذا الحقل مطلوب")
       })
-    )    
+    )    ,
+    images :Yup.array().min(1,lang === "en" ? "This field is required" : "هذا الحقل مطلوب")
   });
 export const  editCompanyProfileSchema =()=>
   Yup.object().shape({

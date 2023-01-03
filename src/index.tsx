@@ -4,6 +4,7 @@ import './index.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
+import {HelmetProvider} from 'react-helmet-async'
 import './i18n'
 import { BrowserRouter as Router } from 'react-router-dom'
 import SettingProvider from './components/tools/context/setting-context/setting-provider'
@@ -15,22 +16,24 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <AuthContextProvider>
-    <ChatContextProvider>
+  <HelmetProvider>
+    <AuthContextProvider>
+      <ChatContextProvider>
 
-      <SettingProvider>
-        <NotificationProvider>
-          <RecoilRoot>
+        <SettingProvider>
+          <NotificationProvider>
+            <RecoilRoot>
 
-              <Router>
-                <App />
-              </Router>
-          </RecoilRoot>
-        
-        </NotificationProvider>
-      </SettingProvider>
-    </ChatContextProvider>
-    </AuthContextProvider>
+                <Router>
+                  <App />
+                </Router>
+            </RecoilRoot>
+          
+          </NotificationProvider>
+        </SettingProvider>
+      </ChatContextProvider>
+      </AuthContextProvider>
+    </HelmetProvider>
 
 );
 

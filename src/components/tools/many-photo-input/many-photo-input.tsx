@@ -95,7 +95,7 @@ export const ManyPhotosInput = ({
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <Col xs={12} className="inputContainer">
+      <Col xs={12} className={`inputContainer ${Boolean(error) && touched?'invalid':''}`}>
         <div className="icon" >
           <img src={upload} onClick={hanldeInput} />
           <span onClick={hanldeInput} className="text">{i18n.language==='en'?
@@ -122,6 +122,7 @@ export const ManyPhotosInput = ({
           id="manyInput"
           onChange={handleChange}
         />
+        {(Boolean(error)&&touched)&&  <span className="invalid-text">{error}</span>}
       </Col>
     </Row>
   );

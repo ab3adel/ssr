@@ -108,6 +108,7 @@ export const LargeView = ({
                       label={t("ChooseOfferType")}
                       options={offersType}
                       setFieldValue={setFieldValue}
+                      value={values['offer_type_id']}
                     />
                   </Col>
                   <Col xs={12}>
@@ -213,7 +214,7 @@ export const LargeView = ({
                       reset={resetPhone}
                       error={
                         errors["phone_numbers"]
-                          ? errors["phone_numbers"]
+                          ? errors["phone_numbers"][0]['phone']
                           : ""
                       }
                       touched={touched["phone_numbers"]}

@@ -62,9 +62,17 @@
     }
 
 }
+.square-image {
+    height: 348px;
+    width:348px
+}
 @media screen and (min-width:567px) and (max-width:1024px) {
     .imgsGalery {
         height: 233px;
+    }
+    .square-image {
+        height: 233px;
+        width:233px
     }
 }
 @media screen and (max-width:567px) {
@@ -76,6 +84,10 @@
         width:20px;
         height: 21px;
        }
+    }
+    .square-image {
+        height: 356px;
+        
     }
       
 }

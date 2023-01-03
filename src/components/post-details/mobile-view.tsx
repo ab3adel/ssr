@@ -30,10 +30,13 @@ export const MobileView = ({
   post,
   postLikes,
   handleChat,
-  mobileView
+  mobileView,
+  setOpenbox,
+  navigateProfile
 }: iProps) => {
   const { openSidebar } = useContext(SettingContext);
   const { i18n,t } = useTranslation();
+
 return (
     <Col xs={12} className="scrollableSection">
       <Card>
@@ -43,7 +46,8 @@ return (
               <Row className="justify-content-between ">
                 <Col xs={12}>
                   <Row className="gy-3">
-                    <Col xs={4}>
+                    <Col xs={3}
+                    onClick={()=>navigateProfile()}>
                       <img
                         src={
                           post.profile_picture
@@ -53,14 +57,14 @@ return (
                         className="profile"
                       />
                     </Col>
-                    <Col xs={8} className="d-flex  align-items-center">
+                    <Col xs={9} className="d-flex  align-items-center">
                       <div className="userName">
                         <span>{post.username}</span>
                         <img className="icon" src={valid} />
                       </div>
                     </Col>
                     <Col xs={8}>
-                      <div className="category">
+                      <div className={post.category?"category":'invisible'}>
                         {post.category
                           ? i18n.language === "en"
                             ? post.category?.en
@@ -77,7 +81,7 @@ return (
         <Card.Body>
           <Row className="gy-3">
             <Col xs={12} className="p-0 p-sm-1">
-              <ImagesGallery images={post.images} />
+              <ImagesGallery images={post.images}  />
             </Col>
             <Col xs={12}>
               <Row className='gy-3'>
@@ -94,28 +98,33 @@ return (
                           <span className="fw-bold mx-1">{postLikes}</span>
                           <img src={react ? heartFilled : heart} />
                         </Col>
-                        <Col xs={6} className="iconBtn">
+                        <Col xs={6} className="iconBtn"
+                        onClick={()=>setOpenbox(true)}>
                           <img src={share} />
                         </Col>
 
                       </Row>
                     </Col>
-                    <Col xs={7} className='d-flex justify-content-evenly'>
+                    <Col xs={7} className='d-flex justify-content-evenly align-items-center'>
                       <>
-                      <span className="fw-bold">{post.price}</span>{" "}
+                      <span className="fw-bold">{post.price?
+                      parseInt(post.price).toLocaleString(i18n.language==='en'?'en':'ar-EG')
+                      :''
+                    }
+                      </span>{" "}
                       <span style={{margin:'0 2px'}}>
                       {" "}
-                        {i18n.language === "en"
+                        {post.price ?i18n.language === "en"
                        
                           ? post.currency?.en
-                          : post.currency?.ar}
+                          : post.currency?.ar:''}
                           </span>
                        
                         <span>
                         {post.price_type
                           ? i18n.language === "en"
-                            ? "/ " + post.price_type?.en
-                            :"/ " + post.price_type?.ar
+                            ? (post.price ? "/ ":"") + post.price_type?.en 
+                            :(post.price ?"/ ":'') +  post.price_type?.ar 
                           : ""}
                           </span>
                       </>
@@ -168,10 +177,10 @@ return (
                       </span>
                     </Col>
                     <Col sm={4} xs={7}>
-                      <Button className="mapBtn">
+                      {/* <Button className="mapBtn">
                         <img src={map} />
                         <span>{t("GoToMap")}</span>
-                      </Button>
+                      </Button> */}
                     </Col>
                 
                     { post.descriptive_address &&

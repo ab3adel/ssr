@@ -47,7 +47,8 @@ const About =()=>{
                 <Col xs={12}  className={'p-2 text-center d-flex justify-content-center'}
                  style={{background:'white'}}>
                     <Col xs={12} sm={8} className="text">
-                        <div  dangerouslySetInnerHTML={
+                        <div  style={{fontFamily:'Cairo'}}
+                        dangerouslySetInnerHTML={
                            about.body
                         }>
 

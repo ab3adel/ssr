@@ -112,6 +112,7 @@ export const SmallView = ({
                     label={t("ChooseOfferType")}
                     options={offersType}
                     setFieldValue={setFieldValue}
+                    value={values['offer_type_id']}
                   />
                 </Col>
                 <Col xs={12}>
@@ -217,7 +218,7 @@ export const SmallView = ({
                     reset={resetPhone}
                     error={
                       errors["phone_numbers"]
-                        ? errors["phone_numbers"]
+                        ? errors["phone_numbers"][0]['phone']
                         : ""
                     }
                     touched={touched["phone_numbers"]}
@@ -227,14 +228,18 @@ export const SmallView = ({
                 </Col>
                 <Col xs={10} className="numbers">
                   <Row className="gy-3">
-                    {phoneNumbersArray.map((ele, index) => {
+                    {phoneNumbersArray && phoneNumbersArray.length>0?
+                    phoneNumbersArray.map((ele:any, index) => {
+                   
                       return (
                         <Col xs={6} key={index}>
+                          
                           <div className="number">
                             <span>
-                              {typeof ele !== "string"
+                              {ele && typeof ele !== "string"
                                 ? ele.phone
-                                  ? ele.phone
+                                  ? 
+                                  ele.phone
                                   : ele
                                 : ele}
                             </span>
@@ -247,7 +252,7 @@ export const SmallView = ({
                           </div>
                         </Col>
                       );
-                    })}
+                    }):''}
                   </Row>
                 </Col>
               </Row>
@@ -310,6 +315,8 @@ export const SmallView = ({
                 externalButton={true}
                 value={values.images}
                 openModal={() => setPredefinedPicturesModal(true)}
+                error={errors['images']}
+                touched={touched['images']}
               />
             </Col>
             <Col xs={12}>

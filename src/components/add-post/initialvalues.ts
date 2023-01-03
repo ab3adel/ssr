@@ -1,6 +1,7 @@
 
 export const postInitializer= (
      isUpdatePost:boolean,data:any)=>{
+console.log(data)
 if (!isUpdatePost) {
     return (
         {
@@ -75,7 +76,7 @@ else {
             offer_type_id: data?.offer_type_id,
             tags_ids: idTags || [],
             title:data?.title || {en:'',ar:''},
-            description: { en: "", ar: "" },
+            description:data?.description?.en?{en:data.description.en,ar:data?.description?.ar}: { en: "", ar: "" },
             services_available:data?.services_available || { en: "", ar: "" },
             area_id: data?.area_id,
             property_type_id: data?.property_type_id,
@@ -87,7 +88,7 @@ else {
             latitude: data?.latitude,
             longitude: data?.longitude,
             space: data?.space,
-            price: data?.prirce,
+            price: data?.price,
             number_of_rooms: data?.number_of_rooms,
             number_of_bathrooms: data?.number_of_bathrooms,
             PACIID: data?.PACIID,
@@ -100,6 +101,7 @@ else {
             images_to_delete:[],
             phone_numbers_to_delete:[],
             post_new_primary:'',  
+            main_property_type:data?.main_property_type?.id
         }
     )
 }

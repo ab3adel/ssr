@@ -11,7 +11,7 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { MobileView } from "./mobile-view";
 import { useRecoilState } from "recoil";
 import { Posts } from "../store";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { iPost } from "../tools/interface";
 import { useLikePost } from "../tools/apis/uselikePost";
 import { useGetPosts } from "../tools/apis/useGetPosts";
@@ -19,6 +19,8 @@ import { getLocalStorage } from "../tools/getLocalstorage";
 import {useNavigate} from 'react-router-dom'
 import notificationContext from "../tools/context/notification/notification-context";
 import SettingContext from "../tools/context/setting-context/setting-context";
+import ShareBox from "../tools/share-box";
+import { useTranslation } from "react-i18next";
 export interface iProps {
   images: string[];
   description: string;
@@ -28,7 +30,9 @@ export interface iProps {
   authenticated?: boolean;
   postLikes: number;
   handleChat:Function,
-  mobileView:boolean
+  mobileView:boolean,
+  setOpenbox:Function,
+  navigateProfile:Function
 }
 let images = [image1, image2, image3, image4];
 
@@ -53,7 +57,10 @@ const PostDetails = () => {
   const { setNotify } = useContext(notificationContext);
   const [react, setReact] = useState(false);
   const [storedPosts] = useRecoilState(Posts);
+  const [openSharebox,setOpenSharebox]=useState(false)
   const navigate =useNavigate()
+  let location =useLocation()
+  const {i18n,t}=useTranslation()
   const { likeData, likeError, isLikeLoading, setLike, setUnLike } =
     useLikePost();
   const [authenticated, setAuthenticated] = useState(false);
@@ -221,11 +228,32 @@ const PostDetails = () => {
         ...pre,
         show: true,
         type: "info",
-        message: "You have to login first !",
+        message: i18n.language==='en'? "You have to login first !":"يجب تسجيل الدخول أولا",
       }));
     }
    }
-    
+   const navigateProfile =()=>{
+    if (getLocalStorage() && getLocalStorage().id && getLocalStorage().id !== 'Guest'){
+  
+      if (post.user_id ) {
+      if (getLocalStorage().id === post.user_id) {
+        navigate('/profile')
+      }
+      else {
+
+        navigate(`/publicprofile/1/${post.user_id}`)
+      }
+      }
+    }
+    else {
+      setNotify((pre: any) => ({
+        ...pre,
+        show: true,
+        type: "info",
+        message: i18n.language==='en'? "You have to login first !":"يجب تسجيل الدخول أولا",
+      }));
+    }
+   }
 
   return (
     <Col xs={12} className="postDetailsContainer">
@@ -243,6 +271,8 @@ const PostDetails = () => {
               postLikes={postLikes}
               handleChat={handleChat}
               mobileView={mobileView}
+              setOpenbox={setOpenSharebox}
+              navigateProfile={navigateProfile}
             />
           </Col>
           <FixedSection post={post} mobileView={mobileView} />
@@ -258,9 +288,17 @@ const PostDetails = () => {
           authenticated={authenticated}
           postLikes={postLikes}
           handleChat={handleChat}
+          navigateProfile={navigateProfile}
           mobileView={mobileView}
+          setOpenbox={setOpenSharebox}
         />
       </Col>
+      <ShareBox 
+      open={openSharebox}
+      setOpen={()=>setOpenSharebox(false)}
+      url={`https://www.instaaqar.com/${location.pathname}`}
+
+      />
     </Col>
   );
 };

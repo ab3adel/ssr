@@ -9,6 +9,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
         .icon {
             display: flex;
             flex-direction: column;
@@ -51,6 +52,17 @@
             visibility: collapse;
             width:1px;
         }
+        .invalid-text {
+            font-size: 0.7rem;
+            color:red;
+            position: absolute;
+            bottom: 0;
+            left: auto;
+            right: auto;
+        }
+    }
+    .invalid {
+        border:1px solid red
     }
 
 }

@@ -120,7 +120,7 @@ const HomePage =()=>{
                            price:ele.price,
                            description:ele.description,
                            user_id:ele.user_id,
-                           owner:ele.user_id === userId,
+                           owner:getLocalStorage() && getLocalStorage().id? ele.user_id === getLocalStorage().id:false,
                            page_number:page,
                            space:ele.space
                        
@@ -152,9 +152,7 @@ const HomePage =()=>{
             }
         }
    }
-   
-console.log(storedPosts)
-console.log(userId)
+
 
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >

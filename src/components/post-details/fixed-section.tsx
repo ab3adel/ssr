@@ -128,7 +128,7 @@ const callWhatsapp =(ele:string)=>{
                           
                     >
                       <Row>
-                        <Col xs={4}>
+                        <Col xs={4} >
 
                         <span>{ele.phone}</span>
                         </Col>

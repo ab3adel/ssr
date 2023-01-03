@@ -30,7 +30,7 @@ const {t} =useTranslation()
                         :
                         <Col xs={12} className="textAccordion px-1">
 
-                            <Col xs={12}  className="textExpanded text px-1">
+                            <Col xs={12}  className="textExpanded text px-1 pb-1">
 
                                 { description}
                             </Col>

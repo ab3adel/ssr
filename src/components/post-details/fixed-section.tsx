@@ -128,11 +128,11 @@ const callWhatsapp =(ele:string)=>{
                           
                     >
                       <Row>
-                        <Col xs={4} >
+                        <Col xs={5} >
 
                         <span>{ele.phone}</span>
                         </Col>
-                        <Col xs={4}>
+                        <Col xs={3}>
 
                           <div className="call"
                           onClick={()=>callPhone()}

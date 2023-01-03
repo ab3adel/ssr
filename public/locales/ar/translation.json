@@ -138,7 +138,12 @@
     "ChooseOfferType":"اختر غرض العرض",
     "MoreDetailsToPost":"اضف بعض التفاصيل الى منشورك",
     "PACIID":"الرمز الألي",
-    "Property":"الملكية"
+    "Property":"الملكية",
+    "ReadMore":"المزيد",
+    "ReadLess":"عرض اقل"
+    
+
+    
 
    
 }

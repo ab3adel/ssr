@@ -295,7 +295,7 @@ return (
         <Col xs={10} className="chatBtn  "
         onClick={()=>handleChat()}>
           <img src={chat} />
-          <span>Chat</span>
+          <span>{t("Chat")}</span>
         </Col>
       </Col>
     </Col>

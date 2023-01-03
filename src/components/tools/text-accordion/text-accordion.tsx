@@ -3,12 +3,13 @@ import './text-accordion.scss'
 import Col from 'react-bootstrap/Col'
 import {useState} from 'react'
 import arrow from '../../../images/post-details/down-arrow.svg'
+import { useTranslation } from 'react-i18next'
 
 interface iProps {description:string}
 
 export const TextAccordion =({description}:iProps)=>{
 const [expand ,setExpand]=useState(false)
-
+const {t} =useTranslation()
     return (
         <>
                     {
@@ -21,7 +22,7 @@ const [expand ,setExpand]=useState(false)
                         </Col>
                         <Col xs={5} className="btn"
                         onClick={()=>setExpand(!expand)}>
-                            <span>Read More</span>
+                            <span>{t("ReadMore")}</span>
                             <img src={arrow} className="down icon" />
                         </Col>
                     </Col>
@@ -35,7 +36,7 @@ const [expand ,setExpand]=useState(false)
                             </Col>
                             <Col xs={5} className="btn"
                             onClick={()=>setExpand(!expand)}>
-                                <span>Read Less</span>
+                                <span>{t("ReadLess")}</span>
                                 <img src={arrow} className="up icon"/>
                             </Col>                                 
                         </Col>

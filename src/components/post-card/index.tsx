@@ -457,7 +457,7 @@ export const PostCard = ({
       <ShareBox 
       open={openShare}
       setOpen={()=>setOpenShare(false)}
-      url={`https://instaaqar.com/postdetails/${page}/${id}`}
+      url={`https://www.instaaqar.com/postdetails/${page}/${id}`}
       />
 
     </Col>

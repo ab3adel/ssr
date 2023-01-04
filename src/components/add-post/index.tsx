@@ -497,7 +497,7 @@ const {mobileView} =useContext(SettingContext)
 
           let post_title=`${property_type.title[lang]}`+
                              ` ${lang==='en'?' for ':'لل' }`+
-                            `${offer_type.title[lang]} ${lang==='en'?' in ':' في'} `+
+                            `${offer_type.title[lang]} ${lang==='en'?' in ':'في'}`+
                             ` ${theArea.title?(theArea.title as any)[lang]:''} `
         
           formik.setFieldValue('title',{en:post_title,ar:post_title})    

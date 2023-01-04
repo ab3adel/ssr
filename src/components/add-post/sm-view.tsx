@@ -118,7 +118,7 @@ export const SmallView = ({
                 <Col xs={12}>
                   <Badge
                     items={pricesType}
-                    label={t("Rent")}
+                    label={''}
                     name="price_type_id"
                     selected={values.price_type_id}
                     setSelected={setFieldValue}

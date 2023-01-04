@@ -88,6 +88,7 @@ export const HeaderLg = ({
                >
 
                   <div className={"user_name mw-100"}
+                  style={{justifyContent:'flex-end'}}
                   >
                     {token?.full_name ? token?.full_name : "user_33892"}
                   </div>

@@ -10,7 +10,7 @@ const SEO =({title,description,name,type}:iProps)=>{
             <meta property="og:type" content={type} />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
-            <meta property="og:image" itemProp="image" content="http://ad-test.easygov.co.in/advertisement/test.png"/>
+            <meta property="og:image" itemProp="image" content="https://backend.instaaqar.com/logo2.png"/>
             
             <meta name="twitter:creator" content={name} />
             <meta name="twitter:card" content={type} />

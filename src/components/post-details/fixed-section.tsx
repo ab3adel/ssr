@@ -9,6 +9,7 @@ import { getLocalStorage } from "../tools/getLocalstorage";
 import {useNavigate} from 'react-router-dom'
 import notificationContext from "../tools/context/notification/notification-context";
 import {PhoneVibrate,Whatsapp} from 'react-bootstrap-icons'
+import { getTime } from "../tools/getTime";
 export const FixedSection = ({ post,mobileView }: { post: any,mobileView:boolean }) => {
   const { i18n,t } = useTranslation();
   let [style,setStyle]= useState({})
@@ -56,7 +57,7 @@ const callPhone =()=>{
 }
 const callWhatsapp =(ele:string)=>{
  
-  window.open(`https://wa.me/${ele}/?text=msg`)
+  window.open(`https://wa.me/${ele}/?text=`)
  
 }
   return (
@@ -87,16 +88,16 @@ const callWhatsapp =(ele:string)=>{
               </Col>
             </>
           )}
-          <Col lg={5} xs={6} className="fw-bold d-none">
+          <Col lg={5} xs={6} className="fw-lg-bold ">
             {t('AddedOn')}
           </Col>
-          <Col lg={4} xs={6} className='d-none'>
+          <Col lg={4} xs={6} className=''>
             <div className="tag grey">
-              {i18n.language === "en" ? post.updated_at.en : post.updated_at.ar}
+              {getTime(post.updated_at) }
             </div>
           </Col>
         { false&& <>
-          <Col lg={5} xs={6} className="fw-bold">
+          <Col lg={5} xs={6} className="fw-lg-bold">
             {t("PACIID")}
           </Col>
           <Col lg={4} xs={6}>
@@ -113,7 +114,7 @@ const callWhatsapp =(ele:string)=>{
            </Col>
            </> */}
            
-          <Col xs={12} className="fw-bold fs-lg-5">
+          <Col xs={12} className="fw-lg-bold fs-lg-5">
             {t('ContactOwners')}
           </Col>
           <Col xs={12}>
@@ -130,9 +131,9 @@ const callWhatsapp =(ele:string)=>{
                       <Row>
                         <Col xs={5} >
 
-                        <span>{ele.phone}</span>
+                        <span className="phone-number">{ele.phone}</span>
                         </Col>
-                        <Col xs={3}>
+                        <Col xs={3} className="callContainer">
 
                           <div className="call"
                           onClick={()=>callPhone()}
@@ -143,7 +144,7 @@ const callWhatsapp =(ele:string)=>{
                           <a href={`tel:${ele.phone}`} id="call"/>
                             </div>
                         </Col>
-                        <Col xs={4}>
+                        <Col xs={4}  className="callContainer">
 
                           <div className="call"
                           onClick={()=>callWhatsapp(ele.phone)}
@@ -165,13 +166,15 @@ const callWhatsapp =(ele:string)=>{
         <Col
           xs={0}
           sm={12}
-          className="mt-4 p-1 d-none d-sm-flex justiyf-content-center"
+          className="mt-4 p-1 d-none d-sm-block justiyf-content-center"
         >
-          <Col xs={9} className="chatBtn  "
+          {!post.news_type &&
+          <Col xs={9} className="chatBtn mx-auto "
           onClick={()=>handleChat()}>
             <img src={chat} />
             <span>{t('Chat')}</span>
           </Col>
+          }
         </Col>
       </Card>
     </Col>

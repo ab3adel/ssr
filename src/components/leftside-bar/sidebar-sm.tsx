@@ -19,7 +19,7 @@ import Collapse from "react-bootstrap/Collapse";
 import Fade from "react-bootstrap/Fade";
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
-import {Shield,Safe} from 'react-bootstrap-icons'
+import {Shield,Safe,Newspaper} from 'react-bootstrap-icons'
 import SettingContext from "../tools/context/setting-context/setting-context";
 interface iProps {
   token?: iToken;
@@ -69,6 +69,7 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
       case 3:
         navigate("/profile");
         break;
+     
       case 7:
         navigate("/addpost");
         break;

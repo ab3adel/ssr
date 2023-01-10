@@ -234,6 +234,7 @@ const {mobileView} =useContext(SettingContext)
    customSetFieldValue("pre_defined_images", newArr);
   };
   const checkError = () => {
+  
     Object.keys(formik.errors).forEach((element) => {
       formik.setFieldTouched(element, true);
     });
@@ -243,12 +244,13 @@ const {mobileView} =useContext(SettingContext)
         formik.setFieldError('images',i18n.language==='en'?'This field is required':'هذا الحقل مطلوب')
       }
     }
-   
+  
     return Object.keys(formik.errors).length > 0;
   };
 
   const addPost = () => {
-    console.log(checkError())
+   
+  
     if (checkError()) return;
     setAddPostLoading(true);
     let formData = new FormData();
@@ -385,7 +387,7 @@ const {mobileView} =useContext(SettingContext)
       })
       .catch((err) => {
         setAddPostLoading(false);
-        console.log(err)
+       
         if (err.response && err.response.data) {
           if (err.response.data.errors) {
            Object.keys(err.response.data.errors).forEach((ele:string)=>{
@@ -724,16 +726,16 @@ const updatePostImediately=(data:any)=>{
 }
 
   const updatePost = () => {
-   
+  
     
     if (phoneNumbersArray.length===0) {
     
-     formik.setFieldError('phone_numbers[0][phone]',i18n.language==='en'?'This field can not be empty':'لا يمكن ان يكون هذا الحقل فارغا')
+     formik.setFieldError('phone_numbers',i18n.language==='en'?'This field can not be empty':'لا يمكن ان يكون هذا الحقل فارغا')
       //formik.setFieldTouched('phone_numbers',true)
       return
     }
     else {
-      formik.setFieldError('phone_numbers[0][phone]','')
+      formik.setFieldError('phone_numbers','')
     }
    if (formik.values.images.length===0) {
     if (!formik.values.profile_photo_as_an_image) {
@@ -972,9 +974,7 @@ const updatePostImediately=(data:any)=>{
             })
         };
   ;
-console.log(formik.values)
-console.log(formik.errors)
-console.log(formik.touched)
+
   return (
     <Col xs={12} className="addPostContainer">
       {

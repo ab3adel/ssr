@@ -216,7 +216,7 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
                 profile_picture={data.profile_picture}/>
               </Col>
               <Row className="mt-2 justify-content-center d-flex gy-1 ">
-                <Col sm={9} lg={5}>
+                <Col sm={9} lg={6}>
                  { 
                  isFollowed?
                  <WhiteButton label={t('Unfollow')} 

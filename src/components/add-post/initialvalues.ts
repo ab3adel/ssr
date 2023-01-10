@@ -1,7 +1,7 @@
 
 export const postInitializer= (
      isUpdatePost:boolean,data:any)=>{
-console.log(data)
+
 if (!isUpdatePost) {
     return (
         {

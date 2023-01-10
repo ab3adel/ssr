@@ -1,20 +1,22 @@
+import React from 'react'
 import { RouteObject, Navigate } from 'react-router-dom'
 import Layout from '../layout'
 import AuthenticationPage from '../auth'
 import HomePage from '../homePage'
 import NewsFeed from '../news-feed'
 import PostDetails from '../post-details'
-import SearchPage from '../search-page'
 import Profile from '../profile/myprofile'
 import AddPost from '../add-post'
 import Chat from '../chat'
 import PublicProfile from '../profile/public-profile'
 import FilteredPosts from '../filtered-posts'
-import About from '../about'
-import Privacy from '../privacy'
-import Term from '../term'
 
 
+const Privacy =React.lazy(()=>import('../privacy'))
+const Term = React.lazy(()=>import ('../term'))
+const About = React.lazy(()=>import('../about'))
+const SearchPage = React.lazy(()=>import('../search-page'))
+const Blogs =React.lazy(()=>import ('../blogs'))
 export const Rotues = (id: number): RouteObject[] => ([
 
 
@@ -34,7 +36,8 @@ export const Rotues = (id: number): RouteObject[] => ([
             {path:'/about',element:<About />},
             {path:'/terms&conditions',element:<Term />},
             {path:'/privacy',element:<Privacy />},
-            {path:'/newsfeeds',element:<NewsFeed />}
+            {path:'/newsfeeds',element:<NewsFeed />},
+            // {path:'/blogs',element:<Blogs/>}
 
 
         

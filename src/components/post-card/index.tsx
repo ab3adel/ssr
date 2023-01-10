@@ -15,7 +15,7 @@ import Area from "../../images/home/area-icon.svg";
 import amenities from "../../images/home/amenities-icon.svg";
 import room from "../../images/home/room-icon.svg";
 import Dropdown from "react-bootstrap/Dropdown";
-import { ThreeDotsVertical } from "react-bootstrap-icons";
+import { ThreeDotsVertical,Eye} from "react-bootstrap-icons";
 import { useLikePost } from "../tools/apis/uselikePost";
 import { useEffect, useState, useContext, useRef } from "react";
 import { useTranslation } from "react-i18next";
@@ -58,6 +58,8 @@ export const PostCard = ({
   owner,
   page = 1,
   space,
+  shares,
+  views
 }: iPost) => {
   const { setNotify } = useContext(notificationContext);
   const [react, setReact] = useState(liked);
@@ -74,6 +76,7 @@ export const PostCard = ({
   const [postID, setPostID] = useState(-1);
   const [storedPosts, setStoredPosts] = useRecoilState(Posts);
   const [openShare,setOpenShare]=useState(false)
+  const [postShares,setPostShares]=useState(0)
   const navigateToDetails = (id: number) => {
 
 
@@ -112,6 +115,7 @@ export const PostCard = ({
   };
   const doDeletePost = (post_id: number) => {
     deletePost(post_id);
+    
   };
 
   const handleLike = async (id: number) => {
@@ -153,6 +157,7 @@ export const PostCard = ({
   useEffect(() => {
     if (!deletePostError) {
       if (deletePostData) {
+       
         setNotify((pre: any) => ({
           ...pre,
           show: true,
@@ -160,7 +165,7 @@ export const PostCard = ({
           message:i18n.language==='en'? "Post has been removed successfully":
           "تم حذف البوسا بنجاح",
         }));
-        let newPosts = [...storedPosts].filter((ele) => ele.id !== postID);
+        let newPosts = storedPosts.filter((ele) => ele.id !== id);
         setStoredPosts(newPosts);
       }
     } else {
@@ -173,7 +178,11 @@ export const PostCard = ({
       }));
     }
   }, [isDeletePostLoading]);
-
+useEffect(()=>{
+if (shares && shares>0) {
+  setPostShares(shares)
+}
+},[shares])
   return (
     <Col xs={12} sm={12} className="postCardContainer">
       <Card>
@@ -187,8 +196,10 @@ export const PostCard = ({
                       <img
                         src={profile_picture ? profile_picture : profile}
                         className="profile"
+                        
                         style={
-                          small_size ? { width: "45px", height: "45px" } : {}
+                          small_size ? { width: "45px", height: "45px" ,cursor:'pointer'} : 
+                          {cursor:'pointer'}
                         }
                         onClick={()=>
                           !for_profile?owner? navigate('/profile')  :
@@ -320,7 +331,7 @@ export const PostCard = ({
             </Col>
             <Col xs={12}>
               <Row className="justify-content-between">
-                <Col xs={8}>
+                <Col xs={6}>
                   {tags && tags.length>0 &&
                   <Row className="gy-1">
                     {tags && tags?.length > 0 && tags[0].name.en
@@ -344,11 +355,11 @@ export const PostCard = ({
                   </Row>}
                 </Col>
                 {!for_profile && (
-                <Col xs={4}>
+                <Col xs={6}>
                  
                     <Row>
                       <Col
-                        xs={7}
+                        xs={4}
                         className="iconBtn likeButton "
                         onClick={() => handleLike(id)}
                       >
@@ -357,9 +368,20 @@ export const PostCard = ({
                         </span>
                         <img src={react ? heartFilled : heart} />
                       </Col>
-                      <Col xs={5} className="iconBtn"
+                      <Col xs={4} className="iconBtn likeButton"
                       onClick={()=>setOpenShare(true)}>
+                        <span className="d-flex align-items-center">
+                          {postShares}
+                        </span>
                         <img src={share} />
+                      </Col>
+                      <Col xs={4} className="iconBtn likeButton"
+                       style={{cursor:'auto'}}
+                       >
+                        <span className="d-flex align-items-center">
+                         {views}
+                        </span>
+                        <Eye size={24}/>
                       </Col>
                     </Row>
                 </Col>
@@ -458,6 +480,9 @@ export const PostCard = ({
       open={openShare}
       setOpen={()=>setOpenShare(false)}
       url={`https://www.instaaqar.com/postdetails/${page}/${id}`}
+      postId={id}
+      postShares={postShares}
+      setPostShares={setPostShares}
       />
 
     </Col>

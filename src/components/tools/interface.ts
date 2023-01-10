@@ -123,7 +123,9 @@ export interface iPost {
   user_id:number,
   navigateToUpdatePost?:(id:number)=>void,
   page?:number,
-  space?:string
+  space?:string,
+  shares?:number,
+  views?:number
 
 
 }

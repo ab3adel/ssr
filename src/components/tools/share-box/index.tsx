@@ -13,9 +13,27 @@ import {
     LinkedinShareButton
 } from 'react-share'
 import { useTranslation } from "react-i18next"
-interface iProps {open:boolean,setOpen:()=>void,url:string}
-const ShareBox =({open,setOpen,url}:iProps)=>{
+import { useSharePost } from "../apis/useIncreaseShares"
+import { useEffect } from "react"
+interface iProps {open:boolean,setOpen:()=>void,url:string,postId:number
+    ,setPostShares:Function,postShares:number}
+const ShareBox =({open,setOpen,url,postId,postShares,setPostShares}:iProps)=>{
 const {t} =useTranslation()
+const {setShare,shareData,shareError,isShareLoading} =useSharePost()
+const handleShare=()=>{
+    let pre=postShares
+    setShare(postId)
+    setPostShares(pre +1)
+    
+}
+useEffect(()=>{
+    if(Boolean(shareError)) {
+        let pre=postShares
+       
+        setPostShares(pre -1)
+    
+    }
+},[isShareLoading])
     return (
         <Dialog show={open} onHide={setOpen} className="shareContainer">
             <Dialog.Header
@@ -27,32 +45,38 @@ const {t} =useTranslation()
                     <Col xs={12}>
                         <Row className="gy-3">
                             <Col xs={4}>
-                                <FacebookShareButton url={url} >
+                                <FacebookShareButton url={url} 
+                                onClick={()=>handleShare()}>
                                     <FacebookIcon  className="icon"/>
                                 </FacebookShareButton>
                             </Col>
                             <Col xs={4}>
-                                <TelegramShareButton url={url} >
+                                <TelegramShareButton url={url}
+                                  onClick={()=>handleShare()} >
                                     <TelegramIcon   className="icon"/>
                                 </TelegramShareButton>
                             </Col>
                             <Col xs={4}>
-                                <TwitterShareButton url={url} >
+                                <TwitterShareButton url={url} 
+                                  onClick={()=>handleShare()}>
                                     <TwitterIcon  className="icon"/>
                                 </TwitterShareButton>
                             </Col>
                             <Col xs={4}>
-                                <WhatsappShareButton url={url} >
+                                <WhatsappShareButton url={url}
+                                  onClick={()=>handleShare()} >
                                     <WhatsappIcon  className="icon" />
                                 </WhatsappShareButton>
                             </Col>
                             <Col xs={4}>
-                                <EmailShareButton url={url} >
+                                <EmailShareButton url={url} 
+                                  onClick={()=>handleShare()}>
                                     <EmailIcon  className="icon"/>
                                 </EmailShareButton>
                             </Col>
                             <Col xs={4}>
-                                <LinkedinShareButton url={url} >
+                                <LinkedinShareButton url={url}  
+                                    onClick={()=>handleShare()}>
                                     <LinkedinIcon className="icon" />
                                 </LinkedinShareButton>
                             </Col>

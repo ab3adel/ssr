@@ -61,7 +61,9 @@ export const apis = {
     resend:(isPhone:boolean,value:string)=> `resendEmail?${isPhone?`phone=${value}`:`email=${value}`}&type=Verification&locale=${getI18n().language}`,
     page:(title:string)=> `websitePages?title=${title}`,
     newsfeed:(page_number:number)=>`newsfeeds?page=${page_number}`,
-    deleteAccount:(user_id:number)=>`deleteAccount?user_id=${user_id}`
+    deleteAccount:(user_id:number)=>`deleteAccount?user_id=${user_id}`,
+    increaseShares:(post_id:number)=>`increaseShares/${post_id}`,
+    increaseViews:(post_id:number)=>`/increasePostViews/${post_id}`
 
 
         

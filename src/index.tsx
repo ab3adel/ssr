@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import * as ReactDOM from 'react-dom/client';
 import './index.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -12,6 +12,8 @@ import NotificationProvider from './components/tools/context/notification/notifi
 import AuthContextProvider from './components/tools/context/auth-context/auth-provider';
 import ChatContextProvider from './components/tools/context/chat-context/chat-provider';
 import {RecoilRoot} from 'recoil'
+import { Spinner } from './components/tools/spinner';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -23,10 +25,11 @@ root.render(
         <SettingProvider>
           <NotificationProvider>
             <RecoilRoot>
-
+              <Suspense fallback={<Spinner />}>
                 <Router>
                   <App />
                 </Router>
+              </Suspense>
             </RecoilRoot>
           
           </NotificationProvider>

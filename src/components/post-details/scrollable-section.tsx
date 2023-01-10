@@ -7,8 +7,6 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import location from "../../images/post-details/location.svg";
-import map from "../../images/post-details/map.svg";
-import Button from "react-bootstrap/Button";
 import { ImagesGallery } from "../tools/imgs-gallery/imgs-gallery";
 import area from "../../images/post-details/area.svg";
 import amenities from "../../images/post-details/amenities.svg";
@@ -16,7 +14,7 @@ import room from "../../images/post-details/room.svg";
 import { TextAccordion } from "../tools/text-accordion/text-accordion";
 import { useEffect, useRef } from "react";
 
-import {useGetPosts} from '../tools/apis/useGetPosts'
+import {Eye} from 'react-bootstrap-icons'
 import {iProps} from './'
 import { useTranslation } from "react-i18next";
 export const ScrollableSection = ({
@@ -27,11 +25,13 @@ export const ScrollableSection = ({
   post,
   postLikes,
   setOpenbox,
-  navigateProfile
+  navigateProfile,
+  shares,
+  views
 }: iProps) => {
 const {t,i18n}=useTranslation()
 const elemRef =useRef()
-console.log( post.services_available && post.services_available.en  )
+
   return (
     <Col xs={7} className="scrollableSection">
       <Card>
@@ -39,9 +39,9 @@ console.log( post.services_available && post.services_available.en  )
           <Row className="gy-1">
             <Col xs={12}>
               <Row className="justify-content-between ">
-                <Col xs={10} sm={10}>
+                <Col sm={12} lg={10}>
                   <Row className="gy-3">
-                    <Col xs={4} style={{width:'fit-content'}}
+                    <Col sm={4} lg={4} style={{width:'fit-content'}}
                     onClick={()=>navigateProfile()}>
                       <img
                         src={
@@ -52,7 +52,7 @@ console.log( post.services_available && post.services_available.en  )
                         className="profile"
                       />
                     </Col>
-                    <Col xs={7} className="d-flex  align-items-center">
+                    <Col sm={8} lg={7} className="d-flex  align-items-center">
                       <div className="userName">
                         <span>{post.username} 
                          
@@ -83,7 +83,7 @@ console.log( post.services_available && post.services_available.en  )
 
             <Col xs={12}>
               <Row>
-                <Col xs={8}>
+                <Col sm={7} lg={8}>
                   <Row className="gy-1">
                     {post.tags && post.tags.length > 0
                       ? post.tags.map((ele: any, index: number) => (
@@ -98,32 +98,40 @@ console.log( post.services_available && post.services_available.en  )
                       : ""}
                   </Row>
                 </Col>
-                <Col xs={4}>
+                <Col sm={5} lg={4}>
                   <Row>
                     <Col
-                      xs={6}
+                      xs={4}
                       className="iconBtn "
                       onClick={() => handleReact(post.id)}
                     >
                       <img src={react ? heartFilled : heart} />
                       <span className="mx-1 h5 fw-bold">{postLikes}</span>
                     </Col>
-                    <Col xs={6} className="iconBtn"
+                    <Col xs={4} className="iconBtn"
                           onClick={()=>setOpenbox(true)}>
                       <img src={share} />
+                      <span className="mx-1 h5 fw-bold">{shares}</span>
+                    </Col>
+                    <Col xs={4} className="iconBtn"
+                    style={{cursor:'auto'}}
+                          >
+                      <Eye />
+                      <span className="mx-1 h5 fw-bold">{views}</span>
                     </Col>
                   </Row>
                 </Col>
               </Row>
             </Col>
             <Col xs={12}>
-              <Col xs={6}>
+              <Col sm={12} lg={6}>
                 <div>
-                  {post.price? i18n.language === "en" ? post.currency.en : post.currency.ar:''}{" "}
+                  {post.price? i18n.language === "en" ? post.currency.en :'':''}{" "}
                   <span className="fw-bold">{post.price?
-                    parseInt(post.price).toLocaleString(i18n.language==='en'?'en':'ar-EG')
+                    parseInt(post.price).toLocaleString('en')
                       :''
                     }</span>{}
+                    {post.price?i18n.language==='ar'? post.currency.ar:'':''}
                   {post.price_type
                     ? i18n.language === "en"
                       ?(post.price? " / ":'') + post.price_type?.en 
@@ -131,7 +139,7 @@ console.log( post.services_available && post.services_available.en  )
                     : ""}
                 </div>
               </Col>
-              <Col xs={6} className="fw-bold fs-5">
+              <Col sm={12} lg={12} className="fw-bold fs-5">
                 {i18n.language === "en" ? post.title.en : post.title.ar}
               </Col>
             </Col>
@@ -139,7 +147,7 @@ console.log( post.services_available && post.services_available.en  )
               <Row className="mt-1 gy-3">
                 <Col xs={12}>
                   <Row className="gy-2">
-                    <Col xs={4} className="d-flex  align-items-center">
+                    <Col sm={9} lg={4} className="d-flex  align-items-center">
                       <img className="locationIcon" src={location} />
                       <span className="mx-1">
                         {i18n.language === "en" ? post.area.en : post.area.ar}

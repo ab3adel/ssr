@@ -15,7 +15,7 @@ export const useDeletePost=()=>{
         })
         .then(res=>{
             setLoading(false)
-            console.log(res)
+          
             if (res.data){
 
                 setLoading(false)

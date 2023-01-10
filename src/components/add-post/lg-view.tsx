@@ -56,6 +56,7 @@ export const LargeView = ({
   setFieldTouched,
   propertySubTypes,
 }: iProps) => {
+
   return (
     <Row className="mw-100 justify-content-between">
       <Col xs={11} className="scrollable mx-auto">
@@ -214,7 +215,7 @@ export const LargeView = ({
                       reset={resetPhone}
                       error={
                         errors["phone_numbers"]
-                          ? errors["phone_numbers"][0]['phone']
+                          ? errors["phone_numbers"]
                           : ""
                       }
                       touched={touched["phone_numbers"]}
@@ -307,6 +308,8 @@ export const LargeView = ({
                   setValue={setFieldValue}
                   externalButton={true}
                   value={values.images}
+                  error={errors['images']}
+                  touched={touched['images']}
                   openModal={() => setPredefinedPicturesModal(true)}
                 />
               </Col>
@@ -467,7 +470,7 @@ export const LargeView = ({
                 <Col xs={7}>
                   <GreenButton
                     label={t("SharePost")}
-                    fun={() => addPost()}
+                    fun={() =>addPost()}
                     loading={addPostLoading}
                   />
                 </Col>

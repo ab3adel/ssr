@@ -126,7 +126,9 @@ import { useTranslation } from 'react-i18next'
                            user_id:ele.user_id,
                            owner:ele.user_id === userId,
                            page_number:page,
-                           space:ele.space
+                           space:ele.space,
+                           shares:ele.shares,
+                           views:ele.views
                        
 
                          })

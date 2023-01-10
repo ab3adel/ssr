@@ -7,8 +7,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import location from "../../images/post-details/location.svg";
-import map from "../../images/post-details/map.svg";
-import Button from "react-bootstrap/Button";
+import {Eye} from 'react-bootstrap-icons'
 import { ImagesGallery } from "../tools/imgs-gallery/imgs-gallery";
 import area from "../../images/post-details/area.svg";
 import amenities from "../../images/post-details/amenities.svg";
@@ -32,7 +31,9 @@ export const MobileView = ({
   handleChat,
   mobileView,
   setOpenbox,
-  navigateProfile
+  navigateProfile,
+  shares,
+  views
 }: iProps) => {
   const { openSidebar } = useContext(SettingContext);
   const { i18n,t } = useTranslation();
@@ -91,16 +92,22 @@ return (
 
                       <Row  >
                         <Col
-                          xs={6}
+                          xs={4}
                           className="iconBtn "
                           onClick={() => handleReact(post.id)}
                         >
                           <span className="fw-bold mx-1">{postLikes}</span>
                           <img src={react ? heartFilled : heart} />
                         </Col>
-                        <Col xs={6} className="iconBtn"
+                        <Col xs={4} className="iconBtn"
                         onClick={()=>setOpenbox(true)}>
+                           <span className="fw-bold mx-1">{shares}</span>
                           <img src={share} />
+                        </Col>
+                        <Col xs={4} className="iconBtn"
+                        >
+                             <span className="fw-bold mx-1">{views}</span>
+                          <Eye />
                         </Col>
 
                       </Row>
@@ -108,7 +115,7 @@ return (
                     <Col xs={7} className='d-flex justify-content-evenly align-items-center'>
                       <>
                       <span className="fw-bold">{post.price?
-                      parseInt(post.price).toLocaleString(i18n.language==='en'?'en':'ar-EG')
+                      parseInt(post.price).toLocaleString('en')
                       :''
                     }
                       </span>{" "}
@@ -286,6 +293,7 @@ return (
           </Row>
         </Card.Body>
       </Card>
+     {!post.news_type &&
       <Col
         xs={12}
         className={
@@ -298,6 +306,7 @@ return (
           <span>{t("Chat")}</span>
         </Col>
       </Col>
+      }
     </Col>
   );
 };

@@ -16,10 +16,10 @@ import { Select } from "../tools/select-with-image/select";
 import UK from "../../images/auth/Uk.svg";
 import { useTranslation } from "react-i18next";
 import Arabic from "../../images/auth/kw.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useLocation} from "react-router-dom";
 import { iToken } from '../tools/interface'
 import show from "../../images/home/show.svg";
-import {Shield,Safe} from 'react-bootstrap-icons'
+import {Shield,Safe,Newspaper} from 'react-bootstrap-icons'
 let languages = [
   { title: "English", icon: UK },
   { title: "Arabic", icon: Arabic },
@@ -53,6 +53,7 @@ export const SidebarLg = ({
   const navigate = useNavigate();
     const [selected, setSelected] = useState(0);
   const [logedIn, setLogedIn] = useState(false);
+  const location =useLocation()
 
   const handleLanguage = (index: number) => {
     if (index === 0) {
@@ -83,6 +84,7 @@ export const SidebarLg = ({
           case 3:
             navigate('/profile');
             break;
+        
           case 7:
             navigate("/addpost");
             break;
@@ -133,6 +135,8 @@ export const SidebarLg = ({
             <img
               src={collapsed ? logo : instaLogo}
               className={collapsed ? "logo" : "logoWithName"}
+              onClick={()=>navigate('/')}
+              style={{cursor:'pointer'}}
             />
           </Col>
           <Col
@@ -309,7 +313,7 @@ export const SidebarLg = ({
               lg={col_lg}
               xl={col_xl}
               className={collapsed ? "collapse" : "show"}
-            >{(authenticated && token?.role !== 2) &&
+            >{(authenticated && token?.role !== 2 && location.pathname !=='/addpost') &&
               (<Button className="postBtn Btn" onClick={() => hanldeRoutes(7)}>
                 <div className="plus">+</div>
                 {t("PostProperty")}

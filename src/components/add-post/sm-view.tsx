@@ -218,7 +218,7 @@ export const SmallView = ({
                     reset={resetPhone}
                     error={
                       errors["phone_numbers"]
-                        ? errors["phone_numbers"][0]['phone']
+                        ? errors["phone_numbers"]
                         : ""
                     }
                     touched={touched["phone_numbers"]}

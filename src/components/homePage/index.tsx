@@ -122,7 +122,9 @@ const HomePage =()=>{
                            user_id:ele.user_id,
                            owner:getLocalStorage() && getLocalStorage().id? ele.user_id === getLocalStorage().id:false,
                            page_number:page,
-                           space:ele.space
+                           space:ele.space,
+                           shares:ele.shares,
+                           views:ele.views
                        
 
                          })

@@ -151,7 +151,9 @@ export const AddPostSchema = (role_id: number) =>
             )
             
         : Yup.number().notRequired(),
-    phone_numbers:Yup.array().min(1,lang === "en" ? "This field is required" : "هذا الحقل مطلوب").of(
+      phone_numbers:Yup.array().required(lang === "en" ? "This field is required" : "هذا الحقل مطلوب")
+      .min(1,lang === "en" ? "This field is required" : "هذا الحقل مطلوب")
+      .of(
       Yup.object().shape({
         phone:Yup.string().required( lang === "en" ? "This field is required" : "هذا الحقل مطلوب")
       })

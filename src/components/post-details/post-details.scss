@@ -73,6 +73,10 @@ position: relative;
                             width: 31px;
                             height: 31px;
                         }
+                        svg {
+                            width: 31px;
+                            height: 31px;
+                        }
                         span {
                             font-size: 1rem;
                             font-weight: bold;
@@ -202,6 +206,7 @@ position: relative;
 
                     .userName {
                         font-size: 0.8rem;
+                        display: flex;
                         .icon{
 
                         }
@@ -211,6 +216,17 @@ position: relative;
                     .iconBtn {
                         span {
                             font-size: 0.8rem;
+
+                        }
+                        img {
+                            width: 20px;
+                            height: 20px;
+                        }
+                        svg {
+                            width: 20px;
+                            height: 20px;
+                            max-width: 20px;
+                            min-width: 20px;
                         }
                     }
                 }
@@ -218,14 +234,23 @@ position: relative;
         }
         .fixedSection {
             .card {
-                .call {
-                    span {
-                        font-size: 0.7rem;
+                .callContainer {
+                    padding:0;
+
+                    .call {
+                        padding:0px ;
+                        span {
+                            font-size: 0.5rem;
+                            margin:0;
+                        }
                     }
+                }
+                .phone-number {
+                    font-size: 0.6rem;
                 }
     
                 .tag.grey {
-                    font-size: 0.7rem;
+                    font-size: 0.6rem;
                 }
             }
         }
@@ -259,6 +284,12 @@ position: relative;
                         img {
                             width: 20px;
                             height: 20px;
+                        }
+                        svg {
+                            width: 20px;
+                            height: 20px;
+                            max-width: 20px;
+                            min-width: 20px;
                         }
                     }
                     .badge{

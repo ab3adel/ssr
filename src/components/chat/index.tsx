@@ -20,6 +20,7 @@ import {chatData} from '../tools/context/chat-context/chat-provider'
 import {useLocation} from 'react-router-dom'
 import {CheckCircle,CheckCircleFill} from 'react-bootstrap-icons'
 import Input from 'react-bootstrap/Form'
+import { getTime } from '../tools/getTime';
 
 interface iLocationState {action:string,body:any}
 export interface activeUserData {
@@ -134,7 +135,7 @@ const Chat = () => {
                 setChatData((pre:iChatData)=>({...pre,error:err}))
             })
             socket.on('my-active-chat',({data}:{data:any})=>{
-            
+         
                let last_phase_array:any[]=[]
                let unseen_msgs=0
                let new_activechat:any={messages:[],chat_id:0,active_user:{}}
@@ -194,31 +195,33 @@ const Chat = () => {
                  setChatData((pre:iChatData)=>({...pre,new_message:data}))
              })
              socket.on('my-chats',({data}:{data:any})=>{
-              
+               
                
                  let new_chatData= data.map((ele:any)=>{
                      let unreadMsgs=0
                      let profile_img=''
                      const options = {  year:'numeric',month:'short',day: 'numeric',hour:'numeric',minute:'numeric',second:'numeric' } as const
-                     let difference=new Date().getTime()- new Date(ele.updatedAt).getTime() 
-                     let last_seen=''
-                     if (Math.round(difference/(1000 * 3600 *24 )) > 0) {
-                         last_seen=Math.round(difference/(1000 * 3600 *24 ))+'day'
-                     }
-                     else if (Math.round(difference/(1000 * 3600  )) > 0) {
-                         last_seen=Math.round(difference/(1000 * 3600  ))+'h'
-                     }
-                     else if (Math.round(difference/(1000 * 60  )) > 0) {
-                         last_seen=Math.round(difference/(1000 * 60  ))+'Min'
-                     }
-                     else {
-                         last_seen=Math.round(difference/(1000))+'Sec'
-                     }
+                     let last_seen = getTime(ele.updatedAt)
+                    //  const options = {  year:'numeric',month:'short',day: 'numeric',hour:'numeric',minute:'numeric',second:'numeric' } as const
+                    //  let difference=new Date().getTime()- new Date(ele.updatedAt).getTime() 
+                    //  let last_seen=''
+                    //  if (Math.round(difference/(1000 * 3600 *24 )) > 0) {
+                    //      last_seen=Math.round(difference/(1000 * 3600 *24 ))+'day'
+                    //  }
+                    //  else if (Math.round(difference/(1000 * 3600  )) > 0) {
+                    //      last_seen=Math.round(difference/(1000 * 3600  ))+'h'
+                    //  }
+                    //  else if (Math.round(difference/(1000 * 60  )) > 0) {
+                    //      last_seen=Math.round(difference/(1000 * 60  ))+'Min'
+                    //  }
+                    //  else {
+                    //      last_seen=Math.round(difference/(1000))+'Sec'
+                    //  }
                  
                      let updated_at=new Date(ele.user_1_data[0].updatedAt).toLocaleDateString('en-US',options as any )
                      let user= parseInt(ele.user_1)=== my_id? 'user_2':'user_1'
                      let myUser= my_id === parseInt(ele.user_1)?'user_1':'user_2'
-                      
+                     
                    
                      if (ele[`${myUser}_unreaded_messages`]>0) {
                          unreadMsgs=ele[`${myUser}_unreaded_messages`]
@@ -241,6 +244,7 @@ const Chat = () => {
                          ,lastMsg:ele.last_message?.message
                      })
                  })
+
                  setChatData((pre:any)=>({...pre,contacts:new_chatData,chats:data}))
              })
             socket.on('my-status',(data:any)=>{
@@ -309,7 +313,7 @@ const Chat = () => {
     },[formik.values.search])
 
    
-  
+  console.log(contacts)
    
 
     return (

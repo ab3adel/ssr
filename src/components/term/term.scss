@@ -7,7 +7,9 @@
     overflow-x: hidden;
     overflow-y: scroll;
     span {
-        font-family: 'Cairo' !important;
+        font-family: Cairo !important;
+        font-size: unset !important;
+        color: var(--dark-green) !important;
     }
     .logo {
         max-width: 125px;

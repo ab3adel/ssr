@@ -472,8 +472,11 @@ if (shares && shares>0) {
       <DialogBox
         show={openDialog}
         setShow={setOpenDialog}
-        message={"you are sure you want to delete this post !!"}
-        title={"Delete Post"}
+        message={i18n.language==='en'?
+        "you are sure you want to delete this post !!":
+        "!!انت على وشك حذف المنشور "
+      }
+        title={i18n.language==='en'?"Delete Post":"حذف البوست"}
         doit={() => doDeletePost(postID)}
       />
       <ShareBox 

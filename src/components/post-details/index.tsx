@@ -143,10 +143,7 @@ let currentpostShares=useRef(0).current
   useEffect(() => {
     if (post_id && page) {
       getPosts({ page: parseInt(page), post_id: parseInt(post_id) });
-      if (getLocalStorage() && getLocalStorage().id ){
-        setView(parseInt(post_id))
-       
-      }
+      
     }
   }, [post_id, page]);
 
@@ -169,7 +166,7 @@ let currentpostShares=useRef(0).current
       let data = getPostsData.data
         .map((ele: any, index: number) => {
           let data = ele.images;
-          let currentpostViews= ele.views;
+          currentpostViews= ele.views;
           let news_type=false
           if (ele.tags_ids && ele.tags_ids.length>0) {
             ele.tags_ids.map((ele:any)=>{
@@ -246,9 +243,18 @@ let currentpostShares=useRef(0).current
      
       setReact(post.liked as boolean);
       setPostLikes(post.likes);
-       if (post.views && post.views >-1 && postViews !== currentpostViews) {
+      if (getLocalStorage() && getLocalStorage().id && post.user_id !== getLocalStorage().id) {
+        if (post_id ){
+          setView(parseInt(post_id))
+         
+        }
+      }
+      else {
 
-        setPostViews(post.views)
+        if (post.views && post.views >0 && postViews !== currentpostViews) {
+ 
+         setPostViews(post.views)
+       }
       }
       
      
@@ -256,21 +262,27 @@ let currentpostShares=useRef(0).current
   }, [post]);
   useEffect(()=>{
     if(Boolean(viewsError)) {
-    
-      let pre= postViews
-      setPostViews(pre -1)
+     if (post.views && post.views > -1) {
+      
+       let pre= post.views
+      
+       setPostViews(pre)
+     }
     }
     else {
-      if (  post_id) {
-        let pre= postViews
-       
-        setPostViews(pre + 1)
+      if ( post_id) {
+        if (post.views && post.views >-1) {
+
+          let pre= post.views
+         
+          setPostViews(pre + 1)
+        }
         
       }
     }
   },[isViewsLoading])
 useEffect(()=>{
-  if (post_id){
+  if (post_id && postViews !== currentpostViews){
 
     let pre= postViews
           let newStoredPosts=[...storedPosts].map(ele=> {
@@ -324,6 +336,7 @@ useEffect(()=>{
       }));
     }
    }
+
 
   return (
     <Col xs={12} className="postDetailsContainer">

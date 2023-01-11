@@ -27,6 +27,7 @@ import { getLocalStorage } from "../tools/getLocalstorage";
 import {useNavigate} from 'react-router-dom'
 import { iFields } from "../auth/signup/signup";
 import {postInitializer} from './initialvalues'
+import Loading from "../tools/loading/loading";
 interface iPhoneNumber {
   international_code: string;
   phone: string;
@@ -1080,6 +1081,10 @@ const updatePostImediately=(data:any)=>{
         open={openPredefinedPicturesModal}
         hide={() => setPredefinedPicuturesModal(false)}
         images={predefinedImages}
+      />
+      <Loading 
+       show={addPostLoading}
+       message={i18n.language==='en'?'...Posting':' جاري النشر ...'}
       />
     </Col>
   );

@@ -546,9 +546,9 @@ const {mobileView} =useContext(SettingContext)
   }, [propertyTypeLoading]);
 
   useEffect(() => {
-    console.log('called',!offersTypeError,offersTypeError)
+
     if (!offersTypeError) {
-      console.log('ele')
+     
       if (!formik.values.offer_type_id) {
        
         if (offersTypeData && (offersTypeData as any[]).length > 0) {
@@ -561,7 +561,7 @@ const {mobileView} =useContext(SettingContext)
         }
       } else {
         let prices = (offersTypeData as any[]).map((ele: any) => {
-          console.log(ele)
+         
           if (ele.is_price_type) {
 
             return { title: { en: ele.name.en, ar: ele.name.ar }, id: ele.id };
@@ -714,7 +714,12 @@ const updatePostImediately=(data:any)=>{
         price_type:data.price_type?data.price_type.name:null,
         number_of_rooms:data.number_of_rooms,
         number_of_bathrooms:data.number_of_bathrooms,
-        images:data.images?data.images.map((ele:any)=>ele.path):[],
+        images:data.images?data.images.map((ele:any)=>{
+          let arr= ele.path.split('/').slice(1)
+        let img ='https://backend.instaaqar.com/storage/'+arr.join('/')
+
+        return img
+        }):[],
         profile_picture:data.profile_picture,
         property_site:data.property_site?data.property_site.name:null,
         property_type:data.property_type?data.property_type.name:null,
@@ -908,10 +913,13 @@ const updatePostImediately=(data:any)=>{
         formik.values['images'].map((ele:any,index:number)=>{
         new_image=response_images.filter((elem:any)=>elem.file_name === ele.name.en)
        if (new_image.length ===0) {
-        formData.append(`images[${index}][name][en]`, ele["name"]["en"]);
-        formData.append(`images[${index}][name][ar]`, ele["name"]["ar"]);
-        formData.append(`images[${index}][file]`, ele["file"]);
-        formData.append(`images[${index}][primary]`, ele["primary"]);
+        if ( !ele['file'].id){
+
+          formData.append(`images[${index}][name][en]`, ele["name"]["en"]);
+          formData.append(`images[${index}][name][ar]`, ele["name"]["ar"]);
+          formData.append(`images[${index}][file]`, ele["file"]);
+          formData.append(`images[${index}][primary]`, ele["primary"]);
+        }
        }
        
        })
@@ -985,7 +993,7 @@ const updatePostImediately=(data:any)=>{
             })
         };
   ;
-
+console.log(formik.values.images)
   return (
     <Col xs={12} className="addPostContainer">
       {

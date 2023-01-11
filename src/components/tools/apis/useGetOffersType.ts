@@ -17,11 +17,13 @@ export const useGetOffersType=()=>{
 
                 setLoading(false)
                 setData(res.data.payload)
+                setError('')
             }
             else {
               
                 if (is_price_type){
                     setData([])
+                    setError('')
                 }
             }
 
@@ -29,6 +31,7 @@ export const useGetOffersType=()=>{
         .catch(err=>{
             setLoading(false)
             setError(err.message)
+            setData([])
         })
     },[])
     return {getOffers,offersTypeData,offersTypeError,isOffersTypeLoading}

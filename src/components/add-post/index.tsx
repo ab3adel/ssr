@@ -546,8 +546,11 @@ const {mobileView} =useContext(SettingContext)
   }, [propertyTypeLoading]);
 
   useEffect(() => {
+    console.log('called',!offersTypeError,offersTypeError)
     if (!offersTypeError) {
+      console.log('ele')
       if (!formik.values.offer_type_id) {
+       
         if (offersTypeData && (offersTypeData as any[]).length > 0) {
           let offers = (offersTypeData as any[]).map((ele: any) => {
             return { title: { en: ele.name.en, ar: ele.name.ar }, id: ele.id };
@@ -558,11 +561,16 @@ const {mobileView} =useContext(SettingContext)
         }
       } else {
         let prices = (offersTypeData as any[]).map((ele: any) => {
-          return { title: { en: ele.name.en, ar: ele.name.ar }, id: ele.id };
-        });
+          console.log(ele)
+          if (ele.is_price_type) {
+
+            return { title: { en: ele.name.en, ar: ele.name.ar }, id: ele.id };
+          }
+          return null
+        }).filter(ele=>ele);
 
         setPricesType(prices);
-        if (prices && prices.length>0 && prices.length <2) {
+        if (prices && prices.length>0 && prices.length <2 && prices[0]) {
           
           customSetFieldValue('price_type_id',prices[0].id)
         }
@@ -775,8 +783,10 @@ const updatePostImediately=(data:any)=>{
           formData.append("offer_type_id", formik.values.offer_type_id);
         }
         if (fieldsUpdatedRegister.current.includes('property_site_id')){
+          if (formik.values.property_site_id >0) {
 
-          formData.append("property_site_id", formik.values.property_site_id);
+            formData.append("property_site_id", formik.values.property_site_id);
+          }
         }
         if (fieldsUpdatedRegister.current.includes('location_link')){
 

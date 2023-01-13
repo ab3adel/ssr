@@ -32,22 +32,36 @@ const {setNotify}=useContext(notificationContext)
         ,name:{en:(prefiles as FileList)[0].name,ar:(prefiles as FileList)[0].name}}])
     }
   };
-  const downloadFile = (num: number,path:string) => {
+  const downloadFile = (num: number,path:string,fileName:string) => {
     let anchor = document.querySelector(
       `#file_number_${num}`
     ) as HTMLAnchorElement;
-  
-    anchor.click();
+    fetch(path)
+    .then(response => {
+      response.blob().then(blob => {
+        let url = window.URL.createObjectURL(blob);
+      
+        anchor.href = url;
+        anchor.download = fileName;
+        anchor.click();
+      });
+    })
+    .catch(err=>{
+      anchor.click()
+    })
+    //anchor.click();
   };
+
   const uploadFile = (num: number) => {
     let input = document.querySelector(
       `#file_input_number_${num}`
     ) as HTMLInputElement;
+    
   
     input.click();
   };
   const deleteFile = (has_id:boolean,num: number) => {
-    console.log (num)
+   
     let newFiles:any[]=[]
     if (has_id) {
       newFiles=uploaded_files.filter((ele)=>ele.id !== num)
@@ -168,7 +182,7 @@ const {setNotify}=useContext(notificationContext)
                         id={`file_number_${index}`}
                         
                       />
-                      <GreenButton label={t("Download" )}fun={() => downloadFile(index,ele.path)}>
+                      <GreenButton label={t("Download" )}fun={() => downloadFile(index,ele.path,lang==='en'?ele.file_name.en:ele.file_name_ar)}>
                         <Download />
                       </GreenButton>
                     </Col>

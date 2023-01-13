@@ -171,7 +171,7 @@ useEffect(()=>{
       
   }
     },[isFollowingLoading]) 
-
+console.log(formik.values)
   return (
     <Container className="p-1 " style={{height:'100vh'
     ,maxHeight:'100vh',overflowY:'scroll',overflowX:'hidden',maxWidth:'100vw'

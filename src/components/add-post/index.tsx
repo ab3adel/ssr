@@ -993,7 +993,7 @@ const updatePostImediately=(data:any)=>{
             })
         };
   ;
-console.log(formik.values.images)
+
   return (
     <Col xs={12} className="addPostContainer">
       {

@@ -313,7 +313,7 @@ export const SidebarLg = ({
               lg={col_lg}
               xl={col_xl}
               className={collapsed ? "collapse" : "show"}
-            >{(authenticated && token?.role !== 2 && location.pathname !=='/addpost') &&
+            >{(authenticated && token?.role !== 2 && (location.pathname !=='/addpost' && !location.pathname.includes('/updatepost')) ) &&
               (<Button className="postBtn Btn" onClick={() => hanldeRoutes(7)}>
                 <div className="plus">+</div>
                 {t("PostProperty")}

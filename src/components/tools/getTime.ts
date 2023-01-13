@@ -23,6 +23,7 @@ export const getTime= (date:string):string=>{
     else {
         last_seen=Math.round(difference/(1000))+unit['sic'][lan as keyof iObj]
     }
-   
-    return last_seen
+  
+    if (difference )return  last_seen
+    return ''
 }

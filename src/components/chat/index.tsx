@@ -313,7 +313,7 @@ const Chat = () => {
     },[formik.values.search])
 
    
-  console.log(contacts)
+
    
 
     return (

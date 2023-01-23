@@ -11,7 +11,7 @@ import { useFormik } from 'formik'
 import axios from '../apis/axios'
 import { apis } from '../apis/apis';
 import { getLocalStorage } from '../getLocalstorage';
-import {useContext} from 'react'
+import {useContext, useState} from 'react'
 import notificationContext from '../context/notification/notification-context';
 import {changePasswordSchema} from './validation'
 import {useNavigate} from 'react-router-dom'
@@ -19,6 +19,7 @@ interface iProps {open:boolean,onClose:()=>void}
 export const  ChangePassword=({open,onClose}:iProps)=> {
     const {t} =useTranslation()
     const navigate=useNavigate()
+    const [loading,setLoading]=useState(false)
     const formik =useFormik({
         initialValues:{
             old_password:'',
@@ -31,14 +32,16 @@ export const  ChangePassword=({open,onClose}:iProps)=> {
     const {setNotify} =useContext(notificationContext)
 
     const submit=()=>{
+
         let formData= new FormData()
         if (Object.keys(formik.errors).length>0) return
+        setLoading(true)
         formData.append('old_password',formik.values.old_password)
         formData.append('new_password',formik.values.new_password)
         formData.append('new_password_confirmation',formik.values.new_password_confirmation)
         axios.post(apis.changePassword,formData,{headers:{ Authorization: `Bearer ${getLocalStorage()?getLocalStorage().token:''}` }}
         ).then(res=> {
-            console.log (res)
+            setLoading(false)
             if (res.data) {
                 setNotify((pre:any)=>({...pre,type:true,show:true,message:'Your password changed successfully'}))
             }
@@ -47,7 +50,7 @@ export const  ChangePassword=({open,onClose}:iProps)=> {
 
         })
         .catch(err=>{
-            console.log(err)
+            setLoading(false)
             let message ='Somethong wrong happend !'
             if (err.response && err.response.data && err.response.data.error) {
                 message =err.response.data.error
@@ -117,7 +120,10 @@ export const  ChangePassword=({open,onClose}:iProps)=> {
 
                 <Row className="">
                     <Col xs={6} lg={5}> 
-                    <GreenButton  label={t('SaveChanges')}
+                    <GreenButton  
+                    loading={loading}
+                    label={
+                        t('SaveChanges')}
                     fun={()=>submit()}
                     ></GreenButton>
                     </Col>

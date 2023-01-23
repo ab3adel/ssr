@@ -148,7 +148,9 @@ const {mobileView} =useContext(SettingContext)
     postInitializer(
       enableFieldsUpdatedRegister&& Boolean(post_id)
     ,enableFieldsUpdatedRegister? 
-    getPostsData && getPostsData.data? getPostsData.data[0]:{}:{}),
+    getPostsData && getPostsData.data? getPostsData.data[0]:{}:{}
+    ),
+   
     onSubmit: () => {},
     validationSchema: AddPostSchema(token.role),
     enableReinitialize:true
@@ -440,13 +442,13 @@ const {mobileView} =useContext(SettingContext)
     getPropertyType();
     getOffers(0);
     getPropertySites();
-  if (getLocalStorage() && getLocalStorage().role !==3){
+  if (getLocalStorage() && getLocalStorage().role !==3 && getLocalStorage().role !== 7){
     
     getCategories(1)
   };
-  if (getLocalStorage() && getLocalStorage().role ===3){
-    
-    getCategories(0)
+  if (getLocalStorage() ){
+    if  (getLocalStorage().role ===3 || getLocalStorage().role===7)getCategories(0)
+   
   };
     getArea();
   
@@ -607,7 +609,7 @@ const {mobileView} =useContext(SettingContext)
         setTags([]);
       }
     }
-    if (token.role === 3) {
+    if (token.role === 3 || token.role===7) {
       if (categoriesData && categoriesData.length > 0) {
         let data = categoriesData.map((ele) => {
           return { title: { ar: ele.name.ar, en: ele.name.en }, value: ele.id };
@@ -638,7 +640,7 @@ const {mobileView} =useContext(SettingContext)
   },[formik.values.main_property_type])
 
   useEffect(() => {
-    if (token.role === 3) {
+    if (token.role === 3 || token.role ===7) {
       getCategories(0);
     }
   }, [token]);
@@ -669,10 +671,13 @@ const {mobileView} =useContext(SettingContext)
         let idTags: any[] = [];
         let oldImages: any[]=[]
         let images: any[]=[]
-        getPostsData.data[0]?.phone_numbers.map((ele: any) => {
-          phones.push(ele)
-          oldPhoneNumbers.push({phone:ele.phone,international_code:ele.international_code});
-        });
+        if (getLocalStorage() && getLocalStorage().id !== 7){
+
+          getPostsData.data[0]?.phone_numbers.map((ele: any) => {
+            phones.push(ele)
+            oldPhoneNumbers.push({phone:ele.phone,international_code:ele.international_code});
+          });
+        }
        
         if (getPostsData.data[0]?.tags_ids && getPostsData.data[0]?.tags_ids.length > 0) {
           getPostsData.data[0]?.tags_ids.map((ele: any) => {
@@ -742,7 +747,7 @@ const updatePostImediately=(data:any)=>{
   const updatePost = () => {
   
     
-    if (phoneNumbersArray.length===0) {
+    if (phoneNumbersArray.length===0 && getLocalStorage() && getLocalStorage().role !== 7) {
     
      formik.setFieldError('phone_numbers',i18n.language==='en'?'This field can not be empty':'لا يمكن ان يكون هذا الحقل فارغا')
       //formik.setFieldTouched('phone_numbers',true)
@@ -993,7 +998,12 @@ const updatePostImediately=(data:any)=>{
             })
         };
   ;
-
+  let message=i18n.language==='en'?'...Posting':' جاري النشر ...'
+  if (page && post_id) {
+    message=i18n.language==='en'?'...Wait a minute':' انتظر لحظة...'
+  }
+console.log(formik.errors)
+console.log(formik.touched)
   return (
     <Col xs={12} className="addPostContainer">
       {
@@ -1101,8 +1111,8 @@ const updatePostImediately=(data:any)=>{
         images={predefinedImages}
       />
       <Loading 
-       show={addPostLoading}
-       message={i18n.language==='en'?'...Posting':' جاري النشر ...'}
+       show={page && post_id? !enableFieldsUpdatedRegister || addPostLoading :addPostLoading}
+       message={message}
       />
     </Col>
   );

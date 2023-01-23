@@ -34,9 +34,17 @@ function App() {
           let response= await axios.post(apis.rememberMe,formdata)
         
                                     
-       
+
          if (response&& response.data && response.data.payload) {
-        
+          if (!response.data.payload.email_verified_at) {
+
+            setNotify((pre:any)=>(
+              {...pre,show:true,
+                message:i18n.language==='en'?'Please you have to validate your Email ':
+                ' يتوجب عليك  تأكيد الايميل رجاءا    ',
+                type:'info'
+              }))
+          }
           let data =response.data.payload
           let realImage=null
           if (response.data.payload.profile_picture) {
@@ -90,7 +98,7 @@ function App() {
     انستاعقار خيارك الأول في كل ما يخص العقارات من بيع وشراء واجار
     بالاضافة الى خدمات أخرى مرتبطة بالعقارات
     `}
-    title="InstaAqar App"
+    title="InstaAqar"
     type="article"
     
     />

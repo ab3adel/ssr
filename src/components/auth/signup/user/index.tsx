@@ -10,7 +10,7 @@ import {useTranslation} from 'react-i18next'
 interface iProps {tab:number,children?:React.ReactNode[]}
  const UserType = ({tab,children}:iProps) =>{
    const {t,i18n}=useTranslation()
-
+console.log(tab)
     return (
         <Row className="gy-5">
                             <Col xs={12} >

@@ -17,7 +17,7 @@
     "RememberMe": "تذكرني",
     "FindThe": "اكتشف",
     "PerfectPlace": "أفضل مكان",
-    "User": "مستخدم",
+    "User": "حساب شخصي",
     "Commercial": "تجاري",
     "PersonalInfo": "معلومات شخصية",
     "RequiredFiles": "ملفات مطلوبة",
@@ -142,7 +142,16 @@
     "ReadMore":"المزيد",
     "ReadLess":"عرض اقل",
     "Follow":"تابع",
-    "Unfollow":"الغاء المتابعة"
+    "Unfollow":"الغاء المتابعة",
+    "Loading":"جاري التحميل...",
+    "News":"أخبار",
+    "instagram":"انستغرام",
+    "facebook":"فيسبوك",
+    "twitter":"تويتر",
+    "snapchat":"سنابشات",
+    "youtube":"يوتيوب",
+    "tiktok":"تيكتوك",
+    "ChooseType":"نوع المنشورات"
     
 
     

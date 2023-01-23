@@ -18,6 +18,7 @@ export const TribleTabs=({options,label,name,setFieldValue,value}:iProps)=>{
             setActive(pre=>value)
         }
     })
+    
     return (
         <Col xs={12} className="tribleContainer ">
             

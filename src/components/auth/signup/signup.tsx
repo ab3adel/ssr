@@ -18,6 +18,9 @@ import { RequiredFilesForm } from "./views/requiredFiltes-form";
 import { SignupSchema } from "../../tools/validation";
 import axios from "../../tools/apis/axios";
 import { apis } from "../../tools/apis/apis";
+import {iOption} from '../../tools/interface'
+import {Newspaper} from 'react-bootstrap-icons'
+
 import notificationContext from "../../tools/context/notification/notification-context";
 import {
   initialValues,
@@ -27,6 +30,7 @@ import {
 } from "./initial-values";
 
 import { Spinner } from "react-bootstrap";
+import NewsType from "./news";
 interface iProps {
   setLogin: Function;
 }
@@ -43,11 +47,14 @@ export interface iFields {
   password_confirmation: string;
   phone_numbers: iPhonNumbers[];
 }
-
+interface iState {data:any[],options:iOption[]}
 const SignUp = ({ setLogin }: iProps) => {
   const [tab, setTab] = useState(0);
   const [btn, setBtn] = useState({ title: "User", maxTabs: 1 });
   const [show, setShow] = useState(false);
+  const [countries,setCountries]=useState<iState>({options:[],data:[]})
+  const [area,setArea]=useState<iState>({data:[],options:[]})
+  const [isCategoriesLoading,setIsCategoriesLoading]=useState(false)
   const [verification, setVerification] = useState({
     emailVerification: "",
     phoneVerification: "",
@@ -57,11 +64,13 @@ const SignUp = ({ setLogin }: iProps) => {
   const [disableNext, setDisableNext] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const { notify, setNotify } = useContext(notificationContext);
-  let [categories, setCategories] = useState({
+  let [categories, setCategories] = useState<any>({
     data: [],
     categoriesOption: [],
   });
-  let [companies, setCompanies] = useState({ data: [], companiesOptions: [] });
+  let [companies, setCompanies] = useState({ data: [], companiesOptions: [
+   
+  ] });
   let [selectInitials, setSelectInitial] = useState(initialValues[0]);
   const [validationOptions, setValidationOptions] = useState({
     isUser: true,
@@ -95,10 +104,12 @@ const SignUp = ({ setLogin }: iProps) => {
   };
 
   let btn1 = "BtnLeft";
-  let btn2 = "BtnRight";
+  let btn2 = "BtnMiddle";
+  let btn3="BtnRight"
   if (i18n.language === "ar") {
     btn1 = "BtnRight";
-    btn2 = "BtnLeft";
+    btn2="BtnMiddle";
+    btn3 = "BtnLeft";
   }
   const handleBtn = ({
     title,
@@ -109,15 +120,19 @@ const SignUp = ({ setLogin }: iProps) => {
   }) => {
     setTab(0);
     setBtn((pre) => ({ ...pre, title, maxTabs }));
-    if (title === "User") {
-      formik.setFieldValue("role_id", 2);
-    }
+   
   };
   const handleRole = (str: string) => {
     if (str === "User") {
+      
       formik.setFieldValue("role_id", 2);
       handleBtn({ title: "User", maxTabs: 2 });
-    } else {
+    } 
+    else if (str ==='News') {
+      formik.setFieldValue("role_id", 7);
+      handleBtn({ title: "News", maxTabs: 2});
+    }
+    else {
       formik.setFieldValue("role_id", 3);
       handleBtn({ title: "Commercial", maxTabs: 3 });
     }
@@ -256,13 +271,15 @@ const SignUp = ({ setLogin }: iProps) => {
     let result = axios
       .get(apis.roles)
       .then((res) => {
-        let categoriesOption = res.data.payload.slice(1).map((ele: any) => {
+       
+        let categoriesOption = res.data.payload.slice(1,5).map((ele: any) => {
           if (i18n.language === "ar") {
             return { name: ele.name.ar, value: ele.id };
           } else {
             return { name: ele.name.en, value: ele.id };
           }
         });
+      
         setCompanies((pre) => ({
           ...pre,
           data: res.data.payload,
@@ -272,9 +289,12 @@ const SignUp = ({ setLogin }: iProps) => {
       .catch((err) => console.log(err));
   };
   const getCategories = () => {
+   
+    setIsCategoriesLoading(true)
     let result = axios
       .get(apis.categories(1, 5))
       .then((res) => {
+        setIsCategoriesLoading(false)
         let categoriesOption = res.data.payload.map((ele: any) => {
           if (i18n.language === "ar") {
             return { label: ele.name.ar, value: ele.id };
@@ -282,14 +302,20 @@ const SignUp = ({ setLogin }: iProps) => {
             return { label: ele.name.en, value: ele.id };
           }
         });
-        setCategories((pre) => ({
+        setCategories((pre:any) => ({
           ...pre,
           data: res.data.payload,
           categoriesOption,
         }));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsCategoriesLoading(false)
+        console.log(err)
+      });
+    
+   
   };
+
 
   useEffect(() => {
     nextBtnControl(
@@ -327,11 +353,21 @@ const SignUp = ({ setLogin }: iProps) => {
   }, [formik.values]);
   useEffect(() => {
     if (formik.values && formik.values.role_id) {
+      getCategories()
       if (formik.values.role_id === 2) {
-        setValidationOptions((pre) => ({ ...pre, needCategory: false }));
+        setValidationOptions((pre) => ({ ...pre, needCategory: false,isUser:true }));
       }
-      if (formik.values.role_id > 3) {
-        setValidationOptions((pre) => ({ ...pre, needCategory: true }));
+      if (formik.values.role_id=== 7) {
+        setValidationOptions((pre) => ({ ...pre, needCategory: false,isNews:true,isUser:false }));
+      }
+      if (formik.values.role_id > 3 && formik.values.role_id!== 7) {
+       
+        setValidationOptions((pre) => ({ ...pre, needCategory: true,isUser:false }));
+
+      }
+      if (formik.values.role_id===3) {
+        setValidationOptions((pre) => ({ ...pre, needCategory: false,isUser:false }));
+      
       }
       companies.data.map((ele: any) => {
         if (ele.id.toString() === formik.values.role_id?.toString()) {
@@ -349,12 +385,69 @@ const SignUp = ({ setLogin }: iProps) => {
     if (btn.title === "User") {
       setSelectInitial(initialValues[0]);
       setValidationOptions((pre) => ({ ...pre, isUser: true }));
-    } else {
+    } 
+   else if (btn.title==='News') {
+      setSelectInitial(initialValues[2]);
+      setValidationOptions((pre) => ({ ...pre, isUser: true }));
+    }
+    else {
       setSelectInitial(initialValues[1]);
       setValidationOptions((pre) => ({ ...pre, isUser: false }));
     }
   }, [btn]);
+  useEffect(()=>{
+    getCompanies()
+    axios.get(apis.countries)
+          .then(res=>{
+            let options= res.data.payload.map((ele:any)=>{
+                    if (i18n.language=== 'en'){
+                        return {name:ele.name.en,value:ele.id}
+                    }
+                    else {
+                        return {name:ele.name.ar,value:ele.id}
+                    }
+        
+            })
+            setCountries(pre=>({...pre,data:res.data.payload,options}))
+            
+        })
+          .catch(err=>console.log(err))
 
+},[])
+useEffect(()=>{
+  if (formik.values.country && formik.values.country>0 ){
+
+      axios.get(apis.country_id(formik.values.country))
+            .then(res=>{
+             let options= res.data.payload.map((ele:any)=>{
+                 if (i18n.language=== 'en'){
+                     return {name:ele.name.en,value:ele.id}
+                 }
+                 else {
+                     return {name:ele.name.ar,value:ele.id}
+                 }
+     
+         })
+             setArea(pre=>({data:res.data.payload,options:options}))
+            })
+            .catch(err=>console.log(err))
+  }
+},[formik.values.country])
+useEffect(()=>{
+if (formik.values.role_id && formik.values.role_id >0 && formik.values.role_id !== 3 && formik.values.role_id!==7) {
+getCategories()
+
+}
+else {
+ formik.setFieldValue('category_ids',[])
+  setCategories({
+    data: [],
+    categoriesOption: [],
+  })
+}
+},[formik.values.role_id])
+console.log(formik.errors)
+console.log(formik.touched)
   return (
     <Row className="signUpContainer gy-3">
       <Col xs={12}>
@@ -371,6 +464,7 @@ const SignUp = ({ setLogin }: iProps) => {
                     : ` ${btn1} Btn BtnInactive`
                 }
                 onClick={() => handleRole("User")}
+                style={{right:btn.title==='News'?'auto':''}}
               >
                 <img className="icon" src={User} />
                 <span>{t("User")}</span>
@@ -386,10 +480,22 @@ const SignUp = ({ setLogin }: iProps) => {
                 <img className="icon" src={Commercial} />
                 <span>{t("Commercial")}</span>
               </Button>
+              <Button
+                className={
+                  btn.title === "News"
+                    ? `BtnActive ${btn3} Btn`
+                    : `${btn3} Btn BtnInactive`
+                }
+                onClick={() => handleRole("News")}
+                style={{right:btn.title==='User'?'auto':''}}
+              >
+               <Newspaper className="icon" />
+                <span>{t("News")}</span>
+              </Button>
             </div>
           </Col>
           <Col xs={12}>
-            {btn.title === "User" ? (
+            {btn.title === "User" && (
               <UserType tab={tab}>
                
 
@@ -419,7 +525,8 @@ const SignUp = ({ setLogin }: iProps) => {
                   setValue={formik.setFieldValue}
                 /> */}
               </UserType>
-            ) : (
+            ) }
+            { btn.title==='Commercial' &&(
               <CommercialType tab={tab} setTab={setTab}>
                 <PersonalInfoForm
                   type={"Commercial"}
@@ -434,6 +541,7 @@ const SignUp = ({ setLogin }: iProps) => {
                   categories={categories}
                   companies={companies}
                   needCategory={validationOptions.needCategory}
+                  isCategoriesLoading={isCategoriesLoading}
                 />
 
                 <LocationForm
@@ -443,6 +551,8 @@ const SignUp = ({ setLogin }: iProps) => {
                   errors={formik.errors}
                   handleBlur={formik.handleBlur}
                   setValue={formik.setFieldValue}
+                  countries={countries.options}
+                  area={area.options}
                 />
 
                 <SecurityForm
@@ -461,8 +571,46 @@ const SignUp = ({ setLogin }: iProps) => {
                   setValue={formik.setFieldValue}
                   requiredFiles={validationOptions.requiredFiles}
                   setField={formik.setFieldValue}
+                  type='Commercial'
                 />
               </CommercialType>
+            )}
+            { btn.title==='News' &&(
+              <NewsType tab={tab} setTab={setTab}>
+                <PersonalInfoForm
+                  type={"User"}
+                  setValue={formik.setFieldValue}
+                  values={formik.values}
+                  errors={formik.errors}
+                  touched={formik.touched}
+                  handleBlur={formik.handleBlur}
+                  setFieldTouched={formik.setFieldTouched}
+                  getCategories={getCategories}
+                  getCompanies={getCompanies}
+                  categories={categories}
+                  companies={companies}
+                  needCategory={validationOptions.needCategory}
+                />
+
+                <SecurityForm
+                  values={formik.values}
+                  handleBlur={formik.handleBlur}
+                  setValue={formik.setFieldValue}
+                  touched={formik.touched}
+                  errors={formik.errors}
+                />
+
+                <RequiredFilesForm
+                  touched={formik.touched}
+                  values={formik.values}
+                  errors={formik.errors}
+                  handleBlur={formik.handleBlur}
+                  setValue={formik.setFieldValue}
+                  requiredFiles={validationOptions.requiredFiles}
+                  setField={formik.setFieldValue}
+                  type='News'
+                />
+              </NewsType>
             )}
           </Col>
         </Row>

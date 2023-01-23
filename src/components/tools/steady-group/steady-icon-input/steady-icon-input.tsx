@@ -2,7 +2,7 @@ import {Form} from 'react-bootstrap'
 import {iInput} from '../../interface'
 import {useTranslation} from 'react-i18next'
 import './steady-icon.scss'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export const SteadyIconInput =(
     {
@@ -11,6 +11,8 @@ export const SteadyIconInput =(
     }:iInput
 )=>{
     const {i18n}=useTranslation()
+    const timer =useRef<NodeJS.Timeout | null>(null)
+    const [showText,setShowText]=useState(false)
  
     const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
         if(typeof(onChange)==='function') {
@@ -19,6 +21,16 @@ export const SteadyIconInput =(
         }
       
     }
+ const handleShowText=()=>{
+setShowText(true)
+timer.current=setTimeout(()=>setShowText(false),3000)
+
+ }
+ useEffect(()=>{
+    return ()=>{
+        if (typeof(timer.current))clearTimeout(timer.current as NodeJS.Timeout)
+    }
+ },[])
 return (
     <Form className="steadyIconInput"
    >
@@ -34,7 +46,8 @@ return (
                                     </span>
                             
                 </Form.Text>
-                <div className={`input-container ${disabled?'px-4 px-md-0 px-lg-4':'px-2 px-md-0 px-lg-2'}`}>
+                <div className={`input-container ${disabled?'px-4 px-md-0 px-lg-1':'px-2 px-md-0 px-lg-2'}`}
+                onClick={()=>handleShowText()}>
                     {icon && (<img src={icon} className="inputIcon" />) }
                     <Form.Control
                     as={'input'}
@@ -51,6 +64,14 @@ return (
                     
                     
                     />
+                    {(showText && disabled && value) &&
+                        <div className="textOnSurface">
+                            <div>
+
+                                {value}
+                            </div>
+                        </div>
+                    }
                
                 </div>
             </Form.Group>

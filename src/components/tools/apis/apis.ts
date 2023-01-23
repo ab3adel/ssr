@@ -27,7 +27,7 @@ export const apis = {
             let {
                 page,post_id,user_id,company_id,text,area_id,category_id,
                 tag_id,price_from,price_to,price_type_id,offer_type_id,property_site_id,
-                area_from,area_to,number_of_room,number_of_bathroom,property_type_id
+                area_from,area_to,number_of_room,number_of_bathroom,property_type_id,news,user_name
             }=params
           return( 
             `posts?${page?`page=${page}`:'page=1'}${post_id?`&post_id=${post_id}`:''}`+
@@ -44,7 +44,9 @@ export const apis = {
             `${area_from?`&area_from=${area_from}`:''}`+
             `${area_to?`&area_to=${area_to}`:''}`+
             `${number_of_room?`&number_of_room=${number_of_room}`:''}`+
-            `${number_of_bathroom?`&number-of_bathroom=${number_of_bathroom}`:''}`
+            `${number_of_bathroom?`&number-of_bathroom=${number_of_bathroom}`:''}`+
+            `${news?`&news=${news}`:''}`+
+            `${user_name?`&user_name=${user_name}`:''}`
             )
         },
     updatePost:(id:number)=>`posts/${id}?_method=put` ,

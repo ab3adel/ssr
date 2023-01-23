@@ -15,7 +15,7 @@ export const getTime= (date:string):string=>{
     }
     else if (Math.round(difference/(1000 * 3600  )) > 0) {
         last_seen=Math.round(difference/(1000 * 3600  )) + unit['hour'][lan as keyof iObj]
-        console.log(Math.round(difference/(1000 * 3600  )) )
+       
     }
     else if (Math.round(difference/(1000 * 60  )) > 0) {
         last_seen=Math.round(difference/(1000 * 60  ))+unit['min'][lan as keyof iObj]

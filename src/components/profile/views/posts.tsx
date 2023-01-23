@@ -42,6 +42,7 @@ export const Posts=({posts}:iProps)=>{
                             profile_picture={ele.profile_picture?ele.profile_picture:''}
                             authenticated={ele.authenticated}
                             owner={ele.owner}
+                            role_id={ele.role_id?ele.role_id:-1}
                             />
                         </Col>
                     )

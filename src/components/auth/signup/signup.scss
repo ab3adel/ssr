@@ -32,12 +32,16 @@
                 &:active {
                     box-shadow: none;
                 }
+                right: auto ;
             }
             .BtnLeft {
-                
+                right: -4%;
+            }
+            .BtnMiddle {
+              
             }
             .BtnRight {
-              right:4%;
+                right:4%;
             }
             .BtnActive {
                 background-color: var(--dark-green);
@@ -144,6 +148,9 @@
             .Btns{
                 .Btn{
                     width: 130px;
+                    span {
+                        font-size: 0.688rem;
+                    }
                    
                 }
             }

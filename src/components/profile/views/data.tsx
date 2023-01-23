@@ -41,6 +41,7 @@ export const Data = ({t,values,setFieldValue,handleBlur,edit,lang,imagesToShow=[
           disabled={!edit}
         />
       </Col>
+      
       <Col xs={11}>
         <FileDownloader edit={edit} 
         uploaded_files={values.files} 
@@ -54,7 +55,11 @@ export const Data = ({t,values,setFieldValue,handleBlur,edit,lang,imagesToShow=[
       <Col xs={11}>
         <Row className="gy-3">
           <Col xs={12}>
-            <span className="fw-bold">{t("PredefinedPostPicture")}</span>
+           { 
+           edit ?
+            <span className="fw-bold">{t("PredefinedPostPicture")}</span>:
+            images && images.length>0? <span className="fw-bold">{t("PredefinedPostPicture")}</span>:''
+            }
           </Col>
           <Col sm={12} xs={12} style={{ height: "174px" }}>
           {!edit? <ImagesGallery

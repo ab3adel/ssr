@@ -15,38 +15,38 @@ import Area from "../../images/home/area-icon.svg";
 import amenities from "../../images/home/amenities-icon.svg";
 import room from "../../images/home/room-icon.svg";
 import Dropdown from "react-bootstrap/Dropdown";
-import { ThreeDotsVertical,Eye} from "react-bootstrap-icons";
+import { ThreeDotsVertical, Eye ,Newspaper } from "react-bootstrap-icons";
 import { useLikePost } from "../tools/apis/uselikePost";
 import { useEffect, useState, useContext, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ImagesGallery } from "../tools/imgs-gallery/imgs-gallery";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { iPost } from "../tools/interface";
 import notificationContext from "../tools/context/notification/notification-context";
 import { useDeletePost } from "../tools/apis/useDeletePost";
 import { useRecoilState } from "recoil";
 import { Posts } from "../store";
-import {LightGreenButton} from '../tools/buttons/light-green-button'
+import { LightGreenButton } from "../tools/buttons/light-green-button";
 import ShareBox from "../tools/share-box";
-import axios from '../tools/apis/axios'
+import axios from "../tools/apis/axios";
 export const PostCard = ({
   title = { en: "", ar: "" },
   area = { en: "", ar: "" },
   currency = { en: "", ar: "" },
-  images=[{path:'',file_name:{en:'',ar:''}}],
+  images = [{ path: "", file_name: { en: "", ar: "" } }],
   price,
-  role={en:'',ar:''},
+  role = { en: "", ar: "" },
   username,
   main_property_type,
   number_of_bathrooms,
   number_of_rooms,
-  offer_type={en:'',ar:''},
-  price_type={en:'',ar:''},
+  offer_type = { en: "", ar: "" },
+  price_type = { en: "", ar: "" },
   profile_picture,
   property_site,
   imgs_gallery_height,
-  property_type={en:'',ar:''},
-  tags=[{name:{en:'',ar:''}}],
+  property_type = { en: "", ar: "" },
+  tags = [{ name: { en: "", ar: "" } }],
   id,
   likes,
   testImages,
@@ -59,7 +59,10 @@ export const PostCard = ({
   page = 1,
   space,
   shares,
-  views
+  views,
+  category,
+  role_id
+  
 }: iPost) => {
   const { setNotify } = useContext(notificationContext);
   const [react, setReact] = useState(liked);
@@ -75,47 +78,38 @@ export const PostCard = ({
     useDeletePost();
   const [postID, setPostID] = useState(-1);
   const [storedPosts, setStoredPosts] = useRecoilState(Posts);
-  const [openShare,setOpenShare]=useState(false)
-  const [postShares,setPostShares]=useState(0)
+  const [openShare, setOpenShare] = useState(false);
+  const [postShares, setPostShares] = useState(0);
   const navigateToDetails = (id: number) => {
-
-
-      navigate(`/postdetails/${page}/${id}`);
-
-    
+    navigate(`/postdetails/${page}/${id}`);
   };
   const navigateToUpdatePost = (post_id: number) => {
-
-
-      navigate(`/updatepost/${page}/${post_id}`);
-
+    navigate(`/updatepost/${page}/${post_id}`);
   };
-  const navigateProfile =()=>{
+  const navigateProfile = () => {
     if (authenticated) {
-      if (for_profile) return
+      if (for_profile) return;
       else {
-
-        navigate(`/publicprofile/${page}/${user_id}`)
+        navigate(`/publicprofile/${page}/${user_id}`);
       }
-    }
-    else {
+    } else {
       setNotify((pre: any) => ({
         ...pre,
         show: true,
         type: "info",
-        message:i18n.language==='en'? "You have to login first !":
-        "عليك تسجيل الدخول أولا !",
+        message:
+          i18n.language === "en"
+            ? "You have to login first !"
+            : "عليك تسجيل الدخول أولا !",
       }));
     }
-
-  }
+  };
   const deleteSpecificPost = (id: number) => {
     setOpenDialog(true);
     setPostID(id);
   };
   const doDeletePost = (post_id: number) => {
     deletePost(post_id);
-    
   };
 
   const handleLike = async (id: number) => {
@@ -136,8 +130,10 @@ export const PostCard = ({
         ...pre,
         show: true,
         type: "info",
-        message:i18n.language==='en'? "You have to login first !":
-        "عليك تسجيل الدخول أولا !",
+        message:
+          i18n.language === "en"
+            ? "You have to login first !"
+            : "عليك تسجيل الدخول أولا !",
       }));
     }
   };
@@ -147,8 +143,10 @@ export const PostCard = ({
         ...pre,
         show: true,
         type: false,
-        message:i18n.language==='en'? "Something wrong has happend !":
-        "حدث خطأ ما",
+        message:
+          i18n.language === "en"
+            ? "Something wrong has happend !"
+            : "حدث خطأ ما",
       }));
       setReact(!react);
       setPostLikes(previouseLikesNumber.current);
@@ -157,32 +155,37 @@ export const PostCard = ({
   useEffect(() => {
     if (!deletePostError) {
       if (deletePostData) {
-       
         setNotify((pre: any) => ({
           ...pre,
           show: true,
           type: true,
-          message:i18n.language==='en'? "Post has been removed successfully":
-          "تم حذف البوسا بنجاح",
+          message:
+            i18n.language === "en"
+              ? "Post has been removed successfully"
+              : "تم حذف البوسا بنجاح",
         }));
         let newPosts = storedPosts.filter((ele) => ele.id !== id);
         setStoredPosts(newPosts);
+        setOpenDialog(false);
       }
     } else {
       setNotify((pre: any) => ({
         ...pre,
         show: true,
         type: false,
-        message:i18n.language==='en'? "Something wrong has happend !":
-        "حدث خطأ ما",
+        message:
+          i18n.language === "en"
+            ? "Something wrong has happend !"
+            : "حدث خطأ ما",
       }));
     }
   }, [isDeletePostLoading]);
-useEffect(()=>{
-if (shares && shares>0) {
-  setPostShares(shares)
-}
-},[shares])
+  useEffect(() => {
+    if (shares && shares > 0) {
+      setPostShares(shares);
+    }
+  }, [shares]);
+
   return (
     <Col xs={12} sm={12} className="postCardContainer">
       <Card>
@@ -196,16 +199,22 @@ if (shares && shares>0) {
                       <img
                         src={profile_picture ? profile_picture : profile}
                         className="profile"
-                        
                         style={
-                          small_size ? { width: "45px", height: "45px" ,cursor:'pointer'} : 
-                          {cursor:'pointer'}
+                          small_size
+                            ? {
+                                width: "45px",
+                                height: "45px",
+                                cursor: "pointer",
+                              }
+                            : { cursor: "pointer" }
                         }
-                        onClick={()=>
-                          !for_profile?owner? navigate('/profile')  :
-                        navigateProfile():{}
-                      }
-                      
+                        onClick={() =>
+                          !for_profile
+                            ? owner
+                              ? navigate("/profile")
+                              : navigateProfile()
+                            : {}
+                        }
                       />
                     </Col>
                     <Col xs={9}>
@@ -230,20 +239,24 @@ if (shares && shares>0) {
                           </div>
                         </Col>
                         <Col xs={12}>
-                          <div className="location">
-                            <img
-                              className="icon"
-                              src={location}
-                              style={
-                                small_size
-                                  ? { width: "12.5px", height: "12.5px" }
-                                  : {}
-                              }
-                            />
-                            <span>
-                              {i18n.language === "en" ? area.en : area.ar}
-                            </span>
-                          </div>
+                          {role_id !==7 &&
+                            <div className="location">
+                              <img
+                                className="icon"
+                                src={location}
+                                style={
+                                  small_size
+                                    ? { width: "12.5px", height: "12.5px" }
+                                    : {}
+                                }
+                              />
+                              <span>
+                                {
+                                i18n.language === "en" ? area.en : area.ar
+                                }
+                              </span>
+                            </div>
+                          }
                         </Col>
                       </Row>
                     </Col>
@@ -268,7 +281,7 @@ if (shares && shares>0) {
                           </Dropdown.Item>
                         </>
                       )}
-                     
+
                       <Dropdown.Item>{t("Report")}</Dropdown.Item>
                       <Dropdown.Item>{t("Hide")}</Dropdown.Item>
                     </Dropdown.Menu>
@@ -296,12 +309,23 @@ if (shares && shares>0) {
                         ? i18n.language === "en"
                           ? property_type.en
                           : property_type.ar
-                        : ""}
+                        :  category?
+                        i18n.language === "en"
+                       ? category.en
+                       : category.ar
+                     : ""}
+                        
+                     
                     </span>
-                    <img src={building} className="icon" />
+                    {role_id !==7?
+                      <img src={building} className="icon" />:
+                      <Newspaper className="icon" />
+
+                      }
                   </div>
                 </Col>
-                <Col xs={6} lg={4}>
+                {(offer_type && offer_type.en)&&
+                  <Col xs={6} lg={4}>
                   <div
                     className="tag green"
                     style={small_size ? { fontSize: "12px" } : {}}
@@ -313,12 +337,12 @@ if (shares && shares>0) {
                       : ""}
                   </div>
                 </Col>
+                }
               </Row>
             </Col>
           </Row>
         </Card.Header>
-        <Card.Body >
-          
+        <Card.Body>
           <Row className="gy-1 flex-fill flex-column ">
             <Col xs={12} className="p-0 p-sm-1">
               <ImagesGallery
@@ -332,31 +356,31 @@ if (shares && shares>0) {
             <Col xs={12}>
               <Row className="justify-content-between">
                 <Col xs={6}>
-                  {tags && tags.length>0 &&
-                  <Row className="gy-1">
-                    {tags && tags?.length > 0 && tags[0].name.en
-                      ? tags?.map((ele, index) => (
-                          <Col sm={4} xs={6} key={index}>
-                            <div
-                              className="badge "
-                              style={small_size ? { fontSize: "10px" } : {}}
-                            >
-                              <span className="p-1">
-                                {ele.name
-                                  ? i18n.language === "en"
-                                    ? ele.name.en
-                                    : ele.name.ar
-                                  : ""}
-                              </span>
-                            </div>
-                          </Col>
-                        ))
-                      : ""}
-                  </Row>}
+                  {tags && tags.length > 0 && (
+                    <Row className="gy-1">
+                      {tags && tags?.length > 0 && tags[0].name.en
+                        ? tags?.map((ele, index) => (
+                            <Col sm={4} xs={6} key={index}>
+                              <div
+                                className="badge "
+                                style={small_size ? { fontSize: "10px" } : {}}
+                              >
+                                <span className="p-1">
+                                  {ele.name
+                                    ? i18n.language === "en"
+                                      ? ele.name.en
+                                      : ele.name.ar
+                                    : ""}
+                                </span>
+                              </div>
+                            </Col>
+                          ))
+                        : ""}
+                    </Row>
+                  )}
                 </Col>
                 {!for_profile && (
-                <Col xs={6}>
-                 
+                  <Col xs={6}>
                     <Row>
                       <Col
                         xs={4}
@@ -368,24 +392,29 @@ if (shares && shares>0) {
                         </span>
                         <img src={react ? heartFilled : heart} />
                       </Col>
-                      <Col xs={4} className="iconBtn likeButton"
-                      onClick={()=>setOpenShare(true)}>
+                      <Col
+                        xs={4}
+                        className="iconBtn likeButton"
+                        onClick={() => setOpenShare(true)}
+                      >
                         <span className="d-flex align-items-center">
                           {postShares}
                         </span>
                         <img src={share} />
                       </Col>
-                      <Col xs={4} className="iconBtn likeButton"
-                       style={{cursor:'auto'}}
-                       >
+                      <Col
+                        xs={4}
+                        className="iconBtn likeButton"
+                        style={{ cursor: "auto" }}
+                      >
                         <span className="d-flex align-items-center">
-                         {views}
+                          {views}
                         </span>
-                        <Eye size={24}/>
+                        <Eye size={24} />
                       </Col>
                     </Row>
-                </Col>
-                  )}
+                  </Col>
+                )}
               </Row>
             </Col>
             <Col xs={12}>
@@ -395,8 +424,8 @@ if (shares && shares>0) {
             </Col>
             <Col xs={12} className="details">
               <Row
-               className="gy-3 justify-content-between justify-content-sm-start flex-fill "
-               style={{alignItems:'flex-end'}}
+                className="gy-3 justify-content-between justify-content-sm-start flex-fill "
+                style={{ alignItems: "flex-end" }}
               >
                 {/* <Col lg={3} md={5} xs={5} className="detail">
                   <img
@@ -409,7 +438,7 @@ if (shares && shares>0) {
                     North West
                   </span>
                 </Col> */}
-                { Boolean(number_of_rooms) && number_of_rooms !== 0 && (
+                {Boolean(number_of_rooms) && number_of_rooms !== 0 && (
                   <Col lg={3} md={5} xs={5} className="detail">
                     <img
                       src={room}
@@ -435,7 +464,7 @@ if (shares && shares>0) {
                     </span>
                   </Col>
                 )}
-                {space &&
+                {space && (
                   <Col lg={3} md={5} xs={5} className="detail">
                     <img
                       src={Area}
@@ -451,43 +480,42 @@ if (shares && shares>0) {
                       ""
                     )}
                   </Col>
-                }
+                )}
                 <Col xs={12} className="">
-                  <Row className='justify-content-center m-auto'>
-
+                  <Row className="justify-content-center m-auto">
                     <Col xs={6} sm={5}>
-                       <LightGreenButton 
-                       label={t("MoreDetails")}
-                       fun={() => navigateToDetails(id)}
-                       />
+                      <LightGreenButton
+                        label={t("MoreDetails")}
+                        fun={() => navigateToDetails(id)}
+                      />
                     </Col>
                   </Row>
                 </Col>
               </Row>
             </Col>
           </Row>
-          
         </Card.Body>
       </Card>
       <DialogBox
         show={openDialog}
         setShow={setOpenDialog}
-        message={i18n.language==='en'?
-        "you are sure you want to delete this post !!":
-        "!!انت على وشك حذف المنشور "
-      }
-        title={i18n.language==='en'?"Delete Post":"حذف البوست"}
+        message={
+          i18n.language === "en"
+            ? "you are sure you want to delete this post !!"
+            : "!!انت على وشك حذف المنشور "
+        }
+        title={i18n.language === "en" ? "Delete Post" : "حذف البوست"}
         doit={() => doDeletePost(postID)}
+        loading={isDeletePostLoading}
       />
-      <ShareBox 
-      open={openShare}
-      setOpen={()=>setOpenShare(false)}
-      url={`https://www.instaaqar.com/postdetails/${page}/${id}`}
-      postId={id}
-      postShares={postShares}
-      setPostShares={setPostShares}
+      <ShareBox
+        open={openShare}
+        setOpen={() => setOpenShare(false)}
+        url={`https://www.instaaqar.com/postdetails/${page}/${id}`}
+        postId={id}
+        postShares={postShares}
+        setPostShares={setPostShares}
       />
-
     </Col>
   );
 };

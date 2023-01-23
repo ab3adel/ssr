@@ -2,11 +2,13 @@ import { Col, Row } from 'react-bootstrap'
 import  Slider from '../multi-range-slider/multi-range'
 import {Input} from '../float-label-group/input/input'
 import {useTranslation} from 'react-i18next'
-
+import './range-slider.scss'
 
 interface iProps {min:number,max:number,setValue:Function,name:string
-    ,minVal:number,maxVal:number,label:string,unit:string |JSX.Element}
-export const RangeSlider=({min,max,setValue,name,minVal,maxVal,label,unit}:iProps)=>{
+    ,minVal:number,maxVal:number,label:string,unit:string |JSX.Element,
+    error:any,setFieldTouched:Function,handleBlur:Function
+}
+export const RangeSlider=({min,max,setValue,name,minVal,maxVal,label,unit,error,setFieldTouched,handleBlur}:iProps)=>{
     const {t} =useTranslation()
     const onChange=(value:{min:number,max:number})=>{
      
@@ -15,7 +17,8 @@ export const RangeSlider=({min,max,setValue,name,minVal,maxVal,label,unit}:iProp
     }
 
     return (
-        <Col xs={12} className="">
+        <Col xs={12} className={`rangeSliderContainer `}
+      >
           <Row className='gy-1'>
             <Col xs={12} className="h6 fw-bold d-flex">
                 {label}
@@ -28,6 +31,8 @@ export const RangeSlider=({min,max,setValue,name,minVal,maxVal,label,unit}:iProp
                 minVal={minVal}
                 maxVal={maxVal}
                 name={name}
+                onBlur={handleBlur}
+                setFieldTouched={setFieldTouched}
                 />
             </Col>
             <Col xs={5}>
@@ -35,6 +40,12 @@ export const RangeSlider=({min,max,setValue,name,minVal,maxVal,label,unit}:iProp
                  type='number'
                  unit={unit} 
                  value={minVal.toString()}
+                 onChange={(event:React.ChangeEvent<HTMLInputElement>)=>{
+                    setFieldTouched(name,true)
+                    onChange({min:Number(event.target.value),max:maxVal})
+                    
+                 }}
+            
 
                 />
 
@@ -47,10 +58,21 @@ export const RangeSlider=({min,max,setValue,name,minVal,maxVal,label,unit}:iProp
                  type='number'
                  unit={unit}
                  value={maxVal.toString()}
-                 
+                 onChange={(event:React.ChangeEvent<HTMLInputElement>)=>{
+                   setFieldTouched(name,true)
+                   onChange({max:Number(event.target.value),min:minVal})
+                        
+                     }}
+                  
                 />
             </Col>
+
           </Row>
+         { error && (error['min'] || error['max'])&&
+         <div className='invalid'>
+            {error['min'] || error['max']}
+          </div>
+          }
         </Col>
     )
 }

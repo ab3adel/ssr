@@ -51,7 +51,7 @@ export const InputWithIcon = ({
   return (
     <Form.Group
       className={
-        Boolean(error)
+        Boolean(error) && touched
           ? `mb-1 is_valid inputGroupWithIcon ${className}`
           : `mb-1 inputGroupWithIcon  ${className}`
       }

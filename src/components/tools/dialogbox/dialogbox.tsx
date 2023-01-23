@@ -2,20 +2,22 @@ import './dialogbox.scss'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
 import { useTranslation } from 'react-i18next';
+import { Spinner } from '../spinner';
 
 interface iProps {show:boolean
                    ,setShow:Function
                   ,message:string
                   ,title:string
                   ,doit?:Function
+                  ,loading:boolean
                 }
 
-export const DialogBox=({show,setShow,message,title,doit}:iProps)=>{
+export const DialogBox=({show,setShow,message,title,doit,loading}:iProps)=>{
 const handleClose=()=>setShow(false)
 const {t}=useTranslation()
 const continueAction=()=>{
 if (typeof(doit)==='function') doit()
-setShow(false)
+
 }
     return (
         <Modal show={show} onHide={handleClose}>
@@ -27,8 +29,13 @@ setShow(false)
           <Button variant="primary" onClick={handleClose}>
             {t('Cancel')}
           </Button>
-          <Button variant="danger" onClick={continueAction}>
-            {t('OK')}
+          <Button variant="danger" onClick={continueAction}
+          disabled={loading}
+          >
+            {loading?
+            <Spinner />:
+            t('OK')
+            }
           </Button>
         </Modal.Footer>
       </Modal>

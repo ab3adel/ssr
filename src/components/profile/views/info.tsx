@@ -46,7 +46,7 @@ let companyInfo = [
   { label: "PACIID", name: "PACIID", type: "text" },
   { label: "Website", name: "website", type: "text" },
   { label: "Country", name: "country", type: "select" },
-  { label: "Area", name: "area", type: "select" },
+  { label: "Area", name: "area_id", type: "select" },
   { label: "Block", name: "block", type: "text" },
   { label: "Avenue", name: "avenue", type: "text" },
   { label: "Street", name: "street", type: "text" },
@@ -59,7 +59,7 @@ let userInfo = [
   { label: "PhoneNumber ", name: "phone_number", type: "phone" },
   { label: "Email", name: "email", type: "text" },
   { label: "Country", name: "country", type: "select" },
-  { label: "Area", name: "area", type: "select" },
+  { label: "Area", name: "area_id", type: "select" },
   { label: "Block", name: "block", type: "text" },
   { label: "Avenue", name: "avenue", type: "text" },
   { label: "Street", name: "street", type: "text" },
@@ -180,6 +180,7 @@ useEffect(()=>{
     }
   }
   const addArea = (id: number) => {
+  
     setFieldValue("area_id", id);
   };
   const addCountry = (id: number) => {
@@ -195,7 +196,7 @@ useEffect(()=>{
               {info.map((ele, index: number) => {
               
                 if (ele.type === "select" ) {
-                  if (ele.name === 'category' && (values['role'].id <=3)) { 
+                  if (ele.name === 'category' && ((values['role'].id <=3) || values['role'].id ===7)) { 
                     return <React.Fragment key={index}></React.Fragment>
                   }
                   return (
@@ -208,18 +209,20 @@ useEffect(()=>{
                           options={
                             edit
                               ? 
-                                (ele.name ==='role' && roles)||
-                                (ele.name === "category" && categories) ||
-                                (ele.name === "country" && countries) ||
-                                (ele.name === "area" && area)
-                              : [values[ele.name]]
+                                (ele.name ==='role' ? roles:
+                                ele.name === "category"?  categories:
+                                ele.name === "country" ? countries:
+                                ele.name === "area_id"? area:[])
+                              :
+                              ele.name ==='area_id'? [values['area']]:
+                               [values[ele.name]]
                           }
                           disabled={!edit || ele.name==='role'}
                           value={values[ele.name]}
                           exteriorFunction={
 
                            ( ele.name === "category" && addCategory ) ||
-                           (!company && ele.name==='area' && addArea) ||
+                           (!company && ele.name==='area_id' && addArea) ||
                            (!company && ele.name==='country' && addCountry) ||
                          (  ()=>{})
                           
@@ -232,22 +235,21 @@ useEffect(()=>{
                         label={t(ele.label)}
                         name={ele.name}
                         options={
-                          edit
-                            ? 
-                              (ele.name ==='role' && roles)||
-                              (ele.name === "category" && categories) ||
-                              (ele.name === "country" && countries) ||
-                              (ele.name === "area" && area)
+                          edit?
+                          (ele.name ==='role' ? roles:
+                          ele.name === "category"?  categories:
+                          ele.name === "country" ? countries:
+                          ele.name === "area_id"? area:[])
                             : [values[ele.name]]
                         }
                         disabled={!edit || ele.name==='role'}
                         value={values[ele.name]}
                         exteriorFunction={
 
-                         ( ele.name === "category" && addCategory ) ||
-                         (!company && ele.name==='area' && addArea) ||
-                         (!company && ele.name==='country' && addCountry) ||
-                       (  ()=>{})
+                         ( ele.name === "category" ? addCategory :
+                         !company && ele.name==='area_id'? addArea:
+                         !company && ele.name==='country'? addCountry:
+                         ()=>{})
                         
                         }
                         handleBlur={handleBlur}
@@ -387,7 +389,9 @@ useEffect(()=>{
 
                   </Col>
                   <Col sm={10} xs={12}>
-                    <Row className="gy-2">
+                    {(values.pre_defined_images && 
+                    values.pre_defined_images.length>0) &&
+                    (<Row className="gy-2">
                       <Col xs={12}>
                         <span className="fw-bold">
                          {t("PredefinedPostPicture")}
@@ -399,7 +403,8 @@ useEffect(()=>{
                           height={"175px"}
                         />
                       </Col>
-                    </Row>
+                    </Row>)
+                    }
                   </Col>
                 </>
               )}

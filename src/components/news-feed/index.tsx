@@ -23,8 +23,6 @@ import { useTranslation } from 'react-i18next'
     let waitMin=useRef<any>(false)
     const {getPosts,getPostsData,getPostsError,isGetPostsLoading,getNewsFeeds}=useGetPosts()
     const [storedPosts,storePosts] =useRecoilState(newsFeedsPosts)
-    
-    const navigate =useNavigate()
     const [userId,setUserId]=useState(-1)
     const [isGeuest,setIsGuest]=useState(false)
     const location =useLocation()
@@ -65,13 +63,14 @@ import { useTranslation } from 'react-i18next'
     useEffect(()=>{
         if(!getPostsError) {
             if (getPostsData && getPostsData.length >0) {
-            
+                let postsId:number[]=[...storedPosts.postsIds]
                 let data= getPostsData.map((ele:any,index:number)=>{
                     
                     if (!storedPosts.postsIds.includes(ele.id)) {
-                        let newIds=[...storedPosts.postsIds]
-                        newIds.push(ele.id)
-                       storePosts(pre=>({...pre,postsIds:newIds}))
+                      
+                        
+                        postsId.push(ele.id)
+                      
                         let data= ele.images
                         let updated_at=null
                         let profile_picture=null
@@ -128,18 +127,20 @@ import { useTranslation } from 'react-i18next'
                            page_number:page,
                            space:ele.space,
                            shares:ele.shares,
-                           views:ele.views
+                           views:ele.views,
+                           role_id:ele.role[0]?.id
                        
 
                          })
                     }
 
                 }).filter((ele:any)=>ele)
-              
+             
                 setPosts((pre:any)=>([...pre,...data]))
-                let newPosts= [...storedPosts.posts]
-                if (data && data[0])newPosts.push(data[0])
-                storePosts(pre=>({...pre,posts:newPosts}))
+                let newPosts= [...storedPosts.posts,...data]
+                
+                storePosts(pre=>({...pre,posts:newPosts,postsIds:postsId}))
+              
             }
             else {
                 if (getPostsData) {
@@ -160,7 +161,7 @@ import { useTranslation } from 'react-i18next'
             }
         }
    }
-  
+
     return (
         <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 

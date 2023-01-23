@@ -16,7 +16,8 @@ import * as Yup from "yup";
 import notificationContext from "../../tools/context/notification/notification-context";
 import authContext from "../../tools/context/auth-context/auth-context";
 import { useNavigate } from "react-router-dom";
-import Spinner from "react-bootstrap/Spinner";
+import { Spinner } from "../../tools/spinner";
+
 interface iProps {
   setLogin: Function;
 }
@@ -55,6 +56,7 @@ const Login = ({ setLogin }: iProps) => {
     }
   }, [formik.values]);
   const handleLogin = () => {
+    setIsloading(true)
     let formdata = new FormData();
     let number_test= new RegExp (/^\d+$/)
     // var mailFormat = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/;
@@ -75,7 +77,7 @@ const Login = ({ setLogin }: iProps) => {
     axios
       .post(apis.login, formdata)
       .then((res: any) => {
-       
+        setIsloading(false)
         if (res && res.data) {
      
           let realImage = "";
@@ -111,6 +113,7 @@ const Login = ({ setLogin }: iProps) => {
         }
       })
       .catch((err) => {
+        setIsloading(false)
         if (err && err.response && err.response.data) {
           
           if (err.response.data.error){
@@ -225,7 +228,11 @@ const Login = ({ setLogin }: iProps) => {
                       onClick={() => handleLogin()}
                       disabled={disableBtn}
                     >
-                      {t("Login")}
+                      {
+                        isLoading?
+                        <Spinner />:
+                      t("Login")
+                      }
                     </Button>
                   </Col>
                   <Col xs={6} className="d-sm-flex justify-content-end">
@@ -234,11 +241,8 @@ const Login = ({ setLogin }: iProps) => {
                       onClick={() => setLogin(false)}
                       disabled={isLoading}
                     >
-                      {isLoading ? (
-                        <Spinner animation="border" />
-                      ) : (
-                        <>{t("SignUp")}</>
-                      )}
+                      {t("SignUp")}
+                    
                     </Button>
                   </Col>
                 </Row>

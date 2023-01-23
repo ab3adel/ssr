@@ -80,7 +80,10 @@ const {setNotify}=useContext(notificationContext)
     <Col xs={12} className="files">
       <Row className="gy-1">
         <Col xs={12}>
-          <span className="fw-bold">{t("Files")}</span>
+        { edit ?
+        <span className="fw-bold">{t("Files")}</span>:
+        value && value.length>0?  <span className="fw-bold">{t("Files")}</span>:
+        ''}
         </Col>
 
         <Col xs={12}>

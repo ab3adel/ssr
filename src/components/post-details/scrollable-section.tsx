@@ -147,12 +147,13 @@ const elemRef =useRef()
               <Row className="mt-1 gy-3">
                 <Col xs={12}>
                   <Row className="gy-2">
+                    {!post.news_type &&(
                     <Col sm={9} lg={4} className="d-flex  align-items-center">
                       <img className="locationIcon" src={location} />
                       <span className="mx-1">
                         {i18n.language === "en" ? post.area.en : post.area.ar}
                       </span>
-                    </Col>
+                    </Col>)}
                     <Col xs={4}>
                       {/* <Button className="mapBtn">
                         <img src={map} />

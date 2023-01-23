@@ -87,8 +87,8 @@ export const HeaderLg = ({
                 <Col xs={12}
                >
 
-                  <div className={"user_name mw-100"}
-                  style={{justifyContent:'flex-end'}}
+                  <div className={"user_name mw-100 m-0"}
+             
                   >
                     {token?.full_name ? token?.full_name : "user_33892"}
                   </div>

@@ -14,3 +14,11 @@
         left:1rem
     }
 }
+@media screen  and (min-Width:567px) and (max-width:1024px) {
+    .textareaContainer {
+        .input {
+
+            min-height: 130px;
+        }
+    }
+}

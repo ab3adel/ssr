@@ -60,7 +60,7 @@ const handleSearch=(key:React.KeyboardEvent)=>{
 
   if (key.key === 'Enter' ) {
 
-    let url=`/filteredposts/page=1?text=${formik.values.search}`
+    let url=`/filteredposts/page=1?text=${formik.values.search}&user_name=${formik.values.search}`
     navigate(url)
     formik.resetForm()
     setOpenSearch(false)
@@ -68,12 +68,15 @@ const handleSearch=(key:React.KeyboardEvent)=>{
 
 }
 const headerNavigation=(str:string)=>{
-if (str==='home') {
-  navigate('/')
-}
-if (str==='profile') {
-  navigate('/profile')
-}
+  if (getLocalStorage() && getLocalStorage().id && getLocalStorage().id !== 'Guest'){
+
+    if (str==='home') {
+      navigate('/')
+    }
+    if (str==='profile') {
+      navigate('/profile')
+    }
+  }
 }
 
     return (

@@ -66,7 +66,7 @@ export const SmallView = ({
       <Row className="gy-3">
         <Col xs={12}>
           <Row className="gx-2 gy-3">
-            {role !== 3 && (
+            {(role !== 3 && role !== 7) && (
               <Col xs={12} className="pt-3">
                 <Select
                   label={t("PostCategory")}
@@ -80,7 +80,7 @@ export const SmallView = ({
                 />
               </Col>
             )}
-            {role === 3 && (
+            {(role === 3 ) &&(
               <>
                 <Col xs={12}>
                   <Select
@@ -126,7 +126,8 @@ export const SmallView = ({
                 </Col>
               </>
             )}
-            <Col xs={12}>
+            {role !== 7 &&
+            (<Col xs={12}>
               <Select
                 label={t("Area")}
                 setSelect={setFieldValue}
@@ -137,7 +138,7 @@ export const SmallView = ({
                 touched={touched["area_id"]}
                 handleBlur={handleBlur}
               />
-            </Col>
+            </Col>)}
             <Col xs={12}>
               <Input
                 label={t("PostTitle")}
@@ -149,7 +150,7 @@ export const SmallView = ({
                 touched={touched["title"]}
               />
             </Col>
-            {role === 3 && (
+            {(role === 3) && (
               <Col lg={6} xs={6}>
                 <Input
                   label={t("Area_m")}
@@ -164,7 +165,7 @@ export const SmallView = ({
                 />
               </Col>
             )}
-            <Col lg={6} xs={6}>
+           {role !== 7 && ( <Col lg={6} xs={6}>
               <Input
                 label={t("Price")}
                 unit="KWD"
@@ -176,7 +177,7 @@ export const SmallView = ({
                 touched={touched["price"]}
                 handleBlur={handleBlur}
               />
-            </Col>
+            </Col>)}
             <Col xs={12}>
               <TextArea
                 label={t("Description")}
@@ -202,7 +203,8 @@ export const SmallView = ({
                 }}
               />
             </Col>
-            <Col xs={12}>
+            {role !==7 &&
+            (<Col xs={12}>
               <Row className="gy-3">
                 <Col xs={12} className="font-weight-bolder">
                   {t("PhoneNumber")}
@@ -256,12 +258,14 @@ export const SmallView = ({
                   </Row>
                 </Col>
               </Row>
-            </Col>
-            <Col xs={12} className="p-1">
-              <span className="font-weight-bolder">
+            </Col>)}
+           
+           <Col xs={12} className="p-1">
+             {role !== 7 &&
+             ( <span className="font-weight-bolder">
                 {" "}
                 {t("PredefinedPostPicture")}
-              </span>
+              </span>)}
               <Col xs={12}>
                 <Row className="gy-2">
                   <Col
@@ -330,7 +334,61 @@ export const SmallView = ({
                 images_to_delete={values.images_to_delete}
               />
             </Col>
-            <Col xs={12}>
+            {role ===7 &&
+            (
+            
+              <Col xs={12} className="p-2 box">
+                        
+                          <Col xs={12}>
+                            <Select
+                              label={t("PostTags")}
+                              options={tags}
+                              setSelect={addTag}
+                              name="tags_ids"
+                              selectedValue={values.tags_ids}
+                              multiSelect={true}
+                              error={errors["tags_ids"]}
+                              touched={touched["tags_ids"]}
+                              handleBlur={handleBlur}
+                            />
+                          </Col>
+
+                          <Col xs={12}>
+                            <Row className="gx-2">
+                              {values.tags_ids.length > 0
+                                ? values.tags_ids.map(
+                                    (ele: any, index: number) => {
+                                      let item = tags.filter(
+                                        (elem) => elem.value === parseInt(ele)
+                                      )[0];
+                                      if (item) {
+                                        return (
+                                          <Col xs={4} key={index}>
+                                            <div className="mybadge">
+                                              <span>
+                                                {language === "en"
+                                                  ? item.title?.en
+                                                  : item.title?.ar}
+                                              </span>
+                                              <div
+                                                className="icon"
+                                                onClick={() => deleteTag(ele)}
+                                              >
+                                                X
+                                              </div>
+                                            </div>
+                                          </Col>
+                                        );
+                                      }
+                                    }
+                                  )
+                                : ""}
+                            </Row>
+                          </Col>
+                        </Col>
+            )}
+          {role !==7 &&(  
+          <Col xs={12}>
               <Accordion defaultActiveKey={"0"} className="addpost_accordion">
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>
@@ -342,7 +400,7 @@ export const SmallView = ({
                   <Accordion.Body>
                     <Col xs={12}>
                       <Row className="gy-3">
-                      { role===3 &&
+                      { (role === 3 ) &&
                       <Col xs={12} >
                             <Badge 
                             items={propertySites}
@@ -402,7 +460,8 @@ export const SmallView = ({
                             </Row>
                           </Col>
                         </Col>
-                        <Col xs={12}>
+                        {role !== 7 &&
+                        (<Col xs={12}>
                           <TextArea
                             label={t("ServicesAvailable")}
                             value={values.services_available}
@@ -412,8 +471,9 @@ export const SmallView = ({
                             error={errors["services_available"]}
                             touched={touched["services_available"]}
                           />
-                        </Col>
-                        <Col xs={12}>
+                        </Col>)}
+                        {role !== 7 &&
+                        (<Col xs={12}>
                           <TextArea
                             label={t("DescriptiveAddress")}
                             value={values.descriptive_address}
@@ -423,8 +483,9 @@ export const SmallView = ({
                             error={errors["descriptive_address"]}
                             touched={touched["descriptive_address"]}
                           />
-                        </Col>
-                        <Col lg={6} xs={12}>
+                        </Col>)}
+                        {( role === 3) &&
+                        (<Col lg={6} xs={12}>
                           <Input
                             numberControl={true}
                             label={t("Rooms")}
@@ -438,8 +499,9 @@ export const SmallView = ({
                             touched={touched["number_of_rooms"]}
                             handleBlur={handleBlur}
                           />
-                        </Col>
-                        <Col lg={6} xs={12}>
+                        </Col>)}
+                       {( role === 3) &&
+                       ( <Col lg={6} xs={12}>
                           <Input
                             numberControl={true}
                             label={t("Bathrooms")}
@@ -453,8 +515,9 @@ export const SmallView = ({
                             touched={touched["number_of_bathrooms"]}
                             handleBlur={handleBlur}
                           />
-                        </Col>
-                        <Col lg={12} xs={12}>
+                        </Col>)}
+                       {role !==7 &&
+                       ( <Col lg={12} xs={12}>
                           <Input
                             label={t("PACIID")}
                             type="text"
@@ -465,13 +528,13 @@ export const SmallView = ({
                             touched={touched["PACIID"]}
                             handleBlur={handleBlur}
                           />
-                        </Col>
+                        </Col>)}
                       </Row>
                     </Col>
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
-            </Col>
+            </Col>)}
             <>
               {/* {role !== 3 && (
               <Col xs={12} className="pt-3">

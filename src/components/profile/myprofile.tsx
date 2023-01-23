@@ -62,7 +62,14 @@ const Profile = () => {
        
         if(!getProfileError) {
            if (getProfileData  && getProfileData.data && getProfileData.data.length>0) {
-            
+             if (!getProfileData.data[0].email_verified_at) {
+                setNotify((pre:any)=>(
+                    {...pre,show:true,
+                      message:i18n.language==='en'?'you have to validate your Email before any further updatings':
+                      ' يتوجب عليك  تأكيد الايميل قبل أي تعديلات مستقبلية ',
+                      type:'info'
+                    }))
+             }
             setProfileData(getProfileData.data[0])
            }
         }
@@ -116,6 +123,7 @@ const Profile = () => {
                 show={showDeleteAccount}
                 doit={deleteAccount}
                 title={t('DeleteAccount')}
+                loading={isDeleteAccountLoading}
                 />
         </Col>
     )

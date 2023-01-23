@@ -68,7 +68,8 @@
                 justify-content: center;
                 font-weight: bold;
                 border-radius: 5px;
-                font-size: 1rem;
+                font-size: 0.77rem;
+
                 .icon {
                     width:30px;
                     height: 24px;
@@ -80,10 +81,15 @@
                 background-color: var(--back-color);
                 min-height: 24px;
                 text-align: center;
+                span {
+                    display: flex;
+                    align-items: center;
+                }
             }
             .tag.green {
                 background-color: var(--light-green);
-                color:white
+                color:white;
+                height: 100%;
             }
         }
         .card-body {

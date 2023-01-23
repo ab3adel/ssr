@@ -6,7 +6,8 @@ import React from 'react'
 export const TextArea =({value,setValue,label,name,disabled}:iText)=>{
 const {i18n}=useTranslation()
 const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
-    setValue(name,e.target.value)
+    let value = {en:e.target.value,ar:e.target.value}
+    setValue(name,value)
 }
 return (
             <Form className="steadyTextArea">

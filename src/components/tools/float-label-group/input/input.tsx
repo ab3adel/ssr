@@ -198,7 +198,7 @@ if (phoneNumber) {
         placeholder={!numberControl?label?label:'':'0'}
         maxLength={type === 'number'?20:undefined}
         disabled={disabled}
-        isInvalid={Boolean(error) && touched}
+        isInvalid={type !== 'number'?Boolean(error) && touched:false}
         style={
           !numberControl
             ? unit
@@ -231,7 +231,10 @@ if (phoneNumber) {
       {(touched && error) && (
         <Form.Control.Feedback
         className="isValid"
-          style={i18n.language === "en" ? { right: "10%",left:'auto' } : { left: "10%",right:'auto' }}
+          style={i18n.language === "en" ? 
+          { right: "10%",left:'auto' } : 
+          { left: "10%",right:'auto' }
+        }
         >
           {error}
         </Form.Control.Feedback>

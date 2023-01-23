@@ -19,9 +19,10 @@ export const initialValues=[
        
     },
     {
+        country:0,
         full_name:'',
         email:'',
-        role_id:2,
+        role_id:0,
         area_id:-1,
         password:'',
         password_confirmation:'',
@@ -49,6 +50,22 @@ export const initialValues=[
        ,block:''
        
     },
+    {
+        full_name:'',
+        email:'',
+        role_id:7,
+        area_id:2,
+        password:'',
+        password_confirmation:'',
+        phone_numbers:[
+            {
+                phone:'',
+                international_code:''
+            }
+        ],
+    description:{ar:'',en:''}
+    ,profile_picture:''
+    }
 ]
 
 export interface InitialValues{
@@ -79,7 +96,9 @@ export interface InitialValues{
    ,building:string
    ,street:string
    ,avenue:string
-   ,block:string}
+   ,block:string
+   ,country:number
+}
 
 export interface iPhoneNumbersError {phone?:string ,international_code?:string}
 type iFileError= {[key in keyof iFile]?:string}

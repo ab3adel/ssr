@@ -31,7 +31,7 @@ export const Inprogress =({btn,text,resend,className,fn,index,phone,email}:iProp
                 setLoading(true)
                 axios.get(apis.verifyPhoneNumber(id,parseInt(code)))
                  .then(res=>{
-                    console.log(res)
+                
                     setLoading(false)
                     if (res && res.data) {
                         fn()
@@ -39,7 +39,7 @@ export const Inprogress =({btn,text,resend,className,fn,index,phone,email}:iProp
                  })
                  .catch(err=>{
                     setLoading(false)
-                    console.log(err.response.status)
+                    
                     if (err.response.status === 400) {
                         setNotify((pre:any)=>({...pre,show:true,type:false,message:err.response.data.error}))
                         setCode('')
@@ -82,7 +82,7 @@ export const Inprogress =({btn,text,resend,className,fn,index,phone,email}:iProp
             })
         }
     }
-    console.log(phone)
+    
     return (
                 <Row className='inprogressContainer gy-5'>
                     <Col xs={12}>

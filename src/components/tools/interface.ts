@@ -88,7 +88,9 @@ export interface iGetPosts {
   area_from?:number,
   area_to?:number,
   number_of_room?:number,
-  number_of_bathroom?:number
+  number_of_bathroom?:number,
+  news?:number,
+  user_name?:string
 }
 export interface iPost {
   title:{en:string,ar:string},
@@ -125,7 +127,9 @@ export interface iPost {
   page?:number,
   space?:string,
   shares?:number,
-  views?:number
+  views?:number,
+  category?:{en:string,ar:string},
+  role_id?:number
 
 
 }

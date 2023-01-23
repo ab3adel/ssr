@@ -4,7 +4,7 @@ import {LargeView} from './lg-view'
 import {SmallView} from './sm-view'
 import './search.scss'
 import { useContext, useEffect, useState } from "react";
-
+import {searchSchema} from '../tools/validation'
 import { useGetPropertyType } from "../tools/apis/useGetPropertyType";
 import { useGetOffersType } from "../tools/apis/useGetOffersType";
 import { useGetPropertySites } from "../tools/apis/useGetPropertySites";
@@ -27,9 +27,18 @@ export interface iProps {
   area:iOption[],
   propertyTypes:any[],
   handleChange:(e:React.ChangeEvent<any>)=>void,
-  startSearching:Function
+  startSearching:Function,
+  errors :any,
+  touched:any,
+  type:iOption[],
+  setFieldTouched:Function,
+  handleBlur:Function
 }
-
+let type=[
+  {id:1,title:{en:'All',ar:'الكل'}},
+  {id:2,title:{en:'News',ar:'أخبار'}},
+  
+]
 const SearchPage =()=>{
     const {mobileView}=useContext(SettingContext)
     const [propertyTypes, setPropertyTypse] = useState<any[]>([]);
@@ -70,7 +79,7 @@ const SearchPage =()=>{
       const { areaData, areaError, isAreaLoading, getArea } = useGetArea();
 let formik=useFormik({
     initialValues:{
-       priceRange:{min:10,max:100000},
+       priceRange:{min:1000,max:100000000},
        tag_id:'',
        areaRange:{min:100,max:1000},
        offer_type_id: 0,
@@ -86,9 +95,10 @@ let formik=useFormik({
        price: "",
        number_of_rooms: 0,
        number_of_bathrooms: 0,
+       type:1
       
-
     },
+    validationSchema:searchSchema(),
     onSubmit:()=>{}
 })
 
@@ -99,6 +109,7 @@ useEffect(() => {
     getCategories(1,99)
     getArea();
     getGenericTags()
+  
    
   }, []);
   useEffect(() => {
@@ -219,7 +230,7 @@ useEffect(() => {
     let values = formik.values as any
     let url=`/filteredposts/page=1?`
     Object.keys(formik.values).map((ele)=>{
-      if (values[ele] && ele !== 'priceRange' && ele !=='areaRange') {
+      if (values[ele] && ele !== 'priceRange' && ele !=='areaRange' && ele !=='type') {
         
         url += `&${ele}=${values[ele]}`
         if (ele === 'property_site_id') {
@@ -249,16 +260,22 @@ useEffect(() => {
           readableObj['number_of_bathrooms']={title:{en:`${values[ele]} bathrooms`,ar:`${values[ele]} حمام`},value:values[ele]}
         }
       }
-      
+      if (ele=== 'type' && values['type'] !==1) {
+        url +=`${values[ele]===2?'news=1':''}`
+        readableObj['news']={title:{en:'News',ar:'أخبار'},value:1}
+      }
     })
     url+=
-     `${ values['priceRange']['max'] !== 100000 || values['priceRange']['min'] !== 10 ?`&price_to=${values['priceRange']['max']}&price_from=${values['priceRange']['min']}`:''} `
-     +`${values['areaRange']['min'] !== 100 || values['areaRange']['max'] !== 1000?`&area_from=${values['areaRange']['min']}&area_to=${values['areaRange']['max']}`:''}`
+     formik.touched.priceRange?`${ values['priceRange']['max'] !== 100000 || values['priceRange']['min'] !== 10 ?`&price_to=${values['priceRange']['max']}&price_from=${values['priceRange']['min']}`:''} `:''
+     +
+     formik.touched.areaRange?`${values['areaRange']['min'] !== 100 || values['areaRange']['max'] !== 1000?`&area_from=${values['areaRange']['min']}&area_to=${values['areaRange']['max']}`:''}`:''
+     
     
      sessionStorage.setItem('search_params',JSON.stringify(readableObj) )
       navigate(url) 
   }
- 
+
+
     return (
         <Container className='searchContainer' >
             {
@@ -275,6 +292,13 @@ useEffect(() => {
                  handleChange={formik.handleChange}
                  propertyTypes={propertyTypes}
                  startSearching={filteredPosts}
+                 errors={formik.errors}
+                 touched={formik.touched}
+                 type={type}
+                 setFieldTouched={formik.setFieldTouched}
+                 handleBlur={formik.handleBlur}
+
+
 
               />:
               <LargeView 
@@ -286,9 +310,14 @@ useEffect(() => {
               propertySites={propertySites}
               tags={tags}
               area={area}
-              handleChange={formik.handleChange}
+              handleChange={formik.handleBlur}
               propertyTypes={propertyTypes}
               startSearching={filteredPosts}
+              errors={formik.errors}
+              touched={formik.touched}
+              type={type}
+              setFieldTouched={formik.setFieldTouched}
+              handleBlur={formik.handleBlur}
      
               />
 

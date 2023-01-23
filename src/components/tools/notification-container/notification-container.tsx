@@ -1,9 +1,10 @@
 import './notification-container.scss'
-import {useEffect, useRef} from 'react'
+import {useEffect, useRef, useTransition} from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface iProps {
     show:boolean
@@ -16,6 +17,7 @@ interface iProps {
 }
  const NotificationContainer =({show,left,top,data,RenderElement,elementClicked}:iProps)=>{
 const elem=useRef().current
+const {i18n}=useTranslation()
 useEffect(()=>{
    let elem= document.querySelector('#notification-container') as HTMLDivElement
    if (elem) {
@@ -39,7 +41,12 @@ useEffect(()=>{
                          <div className='spacer' />
                          </React.Fragment>
                          )
-                        : <span>There is nothing to show</span>
+                        : <span>{
+                            i18n.language==='en'?
+                            ' There is nothing to show':
+                            'لا يوجد محادثات'
+                            }
+                            </span>
                     }
                 </Row>
             </Container>

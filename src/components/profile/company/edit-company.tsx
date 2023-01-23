@@ -22,6 +22,8 @@ import {apis} from '../../tools/apis/apis'
 import { getLocalStorage } from "../../tools/getLocalstorage";
 import { reloadResources } from "i18next";
 import { useTranslation } from "react-i18next";
+import { WhiteButton } from "../../tools/buttons/white-button";
+import Loading from "../../tools/loading/loading";
 
 export const EditCompanyProfile = ({ edit, setEdit ,t,lang,data,setNotify}: iProps) => {
   let company = true;
@@ -34,7 +36,8 @@ export const EditCompanyProfile = ({ edit, setEdit ,t,lang,data,setNotify}: iPro
   const [area,setArea]=useState<any>([])
   const [country,setCountry]=useState(0)
   const [imagesToShow,setImagesToShow]=useState<string[]>([])
-  const {i18n} =useTranslation()
+ 
+  const [isUpdating,setIsUpdating]=useState(false)
   const{getArea,getCountries
     ,isAreaLoading
     ,areaData
@@ -46,18 +49,18 @@ const {getCategories,categoriesData,CategoriesError,isCategoriesLoading} =useGet
 const {getRoles,isGetRolesLoading,rolesData,rolesError}=useGetRoles()
   const formik = useFormik<any>({
     initialValues: {
-      twitter: data?.company?.twitter ? data.company.twitter : "myTwitter.com",
+      twitter: data?.company?.twitter ? data.company.twitter : "",
       facebook: data?.company?.facebook
         ? data.company.facebook
-        : "myFacebook.com",
-      youtube: data?.company?.youtueb ? data.company.youtube : "myYoutube.com",
+        : "",
+      youtube: data?.company?.youtueb ? data.company.youtube : "",
       snapchat: data?.company?.snapchat
         ? data.company.snapchat
-        : "mySnapchat.com",
-      tiktok: data?.company?.tiktok ? data.company.tiktok : "myTiktok.com",
+        : "",
+      tiktok: data?.company?.tiktok ? data.company.tiktok : "",
       instagram: data?.comapny?.instagram
         ? data.company.instagram
-        : "myInstagram.com",
+        : "",
       description: data?.company?.description
         ? data?.company?.description
         : { en: "", ar: "" },
@@ -78,7 +81,7 @@ const {getRoles,isGetRolesLoading,rolesData,rolesError}=useGetRoles()
       pre_defined_images:[],
       files:  [],
       full_name:data.full_name?data.full_name:'',
-      profile_picture:data.profile_pictuer?data.profile_picture:null,
+      profile_picture:data.profile_picture?data.profile_picture:null,
       category:data.company?.categories?data.company.categories:[{id:0,name:{ar:'',en:''}}],
       area_id:-1,
       category_ids:[],
@@ -111,6 +114,7 @@ const {getRoles,isGetRolesLoading,rolesData,rolesError}=useGetRoles()
       })
       formik.setFieldValue('pre_defined_images',images_arr)
       formik.setFieldValue('files',files_arr)
+     
       setImagesToShow(images_to_show)
      }
     }
@@ -122,6 +126,13 @@ const {getRoles,isGetRolesLoading,rolesData,rolesError}=useGetRoles()
       if (companyCategories.length >0) {
         getCategories(1,companyCategories[0].id)
       }
+    if (data && data.company) {
+      formik.setFieldValue('twitter',data?.company?.twitter )
+      formik.setFieldValue('facebook',data?.company?.facebook )
+      formik.setFieldValue('instagram',data?.company?.instagram )
+      formik.setFieldValue('youtube',data?.company?.youtube )
+      formik.setFieldValue('tiktok',data?.company?.tiktok )
+    }  
     }
   },[data])
   const customSetFieldValue=(name:string,value:any)=>{
@@ -167,10 +178,11 @@ useEffect(()=>{
 },[isGetRolesLoading])
 
 const updateProfile =()=>{
- if (fieldsUpdatedRigester.current.length>0) {
+  if (fieldsUpdatedRigester.current.length>0) {
+   setIsUpdating(true)
   let formdata= new FormData()
   formdata.append('user_id',getLocalStorage()?getLocalStorage().id:'')
-  formdata.append('locale',i18n.language)
+  formdata.append('locale',lang)
   fieldsUpdatedRigester.current.map(mainEle=>{
     // for simple values like string and numbers
     if (typeof(formik.values[mainEle]) ==='string' 
@@ -253,20 +265,49 @@ const updateProfile =()=>{
       headers:{'Authorization':`Bearer ${getLocalStorage()?getLocalStorage().token:null}`
     }
     }).then(res=>{
-    
+    setIsUpdating(false)
+    if (res.status===200) {
+      if ( fieldsUpdatedRigester.current.includes('email')) {
+        setNotify((pre:any)=>(
+          {...pre,show:true,
+            message:lang==='en'?'In case you updated your email ,you have to validate it before any further updatings':
+            'في حال تعديل الايمل , يتوجب عليك تأكيده قبل أي تعديلات مستقبلية ',
+            type:'info'
+          }))
+      }
+      setEdit(false)
       fieldsUpdatedRigester.current=[]
       window.location.reload()
+    }
 
     })
     .catch(err=>{
-      setNotify((pre:any)=>(
-        {...pre,type:false,message:i18n.language==='en'?'Something wrong happend !!':
-        'حدث خطأ ما'
-      }))
+      setIsUpdating(false)
+      if (err.response && err.response.data) {
+        if (err.response.data.errors) {
+         Object.keys(err.response.data.errors).forEach((ele:string)=>{
+            setNotify((pre: any) => ({
+              ...pre,
+              type: false,
+              show: true,
+              message:err.response.data.errors[ele],
+            }));
+          })
+        }
+        else {
+
+          setNotify((pre: any) => ({
+            ...pre,
+            type: false,
+            show: true,
+            message:typeof err.response.data.error ==='string'? err.response.data.error:err.response.data.message,
+          }));
+        }
+      }
     })
 
  }
-  setEdit(false)
+ 
 }
 
 
@@ -290,7 +331,10 @@ const updateProfile =()=>{
               />
             </Col>
             <Col xs={10}>
-              <GreenButton label={t("SaveChanges")} fun={() => setEdit(false)} />
+              <GreenButton label={t("SaveChanges")}  fun={() =>updateProfile()}  />
+            </Col>
+            <Col xs={10}>
+              <WhiteButton label={t("Cancel")}  fun={() =>setEdit(false)}  />
             </Col>
           </Row>
         </Col>
@@ -395,7 +439,10 @@ const updateProfile =()=>{
             </Col>
 
             <Col xs={8}>
-              <GreenButton label={"Save Changes"} fun={() =>updateProfile()} />
+              <GreenButton label={t("SaveChanges")} fun={() =>updateProfile()} />
+            </Col>
+            <Col xs={8}>
+              <WhiteButton label={t("Cancel")}  fun={() =>setEdit(false)}  />
             </Col>
           </Row>
         </Col>
@@ -404,25 +451,32 @@ const updateProfile =()=>{
             <Col xs={12}>
               <Row className="p-sm-2 justify-content-center">
                 <Col
-                  xs={4}
+                  xs={3}
                   className={tabIndex === 0 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(0)}
                 >
                   {t("PersonalInfo")}
                 </Col>
                 <Col
-                  sm={5}
-                  xs={4}
+                  xs={3}
                   className={tabIndex === 1 ? "tab active-tab" : "tab"}
                   onClick={() => setTabIndex(1)}
+                >
+                  {t("Socials")}
+                </Col>
+                <Col
+                  sm={5}
+                  xs={3}
+                  className={tabIndex === 2 ? "tab active-tab" : "tab"}
+                  onClick={() => setTabIndex(2)}
                 >
                   {t("Location")}
                 </Col>
                 <Col
                   sm={5}
-                  xs={4}
-                  className={tabIndex === 2 ? "tab active-tab" : "tab"}
-                  onClick={() => setTabIndex(2)}
+                  xs={3}
+                  className={tabIndex === 3 ? "tab active-tab" : "tab"}
+                  onClick={() => setTabIndex(3)}
                 >
                  {t("Data")}
                 </Col>
@@ -432,6 +486,7 @@ const updateProfile =()=>{
               <Tab num={tabIndex}>
                 <>
               <Col xs={12}>
+              
 
                   <Info company={company} edit={edit} t={t} 
                       setFieldValue={customSetFieldValue}
@@ -446,6 +501,19 @@ const updateProfile =()=>{
                       touched={formik.touched}
                       
                       />
+                
+              </Col>
+              <Col xs={12} style={{height:'60px'}} ></Col>
+                </>
+                <>
+              <Col xs={12}>
+                    <SocialMedia
+                    values={formik.values}
+                    handleChange={customHandleChange}
+                    edit={edit}
+                    t={t}
+                  />
+                
               </Col>
               <Col xs={12} style={{height:'60px'}} ></Col>
                 </>
@@ -484,6 +552,10 @@ const updateProfile =()=>{
         </Col>
       </Row>
       }
+      <Loading 
+       message={lang==='en'?'Saving...':'جاري الحفظ...'}
+       show={isUpdating}
+      />
     </Container>
   );
 };

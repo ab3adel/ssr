@@ -17,8 +17,8 @@ import { useTranslation } from "react-i18next";
 import { iToken } from "../tools/interface";
 import Collapse from "react-bootstrap/Collapse";
 import Fade from "react-bootstrap/Fade";
-import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
 import {Shield,Safe,Newspaper} from 'react-bootstrap-icons'
 import SettingContext from "../tools/context/setting-context/setting-context";
 interface iProps {
@@ -38,6 +38,7 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
   const { i18n, t } = useTranslation();
   const [selected, setSelected] = useState(0);
   const [logedIn, setLogedIn] = useState(false);
+  const location =useLocation()
   const navigate = useNavigate();
   const handleLanguage = (index: number) => {
     if (index === 0) {
@@ -89,6 +90,49 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
         navigate("/");
     }
   };
+  useEffect(()=>{
+ 
+    switch (location.pathname) {
+      case '/':
+        setSelected(0)
+        break;
+      case "/newsfeeds":
+      
+        setSelected(1)
+        break;
+      case '/search':
+     
+        setSelected(2)
+        break;  
+    
+      case '/profile':
+        setSelected(3)
+        break;
+    
+      case "/addpost":
+       
+        setSelected(7)
+        break;
+      case '/messages':
+      
+        setSelected(5)
+        break;
+        case '/about':
+          setSelected(6)
+          break
+        case '/terms&conditions':
+          
+          setSelected(8)
+          break
+        case '/privacy':
+        
+          setSelected(9)
+          break
+  
+      default:
+       setSelected(0);
+    }
+  },[])
   return (
     <Fade in={openSidebar}  >
       <Row

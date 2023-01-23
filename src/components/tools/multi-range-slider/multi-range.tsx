@@ -3,8 +3,8 @@ import React, { useCallback, useEffect, useRef } from "react";
 import "./multi-range.css";
 interface iValue {min:number,max:number}
 interface iProps{min:number,max:number,onChange:(value:iValue)=>void
-       ,minVal:number,maxVal:number,name:string}
-const MultiRangeSlider = ({ min, max, onChange ,minVal,maxVal,name}:iProps) => {
+       ,minVal:number,maxVal:number,name:string,onBlur:any,setFieldTouched:Function}
+const MultiRangeSlider = ({ min, max, onChange ,minVal,maxVal,name,onBlur,setFieldTouched}:iProps) => {
 
   const minValRef = useRef(min);
   const maxValRef = useRef(max);
@@ -18,25 +18,43 @@ const MultiRangeSlider = ({ min, max, onChange ,minVal,maxVal,name}:iProps) => {
 
   // Set width of the range to decrease from the left side
   useEffect(() => {
-    const minPercent = getPercent(minVal);
-    const maxPercent = getPercent(maxValRef.current);
-
-    if (range.current) {
-      range.current.style.right = `${minPercent}%`;
-      range.current.style.width = `${maxPercent - minPercent}%`;
+   
+    if (minVal >= minValRef.current && minVal <= maxValRef.current -1) {
+      const minPercent = getPercent(minVal);
+      const maxPercent = getPercent(maxValRef.current);
+  
+      if (range.current) {
+        range.current.style.right = `${minPercent}%`;
+        range.current.style.width = `${maxPercent - minPercent}%`;
+      }
     }
+     else {
+        range.current!.style.right = `0%`;
+          range.current!.style.width = `100%`;
+      }
+    //   }
+    // }
+    // else {
+    //   range.current!.style.right = `0%`;
+    //     range.current!.style.width = `100%`;
+    // }
   }, [minVal, getPercent]);
 
   // Set width of the range to decrease from the right side
   useEffect(() => {
-    const minPercent = getPercent(minValRef.current);
-    const maxPercent = getPercent(maxVal);
-    
-    if (range.current) {
-      range.current.style.width = `${maxPercent - minPercent}%`;
-    }
+     if (maxVal <= maxValRef.current && maxVal>= minValRef.current +1) {
+      const minPercent = getPercent(minValRef.current);
+      const maxPercent = getPercent(maxVal);
+      
+      if (range.current) {
+        range.current.style.width = `${maxPercent - minPercent}%`;
+      }
+     }
+     else {
+       range.current!.style.width='100%'
+     }
   }, [maxVal, getPercent]);
-
+ 
   // Get min and max values when their state changes
 
 
@@ -52,12 +70,15 @@ const MultiRangeSlider = ({ min, max, onChange ,minVal,maxVal,name}:iProps) => {
 
   return (
     <div className="multi-range-slider-container"
-    id="multi-range-slider-container">
+    id="multi-range-slider-container"  
+    onClick={()=>setFieldTouched(name,true)}
+    onTouchEnd={()=>setFieldTouched(name,true)}
+    >
       <input
         type="range"
         min={min}
         max={max}
-        value={minVal}
+        value={minVal >=minValRef.current && minVal<= maxValRef.current -1 ?minVal:minValRef.current}
         onChange={(event) => {
           const value = Math.min(Number(event.target.value), maxVal - 1);
           onChange({max:maxVal,min:value})
@@ -66,12 +87,14 @@ const MultiRangeSlider = ({ min, max, onChange ,minVal,maxVal,name}:iProps) => {
         className="multi-range-slider-thumb multi-range-slider-thumb--left"
         style={{ zIndex: ((minVal > max - 100) && "5" ) as string}}
         id={`multi-range-slider-thumb--left${name}`}
+     
       />
+
       <input
         type="range"
         min={min}
         max={max}
-        value={maxVal}
+        value={maxVal >= minValRef.current +1 && maxVal <= maxValRef.current ?maxVal:maxValRef.current}
         onChange={(event) => {
           const value = Math.max(Number(event.target.value), minVal + 1);
         onChange({min:minVal,max:value})
@@ -79,13 +102,14 @@ const MultiRangeSlider = ({ min, max, onChange ,minVal,maxVal,name}:iProps) => {
         }}
         className="multi-range-slider-thumb multi-range-slider-thumb--right"
         id={`multi-range-slider-thumb--right${name}`}
+    
       />
 
       <div className="multi-range-slider">
         <div className="multi-range-slider__track" />
         <div ref={range} className="multi-range-slider__range" />
-        <div className="multi-range-slider__left-value">{minVal}</div>
-        <div className="multi-range-slider__right-value">{maxVal}</div>
+        <div className="multi-range-slider__left-value"  >{minVal}</div>
+        <div className="multi-range-slider__right-value"  >{maxVal}</div>
       </div>
     </div>
   );

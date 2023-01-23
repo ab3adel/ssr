@@ -173,7 +173,8 @@ return (
               <Row className="mt-1 gy-3">
                 <Col xs={12}>
                   <Row className="gy-2">
-                    <Col
+                    {!post.news_type&&
+                    (<Col
                       sm={3}
                       xs={5}
                       className="d-flex align-items-center"
@@ -182,7 +183,7 @@ return (
                       <span className="mx-1"style={{fontSize:'0.777rem'}}>
                         {i18n.language === "en" ? post.area?.en : post.area?.ar}
                       </span>
-                    </Col>
+                    </Col>)}
                     <Col sm={4} xs={7}>
                       {/* <Button className="mapBtn">
                         <img src={map} />

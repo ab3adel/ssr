@@ -173,6 +173,9 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
     if(!followingError) {
       setFollowings(followingData)
     }
+    else {
+      
+    }
    },[isFollowingLoading])
    const follow = ()=>{
     if (data && data.company) {

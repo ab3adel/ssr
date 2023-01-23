@@ -9,6 +9,7 @@ import {X,CodeSquare} from 'react-bootstrap-icons'
 import { Tabs } from '../tools/tabs/tabs'
 import { Badge } from '../tools/badge/badge'
 import {GreenButton} from '../tools/buttons/green-button'
+import { TribleTabs } from '../tools/trible-tabs/trible-tabs'
 let offer_type=[
                {title:{en:'item 1',ar:'item 1'},id:1}
                ,{title:{en:'item 2',ar:'item 2'},id:2}
@@ -20,7 +21,8 @@ let property_sites= [
     ,{title:{en:'item 2',ar:'item 2'},id:2}
     ,{title:{en:'item 3',ar:'item 3'},id:3}
     ,{title:{en:'item 4',ar:'item 4'},id:4}
-]            
+] 
+
 export const LargeView = ({
     values
     ,setFieldValue
@@ -33,7 +35,10 @@ export const LargeView = ({
     ,handleChange
     ,propertyTypes
     ,startSearching
-    
+    ,errors
+    ,type
+    ,setFieldTouched
+    ,handleBlur
 }:iProps)=>{
    let {t,i18n}=useTranslation()
     return (
@@ -42,6 +47,16 @@ export const LargeView = ({
                  {/* Right Part */}
                 <Col xs={6}>
                     <Row className='gy-3'>
+                    <Col xs={11} >
+                        <Badge 
+                        items={type}
+                        label={t("ChooseType")}
+                        name="type"
+                        selected={values['type']}
+                        setSelected={setFieldValue}
+                        />
+                    </Col>
+                        
                         <Col xs={11}>
                             <Select 
                             label={t("Category")}
@@ -125,12 +140,15 @@ export const LargeView = ({
                             <RangeSlider 
                             label={t("PriceRange")}
                             setValue={setFieldValue}
-                            min={10}
-                            max={100000}
+                            min={1000}
+                            max={100000000}
                             minVal={values.priceRange.min}
                             maxVal={values.priceRange.max}
                             name="priceRange"
                             unit={"KWD"}
+                            error={errors["priceRange"]}
+                            setFieldTouched={setFieldTouched}
+                            handleBlur={handleBlur}
                             />
                         </Col>
                         <Col xs={11} >
@@ -162,6 +180,9 @@ export const LargeView = ({
                             maxVal={values.areaRange.max}
                             name="areaRange"
                             unit={ (<>m<sup>2</sup></>)}
+                            error={errors["areaRange"]}
+                            setFieldTouched={setFieldTouched}
+                            handleBlur={handleBlur}
                             />
                     </Col>
                     <Col xs={11}>

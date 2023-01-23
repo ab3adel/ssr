@@ -29,10 +29,11 @@ export const SocialMedia =({values,handleChange,edit,t}:iProps)=>{
 
 
                 {
-                    icons.map((ele,index:number)=>
-                    <Col xs={edit?6:12} key={index}>
+                    icons.map((ele:any,index:number)=>
+                    <Col xs={12} key={index}>
 
                         <SteadyIconInput icon={ele.icon} 
+                        label={t(`${ele.title}`)}
                         name={ele.title} type="text" 
                         height={'35px'} disabled={edit?false:true}
                         value={values[ele.title]} onChange={handleChange}

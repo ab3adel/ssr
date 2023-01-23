@@ -1,0 +1,17 @@
+.rangeSliderContainer {
+    position: relative;
+    .invalid {
+        position: absolute;
+        bottom: 0%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color:red;
+        font-size: 0.7rem;
+        margin:0 auto;
+        width: fit-content;
+    }
+}
+.rangeSliderContainer.invalid {
+    border:red 1px solid 
+}

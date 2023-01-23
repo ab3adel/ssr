@@ -11,6 +11,7 @@ import {X,CodeSquare} from 'react-bootstrap-icons'
 import { Tabs } from '../tools/tabs/tabs'
 import { Badge } from '../tools/badge/badge'
 import {GreenButton} from '../tools/buttons/green-button'
+import { TribleTabs } from '../tools/trible-tabs/trible-tabs'
 let offer_type=[
                {title:{en:'item 1',ar:'item 1'},id:1}
                ,{title:{en:'item 2',ar:'item 2'},id:2}
@@ -50,11 +51,24 @@ export const SmallView= ({
     ,handleChange
     ,propertyTypes
     ,startSearching
+    ,errors
+    ,type
+    ,setFieldTouched
+    ,handleBlur
 }:iProps)=>{
     const {t,i18n}=useTranslation()
     return (
         <Col xs={12} style={{background:'white'}} className="d-block d-sm-none px-3 py-3 rounded">
             <Row className="gy-4">
+                <Col xs={12} >
+                    <Badge 
+                    items={type}
+                    label={t("ChooseType")}
+                    name="type"
+                    selected={values['type']}
+                    setSelected={setFieldValue}
+                    />
+                </Col>
                 <Col xs={12}>
                     <Select 
                         label={t("Category")}
@@ -135,12 +149,16 @@ export const SmallView= ({
                 <RangeSlider 
                     label={t("PriceRange")}
                     setValue={setFieldValue}
-                    min={10}
-                    max={100000}
+                    min={1000}
+                    max={100000000}
                     minVal={values.priceRange.min}
                     maxVal={values.priceRange.max}
                     name="priceRange"
                     unit={"KWD"}
+                    error={errors['priceRange']}
+                    setFieldTouched={setFieldTouched}
+                    handleBlur={handleBlur}
+
                     />
                
                    
@@ -173,6 +191,9 @@ export const SmallView= ({
                     maxVal={values.areaRange.max}
                     name="areaRange"
                     unit={ (<>m<sup>2</sup></>)}
+                    error={errors['areaRange']}
+                    setFieldTouched={setFieldTouched}
+                    handleBlur={handleBlur}
                     />
                 </Col>
                 <Col xs={12}>

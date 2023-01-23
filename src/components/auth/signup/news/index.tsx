@@ -1,26 +1,19 @@
-
-
-import {PersonalInfoForm} from '../views/personalInfo-form'
-import {SecurityForm} from '../views/security-form'
-import {LocationForm} from '../views/location-form'
-import {RequiredFilesForm} from '../views/requiredFiltes-form'
 import {useTranslation} from 'react-i18next'
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 
 
 interface iProps {tab:number,setTab:Function,children:React.ReactNode []}
-const CommercialType = ({tab,setTab,children}:iProps) =>{
+const NewsType = ({tab,setTab,children}:iProps) =>{
 const {t,i18n}=useTranslation()
-console.log(tab)
    return (
        <Row className="gy-5">
                            <Col xs={12} >
-                               <Row className="tabs gy-2">
+                               <Row className="tabs gy-2 justify-content-center">
 
                                <Col xs={3}
                                
-                             
+                               
                                className={tab===0?"tab tabActive":"tab tabInactive"}
                                style={i18n.language==="ar"?{justifyContent:"center"}:{justifyContent:"flex-start"}}
                                >
@@ -28,19 +21,11 @@ console.log(tab)
                                       {t("PersonalInfo")}
                                    </span>
                                </Col>
+                              
                                <Col xs={3}
                                
-                          
+                       
                                className={tab===1?"tab tabActive":"tab tabInactive"}
-                               style={i18n.language==="ar"?{justifyContent:"center"}:{justifyContent:"flex-start"}}>
-                                   <span>
-                                       {t("Location")}
-                                   </span>
-                               </Col>
-                               <Col xs={3}
-                               
-                             
-                               className={tab===2?"tab tabActive":"tab tabInactive"}
                                style={i18n.language==="ar"?{justifyContent:"center"}:{justifyContent:"flex-start"}}>
                                   <span>
                                        {t("Security")}
@@ -48,11 +33,11 @@ console.log(tab)
                                </Col>
                                <Col xs={3}
                                
-                             
-                               className={tab===3?"tab tabActive":"tab tabInactive"}
+                              
+                               className={tab===2?"tab tabActive":"tab tabInactive"}
                                style={i18n.language==="ar"?{justifyContent:"center"}:{justifyContent:"flex-start"}}>
                                  <span>
-                                       {t("RequiredFiles")}
+                                       {t("Description")}
                                    </span>
                                </Col>
                                </Row>
@@ -73,4 +58,4 @@ console.log(tab)
                        </Row>
    )
 }
-export default CommercialType;
+export default NewsType;

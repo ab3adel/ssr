@@ -22,6 +22,7 @@ import SettingContext from "../tools/context/setting-context/setting-context";
 import ShareBox from "../tools/share-box";
 import { useTranslation } from "react-i18next";
 import { useIncreaseViews } from "../tools/apis/useIncreaseViews";
+import Loading from "../tools/loading/loading";
 export interface iProps {
   images: string[];
   description: string;
@@ -392,6 +393,10 @@ useEffect(()=>{
       postShares={postShares}
 
       />
+      <Loading
+      show={isGetPostsLoading}
+      message={i18n.language==='en'?'Just a moment...':'انتظر قليلا ...'}
+       />
 
     
     </Col>

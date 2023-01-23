@@ -1,6 +1,6 @@
 import React from 'react'
 import './button.scss'
-
+import { Spinner } from '../spinner'
 interface iProps {label:string,fun?:Function,height?:string,children?:React.ReactNode,loading?:boolean}
 export const  GreenButton =({label,fun,height,children,loading}:iProps)=>{
     const handleClick=()=>{
@@ -18,7 +18,9 @@ export const  GreenButton =({label,fun,height,children,loading}:iProps)=>{
             <>
             {children}
             </>
-           <span className="mx-1">{label}</span> 
+           <span className="mx-1">{
+          loading? <Spinner/>: label
+           }</span> 
         </button>
     )
 }

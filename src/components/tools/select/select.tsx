@@ -10,6 +10,7 @@ export const Select=({label,options,setSelect
                      ,touched,
                      tempSelect
                      ,multiSelect
+                     ,selectedValue
                     }:iSelect)=>{
     const [hasSelection,setHasSelection]=useState(false)
     const {i18n} =useTranslation()
@@ -30,6 +31,8 @@ const handleChange=(e:React.ChangeEvent)=>{
         }
         if (typeof(tempSelect)==='function') {
             tempSelect(select.value)
+           if (typeof(setSelect)==='function') setSelect(name,select.value)
+
         }
     }
 }
@@ -46,13 +49,12 @@ const onBlur=(e:React.FocusEvent)=>{
     }
 }
 
-
     return (
         <MySelect.Control
          className={hasSelection? "mySelect hasSelection":"mySelect label" }
         onChange={handleChange}
         as={'select'}
-        
+      
         name={name}
         style={i18n.language ==="ar"?{backgroundPosition:"left 0.75rem center"}:{backgroundPosition:"right 0.75rem center"}}
         onBlur={onBlur}
@@ -60,7 +62,7 @@ const onBlur=(e:React.FocusEvent)=>{
         multiple={multiSelect}
         >
             
-            <option className="label" selected disabled={true} >
+            <option className="label" selected disabled={true} value={0} >
                 {selection && selection.length>0 ? <>{label}</>: <>...loading</>}
                 </option>
          

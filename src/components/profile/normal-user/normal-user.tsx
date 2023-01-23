@@ -15,6 +15,7 @@ import { useGetArea } from "../../tools/apis/useGetArea";
 import { ChangePassword } from "../../tools/change-password/changePassword";
 import { WhiteButton } from "../../tools/buttons/white-button";
 import { useTranslation } from "react-i18next";
+import Loading from "../../tools/loading/loading";
 interface iValues  {
   pre_existed_phone_numbers: any [],
   email:string,
@@ -31,7 +32,8 @@ interface iValues  {
   profile_picture:any,
   full_name:string,
   phone_numbers_delete:number[],
-  phone_number_old_primary:string
+  phone_number_old_primary:string,
+  area:any
 } 
   type key = keyof iValues
 export const NormalUserProfile = ({ edit, setEdit,t ,lang,data,setShowDeleteAccount,setNotify}: iProps) => {
@@ -39,6 +41,7 @@ export const NormalUserProfile = ({ edit, setEdit,t ,lang,data,setShowDeleteAcco
   const {i18n} =useTranslation()
   let {mobileView}= useContext(SettingContext)
   const [followings,setFollowings]=useState()
+  const[isUpdating,setIsUpdating]=useState(false)
   const [area,setArea]=useState<any>([])
   const [country,setCountry]=useState(0)
   const [countries,setCountries]=useState<any>([])
@@ -56,7 +59,7 @@ export const NormalUserProfile = ({ edit, setEdit,t ,lang,data,setShowDeleteAcco
     initialValues: {
       pre_existed_phone_numbers: data?.phone_numbers,
       email: data?.email,
-      country: data?.area,
+      country: data?.area?.country,
       area_id: data?.area_id,
       block: data?.block,
       avenue: data?.avenue,
@@ -69,7 +72,8 @@ export const NormalUserProfile = ({ edit, setEdit,t ,lang,data,setShowDeleteAcco
       profile_picture:data?.profile_picture,
       full_name:data?.full_name,
       phone_number_old_primary:'',
-      phone_numbers_delete:[]
+      phone_numbers_delete:[],
+      area:data?.area
     },
     onSubmit: () => {},
     enableReinitialize:true
@@ -121,8 +125,10 @@ const customHandleChange=(e:React.ChangeEvent)=>{
   formik.handleChange(e)
 }
 const updateProfile =() =>{
+  setIsUpdating(true)
   if (fieldsUpdatedRigester.current.length >0) {
   let formData= new FormData()
+  formData.append('locale',i18n.language)
    fieldsUpdatedRigester.current.map((elem:string)=>{
     if (typeof (formik.values[elem as key]) === 'string' || typeof (formik.values[elem as key]) === 'number' && elem !== 'phone_number_old_primary')  {
       formData.append(elem,formik.values[elem as key] as string)
@@ -165,21 +171,40 @@ const updateProfile =() =>{
     headers:{'Authorization':`Bearer ${getLocalStorage()?getLocalStorage().token:null}`
   }
   }).then(res=>{
+    setIsUpdating(false)
     fieldsUpdatedRigester.current=[]
     window.location.reload()
 
 
   })
   .catch(err=>{
-    setNotify((pre:any)=>(
-      {...pre,type:false,message:i18n.language==='en'?'Something wrong happend !!':
-      'حدث خطأ ما'
-    }))
+    setIsUpdating(false)
+    if (err.response && err.response.data) {
+      if (err.response.data.errors) {
+       Object.keys(err.response.data.errors).forEach((ele:string)=>{
+          setNotify((pre: any) => ({
+            ...pre,
+            type: false,
+            show: true,
+            message:err.response.data.errors[ele],
+          }));
+        })
+      }
+      else {
+
+        setNotify((pre: any) => ({
+          ...pre,
+          type: false,
+          show: true,
+          message:typeof err.response.data.error ==='string'? err.response.data.error:err.response.data.message,
+        }));
+      }
+    }
   })
 }
 setEdit(false)
 }
-
+console.log(data)
   return (
     <>
 
@@ -219,10 +244,20 @@ setEdit(false)
               </Col>
               <Col xs={11}>
                 {edit ? (
-                  <GreenButton
-                    label={t("SaveChanges")}
-                    fun={() => updateProfile()}
-                  />
+                  <Row className="gy-2">
+                    <Col xs={12}>
+                      <GreenButton
+                        label={t("SaveChanges")}
+                        fun={() => updateProfile()}
+                      />
+                    </Col>
+                    <Col xs={12}>
+                      <WhiteButton 
+                      label={t("Cancel")}
+                      fun={()=>setEdit(false)}
+                      />
+                    </Col>
+                  </Row>
                 ) : (
                   <GreenButton label={t("ChangePassword")} 
                   fun={()=>setShowChangePassword(true)}/>
@@ -322,12 +357,18 @@ setEdit(false)
             )}
           </Col> */}
         </Row>
+      
+      </Container>
+}
+      <Loading 
+       message={lang==='en'?'Just a momont ...':"لحظة فقط..."}
+       show={isUpdating}
+  
+      />
         <ChangePassword 
       open={showChangePassword}
       onClose={()=>setShowChangePassword(false)}
       />
-      </Container>
-}
     </>
   );
 };

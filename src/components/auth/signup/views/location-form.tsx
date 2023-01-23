@@ -10,7 +10,8 @@ import axios from '../../../tools/apis/axios'
 import {useEffect, useState,useMemo} from 'react'
 import {GoogleMap} from '../../../tools/google-map/google-map'
 import {InitialValues,iTouched,iErrors} from '../initial-values'
-let countries=['Syria','Kwait']
+import { iOption } from '../../../tools/interface';
+
 
 interface iProps {type:'User' | 'Commercial'
                  ,touched:Partial<iTouched>
@@ -18,53 +19,25 @@ interface iProps {type:'User' | 'Commercial'
                  ,values:Partial<InitialValues>
                  ,handleBlur:Function
                  ,setValue:Function
+                 ,countries:iOption[]
+                 ,area:iOption[]
                 }
 export const LocationForm =({
                        type
                        ,touched
                        ,errors,values,setValue
                        ,handleBlur
+                       ,countries
+                       ,area
                                 }:iProps)=>{
-    const [countries,setCountries]=useState({data:[],options:[]})
-    const [selectedCountry,setSelectedCountry]=useState(0)
-    const [area,setArea]=useState({data:[],options:[]})
+   
+     const [selectedCountry,setSelectedCountry]=useState(0)
+   
     const [show,setShow]=useState(false)
     const {t,i18n}=useTranslation()
 
-useEffect(()=>{
-    axios.get(apis.countries)
-          .then(res=>{
-            let options= res.data.payload.map((ele:any)=>{
-                    if (i18n.language=== 'en'){
-                        return {name:ele.name.en,value:ele.id}
-                    }
-                    else {
-                        return {name:ele.name.ar,value:ele.id}
-                    }
-        
-            })
-            setCountries(pre=>({...pre,data:res.data.payload,options}))
-            
-        })
-          .catch(err=>console.log(err))
+   
 
-},[])
- useEffect(()=>{
-     axios.get(apis.country_id(selectedCountry))
-           .then(res=>{
-            let options= res.data.payload.map((ele:any)=>{
-                if (i18n.language=== 'en'){
-                    return {name:ele.name.en,value:ele.id}
-                }
-                else {
-                    return {name:ele.name.ar,value:ele.id}
-                }
-    
-        })
-            setArea(pre=>({data:res.data.payload,options:options}))
-           })
-           .catch(err=>console.log(err))
- },[selectedCountry])
 const hanldeArea=(value:string)=>{
     if (value) {
 
@@ -94,23 +67,27 @@ const handleField=(field: keyof InitialValues,value:string)=>{
 
                     <Col sm={8} xs={12}>
                         <Select 
-                        options={countries.options}
+                        options={countries}
                         tempSelect={setSelectedCountry}
                         label={t('Country')}
                         handleBlur={handleBlur}
                         name="country"
                         error={errors.area_id as string}
+                        setSelect={handleField}
+                        selectedValue={values.country}
+                        
                         />
                         
                     </Col>
                     <Col sm={8} xs={12}>
                         <Select 
-                        options={area.options}
+                        options={area}
                         name="area_id"
                         label={t('Area')}
                         setSelect={handleField}
                         touched={touched.area_id as boolean}
                         error={errors.area_id as string}
+                        selectedValue={values.area_id}
                         />
                         
                     </Col>
@@ -219,23 +196,27 @@ const handleField=(field: keyof InitialValues,value:string)=>{
 
                         <Col  xs={12}>
                             <Select 
-                          options={countries.options}
+                          options={countries}
                           tempSelect={setSelectedCountry}
                           label={t('Country')}
                           handleBlur={handleBlur}
                           name="country"
+                          selectedValue={values.country}
+                          setSelect={handleField}
+
                             />
                             
                         </Col>
                         <Col  xs={12}>
                             <Select 
-                        options={area.options}
+                        options={area}
                         label={t('Area')}
                         name="area_id"
                         setSelect={handleField}
                         touched={touched.area_id as boolean}
                         error={errors.area_id as string}
                         handleBlur={handleBlur}
+                        selectedValue={values.area_id}
 
                             />
                             

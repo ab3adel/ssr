@@ -124,7 +124,8 @@ const HomePage =()=>{
                            page_number:page,
                            space:ele.space,
                            shares:ele.shares,
-                           views:ele.views
+                           views:ele.views,
+                           role_id:ele.role[0]?.id
                        
 
                          })
@@ -155,7 +156,7 @@ const HomePage =()=>{
         }
    }
 
-
+   
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 

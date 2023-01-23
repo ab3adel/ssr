@@ -51,6 +51,7 @@ const handleSelect=(e:React.ChangeEvent<any>)=>{
     exteriorFunction(parseInt(target.value))
 }
 
+
     return (
         <Form className="steadySelect">
             <Form.Group>

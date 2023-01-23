@@ -77,7 +77,8 @@ useEffect(()=>{
 
       let text=i18n.language ==='en'?
       `Please enter the code we sent to your whatsapp on this phone number ${phoneVerification} `:
-      `ادخل الرقم الذي أرسلناه الى حسابك واتساب على هذا الرقم ${phoneVerification}`
+      `ادخل الرقم الذي أرسلناه الى حسابك واتساب على هذا الرقم 
+      ${phoneVerification}`
       let className='halfFill'
       let btn="Next"
       let resend= "Resend"
@@ -98,7 +99,7 @@ useEffect(()=>{
   setStage(newStage)
 
 },[phoneVerification,emailVerification])
-console.log(phone)
+
     return (
         <Modal className="accountVerification"
         show={show}

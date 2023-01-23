@@ -106,7 +106,50 @@ export const SidebarLg = ({
         }
       };
     
+useEffect(()=>{
 
+ 
+  switch (location.pathname) {
+    case '/':
+      setSelected(0)
+      break;
+    case "/newsfeeds":
+    
+      setSelected(1)
+      break;
+    case '/search':
+   
+      setSelected(2)
+      break;    
+    case '/profile':
+      setSelected(3)
+      break;
+  
+    case "/addpost":
+     
+      setSelected(7)
+      break;
+    case '/messages':
+    
+      setSelected(5)
+      break;
+      case '/about':
+        setSelected(6)
+        break
+      case '/terms&conditions':
+        
+        setSelected(8)
+        break
+      case '/privacy':
+      
+        setSelected(9)
+        break
+
+    default:
+     setSelected(0);
+  }
+
+},[])
   useEffect(() => {
     if (i18n.language === "ar") {
       collapseBtnClass = "arOpen";

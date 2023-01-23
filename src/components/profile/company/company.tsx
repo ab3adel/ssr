@@ -44,18 +44,16 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccou
 
   const formik = useFormik({
     initialValues: {
-      twitter: data?.company?.twitter ? data.company.twitter : "myTwitter.com",
+      twitter: data?.company?.twitter ? data.company.twitter : "",
       facebook: data?.company?.facebook
         ? data.company.facebook
-        : "myFacebook.com",
-      youtube: data?.company?.youtueb ? data.company.youtube : "myYoutube.com",
+        : "",
+      youtube: data?.company?.youtueb ? data.company.youtube : "",
       snapchat: data?.company?.snapchat
         ? data.company.snapchat
-        : "mySnapchat.com",
-      tiktok: data?.company?.tiktok ? data.company.tiktok : "myTiktok.com",
-      instagram: data?.comapny?.instagram
-        ? data.company.instagram
-        : "myInstagram.com",
+        : "",
+      tiktok: data?.company?.tiktok ? data.company.tiktok : "",
+      instagram: data?.comapny?.instagram,
       description: data?.company?.description
         ? data?.company?.description
         : { en: "", ar: "" },
@@ -74,7 +72,8 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccou
       role: data?.roles ? data.roles[0] : { name:{en: "", ar: ""} ,id: 0 },
       pre_defined_images: [],
       files: data?.comapny?.files ? data.company.files : [],
-      category:data?.company?.categories?data.company.categories: [{ name:{en: "", ar: ""} ,id: 0 }]
+      category:data?.company?.categories?data.company.categories: [{ name:{en: "", ar: ""} ,id: 0 }],
+      area_id:data.area_id?data.area_id:0
     },
     onSubmit: () => {},
     enableReinitialize: true,
@@ -95,10 +94,18 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccou
         }).filter((ele:any)=>ele)
         formik.setFieldValue("pre_defined_images", images);
         formik.setFieldValue('files',required_files)
+        formik.setFieldValue('twitter',data?.company?.twitter )
+        formik.setFieldValue('facebook',data?.company?.facebook )
+        formik.setFieldValue('instagram',data?.company?.instagram )
+        formik.setFieldValue('youtube',data?.company?.youtube )
+        formik.setFieldValue('tiktok',data?.company?.tiktok )
+     
       }
       if (data.id) {
         getPosts({user_id:data.id})
       }
+  
+    
     }
   }, [data]);
  useEffect(()=>{
@@ -149,7 +156,8 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccou
                   user_id:ele.user_id,
                   owner:ele.user_id === data.id,
                   space:ele.space,
-                  authenticated:true
+                  authenticated:true,
+                  role_id:ele.role && ele.role[0]?ele.role[0].id:-1
 
           }
           )
@@ -171,7 +179,7 @@ useEffect(()=>{
       
   }
     },[isFollowingLoading]) 
-console.log(formik.values)
+
   return (
     <Container className="p-1 " style={{height:'100vh'
     ,maxHeight:'100vh',overflowY:'scroll',overflowX:'hidden',maxWidth:'100vw'
@@ -185,9 +193,9 @@ console.log(formik.values)
               company ? "" : "py-2"
             }`}
           >
-            <Row className="gy-3 justify-content-center">
+            <Row className="gy-1 justify-content-center">
               <Col xs={12}>
-                <Row className="gy-1">
+                <Row className="gy-4">
                   <Col xs={12}>
                     <UserInfo
                       company={company}
@@ -203,17 +211,7 @@ console.log(formik.values)
                     followings={following}
                     />
                   </Col>
-                </Row>
-              </Col>
-
-              <Col xs={12}>
-                <SocialMedia
-                  values={formik.values}
-                  handleChange={formik.handleChange}
-                  t={t}
-                />
-              </Col>
-              <Col xs={12}>
+                  <Col xs={12}>
                 {edit ? (
                   <Col xs={11}>
                     <GreenButton
@@ -222,7 +220,7 @@ console.log(formik.values)
                     />
                   </Col>
                 ) : (
-                  <Row className="gy-1">
+                  <Row className="gy-4">
                     <Col xs={11}>
                       <GreenButton
                         label={t("EditProfile")}
@@ -242,6 +240,11 @@ console.log(formik.values)
                   </Row>
                 )}
               </Col>
+                </Row>
+              </Col>
+
+             
+          
             </Row>
           </Col>
           <Col
@@ -272,18 +275,32 @@ console.log(formik.values)
               </Col>
               <Col xs={12}>
                 <Tab num={tabIndex}>
-                  <Info
-                    company={company}
-                    edit={edit}
-                    t={t}
-                    values={formik.values}
-                    setFieldValue={formik.setFieldValue}
-                    handleBlur={formik.handleBlur}
-                    lang={lang}
-                    handleChange={formik.handleChange}
-                    categories={formik.values['category']}
-                    
-                  />
+                  <>
+                    <Info
+                      company={company}
+                      edit={edit}
+                      t={t}
+                      values={formik.values}
+                      setFieldValue={formik.setFieldValue}
+                      handleBlur={formik.handleBlur}
+                      lang={lang}
+                      handleChange={formik.handleChange}
+                      categories={formik.values['category']}
+                      
+                    />
+                    <Col xs={12} className="d-flex justify-content-center">
+                      <Col xs={10}>
+
+                        <Col xs={6}>
+                          <SocialMedia
+                            values={formik.values}
+                            handleChange={formik.handleChange}
+                            t={t}
+                          />
+                        </Col>
+                      </Col>
+                    </Col>
+                  </>
                   <Posts
                   posts={posts} />
                 </Tab>

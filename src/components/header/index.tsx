@@ -68,11 +68,12 @@ const handleSearch=(key:React.KeyboardEvent)=>{
 
 }
 const headerNavigation=(str:string)=>{
+  if (str==='home') {
+    navigate('/')
+  }
   if (getLocalStorage() && getLocalStorage().id && getLocalStorage().id !== 'Guest'){
 
-    if (str==='home') {
-      navigate('/')
-    }
+    
     if (str==='profile') {
       navigate('/profile')
     }

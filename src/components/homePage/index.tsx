@@ -156,7 +156,7 @@ const HomePage =()=>{
         }
    }
 
-   
+
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 

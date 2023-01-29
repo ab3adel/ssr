@@ -2,10 +2,8 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import './filtered_posts.scss'
 import {PostCard} from '../post-card/'
-import {Posts,FilteredPostsParams} from '../store'
-import {useRecoilState} from 'recoil'
 import {useSearchParams} from 'react-router-dom'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {useGetPosts} from '../tools/apis/useGetPosts'
 import { getLocalStorage } from '../tools/getLocalstorage'
 import {Pagination} from '../tools/pagination/pagination'
@@ -24,6 +22,7 @@ const lastPage=useRef(1)
 const {i18n}=useTranslation()
 const [readableObj,setReadableObj]=useState<iObjParams>({})
 const [currentPage,setCurrentPage]=useState(1)
+const [isQuickSearch,setIsQuickSearch]=useState(false)
 const {
 
     getPosts,
@@ -37,9 +36,15 @@ useEffect(()=>{
     // for (let entry of params.entries()) {
     // obj[entry[0]]=entry[1]
     // }
+    let is_quicksearch=false
+  
     params.forEach((value:string,key:string)=>{
+        if (key==='quicksearch' ){
+            is_quicksearch=true
+        }
         obj[key]=value
     })
+   
     Object.keys(readableObj).map((ele:string)=>{
         if (!disabledTags.includes(ele)) {
              obj[ele]=readableObj[ele].value?readableObj[ele].value:readableObj[ele].id
@@ -48,16 +53,27 @@ useEffect(()=>{
             delete obj[ele]
         }
     })
-
+    if (is_quicksearch && (!isQuickSearch && disabledTags.length===0))  delete obj['text']
     getPosts(obj)
     if (sessionStorage.getItem('search_params')) {
         setReadableObj(JSON.parse(sessionStorage.getItem('search_params') as string))
     }
+    setIsQuickSearch(true)
     return ()=>{
         sessionStorage.removeItem('search_params')
     }
    
 },[params])
+useEffect(()=>{
+if (isQuickSearch) {
+    let new_disabledTags=[...disabledTags]
+    if (new_disabledTags.length===0) {
+        new_disabledTags.push('text')
+       
+    }
+    setDisabledTags(new_disabledTags)
+}
+},[isQuickSearch])
 useEffect(()=>{
     let obj:any={}
     params.forEach((value:string,key:string)=>{
@@ -95,6 +111,7 @@ setParams({...obj,page:currentPage})
 },[disabledTags])
 useEffect(()=>{
     if(!getPostsError) {
+    
         if (getPostsData && getPostsData.data&& getPostsData.data.length >0) {
          let {current_page,last_page}=getPostsData
         
@@ -240,6 +257,9 @@ useEffect(()=>{
             setPosts((pre:any)=>(data))
          
            
+            }
+            else {
+                setPosts([])
             }
         }
     }

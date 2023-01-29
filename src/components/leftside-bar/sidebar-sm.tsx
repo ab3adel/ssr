@@ -142,11 +142,11 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
       >
         <Collapse in={openSidebar} dimension="width">
           <Col xs={12} className="sidebarItems h-100">
-            <Row className=" justify-content-between h-100 flex-grow-1 gy-4">
+            <Row className="  h-100 flex-grow-1 gy-1">
               <Col xs={12}>
                 <List className="logo" onClick={() => setOpenSidebar(false)} />
               </Col>
-              <Col xs={12}>
+              <Col xs={12} className={''}>
                 <Row className="gy-2">
                   <Col xs={7} onClick={() => handleRoutes(0)}>
                     <div
@@ -379,6 +379,7 @@ export const SidebarSm = ({ token, removeToken,authenticated ,chat_notification}
                     </Button>
                   )}
                 </Col>
+                <Col xs={12} style={{height:'80px'}} />
               </Col>
             </Row>
           </Col>

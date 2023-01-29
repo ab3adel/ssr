@@ -24,9 +24,12 @@ export const useGetPosts=()=>{
         .then(res=>{
             setLoading(false)
             if (res.data){
-
+               
         
                 setData(res.data.payload)
+            }
+            else {
+                setData([])
             }
             
 
@@ -51,6 +54,7 @@ export const useGetPosts=()=>{
               )
           .then(res=>{
               setLoading(false)
+             
               if (res.data){
   
           

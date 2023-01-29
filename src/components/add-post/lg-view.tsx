@@ -163,7 +163,7 @@ export const LargeView = ({
                 </Col>
               )}
              {role !== 7 &&( 
-             <Col lg={6} xs={6} className="mx-auto">
+             <Col lg={ role !==3?12:6} xs={ role !==3?12:6} className="mx-auto">
                 <Input
                   label={t("Price")}
                   unit="KWD"

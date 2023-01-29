@@ -79,7 +79,7 @@ const Login = ({ setLogin }: iProps) => {
       .then((res: any) => {
         setIsloading(false)
         if (res && res.data) {
-     
+ 
           let realImage = "";
           if (res.data.payload.profile_picture) {
             realImage = res.data.payload.profile_picture
@@ -97,6 +97,7 @@ const Login = ({ setLogin }: iProps) => {
               : null,
             phone_numbers: res.data.payload.phone_numbers,
             id: res.data.payload.id,
+            categories:res.data.payload.company.categories
 
           };
 

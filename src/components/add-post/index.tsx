@@ -592,8 +592,8 @@ const {mobileView} =useContext(SettingContext)
   }, [isPropertySitesLoading]);
   useEffect(() => {
     if (!CategoriesError && !formik.values.category_id) {
-      if (categoriesData && categoriesData.length > 0) {
-        let data = categoriesData.map((ele) => {
+      if (getLocalStorage() && getLocalStorage().categories.length > 0) {
+        let data = getLocalStorage().categories.map((ele:any) => {
           return { title: { ar: ele.name.ar, en: ele.name.en }, value: ele.id };
         });
         setCategories(data);
@@ -1002,8 +1002,8 @@ const updatePostImediately=(data:any)=>{
   if (page && post_id) {
     message=i18n.language==='en'?'...Wait a minute':' انتظر لحظة...'
   }
-console.log(formik.errors)
-console.log(formik.touched)
+console.log(categories)
+console.log(getLocalStorage())
   return (
     <Col xs={12} className="addPostContainer">
       {

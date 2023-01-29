@@ -106,18 +106,25 @@ const elemRef =useRef()
                       onClick={() => handleReact(post.id)}
                     >
                       <img src={react ? heartFilled : heart} />
-                      <span className="mx-1 h5 fw-bold">{postLikes}</span>
+                      <span className="mx-1 h5 fw-bold">{
+                      postLikes?postLikes.toLocaleString().length <4? postLikes:
+                      postLikes.toLocaleString().at(0)+'K':''
+                      }</span>
                     </Col>
                     <Col xs={4} className="iconBtn"
                           onClick={()=>setOpenbox(true)}>
                       <img src={share} />
-                      <span className="mx-1 h5 fw-bold">{shares}</span>
+                      <span className="mx-1 h5 fw-bold">{
+                      shares?shares.toLocaleString().length <4 ?shares:shares.toLocaleString().at(0)+'K':''
+                      }</span>
                     </Col>
                     <Col xs={4} className="iconBtn"
                     style={{cursor:'auto'}}
                           >
                       <Eye />
-                      <span className="mx-1 h5 fw-bold">{views}</span>
+                      <span className="mx-1 h5 fw-bold">{
+                      views?views.toLocaleString().length <4 ?views:views.toLocaleString().at(0)+'K':''
+                      }</span>
                     </Col>
                   </Row>
                 </Col>
@@ -130,9 +137,9 @@ const elemRef =useRef()
                   <span className="fw-bold">{post.price?
                     parseInt(post.price).toLocaleString('en')
                       :''
-                    }</span>{}
+                    }</span>{' '}
                     {post.price?i18n.language==='ar'? post.currency.ar:'':''}
-                  {post.price_type
+                  {false
                     ? i18n.language === "en"
                       ?(post.price? " / ":'') + post.price_type?.en 
                       :(post.price? " / ":'') +  post.price_type?.ar 

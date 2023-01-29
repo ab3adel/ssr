@@ -9,7 +9,8 @@ import ContactElement from '../tools/contact-element/contact-element'
 import NotificationContainer from '../tools/notification-container/notification-container'
 import {useNavigate} from 'react-router-dom'
 import {useFormik} from 'formik'
-
+interface iReadableObjItem{title:{en:string,ar:string},value:string}
+interface iReadableObj {[key :string]:iReadableObjItem}
 export interface iProps {
     token?: iToken;
     chat_notification:number;
@@ -57,10 +58,13 @@ const handleActiveChat=(ele:any)=>{
   }
 }
 const handleSearch=(key:React.KeyboardEvent)=>{
-
+ 
   if (key.key === 'Enter' ) {
-
-    let url=`/filteredposts/page=1?text=${formik.values.search}&user_name=${formik.values.search}`
+    let readableObj:iReadableObj={}
+     readableObj['text']={title:{en:'Posts',ar:'منشورات'},value:formik.values.search}
+     readableObj['user_name']={title:{en:'Accounts',ar:'حسابات'},value:formik.values.search}
+    let url=`/filteredposts/quicksearch=1?quicksearch=1&text=${formik.values.search}&user_name=${formik.values.search}`
+    sessionStorage.setItem('search_params',JSON.stringify(readableObj) )
     navigate(url)
     formik.resetForm()
     setOpenSearch(false)

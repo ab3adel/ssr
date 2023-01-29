@@ -1,11 +1,45 @@
 import './google-map.scss'
-import GoogleMapReact from 'google-map-react'
+import GoogleMapReact,{MapOptions,Maps} from 'google-map-react'
 import Modal from 'react-bootstrap/Modal'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import { useTranslation } from 'react-i18next'
 
 interface iProps {show:boolean,setShow:()=>void}
+let  getMapOptions = (maps: Maps) => {
+
+  return {
+      streetViewControl: false,
+      scaleControl: true,
+      fullscreenControl: true,
+      styles: [{
+          featureType: "poi.business",
+          elementType: "labels",
+          stylers: [{
+              visibility: "off"
+          }]
+      }],
+      gestureHandling: "greedy",
+      disableDoubleClickZoom: true,
+      minZoom: 11,
+      maxZoom: 18,
+
+      mapTypeControl: true,
+      mapTypeId: maps.MapTypeId.SATELLITE,
+      mapTypeControlOptions: {
+          style: maps.MapTypeControlStyle.HORIZONTAL_BAR,
+          position: maps.ControlPosition.BOTTOM_CENTER,
+          mapTypeIds: [
+              maps.MapTypeId.ROADMAP,
+              maps.MapTypeId.SATELLITE,
+              maps.MapTypeId.HYBRID
+          ]
+      },
+
+      zoomControl: true,
+      clickableIcons: false
+  };
+}
 export const GoogleMap=({show,setShow}:iProps)=>{
   const {i18n}=useTranslation()
     const defaultProps = {
@@ -31,8 +65,15 @@ export const GoogleMap=({show,setShow}:iProps)=>{
                           <GoogleMapReact 
                            center={defaultProps.center}
                            zoom={defaultProps.zoom}
-                         
-                           bootstrapURLKeys={{key:'AIzaSyAi51d5XZLV8oquto7pmBaEJqt2GYzJJvY'}}
+                           
+                            options={getMapOptions}
+                          
+                           bootstrapURLKeys={{
+                            key:'AIzaSyAi51d5XZLV8oquto7pmBaEJqt2GYzJJvY',
+                            region:'KW',
+                            language:'ar',
+                            libraries:['places', 'geometry', 'drawing', 'visualization']
+                          }}
                           >
                         
                           </GoogleMapReact>

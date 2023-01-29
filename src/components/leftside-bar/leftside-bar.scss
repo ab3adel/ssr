@@ -336,8 +336,13 @@
     .sidebarContainerSm {
         z-index: 10000;
         position: absolute;
-        min-height: 110vh;
+       max-height: 110vh;
+       min-height: 110vh;
+       overflow: scroll;
         .sidebarItems {
+            max-height: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
             .item {
                 padding: 0.6rem;
                 span {

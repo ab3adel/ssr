@@ -128,7 +128,7 @@ return (
                           </span>
                        
                         <span>
-                        {post.price_type
+                        {false
                           ? i18n.language === "en"
                             ? (post.price ? "/ ":"") + post.price_type?.en 
                             :(post.price ?"/ ":'') +  post.price_type?.ar 

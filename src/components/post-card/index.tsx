@@ -29,6 +29,7 @@ import { Posts } from "../store";
 import { LightGreenButton } from "../tools/buttons/light-green-button";
 import ShareBox from "../tools/share-box";
 import axios from "../tools/apis/axios";
+let test =9999
 export const PostCard = ({
   title = { en: "", ar: "" },
   area = { en: "", ar: "" },
@@ -388,7 +389,8 @@ export const PostCard = ({
                         onClick={() => handleLike(id)}
                       >
                         <span className="d-flex align-items-center">
-                          {postLikes}
+                          {postLikes? postLikes.toLocaleString().length<4 ?postLikes:
+                           postLikes.toLocaleString().at(0) +'K':''}
                         </span>
                         <img src={react ? heartFilled : heart} />
                       </Col>
@@ -398,7 +400,8 @@ export const PostCard = ({
                         onClick={() => setOpenShare(true)}
                       >
                         <span className="d-flex align-items-center">
-                          {postShares}
+                          {postShares?postShares.toLocaleString().length <4?postShares:
+                          postShares.toLocaleString().at(0)+'K':''}
                         </span>
                         <img src={share} />
                       </Col>
@@ -408,7 +411,7 @@ export const PostCard = ({
                         style={{ cursor: "auto" }}
                       >
                         <span className="d-flex align-items-center">
-                          {views}
+                          {views?views.toLocaleString().length <4? views:views.toLocaleString().at(0)+'K':''}
                         </span>
                         <Eye size={24} />
                       </Col>

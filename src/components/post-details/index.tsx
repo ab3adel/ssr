@@ -338,7 +338,7 @@ useEffect(()=>{
     }
    }
 
-
+  
   return (
     <Col xs={12} className="postDetailsContainer">
       {

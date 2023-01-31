@@ -15,6 +15,7 @@ import {useContext, useState} from 'react'
 import notificationContext from '../context/notification/notification-context';
 import {changePasswordSchema} from './validation'
 import {useNavigate} from 'react-router-dom'
+import i18n from '../../../i18n';
 interface iProps {open:boolean,onClose:()=>void}
 export const  ChangePassword=({open,onClose}:iProps)=> {
     const {t} =useTranslation()
@@ -43,7 +44,8 @@ export const  ChangePassword=({open,onClose}:iProps)=> {
         ).then(res=> {
             setLoading(false)
             if (res.data) {
-                setNotify((pre:any)=>({...pre,type:true,show:true,message:'Your password changed successfully'}))
+                setNotify((pre:any)=>({...pre,type:true,show:true
+                    ,message:i18n.language==='en'?'Your password changed successfully':"تم تغيير كلمة السر بنجاح"}))
             }
             formik.resetForm()
             navigate('/auth')

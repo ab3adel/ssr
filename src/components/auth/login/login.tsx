@@ -17,7 +17,8 @@ import notificationContext from "../../tools/context/notification/notification-c
 import authContext from "../../tools/context/auth-context/auth-context";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "../../tools/spinner";
-
+import Form from 'react-bootstrap/Form'
+import { PhoneInput } from "../../tools/phone-input/phoneInput";
 interface iProps {
   setLogin: Function;
 }
@@ -33,6 +34,7 @@ const Login = ({ setLogin }: iProps) => {
     initialValues: {
       email: "",
       password: "",
+      phone_numbers:[{international_code:'',phone:''}]
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().required(i18n.language==='en'?
@@ -78,8 +80,10 @@ const Login = ({ setLogin }: iProps) => {
       .post(apis.login, formdata)
       .then((res: any) => {
         setIsloading(false)
+    
         if (res && res.data) {
- 
+
+         
           let realImage = "";
           if (res.data.payload.profile_picture) {
             realImage = res.data.payload.profile_picture
@@ -97,7 +101,7 @@ const Login = ({ setLogin }: iProps) => {
               : null,
             phone_numbers: res.data.payload.phone_numbers,
             id: res.data.payload.id,
-            categories:res.data.payload.company.categories
+            categories:res.data.payload.company?.categories
 
           };
 
@@ -107,10 +111,13 @@ const Login = ({ setLogin }: iProps) => {
             type: true,
             message: t(res.data.message),
           }));
-          navigate("/");
+      
           localStorage.setItem("token", JSON.stringify(required_data));
           setToken((pre: any) => ({ ...pre, ...required_data }));
           formik.resetForm();
+          navigate("/");
+       
+         
         }
       })
       .catch((err) => {
@@ -158,8 +165,42 @@ const Login = ({ setLogin }: iProps) => {
                 <h5 className="title">{t("Login")}</h5>
               </Col>
               <Col xs={12}>
-                <Col xs={12}>
-                  <InputWithIcon
+            { false &&
+             <Form className="login-switch "
+           >
+                  <Form.Check 
+                   style={{direction:i18n.language==='en'?'ltr':'rtl'}}
+                    type="switch"
+                    id="custom-switch"
+                    label={i18n.language==='en'?'Login using Email':"تسجيل الدخول باستخدام الايميل"}
+                  />
+              </Form>
+                  }
+              </Col>
+              <Col xs={12}>
+           
+                  {false ?
+                  <PhoneInput
+                  phone={
+                    formik.values.phone_numbers ? formik.values.phone_numbers[0].phone : ""
+                  }
+                  internationalCode={
+                    formik.values.phone_numbers
+                      ? formik.values.phone_numbers[0].international_code
+                      : ""
+                  }
+                  setValue={formik.setFieldValue as Function}
+                  phoneNumberError={
+                    formik.errors.phone_numbers &&
+                    (formik.errors.phone_numbers as []).length > 0
+                      ? (formik.errors.phone_numbers as any[])[0].phone
+                      : ""
+                  }
+              
+                  handleBlur={formik.setFieldTouched}
+                />
+                  :
+                    <InputWithIcon
                     type="text"
                     label={t("UserName")}
                     icon={userIcon}
@@ -172,8 +213,9 @@ const Login = ({ setLogin }: iProps) => {
                     touched={formik.touched.email}
                     required={true}
                   />
-                </Col>
-                <Col xs={12}>
+                  }
+           
+                <Col xs={12} className='my-1'>
                   <InputWithIcon
                     type="password"
                     label={t("Password")}

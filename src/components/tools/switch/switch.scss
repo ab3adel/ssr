@@ -1,0 +1,68 @@
+.switchContainer {
+    .Btns {
+        display: flex;
+        position: relative;
+        height: 50px;
+         .left {
+            left: 25px;
+            position: absolute;
+            .Btn {
+                border-radius: 33px;
+                display: flex;
+                height: 50px;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                img {
+                    width:20px;
+                    height: 20px;
+                    margin:0px 9px;
+                }
+        }
+        .active {
+            background-color: var(--dark-green);
+            color:white;
+            z-index: 1;
+            border:1px solid var(--dark-green);
+        }
+        .inactive {
+            background-color: white;
+            color:var(--back-color);
+            z-index: 0;
+            border:1px solid var(--back-color);
+        }
+    }
+        .right {
+            right:25px;
+            position: absolute;
+            .Btn {
+                border-radius: 33px;
+                display: flex;
+                height: 50px;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                img {
+                    width:20px;
+                    height: 20px;
+                    margin:0px 9px;
+                }
+        }
+        .active {
+            background-color: var(--dark-green);
+            color:white;
+            z-index: 1;
+            border:1px solid var(--dark-green);
+        }
+        .inactive {
+            background-color: white;
+            color:var(--back-color);
+            z-index: 0;
+            border:1px solid var(--back-color);
+        }
+    }
+      
+    }
+}

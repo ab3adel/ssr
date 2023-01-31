@@ -6,7 +6,11 @@ export const apis = {
     countries:'countries',
     country_id:(num:number)=>`countries?country_id=${num}`,
     register:'register',
-    resend_email:(isPhone:boolean,value:string)=>`resendEmail?type=forgotPassword&${isPhone?`phone=${value}`:`email=${value}`}&locale=${getI18n().language}`,
+    resend_email:(isPhone:boolean,value:string,type='forgotPassword')=>
+    type==='forgotPassword'?
+    `resendEmail?type=forgotPassword&${isPhone?`phone=${value}`:`email=${value}`}&locale=${getI18n().language}`:
+    `resendEmail?type=Verification&email=${value}&locale=${getI18n().language}`
+    ,
     forgot_password:'forgotPassword',
     login:'login',
     categories:(is_category:number,category_id?:number)=>
@@ -27,8 +31,16 @@ export const apis = {
             let {
                 page,post_id,user_id,company_id,text,area_id,category_id,
                 tag_id,price_from,price_to,price_type_id,offer_type_id,property_site_id,
-                area_from,area_to,number_of_room,number_of_bathroom,property_type_id,news,user_name
+                area_from,area_to,number_of_room,number_of_bathroom,property_type_id,news,user_name,
+                tags_ids
             }=params
+            let tags=''
+            if (tags_ids && tags_ids.length>0) {
+              tags_ids.map((ele:string,index:number)=>{
+              
+                tags +=`&tags_ids[${index}]=${ele}`
+              })
+            }
           return( 
             `posts?${page?`page=${page}`:'page=1'}${post_id?`&post_id=${post_id}`:''}`+
            `${user_id?`&user_id=${user_id}`:''}${company_id?`&company_id=${company_id}`:''}`+
@@ -46,7 +58,9 @@ export const apis = {
             `${number_of_room?`&number_of_room=${number_of_room}`:''}`+
             `${number_of_bathroom?`&number-of_bathroom=${number_of_bathroom}`:''}`+
             `${news?`&news=${news}`:''}`+
-            `${user_name?`&user_name=${user_name}`:''}`
+            `${user_name?`&user_name=${user_name}`:''}`+
+            `${tags_ids && tags_ids.length>0?tags:''}`
+           
             )
         },
     updatePost:(id:number)=>`posts/${id}?_method=put` ,

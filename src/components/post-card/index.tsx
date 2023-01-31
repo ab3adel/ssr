@@ -62,7 +62,9 @@ export const PostCard = ({
   shares,
   views,
   category,
-  role_id
+  role_id,
+  post_card_square
+  
   
 }: iPost) => {
   const { setNotify } = useContext(notificationContext);
@@ -352,6 +354,7 @@ export const PostCard = ({
                 currency={currency}
                 height={imgs_gallery_height}
                 price_type={price_type}
+                post_card_square={post_card_square}
               />
             </Col>
             <Col xs={12}>

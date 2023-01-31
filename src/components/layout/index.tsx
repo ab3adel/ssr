@@ -14,6 +14,8 @@ import GuestBar from "../tools/guest-bar/guestBar";
 import chatContext from "../tools/context/chat-context/chat-context";
 import { getTime } from "../tools/getTime";
 import { iChatData } from "../tools/context/chat-context/chat-provider";
+import { useTranslation } from "react-i18next";
+
 
 
 const Layout = () => {
@@ -24,6 +26,7 @@ const Layout = () => {
   const [isGeuest, setIsGuest] = useState(false);
   const navigate = useNavigate();
   const location = useLocation()
+  const {i18n}=useTranslation()
   const removeToken = () => {
     localStorage.removeItem("token");
     setToken((pre: any) => {});
@@ -59,6 +62,9 @@ if (getLocalStorage() && getLocalStorage().id && getLocalStorage().id !== 'Guest
   if (!location.pathname.includes('/messages')) {
     socket.emit('set-active-chat',{myId:getLocalStorage().id,chat_id:'0'})
   }
+}
+if (location.pathname.includes('/fail') || location.pathname.includes('/success') ) {
+  setIsGuest(false)
 }
   },[location])
 
@@ -152,7 +158,7 @@ if (getLocalStorage() && getLocalStorage().id && getLocalStorage().id !== 'Guest
         let unreadMsgs=0
         let profile_img=''
         const options = {  year:'numeric',month:'short',day: 'numeric',hour:'numeric',minute:'numeric',second:'numeric' } as const
-        let last_seen = getTime(ele.updatedAt)
+        let last_seen = getTime(ele.updatedAt,i18n.language)
       
         let updated_at=new Date(ele.user_1_data[0].updatedAt).toLocaleDateString('en-US',options as any )
         let user= parseInt(ele.user_1)=== myId? 'user_2':'user_1'

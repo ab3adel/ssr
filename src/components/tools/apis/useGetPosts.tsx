@@ -22,6 +22,7 @@ export const useGetPosts=()=>{
           
             )
         .then(res=>{
+            
             setLoading(false)
             if (res.data){
                

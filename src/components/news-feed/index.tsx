@@ -128,7 +128,8 @@ import { useTranslation } from 'react-i18next'
                            space:ele.space,
                            shares:ele.shares,
                            views:ele.views,
-                           role_id:ele.role[0]?.id
+                           role_id:ele.role[0]?.id,
+                           post_card_square:true
                        
 
                          })

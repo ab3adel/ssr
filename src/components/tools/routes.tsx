@@ -10,6 +10,7 @@ import AddPost from '../add-post'
 import Chat from '../chat'
 import PublicProfile from '../profile/public-profile'
 import FilteredPosts from '../filtered-posts'
+import Status from '../status-page'
 
 
 const Privacy =React.lazy(()=>import('../privacy'))
@@ -37,6 +38,8 @@ export const Rotues = (id: number): RouteObject[] => ([
             {path:'/terms&conditions',element:<Term />},
             {path:'/privacy',element:<Privacy />},
             {path:'/newsfeeds',element:<NewsFeed />},
+            {path:'/fail',element:sessionStorage.getItem('washere')? <Navigate to="/" />: <Status/>},
+            {path:'/success',element:sessionStorage.getItem('washere')? <Navigate to="/" />: <Status/>}
             // {path:'/blogs',element:<Blogs/>}
 
 

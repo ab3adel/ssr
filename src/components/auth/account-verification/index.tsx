@@ -1,15 +1,13 @@
 import './account-verification.scss'
-import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Modal from 'react-bootstrap/Modal'
-import {apis} from '../../tools/apis/apis'
-import axios from '../../tools/apis/axios'
+
 import {Inprogress} from './inprgoress'
 import {Info} from './info'
 import { useEffect, useRef, useState } from 'react'
 import {useTranslation} from 'react-i18next'
-import {iFields} from '../signup/signup'
+
 interface iProps {
     show:boolean
     ,setShow:()=>void
@@ -88,8 +86,8 @@ useEffect(()=>{
     if (emailVerification) {
         
         let text=i18n.language ==='en'?
-        `We sent a verification link to your email ${emailVerification} `:
-        `أرسلنا رابط تفعيل الى ايميلك ${emailVerification}`
+        `We sent a verification link to your email ${emailVerification} you have to validate it first `:
+        'عليك تفعيل الايميل أولا'+` أرسلنا رابط التفعيل الى ايميلك ${emailVerification}`
         let className='halfFill'
         let btn="Next"
         let resend= "Resend"

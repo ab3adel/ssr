@@ -25,7 +25,7 @@ export const Select = ({
 
     setHasSelection(true);
     let select = e.target as HTMLSelectElement;
-
+   
     if (select.value) {
       setHasSelection(true);
       if (multiSelect) {
@@ -106,7 +106,7 @@ export const Select = ({
         onBlur={onBlur}
         isInvalid={touched && Boolean(error)}
         disabled={selection && (selection as []).length > 0 ? false : true}
-        value={selectedValue || ""}
+        value={!multiSelect? selectedValue?selectedValue :"": ""}
         
       >
         <option className="lightLable"  disabled={true}>

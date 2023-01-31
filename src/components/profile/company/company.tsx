@@ -5,7 +5,7 @@ import { UserInfo } from "../views/user";
 import { SocialMedia } from "../views/social-media";
 import { useFormik } from "formik";
 import { Info } from "../views/info";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Posts } from "../views/posts";
 import { Data } from "../views/data";
 import { GreenButton } from "../../tools/buttons/green-button";
@@ -28,8 +28,10 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccou
   let [posts,setPosts]=useState([])
   const [followers,setFollowers]=useState<any>([])
   const [following,setFollowing]=useState<any>([])
-  
   const [showChangePassword,setShowChangePassword]=useState(false)
+
+  const [currentPage,setCurrentPage]=useState(1)
+  const lastPage=useRef(1)
 
 
   let {getPosts,getPostsData,getPostsError,isGetPostsLoading} =useGetPosts()
@@ -108,10 +110,13 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccou
     
     }
   }, [data]);
+  useEffect(()=>{
+  if (currentPage && data.id)  getPosts({page:currentPage,user_id:data.id})
+  },[currentPage])
  useEffect(()=>{
   if(!getPostsError) {
     if (getPostsData && getPostsData.data && getPostsData.data.length>0) {
-
+      let {current_page,last_page}=getPostsData
       let returnedPosts =getPostsData.data.map((ele:any)=>{
       let   updated_at=null
       let handled_images:string[]=[]
@@ -159,12 +164,14 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccou
                   authenticated:true,
                   role_id:ele.role && ele.role[0]?ele.role[0].id:-1
 
-          }
-          )
+          })
           
           
         })
-        if (returnedPosts) setPosts(returnedPosts)
+        if (returnedPosts) {
+          lastPage.current=last_page
+          setPosts(returnedPosts)
+        }
     }
   }
  },[isGetPostsLoading])
@@ -302,7 +309,12 @@ useEffect(()=>{
                     </Col>
                   </>
                   <Posts
-                  posts={posts} />
+                  posts={posts} 
+                  lang={lang}
+                  lastPage={lastPage.current}
+                  currentPage={currentPage}
+                  setPage={setCurrentPage}
+                  />
                 </Tab>
               </Col>
             </Row>
@@ -403,7 +415,12 @@ useEffect(()=>{
                     <Col xs={12}>
 
                     <Posts 
-                    posts={posts}/>
+                    posts={posts}
+                    lang={lang}
+                    lastPage={lastPage.current}
+                    currentPage={currentPage}
+                    setPage={setCurrentPage}
+                    />
                     </Col>
                     <Col xs={12} style={{height:'80px'}} ></Col>
                   </>

@@ -1,10 +1,9 @@
 
-import {getI18n} from 'react-i18next'
 interface iObj {en:'string',ar:'string'}
 
-let lan= getI18n()?.language as keyof iObj ?getI18n()?.language:'ar' as keyof  iObj
+
 let unit={day:{en:'day',ar:' يوم'},hour:{en:'h',ar:' ساعة'},min:{en:'Min',ar:' دقيقة'},sic:{en:'Sec',ar:' ثانية'}}
-export const getTime= (date:string):string=>{
+export const getTime= (date:string,lan:string):string=>{
 
     
 

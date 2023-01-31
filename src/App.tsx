@@ -62,7 +62,7 @@ function App() {
                    profile_picture:realImage?"https://backend.instaaqar.com/storage/"+ realImage:null,
                    id:data.id,
                    phone_numbers: response.data.payload.phone_numbers,
-                   categories:response.data.payload.company.categories
+                   categories:response.data.payload.company?.categories
                  };
                  localStorage.removeItem('token')
                  localStorage.setItem("token", JSON.stringify(required_data));
@@ -84,9 +84,12 @@ function App() {
     }
   useEffect(() => {
     getRememberMe()
+    sessionStorage.setItem('washere','1')    
         return () =>{
           clearTimeout(timer)
         }
+
+ 
   }, []);
 
 

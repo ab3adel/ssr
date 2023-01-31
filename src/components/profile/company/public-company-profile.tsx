@@ -28,6 +28,9 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
   const {mobileView} =useContext(SettingContext)
   const {setNotify} =useContext(notificationContext)
 
+  const [currentPage,setCurrentPage]=useState(1)
+  const lastPage=useRef(1)
+
   let [tabIndex, setTabIndex] = useState(0);
   let [posts,setPosts]=useState([])
   let [folloings,setFollowings]=useState<any>()
@@ -102,10 +105,18 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
 
   },[data])
   useEffect(()=>{
-    if(!getPostsError) {
-      if (getPostsData && getPostsData.data && getPostsData.data.length>0) {
+    if (currentPage && data.id)getPosts({page:currentPage,user_id:data.id})
+      }
       
-        let returnedPosts =getPostsData.data.map((ele:any)=>{
+      ,[currentPage])
+  useEffect(()=>{
+   
+    if(!getPostsError ) {
+      console.log('checking data',getPostsData)
+      if ((getPostsData && getPostsData.data && getPostsData.data.length>0)) {
+        let arr= getPostsData.data?getPostsData.data:getPostsData
+        let last_page=getPostsData.last_page?getPostsData.last_page:1
+        let returnedPosts =arr.map((ele:any)=>{
         let   updated_at=null
         let handled_images:string[]=[]
           if (ele.updated_at) {
@@ -155,7 +166,12 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
             
             
           })
-          if (returnedPosts) setPosts(returnedPosts)
+
+          if (returnedPosts) {
+           
+            lastPage.current=last_page
+            setPosts(returnedPosts)
+          }
       }
     }
    },[isGetPostsLoading])
@@ -288,7 +304,13 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
                 values={formik.values}
                 categories={formik.values['category']}
                 />
-                <Posts posts={posts} />
+                <Posts 
+                posts={posts} 
+                lang={lang}
+                lastPage={lastPage.current}
+                currentPage={currentPage}
+                setPage={setCurrentPage}
+                />
               </Tab>
             </Col>
           </Row>
@@ -357,7 +379,13 @@ export const CompanyPublicProfile = ({t,lang,data}:PublicProfileProps) => {
                 <>
                   <Col xs={12}>
 
-                  <Posts posts={posts}/>
+                  <Posts 
+                  posts={posts}
+                  lang={lang}
+                  lastPage={lastPage.current}
+                  currentPage={currentPage}
+                  setPage={setCurrentPage}
+                  />
                   </Col>
                   <Col xs={12} style={{height:'60px'}} ></Col>
                 </>

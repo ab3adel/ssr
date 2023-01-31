@@ -13,7 +13,7 @@ const Privacy =()=>{
     const [about,setAbout]=useState({body:{__html:''},title:{en:'',ar:''}})
     useEffect(()=>{
         getPage('Privacy Policy')
-    },[])
+    },[i18n.language])
     useEffect(()=>{
         if (!pageError) {
             if (pageData && pageData.length>0) {

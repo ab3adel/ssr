@@ -22,6 +22,7 @@ export const Inprogress =({btn,text,resend,className,fn,index,phone,email}:iProp
     const [loading,setLoading]=useState(false)
     const {setNotify}=useContext(notificationContext)
     const handleDoneBtn=()=>{
+
         if (index ===0) {
             if (code) {
                 let id=0

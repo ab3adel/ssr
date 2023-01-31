@@ -90,7 +90,8 @@ export interface iGetPosts {
   number_of_room?:number,
   number_of_bathroom?:number,
   news?:number,
-  user_name?:string
+  user_name?:string,
+  tags_ids?:string[]
 }
 export interface iPost {
   title:{en:string,ar:string},
@@ -129,7 +130,8 @@ export interface iPost {
   shares?:number,
   views?:number,
   category?:{en:string,ar:string},
-  role_id?:number
+  role_id?:number,
+  post_card_square?:boolean
 
 
 }

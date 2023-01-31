@@ -6,16 +6,19 @@ import predefinedImage1 from '../../../images/home/image2.png'
 import predefinedImage2 from '../../../images/home/image3.png'
 import predefinedImage3 from '../../../images/home/image4.png'
 import { iPost } from '../../tools/interface'
-interface iProps{ posts:Partial<iPost>[]}
+import { Pagination } from '../../tools/pagination/pagination'
 
-export const Posts=({posts}:iProps)=>{
+interface iProps{ posts:Partial<iPost>[],lang:string,currentPage:number,lastPage:number,setPage:Function}
+
+export const Posts=({posts,lang,currentPage,lastPage,setPage}:iProps)=>{
 
     return (
         <Col xs={12}>
             <Row>
                 {
                     posts && posts.length>0?
-                    posts.map((ele,index)=>
+                    <>
+                {    posts.map((ele,index)=>
                         <Col lg={6} md={12} xs={12} key={index}>
                             <PostCard
                             title={ele.title?ele.title:{en:'',ar:''}}
@@ -45,10 +48,20 @@ export const Posts=({posts}:iProps)=>{
                             role_id={ele.role_id?ele.role_id:-1}
                             />
                         </Col>
-                    )
+                      
+
+                    )}
+                    <Col xs={12}>
+                    <Pagination currentPage={currentPage} lastPage={lastPage} setPage={setPage} />
+                     </Col>
+                     </>
                 :
                 <Col xs={12} className='d-flex justify-content-center align-items-center'style={{height:'50vh'}}>
-                    <span className='h4 fw-bold'>You don't have posts to show !!</span>
+                    <span className='h4 fw-bold'>{lang==='en'?
+                    "You don't have posts to show !!":
+                    "ليس لديك بوستات لعرضها"
+                }
+                    </span>
                 </Col>
                 }
                

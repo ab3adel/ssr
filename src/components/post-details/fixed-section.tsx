@@ -109,7 +109,7 @@ export const FixedSection = ({
             {t("AddedOn")}
           </Col>
           <Col lg={4} xs={6} className="">
-            <div className="tag grey">{getTime(post.updated_at)}</div>
+            <div className="tag grey">{getTime(post.updated_at,i18n.language)}</div>
           </Col>
           {false && (
             <>

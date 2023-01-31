@@ -5,6 +5,19 @@
 .loginBody {
     display: flex;
     justify-content: center;
+        .login-switch {
+            .form-switch {
+                display: flex;
+                align-items: center;
+                #custom-switch {
+                    margin:0 1em;
+                }
+                .form-check-input:checked {
+                    background-color: var(--dark-green);
+                    border-color: var(--dark-green);
+                }
+            }
+        }
         .title {
             color:var(--dark-green);
             font-size: 2em;

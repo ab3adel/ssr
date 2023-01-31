@@ -37,16 +37,29 @@ useEffect(()=>{
     // obj[entry[0]]=entry[1]
     // }
     let is_quicksearch=false
+    let tags_ids_arr:any=[]
   
     params.forEach((value:string,key:string)=>{
+       
         if (key==='quicksearch' ){
             is_quicksearch=true
         }
-        obj[key]=value
+        if (key.includes('tags_ids')) {
+            
+            if (value !== 'undefined'){
+                tags_ids_arr.push(value)
+                obj[key]=value
+            }
+        }
+        else {
+
+            obj[key]=value
+        }
     })
    
     Object.keys(readableObj).map((ele:string)=>{
         if (!disabledTags.includes(ele)) {
+           
              obj[ele]=readableObj[ele].value?readableObj[ele].value:readableObj[ele].id
         }
         else {
@@ -54,6 +67,9 @@ useEffect(()=>{
         }
     })
     if (is_quicksearch && (!isQuickSearch && disabledTags.length===0))  delete obj['text']
+   
+
+    if (tags_ids_arr.length>0) obj['tags_ids']=tags_ids_arr.filter((ele:string|undefined)=>ele)
     getPosts(obj)
     if (sessionStorage.getItem('search_params')) {
         setReadableObj(JSON.parse(sessionStorage.getItem('search_params') as string))
@@ -77,7 +93,11 @@ if (isQuickSearch) {
 useEffect(()=>{
     let obj:any={}
     params.forEach((value:string,key:string)=>{
-        obj[key]=value
+     
+     
+            obj[key]=value
+        
+        
     })
   
 setParams({...obj,page:currentPage})
@@ -98,6 +118,7 @@ useEffect(()=>{
     params.forEach((value:string,key:string)=>{
         obj[key]=value
     })
+
     Object.keys(readableObj).map((ele:string)=>{
         if (!disabledTags.includes(ele)) {
              obj[ele]=readableObj[ele].value?readableObj[ele].value:readableObj[ele].id
@@ -288,23 +309,27 @@ const changeSearch=(str:string)=>{
                 <Col xs={12}>
                     <Row className="my-1 gy-2 px-1">
                         {
-                            Object.entries(readableObj).map((ele:any[],key:number)=>
-                            <Col xs={3}  sm={2} key={key} style={{cursor:'pointer'}}
-                            onClick={()=>changeSearch(ele[0])}>
-                           <div className={
-                            disabledTags.includes(ele[0])? "searchTag inactive": "searchTag active"
-                           }
-                          
-                           >
-                           
-                             <span className='mx-1'
-                            >
-                                {isObject(ele[1])?i18n.language==='en'?ele[1].title?.en:ele[1].title?.ar:ele[1]}
+                            Object.entries(readableObj).map((ele:any,key:number)=>{
                              
-                             </span>
-                            </div>
-                        </Col>
-                            )
+                                return (
+                                <Col xs={3}  sm={2} key={key} style={{cursor:'pointer'}}
+                                onClick={()=>changeSearch(ele[0])}>
+                            <div className={
+                                disabledTags.includes(ele[0])? "searchTag inactive": "searchTag active"
+                            }
+                            
+                            >
+                            
+                                <span className='mx-1'
+                                >
+                                    {isObject(ele[1])?i18n.language==='en'?ele[1].title?.en:ele[1].title?.ar:ele[1]}
+                                
+                                </span>
+                                </div>
+                            </Col>)
+                           
+                          
+                        })
                         }
                         
                     </Row>
@@ -333,7 +358,7 @@ const changeSearch=(str:string)=>{
                         isGetPostsLoading?
                         <div>
                           
-                                Loading your results
+                                {i18n.language==='en'? 'Loading your results':"جاري التحميل"}
                                 
                            <span className="hide1">.</span>
                            <span className="hide2">.</span>
@@ -341,7 +366,7 @@ const changeSearch=(str:string)=>{
                         </div>
                         :
                     <div>
-                        No Results found !!
+                       {i18n.language==='en'?'No Results found !!':'لا يوجد نتائج لعرضها !!'}
                     </div>
                     }
                 </Col>          

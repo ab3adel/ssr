@@ -12,6 +12,7 @@ import { Tabs } from '../tools/tabs/tabs'
 import { Badge } from '../tools/badge/badge'
 import {GreenButton} from '../tools/buttons/green-button'
 import { TribleTabs } from '../tools/trible-tabs/trible-tabs'
+import e from 'express'
 let offer_type=[
                {title:{en:'item 1',ar:'item 1'},id:1}
                ,{title:{en:'item 2',ar:'item 2'},id:2}
@@ -55,6 +56,8 @@ export const SmallView= ({
     ,type
     ,setFieldTouched
     ,handleBlur
+    ,deleteTag
+    ,addTag
 }:iProps)=>{
     const {t,i18n}=useTranslation()
     return (
@@ -84,28 +87,29 @@ export const SmallView= ({
                         <Select 
                         label={t("PostTag")}
                         options={tags}
-                        selectedValue={values['tag_id']} 
-                        setSelect={setFieldValue}
-                        name="tag_id"
-                       
+                       selectedValue={values['tags_ids']}
+                        setSelect={addTag}
+                        name="tags_ids"
+                        multiSelect={true}
                         
                         />
                     </Col>
                     
                         <Col xs={12}>
-                            {/* <Row className="gx-2">
+                             <Row className="gx-2">
                             {
                                 values.tags_ids.length >0 ?
                                 values.tags_ids.map((ele:any,index:number)=>{
-                                    // let item= tags.filter(elem=>elem.value === parseInt(ele))[0]
-                                    if (true)
+                                     let item= tags.filter(elem=>elem.value === parseInt(ele))[0]
+                                    if (item && item.title)
                                     {  return (
                                         <Col xs={4} key={index} >
                                             <div className='mybadge'>
                                                 <span >
-                                                {i18n.language ==='en' ? 'Tag' : 'ar'}
+                                                {i18n.language ==='en' ? item.title.en: item.title.ar}
                                                 </span>
                                                 <div className="icon"
+                                                onClick={()=>deleteTag(item.value)}
                                                 >
                                                     <X
                                                     fontWeight={'bold'}
@@ -120,7 +124,7 @@ export const SmallView= ({
                                 }) 
                             :''
                                 }
-                            </Row> */}
+                            </Row> 
                     </Col>
                 </Col>
                 <Col xs={12}>
@@ -196,12 +200,12 @@ export const SmallView= ({
                     handleBlur={handleBlur}
                     />
                 </Col>
-                <Col xs={12}>
+                {/* <Col xs={12}>
                         <Select 
                         label={t('Direction')}
                         options={[{title:{en:'West',ar:'west'},value:1},{title:{en:'East',ar:'East'},value:2}]}
                         />
-                </Col>
+                </Col> */}
                 <Col xs={12}>
                         <Row className='justify-content-center gy-3'>
 

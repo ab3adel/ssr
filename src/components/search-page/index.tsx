@@ -32,7 +32,9 @@ export interface iProps {
   touched:any,
   type:iOption[],
   setFieldTouched:Function,
-  handleBlur:Function
+  handleBlur:Function,
+  addTag:Function,
+  deleteTag:Function
 }
 let type=[
   {id:1,title:{en:'All',ar:'الكل'}},
@@ -95,7 +97,8 @@ let formik=useFormik({
        price: "",
        number_of_rooms: 0,
        number_of_bathrooms: 0,
-       type:1
+       type:1,
+       tags_ids:[]
       
     },
     validationSchema:searchSchema(),
@@ -224,6 +227,16 @@ useEffect(() => {
     }
    
   },[formik.values.category_id])
+  const deleteTag = (id: number) => {
+    let values = formik.values.tags_ids.filter((ele:string) => parseInt(ele) !== id);
+
+    formik.setFieldValue("tags_ids", values);
+  };
+  const addTag = (name: string, value: number[]) => {
+    
+    if (value.length > 3) return;
+    formik.setFieldValue(name, value);
+  };
   const filteredPosts=()=>{
     let readableObj:any={}
     
@@ -232,7 +245,13 @@ useEffect(() => {
     Object.keys(formik.values).map((ele)=>{
       if (values[ele] && ele !== 'priceRange' && ele !=='areaRange' && ele !=='type') {
         
-        url += `&${ele}=${values[ele]}`
+      if (ele !== 'tags_ids')  url += `&${ele}=${values[ele]}`
+      else {
+        values['tags_ids'].map((elem:string,index:number)=> {
+    
+          if (elem)url +=`&${ele}_${index}=${elem}`
+        })
+      }
         if (ele === 'property_site_id') {
           readableObj['property_site_id']=propertySites.filter(elem=>elem.id === values[ele])[0]
         }
@@ -264,6 +283,14 @@ useEffect(() => {
         url +=`${values[ele]===2?'news=1':''}`
         readableObj['news']={title:{en:'News',ar:'أخبار'},value:1}
       }
+      if (ele==='tags_ids' && values['tags_ids'].length>0) {
+        let arr:any=[]
+        values['tags_ids'].map((ele:string,index:number)=> {
+         let item=tags.filter(elem=>elem.value===parseInt(ele))[0]
+         if (item) readableObj[`tags_ids_${index}`]=item
+        })
+       
+      }
     })
     url+=
      formik.touched.priceRange?`${ values['priceRange']['max'] !== 100000 || values['priceRange']['min'] !== 10 ?`&price_to=${values['priceRange']['max']}&price_from=${values['priceRange']['min']}`:''} `:''
@@ -272,9 +299,9 @@ useEffect(() => {
      
     
      sessionStorage.setItem('search_params',JSON.stringify(readableObj) )
+   
       navigate(url) 
   }
-
 
     return (
         <Container className='searchContainer' >
@@ -297,6 +324,8 @@ useEffect(() => {
                  type={type}
                  setFieldTouched={formik.setFieldTouched}
                  handleBlur={formik.handleBlur}
+                 addTag={addTag}
+                 deleteTag={deleteTag}
 
 
 
@@ -318,6 +347,8 @@ useEffect(() => {
               type={type}
               setFieldTouched={formik.setFieldTouched}
               handleBlur={formik.handleBlur}
+              addTag={addTag}
+              deleteTag={deleteTag}
      
               />
 

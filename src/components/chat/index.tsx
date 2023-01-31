@@ -19,7 +19,7 @@ import { chatData } from "../tools/context/chat-context/chat-provider";
 import { useLocation } from "react-router-dom";
 import { CheckCircle, CheckCircleFill, Circle } from "react-bootstrap-icons";
 import Input from "react-bootstrap/Form";
-import { getTime } from "../tools/getTime";
+
 import SettingContext from "../tools/context/setting-context/setting-context";
 
 interface iLocationState {

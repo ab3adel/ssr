@@ -8,7 +8,7 @@ import {useTranslation} from 'react-i18next'
 import { useState } from 'react'
  export default function GuestBar () {
 const navigate =useNavigate()
-const {t} =useTranslation()
+const {t,i18n} =useTranslation()
 const [hide,setHide]=useState(false)
 
     return (
@@ -16,9 +16,11 @@ const [hide,setHide]=useState(false)
          style={{position:'absolute',bottom:'1rem'}}>
             <Col xs={11} sm={8} className="geustBarContainer">
 
-                <span 
+            
+               <span 
                  onClick={()=>setHide(true)}
                 className='closeButton'
+                style={{left:i18n.language==='en'?'auto':'5px',right:i18n.language==='en'?'5px':'auto'}}
                 >X</span>
             <Row className="content">
                 <Col xs={4} sm={3}>
@@ -33,6 +35,8 @@ const [hide,setHide]=useState(false)
                     </span>
                 </Col>
             </Row>
+            
+        
             </Col>
         </Col>
     )

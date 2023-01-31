@@ -38,7 +38,9 @@ export const LargeView = ({
     ,errors
     ,type
     ,setFieldTouched
-    ,handleBlur
+    ,handleBlur,
+    addTag,
+    deleteTag
 }:iProps)=>{
    let {t,i18n}=useTranslation()
     return (
@@ -71,27 +73,29 @@ export const LargeView = ({
                                 <Select 
                                 label={t("PostTags")}
                                 options={tags}
-                                selectedValue={values['tag_id']} 
-                                setSelect={setFieldValue}
-                                name="tag_id"
+                                selectedValue={values['tags_ids']}
+                                setSelect={addTag}
+                                multiSelect={true}
+                                name="tags_ids"
                                
                                 />
                             </Col>
                             
-                                {/* <Col xs={12}>
+                                 <Col xs={12}>
                                     <Row className="gx-2">
                                     {
                                         values.tags_ids.length >0 ?
                                         values.tags_ids.map((ele:any,index:number)=>{
-                                            // let item= tags.filter(elem=>elem.value === parseInt(ele))[0]
-                                          if (true)
+                                            let item= tags.filter(elem=>elem.value === parseInt(ele))[0]
+                                          if (item && item.title)
                                           {  return (
                                                 <Col xs={4} key={index} >
                                                     <div className='mybadge'>
                                                         <span >
-                                                        {i18n.language ==='en' ? 'Tag' : 'ar'}
+                                                        {i18n.language ==='en' ? item.title.en: item.title.ar}
                                                         </span>
                                                         <div className="icon"
+                                                        onClick={()=>deleteTag(item.value)}
                                                         >
                                                           <X
                                                           fontWeight={'bold'}
@@ -107,7 +111,7 @@ export const LargeView = ({
                                     :''
                                         }
                                     </Row>
-                                </Col> */}
+                                </Col> 
                         </Col>
                         <Col xs={11}>
                             <Col xs={12}>
@@ -185,12 +189,12 @@ export const LargeView = ({
                             handleBlur={handleBlur}
                             />
                     </Col>
-                    <Col xs={11}>
+                    {/* <Col xs={11}>
                         <Select 
                         label={t('Direction')}
                         options={[{title:{en:'West',ar:'west'},value:1},{title:{en:'East',ar:'East'},value:2}]}
                         />
-                    </Col>
+                    </Col> */}
                     <Col xs={11}>
                         <Row className='justify-content-between'>
 

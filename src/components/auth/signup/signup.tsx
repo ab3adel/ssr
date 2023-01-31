@@ -126,7 +126,7 @@ const SignUp = ({ setLogin }: iProps) => {
     if (str === "User") {
       
       formik.setFieldValue("role_id", 2);
-      handleBtn({ title: "User", maxTabs: 2 });
+      handleBtn({ title: "User", maxTabs: 1 });
     } 
     else if (str ==='News') {
       formik.setFieldValue("role_id", 7);
@@ -446,8 +446,7 @@ else {
   })
 }
 },[formik.values.role_id])
-console.log(formik.errors)
-console.log(formik.touched)
+
   return (
     <Row className="signUpContainer gy-3">
       <Col xs={12}>

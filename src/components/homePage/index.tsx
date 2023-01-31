@@ -62,6 +62,7 @@ const HomePage =()=>{
    
     useEffect(()=>{
         if(!getPostsError) {
+
             if (getPostsData && getPostsData.length >0) {
             
                 let data= getPostsData.map((ele:any,index:number)=>{
@@ -125,7 +126,8 @@ const HomePage =()=>{
                            space:ele.space,
                            shares:ele.shares,
                            views:ele.views,
-                           role_id:ele.role[0]?.id
+                           role_id:ele.role[0]?.id,
+                           post_card_square:true
                        
 
                          })
@@ -156,7 +158,7 @@ const HomePage =()=>{
         }
    }
 
-
+console.log(storedPosts)
 return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost} >
 

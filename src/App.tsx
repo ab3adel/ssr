@@ -62,7 +62,8 @@ function App() {
                    profile_picture:realImage?"https://backend.instaaqar.com/storage/"+ realImage:null,
                    id:data.id,
                    phone_numbers: response.data.payload.phone_numbers,
-                   categories:response.data.payload.company?.categories
+                   categories:response.data.payload.company?.categories,
+                   forgot_password:response.data.payload.forgot_password
                  };
                  localStorage.removeItem('token')
                  localStorage.setItem("token", JSON.stringify(required_data));

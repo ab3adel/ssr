@@ -19,6 +19,8 @@ import { Files } from "react-bootstrap-icons";
 import { useGetFollowingFollowers } from "../../tools/apis/useGetFollowersFollowings";
 
 import { WhiteButton } from "../../tools/buttons/white-button";
+import { useLocation } from "react-router-dom";
+import { getLocalStorage } from "../../tools/getLocalstorage";
 
 export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccount}: iProps) => {
   let company = true;
@@ -32,7 +34,7 @@ export const CompanyProfile = ({ edit, setEdit, t, data ,lang,setShowDeleteAccou
 
   const [currentPage,setCurrentPage]=useState(1)
   const lastPage=useRef(1)
-
+  const location=useLocation()
 
   let {getPosts,getPostsData,getPostsError,isGetPostsLoading} =useGetPosts()
   let {getFollowers
@@ -186,7 +188,11 @@ useEffect(()=>{
       
   }
     },[isFollowingLoading]) 
-
+    useEffect(()=>{
+      if (location.state && (location.state as any).open_forgot_password) {
+          setShowChangePassword(true)
+      }
+  },[])
   return (
     <Container className="p-1 " style={{height:'100vh'
     ,maxHeight:'100vh',overflowY:'scroll',overflowX:'hidden',maxWidth:'100vw'
@@ -473,6 +479,7 @@ useEffect(()=>{
       <ChangePassword 
       open={showChangePassword}
       onClose={()=>setShowChangePassword(false)}
+      change_after_forgot={getLocalStorage() && getLocalStorage().forgot_password? true:false}
       />
      
 

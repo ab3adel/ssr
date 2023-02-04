@@ -16,6 +16,7 @@ import { ChangePassword } from "../../tools/change-password/changePassword";
 import { WhiteButton } from "../../tools/buttons/white-button";
 import { useTranslation } from "react-i18next";
 import Loading from "../../tools/loading/loading";
+import { useLocation } from "react-router-dom";
 interface iValues  {
   pre_existed_phone_numbers: any [],
   email:string,
@@ -46,6 +47,7 @@ export const NormalUserProfile = ({ edit, setEdit,t ,lang,data,setShowDeleteAcco
   const [country,setCountry]=useState(0)
   const [countries,setCountries]=useState<any>([])
   const fieldsUpdatedRigester=useRef<string[]>([])
+  const location=useLocation()
   const [showChangePassword,setShowChangePassword]=useState(false)
   let {followingData,getFollowings,followingError,isFollowingLoading} =useGetFollowingFollowers()
   const{getArea,getCountries
@@ -114,7 +116,11 @@ useEffect(()=>{
   }
 },[isAreaLoading])
 
-
+useEffect(()=>{
+  if (location.state && (location.state as any).open_forgot_password) {
+      setShowChangePassword(true)
+  }
+},[])
 const customSetFieldValue=(name:string,value:any)=>{
   if (!fieldsUpdatedRigester.current.includes(name))fieldsUpdatedRigester.current.push(name)
   formik.setFieldValue(name,value)
@@ -368,6 +374,7 @@ console.log(data)
         <ChangePassword 
       open={showChangePassword}
       onClose={()=>setShowChangePassword(false)}
+      change_after_forgot={getLocalStorage() && getLocalStorage().forgot_password? true:false}
       />
     </>
   );

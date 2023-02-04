@@ -12,7 +12,7 @@ import {useGetFollowingFollowers} from '../tools/apis/useGetFollowersFollowings'
 import { useDeleteAccount } from '../tools/apis/useDeleteAccount'
 import { DialogBox } from '../tools/dialogbox/dialogbox'
 import notificationContext from '../tools/context/notification/notification-context'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate ,useLocation} from 'react-router-dom'
 
 export interface iProps { edit: boolean, setEdit: 
     Function ,t:Function,data:any,lang:string,
@@ -29,6 +29,7 @@ const Profile = () => {
     const [profileData,setProfileData]=useState<any[]>([{}])
     const {setNotify}=useContext(notificationContext)
     const navigate =useNavigate()
+   
     const {deleteAccount,deleteAccountData,deleteAccountError,isDeleteAccountLoading} =useDeleteAccount()
     useEffect(()=>{
         if (!deleteAccountError) {
@@ -74,7 +75,7 @@ const Profile = () => {
            }
         }
     },[isGetProfileLoading])
-
+ 
     if (isGetProfileLoading) return (<Spinner />)
 
     return (

@@ -54,7 +54,7 @@ const onBlur=(e:React.FocusEvent)=>{
          className={hasSelection? "mySelect hasSelection":"mySelect label" }
         onChange={handleChange}
         as={'select'}
-      
+       value={selectedValue}
         name={name}
         style={i18n.language ==="ar"?{backgroundPosition:"left 0.75rem center"}:{backgroundPosition:"right 0.75rem center"}}
         onBlur={onBlur}

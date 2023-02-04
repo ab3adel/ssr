@@ -34,6 +34,8 @@ const HomePage = () => {
 let currentStoredPostsLength=useRef<number>(0)
   useEffect(() => {
     let obj = getLocalStorage();
+    let date= new Date()
+    console.log(date.toUTCString())
     if (obj && obj.id !== "Guest") {
       if (obj.role) setAuthenticated(true);
       if (obj.id) setUserId(obj.id);

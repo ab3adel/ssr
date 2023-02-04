@@ -47,13 +47,15 @@ const hanldeDone=()=>{
 axios.post(apis.forgot_password,
    formdata)
       .then(res=>{
+       
+
        setIsloading(false)
         setNotify((pre:any)=>({...pre,message:res.data.message,type:true,show:true}))
         setDone(true)
     })
       .catch(err=>{
         setIsloading(false)
-        console.log(err)
+
         if (err && err.response && err.response.data) {
 
             if (err.response.data.error){

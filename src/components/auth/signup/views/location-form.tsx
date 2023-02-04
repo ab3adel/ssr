@@ -60,6 +60,7 @@ const handleField=(field: keyof InitialValues,value:string)=>{
 }
 
     if (type=== 'Commercial'){
+        
     return (
         <Row className='gy-2 locationForm'>
             <Col xs={12}>

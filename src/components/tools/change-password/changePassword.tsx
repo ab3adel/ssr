@@ -16,8 +16,8 @@ import notificationContext from '../context/notification/notification-context';
 import {changePasswordSchema} from './validation'
 import {useNavigate} from 'react-router-dom'
 import i18n from '../../../i18n';
-interface iProps {open:boolean,onClose:()=>void}
-export const  ChangePassword=({open,onClose}:iProps)=> {
+interface iProps {open:boolean,onClose:()=>void,change_after_forgot:boolean}
+export const  ChangePassword=({open,onClose,change_after_forgot=false}:iProps)=> {
     const {t} =useTranslation()
     const navigate=useNavigate()
     const [loading,setLoading]=useState(false)
@@ -60,11 +60,14 @@ export const  ChangePassword=({open,onClose}:iProps)=> {
             setNotify((pre:any)=>({...pre,type:false,show:true,message}))
         })
     }
-
+const handleClose=()=>{
+    formik.resetForm()
+    onClose()
+}
     return (
 
         <Modal
-        show={open} onHide={onClose}>
+        show={open} onHide={handleClose}>
         <Container>
           <Modal.Header closeButton>
             <Modal.Title>{t('ChangePassword')}</Modal.Title>
@@ -72,8 +75,15 @@ export const  ChangePassword=({open,onClose}:iProps)=> {
           </Modal.Header>
   
           <Modal.Body>
-        
+
             <Row className='gy-3 px-1'>
+                {change_after_forgot 
+                &&<Col xs={12}>
+                    {
+                    i18n.language==='en'?'It is better to change your password to one easy for you to remember':
+                    'من الأفضل تغيير كلمة السر الى كلمة مألوفة لك و من السهل تذكرها'
+                    }
+                </Col>}
                 <Col xs={11}>
                     <InputWithIcon 
                      label={t('OldPassword')}
@@ -132,7 +142,7 @@ export const  ChangePassword=({open,onClose}:iProps)=> {
                     <Col xs={6} lg={5}>
 
                         <WhiteButton label={t('Cancel')}
-                        fun={()=>onClose()} />
+                        fun={()=>handleClose()} />
                     </Col>
                 </Row>
             </Col>

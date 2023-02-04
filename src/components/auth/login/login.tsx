@@ -101,7 +101,8 @@ const Login = ({ setLogin }: iProps) => {
               : null,
             phone_numbers: res.data.payload.phone_numbers,
             id: res.data.payload.id,
-            categories:res.data.payload.company?.categories
+            categories:res.data.payload.company?.categories,
+            forgot_password:res.data.payload.forgot_password
 
           };
 
@@ -115,7 +116,13 @@ const Login = ({ setLogin }: iProps) => {
           localStorage.setItem("token", JSON.stringify(required_data));
           setToken((pre: any) => ({ ...pre, ...required_data }));
           formik.resetForm();
-          navigate("/");
+          if (res.data.payload.forgot_password) {
+            navigate('/profile',{state:{open_forgot_password:true}})
+          }
+          else {
+
+            navigate("/");
+          }
        
          
         }

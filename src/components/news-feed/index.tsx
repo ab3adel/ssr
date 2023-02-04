@@ -33,6 +33,7 @@ const NewsFeed = () => {
   const location = useLocation();
   const [isScrolling, setScrolling] = useState(false);
   const { i18n, t } = useTranslation();
+  let currentStoredPostsLength=useRef<number>(0)
   useEffect(() => {
     let obj = getLocalStorage();
     if (obj && obj.id !== "Guest") {
@@ -185,9 +186,13 @@ const NewsFeed = () => {
     }
   };
   const handleScrolling = () => {
-    if (window.innerWidth < 1024) {
+   
+    if (window.innerWidth < 1024 &&storedPosts.posts.length >currentStoredPostsLength.current ) {
+        
+        currentStoredPostsLength.current=storedPosts.posts.length
+       
       setScrolling(true);
-      setTimeout(() => setScrolling(false), 7000);
+      setTimeout(() => setScrolling(false), 5000);
     }
   };
 

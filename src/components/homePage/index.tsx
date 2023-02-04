@@ -31,7 +31,7 @@ const HomePage = () => {
   const location = useLocation();
   const { i18n, t } = useTranslation();
   const [isScrolling, setScrolling] = useState(false);
-
+let currentStoredPostsLength=useRef<number>(0)
   useEffect(() => {
     let obj = getLocalStorage();
     if (obj && obj.id !== "Guest") {
@@ -183,7 +183,11 @@ const HomePage = () => {
     }
   };
   const handleScrolling = () => {
-    if (window.innerWidth < 1024) {
+   
+    if (window.innerWidth < 1024 &&storedPosts.length >currentStoredPostsLength.current ) {
+        
+        currentStoredPostsLength.current=storedPosts.length
+       
       setScrolling(true);
       setTimeout(() => setScrolling(false), 5000);
     }

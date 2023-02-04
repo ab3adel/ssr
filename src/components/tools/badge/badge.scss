@@ -22,3 +22,10 @@
 
     }
 }
+@media screen and (max-width:567px) {
+    .badgeContainer {
+        .myBadge {
+            font-size: 0.6rem;
+        }
+    }
+}

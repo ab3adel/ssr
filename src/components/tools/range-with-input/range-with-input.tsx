@@ -33,6 +33,7 @@ export const RangeSlider=({min,max,setValue,name,minVal,maxVal,label,unit,error,
                 name={name}
                 onBlur={handleBlur}
                 setFieldTouched={setFieldTouched}
+               
                 />
             </Col>
             <Col xs={5}>

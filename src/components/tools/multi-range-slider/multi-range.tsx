@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 import "./multi-range.css";
 interface iValue {min:number,max:number}
 interface iProps{min:number,max:number,onChange:(value:iValue)=>void
        ,minVal:number,maxVal:number,name:string,onBlur:any,setFieldTouched:Function}
 const MultiRangeSlider = ({ min, max, onChange ,minVal,maxVal,name,onBlur,setFieldTouched}:iProps) => {
-
+  const {i18n}=useTranslation()
   const minValRef = useRef(min);
   const maxValRef = useRef(max);
   const range = useRef<HTMLDivElement>(null);
@@ -24,7 +25,14 @@ const MultiRangeSlider = ({ min, max, onChange ,minVal,maxVal,name,onBlur,setFie
       const maxPercent = getPercent(maxValRef.current);
   
       if (range.current) {
-        range.current.style.right = `${minPercent}%`;
+        if (i18n.language==='en') {
+
+          range.current.style.left = `${minPercent}%`;
+        }
+        else {
+
+          range.current.style.right = `${minPercent}%`;
+        }
         range.current.style.width = `${maxPercent - minPercent}%`;
       }
     }

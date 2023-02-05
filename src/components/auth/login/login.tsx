@@ -8,7 +8,7 @@ import { CheckBox } from "../../tools/checkBox/checkBox";
 import Button from "react-bootstrap/Button";
 import "./login.scss";
 import ForgotPassword from "../forgot-password";
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "../../tools/apis/axios";
 import { apis } from "../../tools/apis/apis";
 import { useFormik } from "formik";
@@ -28,6 +28,7 @@ const Login = ({ setLogin }: iProps) => {
   const { notify, setNotify } = useContext(notificationContext);
   const [isLoading, setIsloading] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [withEmail,setWithEmail]=useState(false)
   const navigate = useNavigate();
   const { setToken } = useContext(authContext);
   const formik = useFormik({
@@ -172,17 +173,18 @@ const Login = ({ setLogin }: iProps) => {
                 <h5 className="title">{t("Login")}</h5>
               </Col>
               <Col xs={12}>
-            { false &&
-             <Form className="login-switch "
+          
+             {/* <Form className="login-switch "
            >
                   <Form.Check 
                    style={{direction:i18n.language==='en'?'ltr':'rtl'}}
                     type="switch"
                     id="custom-switch"
                     label={i18n.language==='en'?'Login using Email':"تسجيل الدخول باستخدام الايميل"}
+                    onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setWithEmail(e.target.checked)}
                   />
               </Form>
-                  }
+      */}
               </Col>
               <Col xs={12}>
            

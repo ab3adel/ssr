@@ -479,7 +479,7 @@ else {
                 <img className="icon" src={Commercial} />
                 <span>{t("Commercial")}</span>
               </Button>
-              <Button
+              {/* <Button
                 className={
                   btn.title === "News"
                     ? `BtnActive ${btn3} Btn`
@@ -490,7 +490,7 @@ else {
               >
                <Newspaper className="icon" />
                 <span>{t("News")}</span>
-              </Button>
+              </Button> */}
             </div>
           </Col>
           <Col xs={12}>
@@ -574,7 +574,7 @@ else {
                 />
               </CommercialType>
             )}
-            { btn.title==='News' &&(
+            {/* { btn.title==='News' &&(
               <NewsType tab={tab} setTab={setTab}>
                 <PersonalInfoForm
                   type={"User"}
@@ -610,7 +610,7 @@ else {
                   type='News'
                 />
               </NewsType>
-            )}
+            )} */}
           </Col>
         </Row>
       </Col>

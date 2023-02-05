@@ -487,7 +487,7 @@ export const PostCard = ({
                     )}
                   </Col>
                 )}
-                <Col xs={12} className="">
+                <Col xs={12} className="my-auto">
                   <Row className="justify-content-center m-auto">
                     <Col xs={6} sm={5}>
                       <LightGreenButton

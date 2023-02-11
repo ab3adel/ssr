@@ -6,6 +6,7 @@
     border-radius: 10px;
     height: 365px;
     background-repeat: no-repeat;
+    
 
     
     .price {
@@ -72,7 +73,7 @@
   margin: 0 auto;
 
 }
-#square-image {
+.square-image.imgsGalery{
     width: 500px;
     height: 500px;
     background-size: cover;
@@ -83,7 +84,7 @@
     .imgsGalery {
         
     }
-    #square-image {
+    .square-image.imgsGalery {
         width: 360px;
         height: 360px;
         background-size: cover;
@@ -112,7 +113,7 @@
         height: 21px;
        }
     }
-    #square-image {
+    .square-image.imgsGalery {
         height: 356px;
         width:356px;
         background-position: center;

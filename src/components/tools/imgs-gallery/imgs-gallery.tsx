@@ -40,7 +40,7 @@ export const ImagesGallery =({images,price,height,price_type,currency
      },[post_detail])
 
     return (
-        <div className={`imgsGalery ${post_card_square?'square_image_postCard':''} `}
+        <div className={`imgsGalery ${post_card_square?'square_image_postCard':''} ${post_detail?'square-image':''} `}
                             style={{
                                backgroundImage:`url(${images[currentImage]}) `
                              ,backgroundSize:'cover',backgroundRepeat:'no-repeat'

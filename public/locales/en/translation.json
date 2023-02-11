@@ -7,7 +7,7 @@
     "Done": "Done",
     "WelcomeTo": "Welcome To",
     "IntaAqar": "Insta Aqar",
-    "UserName": "Phone (without country code) or Email",
+    "UserName": "Email",
     "Password": "Password",
     "ConfirmPassword": "Confirm Password",
     "ForgotPassword": "Forgot Password ?",
@@ -152,6 +152,7 @@
     "ChooseType":"Posts Type",
     "NewLink":"New Activation Link",
     "ResendLink":"Resend Activation Link"
+
 
     
 

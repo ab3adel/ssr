@@ -17,7 +17,7 @@ import notificationContext from "../../tools/context/notification/notification-c
 import authContext from "../../tools/context/auth-context/auth-context";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "../../tools/spinner";
-import Form from 'react-bootstrap/Form'
+import Form from "react-bootstrap/Form";
 import { PhoneInput } from "../../tools/phone-input/phoneInput";
 interface iProps {
   setLogin: Function;
@@ -28,63 +28,99 @@ const Login = ({ setLogin }: iProps) => {
   const { notify, setNotify } = useContext(notificationContext);
   const [isLoading, setIsloading] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [withEmail,setWithEmail]=useState(false)
+  const [withEmail, setWithEmail] = useState(false);
   const navigate = useNavigate();
   const { setToken } = useContext(authContext);
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
-      phone_numbers:[{international_code:'',phone:''}]
+      phone_numbers: [{ international_code: "", phone: "" }],
     },
     validationSchema: Yup.object().shape({
-      email: Yup.string().required(i18n.language==='en'?
-      "This field is required":'هذا الحقل مطلوب'),
+      email: Yup.string()
+        .email()
+        .required(
+          i18n.language === "en" ? "This field is required" : "هذا الحقل مطلوب"
+        ),
       password: Yup.string().min(
         8,
-        i18n.language==='en'?
-        "This field has to be 8 characters at least":
-        "هذا الحقل على الأقل 8 أحرف"
-      ),
+        i18n.language === "en"
+          ? "This field has to be 8 characters at least"
+          : "هذا الحقل على الأقل 8 أحرف"
+      ).required(
+        i18n.language === "en" ? "This field is required" : "هذا الحقل مطلوب"
+      )
+      ,
+      phone_numbers: Yup.array()
+        .of(
+          Yup.object().shape({
+            international_code: Yup.string().required(
+              i18n.language === "en"
+                ? "Please, Type the international code"
+                : "رجأءا أدخل الرمز الدولي"
+            ),
+            phone: Yup.string().required(
+              i18n.language === "en"
+                ? "This field is required"
+                : "هذا الحقل مطلوب"
+            ),
+          })
+        )
+        .required(
+          i18n.language === "en" ? "This field is required" : "هذا الحقل مطلوب"
+        ),
     }),
     onSubmit: () => {},
   });
   const [show, setShow] = useState(false);
 
   useEffect(() => {
+    if (withEmail){
     if (Boolean(formik.values.email) && Boolean(formik.values.password)) {
       if (!Boolean(formik.errors.email) && !Boolean(formik.errors.password)) {
         setDisableBtn(false);
       }
     }
-  }, [formik.values]);
+  }
+  else {
+    if (Boolean(formik.values.phone_numbers[0].phone)&&Boolean(formik.values.phone_numbers[0].international_code)
+     && Boolean(formik.values.password)) {
+      console.log('first')
+      if (!Boolean(formik.errors.phone_numbers)&& !Boolean(formik.errors.password)) {
+        console.log('enable')
+        setDisableBtn(false);
+      }
+    }
+  }
+  }, [formik.values,formik.errors]);
   const handleLogin = () => {
-    setIsloading(true)
+    setIsloading(true);
     let formdata = new FormData();
-    let number_test= new RegExp (/^\d+$/)
+    let number_test = new RegExp(/^\d+$/);
     // var mailFormat = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/;
     // if (!mailFormat.test(formik.values.email)) {
     //   formik.setFieldError('email','Email/Phonenumber is not valid ')
     //   return
     // }
-    if (number_test.test(formik.values.email)){
-
-      formdata.append("phone", formik.values.email);
-    }
-    else {
+    if (!withEmail) {
+      formdata.append("phone", formik.values.phone_numbers[0].phone);
+      formdata.append(
+        "international_code",
+        formik.values.phone_numbers[0].international_code
+      );
+    } else {
       formdata.append("email", formik.values.email);
     }
     formdata.append("password", formik.values.password);
     formdata.append("remember_me", "1");
-    formdata.append('locale',i18n.language)
+    formdata.append("locale", i18n.language);
     axios
       .post(apis.login, formdata)
       .then((res: any) => {
-        setIsloading(false)
-    
-        if (res && res.data) {
+        setIsloading(false);
 
-         
+        if (res && res.data) {
           let realImage = "";
           if (res.data.payload.profile_picture) {
             realImage = res.data.payload.profile_picture
@@ -102,9 +138,8 @@ const Login = ({ setLogin }: iProps) => {
               : null,
             phone_numbers: res.data.payload.phone_numbers,
             id: res.data.payload.id,
-            categories:res.data.payload.company?.categories,
-            forgot_password:res.data.payload.forgot_password
-
+            categories: res.data.payload.company?.categories,
+            forgot_password: res.data.payload.forgot_password,
           };
 
           setNotify((pre: any) => ({
@@ -113,27 +148,21 @@ const Login = ({ setLogin }: iProps) => {
             type: true,
             message: t(res.data.message),
           }));
-      
+
           localStorage.setItem("token", JSON.stringify(required_data));
           setToken((pre: any) => ({ ...pre, ...required_data }));
           formik.resetForm();
           if (res.data.payload.forgot_password) {
-            navigate('/profile',{state:{open_forgot_password:true}})
-          }
-          else {
-
+            navigate("/profile", { state: { open_forgot_password: true } });
+          } else {
             navigate("/");
           }
-       
-         
         }
       })
       .catch((err) => {
-        setIsloading(false)
+        setIsloading(false);
         if (err && err.response && err.response.data) {
-          
-          if (err.response.data.error){
-
+          if (err.response.data.error) {
             setNotify((pre: any) => ({
               ...pre,
               message: err.response.data.error,
@@ -142,14 +171,12 @@ const Login = ({ setLogin }: iProps) => {
             }));
           }
           if (err.response.data.errors) {
-            
-              setNotify((pre: any) => ({
-                ...pre,
-                message: err.response.data.message,
-                type: false,
-                show: true,
-              }));
-            
+            setNotify((pre: any) => ({
+              ...pre,
+              message: err.response.data.message,
+              type: false,
+              show: true,
+            }));
           }
         }
       });
@@ -162,7 +189,7 @@ const Login = ({ setLogin }: iProps) => {
       .then((res) => res)
       .catch((err) => console.log(err));
   };
-
+  
   return (
     <Col xs={12} className="loginBody">
       <Col sm={9} xs={12}>
@@ -172,44 +199,54 @@ const Login = ({ setLogin }: iProps) => {
               <Col xs={12}>
                 <h5 className="title">{t("Login")}</h5>
               </Col>
+
               <Col xs={12}>
-          
-             {/* <Form className="login-switch "
-           >
-                  <Form.Check 
-                   style={{direction:i18n.language==='en'?'ltr':'rtl'}}
-                    type="switch"
-                    id="custom-switch"
-                    label={i18n.language==='en'?'Login using Email':"تسجيل الدخول باستخدام الايميل"}
-                    onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setWithEmail(e.target.checked)}
-                  />
-              </Form>
-      */}
-              </Col>
-              <Col xs={12}>
-           
-                  {false ?
+                <Col xs={12}>
+                  <Form className="login-switch ">
+                    <Form.Check
+                      style={{
+                        direction: i18n.language === "en" ? "ltr" : "rtl",
+                      }}
+                      type="switch"
+                      id="custom-switch"
+                      label={
+                        i18n.language === "en"
+                          ? "Login using Email"
+                          : "تسجيل الدخول باستخدام الايميل"
+                      }
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setWithEmail(e.target.checked)
+                      }
+                    />
+                  </Form>
+                </Col>
+                {!withEmail ? (
                   <PhoneInput
-                  phone={
-                    formik.values.phone_numbers ? formik.values.phone_numbers[0].phone : ""
-                  }
-                  internationalCode={
-                    formik.values.phone_numbers
-                      ? formik.values.phone_numbers[0].international_code
-                      : ""
-                  }
-                  setValue={formik.setFieldValue as Function}
-                  phoneNumberError={
-                    formik.errors.phone_numbers &&
-                    (formik.errors.phone_numbers as []).length > 0
-                      ? (formik.errors.phone_numbers as any[])[0].phone
-                      : ""
-                  }
-              
-                  handleBlur={formik.setFieldTouched}
-                />
-                  :
-                    <InputWithIcon
+                    phone={
+                      formik.values.phone_numbers
+                        ? formik.values.phone_numbers[0].phone
+                        : ""
+                    }
+                    internationalCode={
+                      formik.values.phone_numbers
+                        ? formik.values.phone_numbers[0].international_code
+                        : ""
+                    }
+                    setValue={formik.setFieldValue as Function}
+                    phoneNumberError={
+                      formik.errors.phone_numbers &&
+                      (formik.errors.phone_numbers as []).length > 0
+                        ? (formik.errors.phone_numbers as any[])[0].phone ||
+                          (formik.errors.phone_numbers as any[])[0]
+                            .international_code
+                        : ""
+                    }
+                    handleBlur={formik.setFieldTouched}
+                    touched={formik.touched.phone_numbers as boolean|undefined}
+                    
+                  />
+                ) : (
+                  <InputWithIcon
                     type="text"
                     label={t("UserName")}
                     icon={userIcon}
@@ -222,9 +259,9 @@ const Login = ({ setLogin }: iProps) => {
                     touched={formik.touched.email}
                     required={true}
                   />
-                  }
-           
-                <Col xs={12} className='my-1'>
+                )}
+
+                <Col xs={12} className="my-1">
                   <InputWithIcon
                     type="password"
                     label={t("Password")}
@@ -280,11 +317,7 @@ const Login = ({ setLogin }: iProps) => {
                       onClick={() => handleLogin()}
                       disabled={disableBtn}
                     >
-                      {
-                        isLoading?
-                        <Spinner />:
-                      t("Login")
-                      }
+                      {isLoading ? <Spinner /> : t("Login")}
                     </Button>
                   </Col>
                   <Col xs={6} className="d-sm-flex justify-content-end">
@@ -294,7 +327,6 @@ const Login = ({ setLogin }: iProps) => {
                       disabled={isLoading}
                     >
                       {t("SignUp")}
-                    
                     </Button>
                   </Col>
                 </Row>

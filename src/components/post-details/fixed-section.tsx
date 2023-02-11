@@ -70,6 +70,7 @@ export const FixedSection = ({
     `أنا مهتم بهذا العرض ${post.title.ar}`
     window.open(`https://wa.me/${ele}/?text=${text}`);
   };
+ 
   return (
     <Col sm={4} xs={12} className="fixedSection p-sm-1 p-0" style={style}>
       <Card className="p-sm-2 p-0">

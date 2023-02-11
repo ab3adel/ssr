@@ -178,7 +178,7 @@ export const PersonalInfoForm = (props: iProps) => {
                 <Select
                   label={t("CompanyType")}
                   name="role_id"
-                  options={companies?.companiesOptions}
+                  options={companies?.companiesOptions.slice(0,1)}
                   setSelect={handleField}
                   error={errors.role_id as string}
                   touched={touched.role_id as boolean}

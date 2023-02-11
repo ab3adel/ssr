@@ -17,6 +17,7 @@
                 width:100%;
                 height:100%;
                 border:none;
+              
                 &:disabled {
                     background-color: white;
                     height: fit-content;
@@ -43,6 +44,13 @@
         width:100%;
         height:100%;
         border:none;
+       
+        &::-webkit-scrollbar-button {
+          
+            background: var(--light-green);
+          
+        }
+       
         &:disabled {
             background-color: white;
             height: fit-content;

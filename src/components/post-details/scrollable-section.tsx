@@ -147,7 +147,10 @@ const elemRef =useRef()
                 </div>
               </Col>
               <Col sm={12} lg={12} className="fw-bold fs-5">
-                {i18n.language === "en" ? post.title.en : post.title.ar}
+                <h1 className="fs-5 fw-bold">
+
+                  {i18n.language === "en" ? post.title.en : post.title.ar}
+                </h1>
               </Col>
             </Col>
             <Col xs={12}>

@@ -14,13 +14,9 @@ import { getLocalStorage } from "./components/tools/getLocalstorage";
 import SEO from "./components/tools/seo";
 function App() {
   const { i18n } = useTranslation();
-
-  const navigate = useNavigate();
   const { notify, setNotify } = useContext(notificationContext);
   const { token, setToken } = useContext(authContext);
   let timer= useRef<any>().current
-  const [checkToken,setCheckToken]=useState(false)
-
   let routes = useRoutes(Rotues(token.role));
 
   const handleCloseNotify = () =>
@@ -102,6 +98,7 @@ function App() {
 
     انستاعقار خيارك الأول في كل ما يخص العقارات من بيع وشراء واجار
     بالاضافة الى خدمات أخرى مرتبطة بالعقارات
+    فلل , منازل,شقق , في الكويت 
     `}
     title="InstaAqar"
     type="article"

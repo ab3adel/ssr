@@ -129,10 +129,11 @@
                }
             }
             .title {
-                font-size: 1.6em;
+                font-size: 1.1em;
                 font-weight:bold ;
                 word-spacing: 5px;
-                color:var(--dark-green)
+                color:var(--dark-green);
+                text-decoration: none;
             }
             .details {
                 flex:1;

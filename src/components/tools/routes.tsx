@@ -11,12 +11,11 @@ import Chat from '../chat'
 import PublicProfile from '../profile/public-profile'
 import FilteredPosts from '../filtered-posts'
 import Status from '../status-page'
-
+import About from '../about'
+import SearchPage from '../search-page'
 
 const Privacy =React.lazy(()=>import('../privacy'))
 const Term = React.lazy(()=>import ('../term'))
-const About = React.lazy(()=>import('../about'))
-const SearchPage = React.lazy(()=>import('../search-page'))
 const Blogs =React.lazy(()=>import ('../blogs'))
 export const Rotues = (id: number): RouteObject[] => ([
 

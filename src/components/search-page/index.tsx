@@ -326,9 +326,6 @@ useEffect(() => {
                  handleBlur={formik.handleBlur}
                  addTag={addTag}
                  deleteTag={deleteTag}
-
-
-
               />:
               <LargeView 
               values={formik.values}

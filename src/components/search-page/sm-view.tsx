@@ -62,6 +62,11 @@ export const SmallView= ({
     const {t,i18n}=useTranslation()
     return (
         <Col xs={12} style={{background:'white'}} className="d-block d-sm-none px-3 py-3 rounded">
+            <Row className="my-2">
+                <h2 className="mx-auto">
+                    {t('SearchInstaAqar')}
+                </h2>
+            </Row>
             <Row className="gy-4">
                 <Col xs={12} >
                     <Badge 

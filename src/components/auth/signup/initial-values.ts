@@ -22,7 +22,7 @@ export const initialValues=[
         country:0,
         full_name:'',
         email:'',
-        role_id:0,
+        role_id:3,
         area_id:-1,
         password:'',
         password_confirmation:'',

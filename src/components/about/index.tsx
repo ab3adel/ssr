@@ -41,7 +41,7 @@ const About =()=>{
                     <img src={Logo} className="logo"/>
                   
 
-                    <span className="title">{i18n.language==='en'?about.title.en:about.title.ar}</span>
+                    <h2 className="title">{i18n.language==='en'?about.title.en:about.title.ar}</h2>
                    
                 </Col>
                 <Col xs={12}  className={'p-2 text-center d-flex justify-content-center'}

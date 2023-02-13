@@ -20,7 +20,7 @@ import { useLikePost } from "../tools/apis/uselikePost";
 import { useEffect, useState, useContext, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ImagesGallery } from "../tools/imgs-gallery/imgs-gallery";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,NavLink} from "react-router-dom";
 import { iPost } from "../tools/interface";
 import notificationContext from "../tools/context/notification/notification-context";
 import { useDeletePost } from "../tools/apis/useDeletePost";
@@ -424,9 +424,15 @@ export const PostCard = ({
               </Row>
             </Col>
             <Col xs={12}>
-              <div className="title">
+              {/* <div className="title">
                 {i18n.language === "en" ? title.en : title.ar}
-              </div>
+              </div> */}
+              <h3>
+                <NavLink to={`/postdetails/${page}/${id}`}
+                className="title">
+                {i18n.language === "en" ? title.en : title.ar}
+                </NavLink>
+              </h3>
             </Col>
             <Col xs={12} className="details">
               <Row

@@ -174,7 +174,7 @@ export const PersonalInfoForm = (props: iProps) => {
         <Row className="gy-3">
           <Col xs={12}>
             <Row className="gy-2">
-              <Col xs={12}>
+              {/* <Col xs={12}>
                 <Select
                   label={t("CompanyType")}
                   name="role_id"
@@ -185,7 +185,7 @@ export const PersonalInfoForm = (props: iProps) => {
                   handleBlur={handleBlur}
                   selectedValue={values.role_id}
                 />
-              </Col>
+              </Col> */}
               <Col xs={12}>
                 <InputWithIcon
                   label={t("FullName")}
@@ -200,16 +200,8 @@ export const PersonalInfoForm = (props: iProps) => {
                   required={true}
                 />
               </Col>
-              <Col xs={12}>
-                {/* <Select label={t("Category")}
-                                     options={categories?.categoriesOption}
-                                     error={errors.category_ids as string}
-                                     touched={touched.category_ids as boolean}
-                                     setSelect={handleField}
-                                    name="category_ids"
-                                    handleBlur={handleBlur}
-                                    multiSelect={true}
-                                    /> */}
+              {/* <Col xs={12}>
+               
                 <MyMultiSelect
                   options={categories?.categoriesOption as any[]}
                   label={isCategoriesLoading ? t("Loading") : t("Category")}
@@ -224,7 +216,7 @@ export const PersonalInfoForm = (props: iProps) => {
                   }
                   clearAll={values.category_ids?.length===0 }
                 />
-              </Col>
+              </Col> */}
               <Col xs={12}>
                 <InputWithIcon
                   label={t("Email")}

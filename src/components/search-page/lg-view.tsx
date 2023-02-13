@@ -45,6 +45,11 @@ export const LargeView = ({
    let {t,i18n}=useTranslation()
     return (
         <Col xs={12} style={{background:'white'}} className="rounded p-3 d-none d-sm-block">
+            <Row className="my-2">
+                <h2 >
+                   {t('SearchInstaAqar')}
+                </h2>
+            </Row>
             <Row>
                  {/* Right Part */}
                 <Col xs={6}>

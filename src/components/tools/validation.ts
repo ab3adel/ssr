@@ -41,15 +41,15 @@ export const SignupSchema = (isUser: boolean, needCategory = true,isNews=false) 
       : Yup.mixed(),
     website: 
       Yup.string().url().notRequired(),
-    category_ids:  Yup.array()
-            .of(Yup.number())
-            .when('role_id',{
-              is:(value:number)=>value >3 && value <7,
-              then: Yup.array()
-              .min(1, lang==='en'?"You have to choose category":"اختر صنف رجاءا")
-              .required(lang==='en'?"This field is required":"هذا الحقل مطلوب"),
-              otherwise:Yup.array().notRequired()
-            }),
+    // category_ids:  Yup.array()
+    //         .of(Yup.number())
+    //         .when('role_id',{
+    //           is:(value:number)=>value >3 && value <7,
+    //           then: Yup.array()
+    //           .min(1, lang==='en'?"You have to choose category":"اختر صنف رجاءا")
+    //           .required(lang==='en'?"This field is required":"هذا الحقل مطلوب"),
+    //           otherwise:Yup.array().notRequired()
+    //         }),
            
            
     description: isUser || isNews

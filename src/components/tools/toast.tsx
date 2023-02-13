@@ -1,7 +1,7 @@
 import Toast from 'react-bootstrap/Toast'
 import {Check,X,InfoCircleFill} from 'react-bootstrap-icons'
 import ToastContainer from 'react-bootstrap/ToastContainer'
-import { useEffect, useState } from 'react'
+
 import { useTranslation } from 'react-i18next'
 
 

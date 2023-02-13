@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { getI18n } from "react-i18next";
+
 let lang = 'en'
 if (localStorage.getItem('lang')) {
 

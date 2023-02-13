@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import "./text.scss";
 import { useTranslation } from "react-i18next";
 import { iText } from "../../interface";
-import { useEffect } from "react";
+
 
 export const TextArea = ({
   setValue,

@@ -1,10 +1,11 @@
-import { Container, Row, Col } from "react-bootstrap";
-import { iProps } from "../myprofile";
+import  Col  from "react-bootstrap/Col";
+import  Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+
 import { UserInfo } from "../views/user";
 import { useFormik } from "formik";
 import { Info } from "../views/info";
 import { FollowersFollowing } from "../views/followers-following";
-import { GreenButton } from "../../tools/buttons/green-button";
 import {PublicProfileProps} from '../public-profile'
 export const NormalUserPublicProfile = ({t,lang}:PublicProfileProps) => {
   let company = false;

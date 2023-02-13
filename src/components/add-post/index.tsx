@@ -1,5 +1,5 @@
 import Col from "react-bootstrap/Col";
-import { Formik, FormikProvider, useFormik, validateYupSchema } from "formik";
+import {  useFormik } from "formik";
 import "./add-post.scss";
 import axios from "../tools/apis/axios";
 import { apis } from "../tools/apis/apis";
@@ -15,7 +15,6 @@ import { useGetArea } from "../tools/apis/useGetArea";
 import notificationContext from "../tools/context/notification/notification-context";
 import { iOption, iToken, iValue } from "../tools/interface";
 import { AddPostSchema } from "../tools/validation";
-import authContext from "../tools/context/auth-context/auth-context";
 import { useParams } from "react-router-dom";
 import { useGetPosts } from "../tools/apis/useGetPosts";
 import { useRecoilState } from "recoil";
@@ -25,7 +24,6 @@ import { useGetPredefinedPictures } from "../tools/apis/useGetPredefinedPictures
 import SettingContext from "../tools/context/setting-context/setting-context";
 import { getLocalStorage } from "../tools/getLocalstorage";
 import {useNavigate} from 'react-router-dom'
-import { iFields } from "../auth/signup/signup";
 import {postInitializer} from './initialvalues'
 import Loading from "../tools/loading/loading";
 interface iPhoneNumber {

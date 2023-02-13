@@ -1,8 +1,8 @@
 import Col  from "react-bootstrap/Col"
 import Row  from "react-bootstrap/Row"
-import {Spinner} from '../spinner'
+
 import {useTranslation} from 'react-i18next'
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import './badge.scss'
 import {iOption} from '../interface'
 interface iProps{

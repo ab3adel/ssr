@@ -13,7 +13,6 @@ import { getLocalStorage } from "../tools/getLocalstorage";
 import GuestBar from "../tools/guest-bar/guestBar";
 import chatContext from "../tools/context/chat-context/chat-context";
 import { getTime } from "../tools/getTime";
-import { iChatData } from "../tools/context/chat-context/chat-provider";
 import { useTranslation } from "react-i18next";
 
 

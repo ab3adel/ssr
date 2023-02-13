@@ -9,7 +9,6 @@ import { GreenButton } from "../tools/buttons/green-button";
 import "./add-post.scss";
 import { TribleTabs } from "../tools/trible-tabs/trible-tabs";
 import { CheckCircleFill, PhoneLandscape } from "react-bootstrap-icons";
-import { useState } from "react";
 import { ImagesGallery } from "./images-gallery";
 import { iProps } from "./index";
 import Accordion from "react-bootstrap/Accordion";

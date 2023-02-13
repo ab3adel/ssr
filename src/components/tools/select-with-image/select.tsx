@@ -1,7 +1,7 @@
 import './select.scss'
 
 import Dropdown from 'react-bootstrap/Dropdown'
-import React, { useState } from 'react'
+import  { useState } from 'react'
 interface iEle {title:string,icon?:string}
 interface iProps {options:iEle [],onChange?:Function,lang?:string,width?:string}
 export const Select=({options,onChange,lang,width}:iProps)=>{

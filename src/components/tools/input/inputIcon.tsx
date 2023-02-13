@@ -1,6 +1,4 @@
 import "./input.scss";
-
-import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";

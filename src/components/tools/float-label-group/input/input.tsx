@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { iInput } from "../../interface";
 import  PhoneNumberComponent,{CountryData} from 'react-phone-input-2'
-var regex = /^[a-zA-Z]+$/;
+
 export const Input = ({
   touched,
   error,

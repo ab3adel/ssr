@@ -11,8 +11,7 @@ import user from "../../images/auth/profile.svg";
 import { useTranslation } from "react-i18next";
 
 import {iProps} from './'
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+
 
 export const HeaderLg = ({ 
   token
@@ -24,7 +23,7 @@ export const HeaderLg = ({
   ,headerNavigation
 }: iProps) => {
   const { t } = useTranslation();
-  const navigate = useNavigate()
+  
 
   return (
     <Navbar
@@ -64,13 +63,13 @@ export const HeaderLg = ({
                 <div className="iconContainer"
                 onClick={handleNotificationClick}>
                   {chat_notification >0 && <div className="dot">{chat_notification}</div>}
-                  <img src={message} className="icon" />
+                  <img src={message} className="icon" alt="messages" />
                 </div>
               </Col>
               <Col sm={3} xs={6}>
                 <div className="iconContainer">
                   {/* {<div className="dot"></div>} */}
-                  <img src={notification} className="icon" />
+                  <img src={notification} className="icon" alt="notification"/>
                 </div>
               </Col>
               <Col sm={6} className=" d-none d-sm-block user">
@@ -78,9 +77,9 @@ export const HeaderLg = ({
                 style={{cursor:'pointer'}}
                 onClick={()=>  headerNavigation('profile')}>
                   {token?.profile_picture ? (
-                    <img src={token.profile_picture} className="icon ml-1 rounded-circle" />
+                    <img src={token.profile_picture} className="icon ml-1 rounded-circle" alt="profile " />
                   ) : (
-                    <img src={user} className="icon ml-1 rounded-circle"
+                    <img src={user} className="icon ml-1 rounded-circle" alt="profile"
                      />
                   )}
                 </Col>

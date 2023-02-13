@@ -2,7 +2,6 @@ import './select.scss'
 import MySelect from 'react-bootstrap/Form'
 import React , {useState,useEffect} from 'react'
 import {useTranslation} from 'react-i18next'
-import {Spinner} from 'react-bootstrap'
 import {iSelect,iOption} from '../interface'
 
 export const Select=({label,options,setSelect

@@ -2,7 +2,6 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import chat from "../../images/post-details/chat-icon.svg";
-import call from "../../images/post-details/call-icon.svg";
 import { useTranslation } from "react-i18next";
 import { useContext, useEffect, useState } from "react";
 import { getLocalStorage } from "../tools/getLocalstorage";

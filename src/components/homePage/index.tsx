@@ -11,7 +11,7 @@ import { useRecoilState } from "recoil";
 import { Posts, PostsIDs } from "../store";
 import { getLocalStorage } from "../tools/getLocalstorage";
 import { useNavigate, useLocation } from "react-router-dom";
-import GuestBar from "../tools/guest-bar/guestBar";
+
 import { useTranslation } from "react-i18next";
 
 const HomePage = () => {

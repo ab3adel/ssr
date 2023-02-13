@@ -1,18 +1,18 @@
 
 
 
-import {Col,Row} from 'react-bootstrap'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 import {RangeSlider} from '../tools/range-with-input/range-with-input'
 import {Select} from '../tools/float-label-group/select/select'
 import {Input} from '../tools/float-label-group/input/input'
 import {iProps} from './index'
 import {useTranslation} from 'react-i18next'
-import {X,CodeSquare} from 'react-bootstrap-icons'
+import {X} from 'react-bootstrap-icons'
 import { Tabs } from '../tools/tabs/tabs'
 import { Badge } from '../tools/badge/badge'
 import {GreenButton} from '../tools/buttons/green-button'
-import { TribleTabs } from '../tools/trible-tabs/trible-tabs'
-import e from 'express'
+
 let offer_type=[
                {title:{en:'item 1',ar:'item 1'},id:1}
                ,{title:{en:'item 2',ar:'item 2'},id:2}

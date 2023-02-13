@@ -1,5 +1,7 @@
 import { iProps } from "../myprofile";
-import { Container, Row, Col } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import  Row from "react-bootstrap/Row";
+import  Col  from "react-bootstrap/Col";
 import { Tab } from "../../tools/tab";
 import { UserInfo } from "../views/user";
 import { SocialMedia } from "../views/social-media";

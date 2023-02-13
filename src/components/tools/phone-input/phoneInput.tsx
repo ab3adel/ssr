@@ -1,7 +1,7 @@
 import './phoneInput.scss'
 import Input , {CountryData}from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import React, { useState } from 'react'
+import React from 'react'
 import {useTranslation} from 'react-i18next'
 interface iProps {
     phone:string,internationalCode:string

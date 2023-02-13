@@ -2,7 +2,7 @@ import './pagination.scss'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import {ChevronDoubleRight ,ChevronDoubleLeft} from 'react-bootstrap-icons'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 interface iProps {currentPage:number,lastPage:number,setPage:Function}
 export const Pagination =({currentPage,lastPage,setPage}:iProps)=>{

@@ -1,11 +1,4 @@
 
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
-
-import React, { useEffect, useState, useRef } from 'react'
-import { Spinner } from '../tools/spinner'
-import Fade from 'react-bootstrap/Fade'
-
 import { useTranslation } from "react-i18next";
 import user from "../../images/auth/profile.svg";
 

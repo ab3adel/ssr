@@ -1,4 +1,6 @@
-import {Row,Col} from 'react-bootstrap'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+
 import snapchat from '../../../images/auth/snapchat-icon.svg'
 import tiktok from '../../../images/auth/tiktok-icon.svg'
 import twitter from '../../../images/auth/twitter-icon.svg'

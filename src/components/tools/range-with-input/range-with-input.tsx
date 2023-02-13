@@ -1,4 +1,5 @@
-import { Col, Row } from 'react-bootstrap'
+import Col from 'react-bootstrap/Col'
+import  Row  from 'react-bootstrap/Row'
 import  Slider from '../multi-range-slider/multi-range'
 import {Input} from '../float-label-group/input/input'
 import {useTranslation} from 'react-i18next'

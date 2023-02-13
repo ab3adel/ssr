@@ -1,5 +1,6 @@
 
-import { Col ,Row} from 'react-bootstrap'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 import {PostCard} from '../../post-card'
 import predefinedImage from '../../../images/home/image1.png'
 import predefinedImage1 from '../../../images/home/image2.png'

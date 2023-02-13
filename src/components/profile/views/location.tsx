@@ -1,5 +1,6 @@
-import { Col, Row } from "react-bootstrap";
-import { useFormik } from "formik";
+import  Row from "react-bootstrap/Row";
+import  Col from "react-bootstrap/Col";
+
 import { SteadyIconInput } from "../../tools/steady-group/steady-icon-input/steady-icon-input";
 import { SteadySelect } from "../../tools/steady-group/steady-select/select";
 let companyLocation = [

@@ -1,9 +1,5 @@
 import Delete from "../../../images/delete-icon.svg";
 import { useEffect, useState } from "react";
-import predefinedImage from "../../../images/home/image1.png";
-import predefinedImage1 from "../../../images/home/image2.png";
-import predefinedImage2 from "../../../images/home/image3.png";
-import predefinedImage3 from "../../../images/home/image4.png";
 import { ManyPhotosInput } from "../../tools/many-photo-input/many-photo-input";
 import { Container, Row, Col } from "react-bootstrap";
 import { FileDownloader } from "../views/file";

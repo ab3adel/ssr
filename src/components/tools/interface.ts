@@ -1,6 +1,5 @@
 import React from "react";
-import { JsxElement } from "typescript";
-import { number, string } from "yup";
+
 
 export interface iInput {
   icon?: any;

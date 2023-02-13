@@ -1,10 +1,8 @@
-import { Col ,Row} from "react-bootstrap"
-import Profile from '../../../images/home/icon-profile.svg'
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
 
-import { GreenButton } from "../../tools/buttons/green-button"
-import editIcon from '../../../images/edit.svg'
+import Profile from '../../../images/home/icon-profile.svg'
 import {InputFile} from '../../tools/photoInput/photoInput'
-import {useFormik} from 'formik'
 import {SteadyIconInput} from '../../tools/steady-group/steady-icon-input/steady-icon-input'
 interface iProps {
     company:boolean

@@ -1,5 +1,5 @@
 import './phoneInput.scss'
-import Input , {CountryData}from 'react-phone-input-2'
+import Input from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react'

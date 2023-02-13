@@ -2,7 +2,7 @@ import './blogs.scss'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import BlogCard from './blog-card'
-import React from 'react'
+
 
 export default function Blogs() {
 

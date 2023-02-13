@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useTransition } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Col from 'react-bootstrap/Col'
 import { NormalUserProfile } from './normal-user/normal-user'
 import { CompanyProfile } from './company/company'
@@ -8,11 +8,10 @@ import './views/profile-views.scss'
 import {useGetProfile} from '../tools/apis/useGetProfile'
 import { getLocalStorage } from '../tools/getLocalstorage'
 import {Spinner} from '../tools/spinner'
-import {useGetFollowingFollowers} from '../tools/apis/useGetFollowersFollowings'
 import { useDeleteAccount } from '../tools/apis/useDeleteAccount'
 import { DialogBox } from '../tools/dialogbox/dialogbox'
 import notificationContext from '../tools/context/notification/notification-context'
-import { useNavigate ,useLocation} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export interface iProps { edit: boolean, setEdit: 
     Function ,t:Function,data:any,lang:string,

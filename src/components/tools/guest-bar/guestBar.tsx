@@ -1,5 +1,4 @@
 import './guestBar.scss'
-import container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { GreenButton } from '../buttons/green-button'

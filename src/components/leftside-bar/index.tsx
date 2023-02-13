@@ -1,7 +1,6 @@
-import React ,{ useEffect ,useState,useContext}  from 'react'
+import React   from 'react'
 import './leftside-bar.scss'
 import {getLocalStorage} from '../tools/getLocalstorage'
-import {useNavigate} from 'react-router-dom'
 
 const LeftSideBar= (props:any)=>{
    

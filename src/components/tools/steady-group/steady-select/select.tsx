@@ -1,8 +1,8 @@
 import './select.scss'
 import MySelect from 'react-bootstrap/Form'
-import React , {useState,useEffect, ReducerAction} from 'react'
+import React , {useState,useEffect} from 'react'
 import {useTranslation} from 'react-i18next'
-import {Form, Spinner} from 'react-bootstrap'
+import {Form} from 'react-bootstrap'
 import './select.scss'
 
 

@@ -9,8 +9,8 @@ import back from "../../images/home/home-back.svg";
 import { useRecoilState } from "recoil";
 import { newsFeedsPosts } from "../store";
 import { getLocalStorage } from "../tools/getLocalstorage";
-import { useNavigate, useLocation } from "react-router-dom";
-import GuestBar from "../tools/guest-bar/guestBar";
+import {useLocation } from "react-router-dom";
+
 import { useTranslation } from "react-i18next";
 
 const NewsFeed = () => {

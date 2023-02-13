@@ -4,7 +4,7 @@ import leftArrow from '../../images/home/left-arrow-icon.svg'
 import rightArrow from '../../images/home/right-arrow-icon.svg'
 
 import Col from 'react-bootstrap/Col'
-import { validateYupSchema } from 'formik'
+
 
 interface iProps{imgs:string[] | any[],setImgs:Function,primary:number,setPrimary:Function
     ,value:any

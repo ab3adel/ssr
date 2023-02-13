@@ -1,4 +1,4 @@
-import {Form} from 'react-bootstrap'
+import Form from 'react-bootstrap/Form'
 import {iInput} from '../../interface'
 import {useTranslation} from 'react-i18next'
 import './steady-icon.scss'

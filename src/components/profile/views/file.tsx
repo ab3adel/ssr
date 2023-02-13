@@ -1,10 +1,10 @@
-import { Col, Row } from "react-bootstrap";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import { useState ,useContext} from "react";
 import fileIcon from "../../../images/file.svg";
 import { GreenButton } from "../../tools/buttons/green-button";
 import { Download } from "react-bootstrap-icons";
-import Delete from "../../../images/delete-icon.svg";
-import axios from '../../tools/apis/axios'
+
 import notificationContext from "../../tools/context/notification/notification-context";
 
 

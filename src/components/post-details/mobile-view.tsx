@@ -18,7 +18,6 @@ import chat from "../../images/post-details/chat-icon.svg";
 import SettingContext from "../tools/context/setting-context/setting-context";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { getLocalStorage } from "../tools/getLocalstorage";
 import {iProps} from './'
 
 export const MobileView = ({

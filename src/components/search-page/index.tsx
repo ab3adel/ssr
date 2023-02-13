@@ -1,4 +1,4 @@
-import { Col, Container } from "react-bootstrap";
+import  Container  from "react-bootstrap/Container";
 import {useFormik} from 'formik'
 import {LargeView} from './lg-view'
 import {SmallView} from './sm-view'
@@ -10,12 +10,9 @@ import { useGetOffersType } from "../tools/apis/useGetOffersType";
 import { useGetPropertySites } from "../tools/apis/useGetPropertySites";
 import { useGetCategories } from "../tools/apis/useGetCategories";
 import { useGetArea } from "../tools/apis/useGetArea";
-import { getLocalStorage } from "../tools/getLocalstorage";
 import SettingContext from '../tools/context/setting-context/setting-context'
 import { iOption } from "../tools/interface";
 import {useNavigate} from 'react-router-dom'
-import {FilteredPostsParams} from '../store'
-import {useRecoilState} from 'recoil'
 export interface iProps {
   values:any
   ,setFieldValue:Function

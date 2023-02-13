@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Col,Row ,Button} from 'react-bootstrap'
+import  Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+import Button from 'react-bootstrap/Button'
 import { useTranslation } from 'react-i18next'
 import './trible-tabs.scss'
 

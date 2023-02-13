@@ -10,7 +10,7 @@ import { DialogBox } from "../tools/dialogbox/dialogbox";
 import share from "../../images/home/share-icon.svg";
 import heartFilled from "../../images/home/heart-icon.svg";
 import heart from "../../images/home/heart-filled-icon.svg";
-import direction from "../../images/home/direction-icon.svg";
+
 import Area from "../../images/home/area-icon.svg";
 import amenities from "../../images/home/amenities-icon.svg";
 import room from "../../images/home/room-icon.svg";
@@ -28,7 +28,7 @@ import { useRecoilState } from "recoil";
 import { Posts } from "../store";
 import { LightGreenButton } from "../tools/buttons/light-green-button";
 import ShareBox from "../tools/share-box";
-import axios from "../tools/apis/axios";
+
 let test =9999
 export const PostCard = ({
   title = { en: "", ar: "" },
@@ -202,6 +202,8 @@ export const PostCard = ({
                       <img
                         src={profile_picture ? profile_picture : profile}
                         className="profile"
+                        alt={'profile image'}
+
                         style={
                           small_size
                             ? {

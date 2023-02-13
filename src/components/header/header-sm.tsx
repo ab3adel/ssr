@@ -49,13 +49,14 @@ const searchDone=(e:React.KeyboardEvent)=>{
                 src={Search}
                 className="icon"
                 onClick={() => setOpenSearch(!openSearch)}
+                alt="search"
               />
             </div>
           </Col>
           <Col xs={2}>
             <div className="iconContainer"
              onClick={handleNotificationClick}>
-              <img src={message} className="icon" />
+              <img src={message} className="icon"  alt="message"/>
               {
                 chat_notification>0 &&
               (<div className="dot">
@@ -66,7 +67,7 @@ const searchDone=(e:React.KeyboardEvent)=>{
           </Col>
           <Col xs={2}>
             <div className="iconContainer">
-              <img src={notification} className="icon" />
+              <img src={notification} className="icon" alt="notification"/>
               {/* <div className="dot"></div> */}
             </div>
           </Col>
@@ -74,9 +75,9 @@ const searchDone=(e:React.KeyboardEvent)=>{
             <div className="iconContainer"
             onClick={()=>  headerNavigation('profile')}>
               {token && token.profile_picture ? (
-                <img src={token.profile_picture} className="icon" />
+                <img src={token.profile_picture} className="icon" alt="profile" />
               ) : (
-                <img src={user} className="icon" />
+                <img src={user} className="icon" alt="profile" />
               )}
             </div>
             <span

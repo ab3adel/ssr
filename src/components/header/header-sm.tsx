@@ -41,7 +41,7 @@ const searchDone=(e:React.KeyboardEvent)=>{
           className="p-0"
           onClick={()=>headerNavigation('home')}
           >
-            <img src={instaLogo} className="logo" />
+            <img src={instaLogo} className="logo" alt="logo"/>
           </Col>
           <Col xs={2}>
             <div className="iconContainer">

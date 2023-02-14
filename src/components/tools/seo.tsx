@@ -1,7 +1,7 @@
 import {Helmet} from 'react-helmet-async'
 
-interface iProps {title:string,description:string,name:string,type:string}
-const SEO =({title,description,name,type}:iProps)=>{
+interface iProps {title:string,description:string,name?:string,type?:string}
+const SEO =({title,description,name="انستاعقار",type="twitter:card"}:iProps)=>{
     return (
         <Helmet>
             <title>{title} </title>

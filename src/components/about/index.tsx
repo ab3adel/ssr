@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import {useGetPage} from '../tools/apis/useGetPage'
 import { useEffect, useState } from 'react'
 import { Spinner } from '../tools/spinner'
+import SEO from '../tools/seo'
 const About =()=>{
     const {i18n,t}=useTranslation()
     const {getPage,isGetPageLoading,pageData,pageError} =useGetPage()
@@ -30,6 +31,11 @@ const About =()=>{
     if (isGetPageLoading) return <Spinner />
     return (
         <Container className='aboutContainer'    style={{background:'white'}}>
+            <SEO
+            title="حول انستاعقار" 
+            description='انستاعقار تطبيق العقارات الاحدث والأشمل في الكويت, يمكنك تصفح بيع وشراء 
+            العقارات من منازل,شقق سكنية,بيوت,محال تجارية,مكاتب بالاضافة الى كل الأخبار المتعلقة بالعقارات ,ويضمن اعلى مستوى من الخصوصية'
+            />
             <Col xs={12} className="h-100">
 
             <Row className="p-1 gy-4 justify-content-between h-100"

@@ -13,6 +13,7 @@ import { getLocalStorage } from "../tools/getLocalstorage";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
+import SEO from "../tools/seo";
 
 const HomePage = () => {
   const [posts, setPosts] = useState<any>([]);
@@ -201,6 +202,11 @@ let currentStoredPostsLength=useRef<number>(0)
 
   return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost}>
+      <SEO 
+      title="الرئيسية"
+      description="ستجد كل المنشورات المتعلقة ببيع وشراء العقارات من فلل , بيوت ,منزل ,شقة  ,مكتب,و محل تجاري
+      في الكويت و باقي المدن الكويتية"
+      />
       <Row className="p-1 ">
         {storedPosts.length > 0 ? (
           storedPosts.map((ele: any, index: number) => (

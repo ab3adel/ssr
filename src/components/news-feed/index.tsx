@@ -12,6 +12,7 @@ import { getLocalStorage } from "../tools/getLocalstorage";
 import {useLocation } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
+import SEO from "../tools/seo";
 
 const NewsFeed = () => {
   const [posts, setPosts] = useState<any>([]);
@@ -198,6 +199,11 @@ const NewsFeed = () => {
 
   return (
     <Col xs={12} className="homeContainer" onScroll={fetchPost}>
+      <SEO
+      title="أخر الاخبار انستاعقار"
+      description="ابق على اطلاع بكل ما هوجديد من  الشركات العقارية التي تتابعها, هنا ستجد عروض البيع والشراء للبيوت والفلل والمكاتب ضمن الكويت 
+      فقط للشركات العقارية التي تتابعها " 
+      />
       <Row className="p-1">
         {storedPosts.posts && storedPosts.posts.length > 0 ? (
           storedPosts.posts.map((ele: any, index: number) => (

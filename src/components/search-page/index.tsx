@@ -13,6 +13,7 @@ import { useGetArea } from "../tools/apis/useGetArea";
 import SettingContext from '../tools/context/setting-context/setting-context'
 import { iOption } from "../tools/interface";
 import {useNavigate} from 'react-router-dom'
+import SEO from "../tools/seo";
 export interface iProps {
   values:any
   ,setFieldValue:Function
@@ -302,6 +303,10 @@ useEffect(() => {
 
     return (
         <Container className='searchContainer' >
+          <SEO
+          title="ابحث بخطوات بسيطة في انستاعقار"
+          description="يمكنك فلترة المنشورات المتعلقة بالعقار بخطوات بسيطة , بحيث تضمن افضل النتائج وباقل عناء "
+           />
             {
                 mobileView?
                 <SmallView 

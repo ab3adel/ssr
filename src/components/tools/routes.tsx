@@ -16,7 +16,7 @@ import SearchPage from '../search-page'
 
 const Privacy =React.lazy(()=>import('../privacy'))
 const Term = React.lazy(()=>import ('../term'))
-const Blogs =React.lazy(()=>import ('../blogs'))
+
 export const Rotues = (id: number): RouteObject[] => ([
 
 

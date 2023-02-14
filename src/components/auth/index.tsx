@@ -13,6 +13,7 @@ import Guest from "./guest";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import {getLocalStorage} from '../tools/getLocalstorage'
+import SEO from "../tools/seo";
 let languages = [
   { title: "English", icon: UK },
   { title: "Arabic", icon: Arabic },
@@ -46,6 +47,11 @@ const LoginCard = () => {
   }, []);
   return (
     <Container fluid className="authContainer">
+      <SEO 
+      title="تسجيل الدخول"
+      description="بخطوات بسيطة يمكنك انشاء حساب والبدء بتصفح و نشر كل ما يخص من عمليات البيع و شراء العقارات
+      اضافة الى الاخبار المتعلقة بالعقار"
+      />
       <Row className="auth">
         <Col xs={12} lg={6} className="p-0">
           <div className="authBackground">

@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import {HelmetProvider} from 'react-helmet-async'
 import './i18n'
-import { BrowserRouter as Router } from 'react-router-dom'
+
 import SettingProvider from './components/tools/context/setting-context/setting-provider'
 import NotificationProvider from './components/tools/context/notification/notification-provider';
 import AuthContextProvider from './components/tools/context/auth-context/auth-provider';
@@ -14,10 +14,11 @@ import ChatContextProvider from './components/tools/context/chat-context/chat-pr
 import {RecoilRoot} from 'recoil'
 import { Spinner } from './components/tools/spinner';
 
-const root = ReactDOM.createRoot(
+const root = 
   document.getElementById('root') as HTMLElement
-);
-root.render(
+
+ReactDOM.hydrateRoot(
+  root,
   <HelmetProvider>
     <AuthContextProvider>
       <ChatContextProvider>
@@ -26,9 +27,9 @@ root.render(
           <NotificationProvider>
             <RecoilRoot>
               <Suspense fallback={<Spinner />}>
-                <Router>
+             
                   <App />
-                </Router>
+          
               </Suspense>
             </RecoilRoot>
           

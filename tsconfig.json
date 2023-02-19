@@ -22,6 +22,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-  ]
+    "client",
+    "server"
+, "webpack.server.config.ts"  ]
 }

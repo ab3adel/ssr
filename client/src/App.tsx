@@ -9,10 +9,19 @@ import { useNavigate } from "react-router-dom";
 import authContext from "./components/tools/context/auth-context/auth-context";
 import { apis } from "./components/tools/apis/apis";
 import axios from "./components/tools/apis/axios";
-import { useGetRememberMe } from "./components/tools/apis/useGetRememberMe";
+import { BrowserRouter as Router  } from 'react-router-dom'
+import StaticRouter from 'react-router-dom/server'
 import { getLocalStorage } from "./components/tools/getLocalstorage";
 import SEO from "./components/tools/seo";
-function App() {
+interface iProps {context?:any,location?:any}
+let TheRouter:any= StaticRouter
+if (typeof (window) !== typeof(undefined)) {
+  TheRouter=Router
+}
+else {
+  TheRouter=StaticRouter
+}
+function App({context,location}:iProps) {
   const { i18n } = useTranslation();
   const { notify, setNotify } = useContext(notificationContext);
   const { token, setToken } = useContext(authContext);
@@ -91,7 +100,7 @@ function App() {
 
 
   return (
-    <>
+    <TheRouter  context={context} location={location}>
     <SEO 
     name="InstaAqar"
     description={`
@@ -111,7 +120,7 @@ function App() {
       {routes}
       <Notify {...notify}  close={handleCloseNotify} />
     </div>
-    </>
+    </TheRouter>
   );
 }
 
